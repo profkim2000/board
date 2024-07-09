@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://profkim2000.github.io/board/sitemap.xml

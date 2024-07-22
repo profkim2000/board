@@ -3,7 +3,8 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>공간정보 웹서비스 개발 - Eugene&#x27;s Board</title>
+        <title>Eugene&#x27;s Board</title>
+        <meta name="robots" content="noindex">
 
 
         <!-- Custom HTML head -->
@@ -89,7 +90,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="gisws/gisws.html" class="active">공간정보 웹서비스 개발</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="gisws/assets.html">학습자료</a></li><li class="chapter-item "><a href="default/quiz.html">복습문제</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="gisws/quiz/postgresql-01.html">1. 공간 데이터베이스</a></li><li class="chapter-item "><a href="gisws/quiz/postgresql-02.html">2. postgreSQL, postgis 설치</a></li></ol></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item "><a href="gisws/gisws.html">공간정보 웹서비스 개발</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="gisws/assets.html">학습자료</a></li><li class="chapter-item "><a href="default/quiz.html">복습문제</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="gisws/quiz/postgresql-01.html">1. 공간 데이터베이스</a></li><li class="chapter-item "><a href="gisws/quiz/postgresql-02.html">2. postgreSQL, postgis 설치</a></li></ol></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -175,15 +176,121 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="공간정보-서비스-개발"><a class="header" href="#공간정보-서비스-개발">공간정보 서비스 개발</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="학습자료"><a class="header" href="#학습자료">학습자료</a></h1>
+<ul>
+<li>
+<p>postgreSQL 공식 홈페이지: <a href="https://www.postgresql.org" title="" target="_blank">https://www.postgresql.org</a></p>
+</li>
+<li>
+<p>postgreSQL 안내서: <a href="https://www.postgresql.org/files/documentation/pdf/16/postgresql-16-A4.pdf" title="" target="_blank">https://www.postgresql.org/files/documentation/pdf/16/postgresql-16-A4.pdf</a></p>
+<br>
+</li>
+<li>
+<p>postGIS 공식 홈페이지: <a href="https://postgis.net" title="" target="_blank">https://postgis.net</a></p>
+</li>
+<li>
+<p>postGIS 안내서: <a href="https://postgis.net/workshops/en/postgis-intro/PostGISIntro.pdf" title="" target="_blank">https://postgis.net/workshops/en/postgis-intro/PostGISIntro.pdf</a></p>
+<br>
+</li>
+<li>
+<p>pgAdmin 공식 홈페이지: <a href="https://www.pgadmin.org" title="" target="_blank">https://www.pgadmin.org</a></p>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="복습문제"><a class="header" href="#복습문제">복습문제</a></h1>
+<p>복습문제로 지금까지 공부한 내용을 정리합니다.<br />
+수업시간에 같이 풀어보는 것 외에 정답은 따로 제공하지 않습니다.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="복습문제-1"><a class="header" href="#복습문제-1">복습문제</a></h1>
+<h3 id="1-다음-중-데이터베이스의-특징이-아닌-것은"><a class="header" href="#1-다음-중-데이터베이스의-특징이-아닌-것은"><strong>1. 다음 중 데이터베이스의 특징이 아닌 것은?</strong></a></h3>
+<ol>
+<li>자료를 체계적으로 저장한다.</li>
+<li>자료를 저장하기 쉽고 읽기 쉽게 관리한다.</li>
+<li>자료를 모아 놓은 것은 모두 데이터베이스이다.</li>
+<li>회사 ERP가 데이터베이스의 한 예이다.</li>
+</ol>
+<h3 id="2-dbms의-약자로-맞는-것은"><a class="header" href="#2-dbms의-약자로-맞는-것은"><strong>2. DBMS의 약자로 맞는 것은?</strong></a></h3>
+<ol>
+<li>DataBase Management System</li>
+<li>DB Manager System</li>
+<li>DB Management System</li>
+<li>DataBase Manager System</li>
+</ol>
+<h3 id="3-postgresql에-대한-설명-중-틀린-것은"><a class="header" href="#3-postgresql에-대한-설명-중-틀린-것은"><strong>3. postgreSQL에 대한 설명 중 틀린 것은?</strong></a></h3>
+<ol>
+<li>open source로 개발된다.</li>
+<li>개인은 무료, 공공기관은 비용을 지불해야 한다.</li>
+<li>공간정보에 특화된 기능을 제공한다.</li>
+<li><code>포스트그레스큐엘</code>이라고 읽는다.</li>
+</ol>
+<h3 id="4-다음-중-dbms가-아닌-것은"><a class="header" href="#4-다음-중-dbms가-아닌-것은"><strong>4. 다음 중 DBMS가 아닌 것은?</strong></a></h3>
+<ol>
+<li>postgreSQL</li>
+<li>MS SQLServer</li>
+<li>MySQL</li>
+<li>DBeaver</li>
+</ol>
+<h3 id="5-다음-중-공간정보-데이터베이스에서-지원하는-기능이-아닌-것은"><a class="header" href="#5-다음-중-공간정보-데이터베이스에서-지원하는-기능이-아닌-것은"><strong>5. 다음 중 공간정보 데이터베이스에서 지원하는 기능이 아닌 것은?</strong></a></h3>
+<ol>
+<li>다양한 좌표계 지원</li>
+<li>3차원 스캐닝 기능 지원</li>
+<li>공간정보 자료(점, 선, 면)을 자유롭게 저장</li>
+<li>공간정보 계산 기능 지원</li>
+</ol>
+<h3 id="6-다음-중-epsg에-대한-설명으로-틀린-것은"><a class="header" href="#6-다음-중-epsg에-대한-설명으로-틀린-것은"><strong>6. 다음 중 EPSG에 대한 설명으로 틀린 것은?</strong></a></h3>
+<ol>
+<li>석유 산업계에서 탐사를 위해 표준화된 좌표 체계가 필요해 정리한 코드들이다.</li>
+<li>EPSG의 원 뜻은 <code>유럽 석유 조사 그룹</code>이다.</li>
+<li>각 좌표계 코드 표현식은 <code>EPSG-4326</code> 과 같은 식이다.</li>
+<li>한국의 좌표 체계도 포함되어 있다.</li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="복습문제-2"><a class="header" href="#복습문제-2">복습문제</a></h1>
+<h3 id="1-postgresql-설치에-대한-설명-중-틀린-것은"><a class="header" href="#1-postgresql-설치에-대한-설명-중-틀린-것은"><strong>1. postgreSQL 설치에 대한 설명 중 틀린 것은?</strong></a></h3>
+<ol>
+<li>공식 홈페이지에는 설치 프로그램이 업로드되어 있지 않아 다른 사이트에 가서 받아야 한다.</li>
+<li>postgreSQL을 설치하면 postGIS도 자동으로 설치된다.</li>
+<li>기본으로 설치되는 postgreSQL 관리자 ID는 ‘postgres’ 이다.</li>
+<li>postgreSQL과 접속하는 기본 프로그램으로 pgAdmin이 같이 설치된다.</li>
+</ol>
+<h3 id="2-db-구성의-한-요소로-엑셀과-같이-2차원의-표-형태로-자료를-관리하는-것은"><a class="header" href="#2-db-구성의-한-요소로-엑셀과-같이-2차원의-표-형태로-자료를-관리하는-것은"><strong>2. DB 구성의 한 요소로 엑셀과 같이 2차원의 표 형태로 자료를 관리하는 것은?</strong></a></h3>
+<ol>
+<li>DBMS</li>
+<li>함수</li>
+<li>sheet</li>
+<li>table</li>
+</ol>
+<h3 id="3-엑셀과-달리-db-테이블은-각-항목에-숫자를-적을지-문자를-적을지를-미리-정해야-한다-그-이유를-2개-고르시오"><a class="header" href="#3-엑셀과-달리-db-테이블은-각-항목에-숫자를-적을지-문자를-적을지를-미리-정해야-한다-그-이유를-2개-고르시오"><strong>3. 엑셀과 달리 DB 테이블은 각 항목에 숫자를 적을지 문자를 적을지를 미리 정해야 한다. 그 이유를 2개 고르시오</strong></a></h3>
+<ol>
+<li>빠른 처리를 위해</li>
+<li>해킹 등 재난에 대비하기 위해</li>
+<li>전기 사용량을 줄이기 위해</li>
+<li>효율적이고 정확하게 자료를 기록하기 위해</li>
+</ol>
+<h3 id="4-postgresql에서-member-이라는-이름의-테이블을-만드는-방법으로-맞는-것은"><a class="header" href="#4-postgresql에서-member-이라는-이름의-테이블을-만드는-방법으로-맞는-것은"><strong>4. postgreSQL에서 member 이라는 이름의 테이블을 만드는 방법으로 맞는 것은?</strong></a></h3>
+<ol>
+<li>create table member (name varchar(10));</li>
+<li>create member (name char);</li>
+<li>create table member (name 문자)</li>
+<li>create table member (name varchar(10))</li>
+</ol>
+<h3 id="5-다음-중-공간정보-데이터베이스에서-지원하는-기능이-아닌-것은-1"><a class="header" href="#5-다음-중-공간정보-데이터베이스에서-지원하는-기능이-아닌-것은-1"><strong>5. 다음 중 공간정보 데이터베이스에서 지원하는 기능이 아닌 것은?</strong></a></h3>
+<ol>
+<li>다양한 좌표계 지원</li>
+<li>3차원 스캐닝 기능 지원</li>
+<li>공간정보 자료(점, 선, 면)을 자유롭게 저장</li>
+<li>공간정보 계산 기능 지원</li>
+</ol>
+<h3 id="6-다음-중-epsg에-대한-설명으로-틀린-것은-1"><a class="header" href="#6-다음-중-epsg에-대한-설명으로-틀린-것은-1"><strong>6. 다음 중 EPSG에 대한 설명으로 틀린 것은?</strong></a></h3>
+<ol>
+<li>석유 산업계에서 탐사를 위해 표준화된 좌표 체계가 필요해 정리한 코드들이다.</li>
+<li>EPSG의 원 뜻은 <code>유럽 석유 조사 그룹</code>이다.</li>
+<li>각 좌표계 코드 표현식은 <code>EPSG-4326</code> 과 같은 식이다.</li>
+<li>한국의 좌표 체계도 포함되어 있다.</li>
+</ol>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
 
-                            <a rel="next prefetch" href="gisws/assets.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -192,9 +299,6 @@
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
 
-                    <a rel="next prefetch" href="gisws/assets.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                        <i class="fa fa-angle-right"></i>
-                    </a>
             </nav>
 
         </div>
@@ -217,6 +321,11 @@
 
         <!-- Custom JS scripts -->
 
+        <script>
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
 
     </div>
     </body>

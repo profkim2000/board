@@ -90,7 +90,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item "><a href="gisws/gisws.html">공간정보 웹서비스 개발</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="gisws/assets.html">학습자료</a></li><li class="chapter-item "><a href="default/quiz.html">복습문제</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="gisws/quiz/postgresql-01.html">1. 공간 데이터베이스</a></li><li class="chapter-item "><a href="gisws/quiz/postgresql-02.html">2. postgreSQL, postgis 설치</a></li></ol></li><li class="chapter-item "><a href="default/practice.html">연습문제</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="gisws/practice/postgresql-01.html">1. 공간데이터베이스</a></li></ol></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item "><a href="gisws/gisws.html">공간정보 웹서비스 개발</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="gisws/assets.html">학습자료</a></li><li class="chapter-item "><a href="default/quiz.html">복습문제</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="gisws/quiz/postgresql-01.html">1. 공간 데이터베이스</a></li><li class="chapter-item "><a href="gisws/quiz/postgresql-02.html">2. postgreSQL, postgis 설치</a></li><li class="chapter-item "><a href="gisws/quiz/postgresql-03.html">3. SQL</a></li></ol></li><li class="chapter-item "><a href="default/practice.html">연습문제</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="gisws/practice/postgresql-01.html">1. 공간데이터베이스</a></li></ol></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -294,16 +294,54 @@
 </ol>
 <h3 id="8-pgadmin에서-psql을-실행하는-아이콘은"><a class="header" href="#8-pgadmin에서-psql을-실행하는-아이콘은"><strong>8. pgAdmin에서 psql을 실행하는 아이콘은?</strong></a></h3>
 <p><img src="gisws/quiz/img/20240722204950.png" alt="" /></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="복습문제-3"><a class="header" href="#복습문제-3">복습문제</a></h1>
+<h3 id="1-sql에-대해-맞는-설명은"><a class="header" href="#1-sql에-대해-맞는-설명은"><strong>1. SQL에 대해 맞는 설명은?</strong></a></h3>
+<ol>
+<li>데이터베이스에서만 사용하는 언어이다.</li>
+<li>자료를 DB에 입력, 수정, 삭제, 검색할 때 사용한다.</li>
+<li>DB관리자만 사용할 수 있다.</li>
+<li>유료 버전에서만 사용할 수 있다.</li>
+</ol>
+<h3 id="2-자료를-입력하기-위해-사용하는-sql-명령어는"><a class="header" href="#2-자료를-입력하기-위해-사용하는-sql-명령어는"><strong>2. 자료를 입력하기 위해 사용하는 SQL 명령어는?</strong></a></h3>
+<ol>
+<li>insert into 테이블명</li>
+<li>input 테이블명</li>
+<li>input into 테이블명</li>
+<li>insert 테이블명</li>
+</ol>
+<h3 id="3-자료를-검색하기-위해-사용하는-sql-명령어는"><a class="header" href="#3-자료를-검색하기-위해-사용하는-sql-명령어는"><strong>3. 자료를 검색하기 위해 사용하는 SQL 명령어는?</strong></a></h3>
+<ol>
+<li>get from</li>
+<li>query from</li>
+<li>find from</li>
+<li>select from</li>
+</ol>
+<h3 id="4-member-테이블의-모든-자료를-가져오는-sql-명령어는"><a class="header" href="#4-member-테이블의-모든-자료를-가져오는-sql-명령어는"><strong>4. member 테이블의 모든 자료를 가져오는 SQL 명령어는?</strong></a></h3>
+<ol>
+<li>get all from member;</li>
+<li>select * from member;</li>
+<li>select % from member;</li>
+<li>query from member;</li>
+</ol>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="연습문제"><a class="header" href="#연습문제">연습문제</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="공간데이터베이스-연습문제"><a class="header" href="#공간데이터베이스-연습문제">공간데이터베이스 연습문제</a></h1>
-<p>Q1. 다음과 같은 테이블을 SQL문을 이용해 생성
+<p><strong>Q. 다음과 같은 food 테이블을 SQL문을 이용해 생성</strong>
 <img src="gisws/practice/img/20240722210944.png" alt="" /></p>
-<p>A1.</p>
+<p>A.</p>
 <pre><code class="language-sql">create table food
 (
     name varchar(20),
     price int
 );
+</code></pre>
+<br>
+<p><strong>Q. food 테이블에 SQL을 사용해 값 입력하기(데이터 추가)</strong></p>
+<p>A.</p>
+<pre><code class="language-sql">insert into food (name, price) values ('짜장면', 6000);
+insert into food (name, price) values ('탕수육', 21000);
+insert into food (name, price) values ('연어구이', 11000);
+insert into food (name, price) values ('고등어구이', 12000);
+insert into food (name, price) values ('짬뽕', 7000);
 </code></pre>
 
                     </main>

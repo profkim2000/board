@@ -89,7 +89,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../../gisws/gisws.html">공간정보 웹서비스 개발</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../gisws/assets.html">학습자료</a></li><li class="chapter-item "><a href="../../default/quiz.html">복습문제</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../gisws/quiz/postgresql-01.html">1. 공간 데이터베이스</a></li><li class="chapter-item "><a href="../../gisws/quiz/postgresql-02.html">2. postgreSQL, postgis 설치</a></li></ol></li><li class="chapter-item expanded "><a href="../../default/practice.html">연습문제</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../gisws/practice/postgresql-01.html" class="active">1. 공간데이터베이스</a></li></ol></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../../gisws/gisws.html">공간정보 웹서비스 개발</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../gisws/assets.html">학습자료</a></li><li class="chapter-item "><a href="../../default/quiz.html">복습문제</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../gisws/quiz/postgresql-01.html">1. 공간 데이터베이스</a></li><li class="chapter-item "><a href="../../gisws/quiz/postgresql-02.html">2. postgreSQL, postgis 설치</a></li><li class="chapter-item "><a href="../../gisws/quiz/postgresql-03.html">3. SQL</a></li></ol></li><li class="chapter-item expanded "><a href="../../default/practice.html">연습문제</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../gisws/practice/postgresql-01.html" class="active">1. 공간데이터베이스</a></li></ol></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -175,14 +175,23 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="공간데이터베이스-연습문제"><a class="header" href="#공간데이터베이스-연습문제">공간데이터베이스 연습문제</a></h1>
-<p>Q1. 다음과 같은 테이블을 SQL문을 이용해 생성
+<p><strong>Q. 다음과 같은 food 테이블을 SQL문을 이용해 생성</strong>
 <img src="img/20240722210944.png" alt="" /></p>
-<p>A1.</p>
+<p>A.</p>
 <pre><code class="language-sql">create table food
 (
     name varchar(20),
     price int
 );
+</code></pre>
+<br>
+<p><strong>Q. food 테이블에 SQL을 사용해 값 입력하기(데이터 추가)</strong></p>
+<p>A.</p>
+<pre><code class="language-sql">insert into food (name, price) values ('짜장면', 6000);
+insert into food (name, price) values ('탕수육', 21000);
+insert into food (name, price) values ('연어구이', 11000);
+insert into food (name, price) values ('고등어구이', 12000);
+insert into food (name, price) values ('짬뽕', 7000);
 </code></pre>
 
                     </main>

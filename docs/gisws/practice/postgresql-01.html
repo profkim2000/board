@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>2. postgreSQL, postgis 설치 - Eugene&#x27;s Board</title>
+        <title>1. 공간데이터베이스 - Eugene&#x27;s Board</title>
 
 
         <!-- Custom HTML head -->
@@ -89,7 +89,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../../gisws/gisws.html">공간정보 웹서비스 개발</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../gisws/assets.html">학습자료</a></li><li class="chapter-item expanded "><a href="../../default/quiz.html">복습문제</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../gisws/quiz/postgresql-01.html">1. 공간 데이터베이스</a></li><li class="chapter-item expanded "><a href="../../gisws/quiz/postgresql-02.html" class="active">2. postgreSQL, postgis 설치</a></li></ol></li><li class="chapter-item "><a href="../../default/practice.html">연습문제</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../gisws/practice/postgresql-01.html">1. 공간데이터베이스</a></li></ol></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../../gisws/gisws.html">공간정보 웹서비스 개발</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../gisws/assets.html">학습자료</a></li><li class="chapter-item "><a href="../../default/quiz.html">복습문제</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../gisws/quiz/postgresql-01.html">1. 공간 데이터베이스</a></li><li class="chapter-item "><a href="../../gisws/quiz/postgresql-02.html">2. postgreSQL, postgis 설치</a></li></ol></li><li class="chapter-item expanded "><a href="../../default/practice.html">연습문제</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../gisws/practice/postgresql-01.html" class="active">1. 공간데이터베이스</a></li></ol></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -174,70 +174,25 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="복습문제"><a class="header" href="#복습문제">복습문제</a></h1>
-<h3 id="1-postgresql-설치에-대한-설명-중-틀린-것은"><a class="header" href="#1-postgresql-설치에-대한-설명-중-틀린-것은"><strong>1. postgreSQL 설치에 대한 설명 중 틀린 것은?</strong></a></h3>
-<ol>
-<li>공식 홈페이지에는 설치 프로그램이 업로드되어 있지 않아 다른 사이트에 가서 받아야 한다.</li>
-<li>postgreSQL을 설치하면 postGIS도 자동으로 설치된다.</li>
-<li>기본으로 설치되는 postgreSQL 관리자 ID는 ‘postgres’ 이다.</li>
-<li>postgreSQL과 접속하는 기본 프로그램으로 pgAdmin이 같이 설치된다.</li>
-</ol>
-<h3 id="2-db-구성의-한-요소로-엑셀과-같이-2차원의-표-형태로-자료를-관리하는-것은"><a class="header" href="#2-db-구성의-한-요소로-엑셀과-같이-2차원의-표-형태로-자료를-관리하는-것은"><strong>2. DB 구성의 한 요소로 엑셀과 같이 2차원의 표 형태로 자료를 관리하는 것은?</strong></a></h3>
-<ol>
-<li>DBMS</li>
-<li>함수</li>
-<li>sheet</li>
-<li>table</li>
-</ol>
-<h3 id="3-엑셀과-달리-db-테이블은-각-항목에-숫자를-적을지-문자를-적을지를-미리-정해야-한다-그-이유를-2개-고르시오"><a class="header" href="#3-엑셀과-달리-db-테이블은-각-항목에-숫자를-적을지-문자를-적을지를-미리-정해야-한다-그-이유를-2개-고르시오"><strong>3. 엑셀과 달리 DB 테이블은 각 항목에 숫자를 적을지 문자를 적을지를 미리 정해야 한다. 그 이유를 2개 고르시오</strong></a></h3>
-<ol>
-<li>빠른 처리를 위해</li>
-<li>해킹 등 재난에 대비하기 위해</li>
-<li>전기 사용량을 줄이기 위해</li>
-<li>효율적이고 정확하게 자료를 기록하기 위해</li>
-</ol>
-<h3 id="4-postgresql에서-member-라는-이름의-테이블을-만드는-방법으로-맞는-것은"><a class="header" href="#4-postgresql에서-member-라는-이름의-테이블을-만드는-방법으로-맞는-것은"><strong>4. postgreSQL에서 member 라는 이름의 테이블을 만드는 방법으로 맞는 것은?</strong></a></h3>
-<ol>
-<li>create table member (name varchar(10));</li>
-<li>create member (name char);</li>
-<li>create table member (name 문자)</li>
-<li>create table member (name varchar(10))</li>
-</ol>
-<h3 id="5-postgresql의-주요-데이터-유형에-대해-올바르게-설명한-것은"><a class="header" href="#5-postgresql의-주요-데이터-유형에-대해-올바르게-설명한-것은"><strong>5. postgreSQL의 주요 데이터 유형에 대해 올바르게 설명한 것은?</strong></a></h3>
-<ol>
-<li>Integer: 약 -900경 ~ + 900경 사이의 정수를 다룰 수 있다.</li>
-<li>BigInt: 약 -21억 ~ + 21억 사이의 정수를 다룰 수 있다.</li>
-<li>boolean: 참 또는 거짓을 기록할 수 있다.</li>
-<li>varchar: 사번처럼 그 길이가 정해진 문자만 입력할 수 있다.</li>
-</ol>
-<h3 id="6-pgadmin에-대한-설명으로-틀린-것은"><a class="header" href="#6-pgadmin에-대한-설명으로-틀린-것은"><strong>6. pgAdmin에 대한 설명으로 틀린 것은?</strong></a></h3>
-<ol>
-<li>postgreSQL에 접속하기 위한 클라이언트 프로그램이다.</li>
-<li>DBMS에 sql문을 보내 실행할 수 있다.</li>
-<li>table을 생성하는 기능도 제공한다.</li>
-<li>그래픽 UI가 아닌 텍스트 기반의 클라이언트 프로그램이다.</li>
-</ol>
-<h3 id="7-psql에-대한-바른-설명은"><a class="header" href="#7-psql에-대한-바른-설명은"><strong>7. psql에 대한 바른 설명은?</strong></a></h3>
-<ol>
-<li>postgreSQL에 접속해 postgreSQL을 관리하거나 SQL문을 실행하는 데 사용하는 텍스트 기반의 클라이언트 프로그램</li>
-<li>sql문 만을 실행할 수 있다.</li>
-<li>유료 버전을 구입하면 그래픽 UI도 사용할 수 있다.</li>
-<li>관리자 전용 프로그램이다.</li>
-</ol>
-<h3 id="8-pgadmin에서-psql을-실행하는-아이콘은"><a class="header" href="#8-pgadmin에서-psql을-실행하는-아이콘은"><strong>8. pgAdmin에서 psql을 실행하는 아이콘은?</strong></a></h3>
-<p><img src="img/20240722204950.png" alt="" /></p>
+                        <h1 id="공간데이터베이스-연습문제"><a class="header" href="#공간데이터베이스-연습문제">공간데이터베이스 연습문제</a></h1>
+<p>Q1. 다음과 같은 테이블을 SQL문을 이용해 생성
+<img src="img/20240722210944.png" alt="" /></p>
+<p>A1.</p>
+<pre><code class="language-sql">create table food
+(
+    name varchar(20),
+    price int
+);
+</code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../../gisws/quiz/postgresql-01.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../default/practice.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../../default/practice.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -245,13 +200,10 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../../gisws/quiz/postgresql-01.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../default/practice.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../../default/practice.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                        <i class="fa fa-angle-right"></i>
-                    </a>
             </nav>
 
         </div>

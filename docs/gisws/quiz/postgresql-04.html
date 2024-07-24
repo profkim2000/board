@@ -177,10 +177,109 @@
                         <h1 id="복습문제"><a class="header" href="#복습문제">복습문제</a></h1>
 <h3 id="1-postgis에-대해-맞는-설명은"><a class="header" href="#1-postgis에-대해-맞는-설명은"><strong>1. postgis에 대해 맞는 설명은?</strong></a></h3>
 <ol>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
+<li>postgreSQL을 설치하면 자동으로 같이 설치된다.</li>
+<li>postgreSQL에서 옵션으로 기능을 켜고 끌 수 있다.</li>
+<li>postgreSQL 설치 후 별도 설치해야 한다.</li>
+<li>pgAdmin을 통해서만 설치할 수 있다.</li>
+</ol>
+<h3 id="2-1개의-점을-저장할-때-맞는-테이터-유형은"><a class="header" href="#2-1개의-점을-저장할-때-맞는-테이터-유형은"><strong>2. 1개의 점을 저장할 때 맞는 테이터 유형은?</strong></a></h3>
+<ol>
+<li>geometry</li>
+<li>geometry(Point)</li>
+<li>geom(Point)</li>
+<li>geom(Point, 4326)</li>
+</ol>
+<h3 id="3-1개의-점을-저장하되-좌표계를-epsg4326으로-정할-때-맞는-데이터-유형은"><a class="header" href="#3-1개의-점을-저장하되-좌표계를-epsg4326으로-정할-때-맞는-데이터-유형은"><strong>3. 1개의 점을 저장하되, 좌표계를 EPSG:4326으로 정할 때 맞는 데이터 유형은?</strong></a></h3>
+<ol>
+<li>geometry(EPSG, 4326)</li>
+<li>geometry(Point, 4326)</li>
+<li>geom(Point, 4326)</li>
+<li>geom(4326, Point)</li>
+</ol>
+<h3 id="4-한-번에-1개-이상의-점을-저장할-수-있는-데이터-유형은"><a class="header" href="#4-한-번에-1개-이상의-점을-저장할-수-있는-데이터-유형은"><strong>4. 한 번에 1개 이상의 점을 저장할 수 있는 데이터 유형은?</strong></a></h3>
+<ol>
+<li>geometry(MultiPoint)</li>
+<li>geometry(4326)</li>
+<li>geom(Points)</li>
+<li>geom(4326, MultiPoint)</li>
+</ol>
+<h3 id="5-1개의-선을-저장할-수-있는-데이터-유형은"><a class="header" href="#5-1개의-선을-저장할-수-있는-데이터-유형은"><strong>5. 1개의 선을 저장할 수 있는 데이터 유형은?</strong></a></h3>
+<ol>
+<li>geometry(Line)</li>
+<li>geometry(OneLine)</li>
+<li>geometry(Line1)</li>
+<li>geometry(LineString)</li>
+</ol>
+<h3 id="6-한-번에-1개-이상의-선을-저장할-수-있는-데이터-유형은"><a class="header" href="#6-한-번에-1개-이상의-선을-저장할-수-있는-데이터-유형은"><strong>6. 한 번에 1개 이상의 선을 저장할 수 있는 데이터 유형은?</strong></a></h3>
+<ol>
+<li>geometry(Lines)</li>
+<li>geometry(MoreLine)</li>
+<li>geometry(LineStrings)</li>
+<li>geometry(NultiLineString)</li>
+</ol>
+<h3 id="7-1개의-면을-저장할-수-있는-데이터-유형은"><a class="header" href="#7-1개의-면을-저장할-수-있는-데이터-유형은"><strong>7. 1개의 면을 저장할 수 있는 데이터 유형은?</strong></a></h3>
+<ol>
+<li>geometry(Box)</li>
+<li>geometry(Polygon)</li>
+<li>geometry(Poly)</li>
+<li>geometry(2DBox)</li>
+</ol>
+<h3 id="8-한-번에-1개-이상의-선을-저장할-수-있는-데이터-유형은"><a class="header" href="#8-한-번에-1개-이상의-선을-저장할-수-있는-데이터-유형은"><strong>8. 한 번에 1개 이상의 선을 저장할 수 있는 데이터 유형은?</strong></a></h3>
+<ol>
+<li>geometry(Area)</li>
+<li>geometry(Polygons)</li>
+<li>geometry(MultiPolygon)</li>
+<li>geometry(MultiArea)</li>
+</ol>
+<h3 id="9-geometry-형식에-입력된-자료는-열어-보아도-값이-매우-복잡해-사람이-이해하기-어렵다-이를-x-y-좌표값으로-변환해-보여주는-함수의-짝으로-맞는-것은"><a class="header" href="#9-geometry-형식에-입력된-자료는-열어-보아도-값이-매우-복잡해-사람이-이해하기-어렵다-이를-x-y-좌표값으로-변환해-보여주는-함수의-짝으로-맞는-것은"><strong>9. geometry 형식에 입력된 자료는 열어 보아도 값이 매우 복잡해 사람이 이해하기 어렵다. 이를 X, Y 좌표값으로 변환해 보여주는 함수의 짝으로 맞는 것은?</strong></a></h3>
+<ol>
+<li>ST_getXY()</li>
+<li>ST_getX(), ST_getY()</li>
+<li>ST_X(), ST_Y()</li>
+<li>ST_convX(), ST_convY()</li>
+</ol>
+<h3 id="10-좌표계-간-변환하는-함수는"><a class="header" href="#10-좌표계-간-변환하는-함수는"><strong>10. 좌표계 간 변환하는 함수는?</strong></a></h3>
+<ol>
+<li>ST_Transaction()</li>
+<li>ST_Conversion()</li>
+<li>ST_Convert()</li>
+<li>ST_Transform()</li>
+</ol>
+<h3 id="11-현재-데이터베이스에-epsg4326으로-설계되어-있는-테이블이-있고-필드명은-location이다-이-테이블의-값을-epsg3857로-변환해-사용해야-하는-경우-맞는-sql문은"><a class="header" href="#11-현재-데이터베이스에-epsg4326으로-설계되어-있는-테이블이-있고-필드명은-location이다-이-테이블의-값을-epsg3857로-변환해-사용해야-하는-경우-맞는-sql문은"><strong>11. 현재 데이터베이스에 EPSG:4326으로 설계되어 있는 테이블이 있고 필드명은 location이다. 이 테이블의 값을 EPSG:3857로 변환해 사용해야 하는 경우 맞는 SQL문은?</strong></a></h3>
+<ol>
+<li>select st_transform(4326, 3857) from 테이블명</li>
+<li>select st_transform(location, 4326, 3857) from 테이블명</li>
+<li>select st_transform(location, EPSG:3857) from 테이블명</li>
+<li>select st_transform(location, 3857) from 테이블명</li>
+</ol>
+<h3 id="12-위-11번-문제와-같이-좌표계-값을-변환해-사용할-경우-틀린-것은"><a class="header" href="#12-위-11번-문제와-같이-좌표계-값을-변환해-사용할-경우-틀린-것은"><strong>12. 위 11번 문제와 같이 좌표계 값을 변환해 사용할 경우 틀린 것은?</strong></a></h3>
+<ol>
+<li>좌표계 변환할 때 약간의 오차가 있을 수 있다.</li>
+<li>위 11번 문제의 답과 같이 select 문을 사용하면 원래 테이블의 값이 변환된 EPSG:4326의 값으로 변한다.</li>
+<li>st_transform(  ) 괄호 안의 값 중 숫자는 EPSG 코드를 뜻한다.</li>
+<li>최종적으로 변환될 좌표계의 코드만 적어줘도 된다.</li>
+</ol>
+<h3 id="13-st_distancesphere-함수를-사용해-곡률을-반영한-점간-거리를-계산하는-경우-이-계산-결과의-단위는"><a class="header" href="#13-st_distancesphere-함수를-사용해-곡률을-반영한-점간-거리를-계산하는-경우-이-계산-결과의-단위는"><strong>13. ST_DistanceSphere 함수를 사용해 곡률을 반영한 점간 거리를 계산하는 경우, 이 계산 결과의 단위는?</strong></a></h3>
+<ol>
+<li>mm</li>
+<li>cm</li>
+<li>m</li>
+<li>km</li>
+</ol>
+<h3 id="14-공간정보-자료를-설명하는-문자열을-이용해-geometry-값을-만들-때-사용하는-함수는"><a class="header" href="#14-공간정보-자료를-설명하는-문자열을-이용해-geometry-값을-만들-때-사용하는-함수는"><strong>14. 공간정보 자료를 설명하는 문자열을 이용해 geometry 값을 만들 때 사용하는 함수는?</strong></a></h3>
+<ol>
+<li>ST_GISDataFromText() 함수</li>
+<li>ST_GeometryFromText() 함수</li>
+<li>ST_GeomText() 함수</li>
+<li>ST_GeomFromText() 함수</li>
+</ol>
+<h3 id="15-점이-면-안에-포함되어-있는지-여부를-판단하기-위해-만든-sql-문의-일부이다-다음-중-감싸고-있는-자료와-안에-있는-자료를-순서대로-적은-것은-"><a class="header" href="#15-점이-면-안에-포함되어-있는지-여부를-판단하기-위해-만든-sql-문의-일부이다-다음-중-감싸고-있는-자료와-안에-있는-자료를-순서대로-적은-것은-"><strong>15. 점이 면 안에 포함되어 있는지 여부를 판단하기 위해 만든 SQL 문의 일부이다. 다음 중 감싸고 있는 자료와 안에 있는 자료를 순서대로 적은 것은 ?</strong></a></h3>
+<pre><code class="language-sql">ST_Contains(A, B)
+</code></pre>
+<ol>
+<li>A, B</li>
+<li>B, A</li>
+<li>순서는 상관없다.</li>
 </ol>
 
                     </main>

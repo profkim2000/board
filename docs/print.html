@@ -360,7 +360,7 @@
 <li>geometry(Lines)</li>
 <li>geometry(MoreLine)</li>
 <li>geometry(LineStrings)</li>
-<li>geometry(NultiLineString)</li>
+<li>geometry(MultiLineString)</li>
 </ol>
 <h3 id="7-1개의-면을-저장할-수-있는-데이터-유형은"><a class="header" href="#7-1개의-면을-저장할-수-있는-데이터-유형은"><strong>7. 1개의 면을 저장할 수 있는 데이터 유형은?</strong></a></h3>
 <ol>
@@ -369,7 +369,7 @@
 <li>geometry(Poly)</li>
 <li>geometry(2DBox)</li>
 </ol>
-<h3 id="8-한-번에-1개-이상의-선을-저장할-수-있는-데이터-유형은"><a class="header" href="#8-한-번에-1개-이상의-선을-저장할-수-있는-데이터-유형은"><strong>8. 한 번에 1개 이상의 선을 저장할 수 있는 데이터 유형은?</strong></a></h3>
+<h3 id="8-한-번에-1개-이상의-면을-저장할-수-있는-데이터-유형은"><a class="header" href="#8-한-번에-1개-이상의-면을-저장할-수-있는-데이터-유형은"><strong>8. 한 번에 1개 이상의 면을 저장할 수 있는 데이터 유형은?</strong></a></h3>
 <ol>
 <li>geometry(Area)</li>
 <li>geometry(Polygons)</li>
@@ -400,11 +400,11 @@
 <h3 id="12-위-11번-문제와-같이-좌표계-값을-변환해-사용할-경우-틀린-것은"><a class="header" href="#12-위-11번-문제와-같이-좌표계-값을-변환해-사용할-경우-틀린-것은"><strong>12. 위 11번 문제와 같이 좌표계 값을 변환해 사용할 경우 틀린 것은?</strong></a></h3>
 <ol>
 <li>좌표계 변환할 때 약간의 오차가 있을 수 있다.</li>
-<li>위 11번 문제의 답과 같이 select 문을 사용하면 원래 테이블의 값이 변환된 EPSG:4326의 값으로 변한다.</li>
+<li>위 11번 문제의 답과 같이 select 문을 사용하면 원래 테이블의 값 자체가 변환된 EPSG:3857의 값으로 변한다.</li>
 <li>st_transform(  ) 괄호 안의 값 중 숫자는 EPSG 코드를 뜻한다.</li>
 <li>최종적으로 변환될 좌표계의 코드만 적어줘도 된다.</li>
 </ol>
-<h3 id="13-st_distancesphere-함수를-사용해-곡률을-반영한-점간-거리를-계산하는-경우-이-계산-결과의-단위는"><a class="header" href="#13-st_distancesphere-함수를-사용해-곡률을-반영한-점간-거리를-계산하는-경우-이-계산-결과의-단위는"><strong>13. ST_DistanceSphere 함수를 사용해 곡률을 반영한 점간 거리를 계산하는 경우, 이 계산 결과의 단위는?</strong></a></h3>
+<h3 id="13-st_distancesphere-함수를-사용해-곡률을-반영한-점간-거리를-계산하는-경우-이-계산-결과의-단위는"><a class="header" href="#13-st_distancesphere-함수를-사용해-곡률을-반영한-점간-거리를-계산하는-경우-이-계산-결과의-단위는"><strong>13. ST_DistanceSphere() 함수를 사용해 곡률을 반영한 점간 거리를 계산하는 경우, 이 계산 결과의 단위는?</strong></a></h3>
 <ol>
 <li>mm</li>
 <li>cm</li>

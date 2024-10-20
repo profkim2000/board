@@ -379,6 +379,16 @@ for food in food_list :
         continue
     print (food, "사 주세요!")
 </code></pre>
+<h2 id="반복문으로-list-값-추가하기list-comprehension"><a class="header" href="#반복문으로-list-값-추가하기list-comprehension">반복문으로 list 값 추가하기(list comprehension)</a></h2>
+<pre><code class="language-python">for i in range(5):
+    print(i)
+</code></pre>
+<h2 id="range-함수-사용해-list-값-추가"><a class="header" href="#range-함수-사용해-list-값-추가">range() 함수 사용해 list 값 추가</a></h2>
+<pre><code class="language-python">a = [i for i in range(10)]
+</code></pre>
+<h2 id="range-함수-사용해-list-값-추가-1"><a class="header" href="#range-함수-사용해-list-값-추가-1">range() 함수 사용해 list 값 추가</a></h2>
+<pre><code class="language-python">a = [i*2 for i in range(10)]
+</code></pre>
 <h2 id="함수-사용하기"><a class="header" href="#함수-사용하기">함수 사용하기</a></h2>
 <pre><code class="language-python">def plus1(a) :
     b = a + 1
@@ -426,6 +436,59 @@ print(res)
 
 res = get_min(10, 11)
 print(res)
+</code></pre>
+<h2 id="파이썬의-정규표현식"><a class="header" href="#파이썬의-정규표현식">파이썬의 정규표현식</a></h2>
+<pre><code class="language-python">import re
+pattern = re.compile('연어')
+
+pic = '멸치요리.jpg'
+m = pattern.search(pic)
+</code></pre>
+<h2 id="파이썬의-정규표현식-1"><a class="header" href="#파이썬의-정규표현식-1">파이썬의 정규표현식</a></h2>
+<pre><code class="language-python">import re
+pattern = re.compile('멸치')
+
+pic = '멸치요리.jpg'
+m = pattern.search(pic)
+</code></pre>
+<h2 id="파일명으로-리스트-만들고-그-리스트를-돌며-연어라는-글자가-들어있는-파일명만-찾기"><a class="header" href="#파일명으로-리스트-만들고-그-리스트를-돌며-연어라는-글자가-들어있는-파일명만-찾기">파일명으로 리스트 만들고, 그 리스트를 돌며 ’연어’라는 글자가 들어있는 파일명만 찾기</a></h2>
+<pre><code class="language-python">import re
+
+files = ["멸치요리.jpg", "연어요리.jpg", "연어 튀기기 전.png"]
+
+pattern = re.compile('연어')
+
+for item in files:
+    m = pattern.search(item)
+    
+    if m != None:
+        print(item, '은 조건에 맞음.')
+    else:
+        print(item, '은 조건에 맞지 않음')
+</code></pre>
+<h2 id="시작이-같은지-검사하기--k로-시작하는지-검사"><a class="header" href="#시작이-같은지-검사하기--k로-시작하는지-검사">시작이 같은지 검사하기 : K로 시작하는지 검사</a></h2>
+<pre><code class="language-python">import re
+pic = "Korea.jpg"
+pattern = re.compile('^K')
+m = pattern.search(pic)
+</code></pre>
+<pre><code class="language-python">import re
+pic = "booK.jpg"
+pattern = re.compile('^K')
+m = pattern.search(pic)
+</code></pre>
+<h2 id="끝이-같은지-검사하기-jpg로-끝나는지-검사하기"><a class="header" href="#끝이-같은지-검사하기-jpg로-끝나는지-검사하기">끝이 같은지 검사하기: ’jpg’로 끝나는지 검사하기</a></h2>
+<pre><code class="language-python">import re
+
+pic = "booK.jpg"
+pattern = re.compile('jpg$')
+m = pattern.search(pic)
+</code></pre>
+<pre><code class="language-python">import re
+
+pic = "booK.jpg"
+pattern = re.compile('png$')
+m = pattern.search(pic)
 </code></pre>
 <h2 id="input-함수-사용"><a class="header" href="#input-함수-사용">input() 함수 사용</a></h2>
 <pre><code class="language-python">a = input()

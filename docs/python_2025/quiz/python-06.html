@@ -1,0 +1,299 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>7. 파이썬 입출력 - Eugene&#x27;s Board</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../../custom.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Eugene&#x27;s Board</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="파이썬-입출력"><a class="header" href="#파이썬-입출력">파이썬 입출력</a></h1>
+<h3 id="1-입력의-옳은-예가-아닌-것은"><a class="header" href="#1-입력의-옳은-예가-아닌-것은"><strong>1. 입력의 옳은 예가 아닌 것은?</strong></a></h3>
+<ol>
+<li>키보드로부터 입력</li>
+<li>파일로부터 입력</li>
+<li>모니터로부터 입력</li>
+<li>마우스로부터 입력</li>
+</ol>
+<br>
+<h3 id="2-출력의-옳은-예가-아닌-것은"><a class="header" href="#2-출력의-옳은-예가-아닌-것은"><strong>2. 출력의 옳은 예가 아닌 것은?</strong></a></h3>
+<ol>
+<li>파일로 출력</li>
+<li>스피커로 출력</li>
+<li>프린터로 출력</li>
+<li>마이크로 출력</li>
+</ol>
+<br>
+<h3 id="3-키보드로-문자를-입력받을-때-사용하는-함수는"><a class="header" href="#3-키보드로-문자를-입력받을-때-사용하는-함수는"><strong>3. 키보드로 문자를 입력받을 때 사용하는 함수는?</strong></a></h3>
+<ol>
+<li>keyboard()</li>
+<li>str()</li>
+<li>input()</li>
+<li>print()</li>
+</ol>
+<br>
+<h3 id="4-키보드로-숫자를-입력받을-때-사용하는-함수-조합은"><a class="header" href="#4-키보드로-숫자를-입력받을-때-사용하는-함수-조합은"><strong>4. 키보드로 숫자를 입력받을 때 사용하는 함수 조합은?</strong></a></h3>
+<ol>
+<li>int( input() )</li>
+<li>input( int() )</li>
+<li>str( input() )</li>
+<li>input( str() )</li>
+</ol>
+<br>
+<h3 id="5-파일을-새로-만들고-그-안에-내용을-쓰려-한다-잘못된-부분은"><a class="header" href="#5-파일을-새로-만들고-그-안에-내용을-쓰려-한다-잘못된-부분은"><strong>5. 파일을 새로 만들고 그 안에 내용을 쓰려 한다. 잘못된 부분은?</strong></a></h3>
+<pre><code class="language-python">file = open("data.txt", 'r') ⓐ
+file.write("내 이름은 별똥별") ⓑ
+file.close() ⓒ
+</code></pre>
+<ol>
+<li>잘못된 부분 없음</li>
+<li>ⓐ</li>
+<li>ⓑ</li>
+<li>ⓒ</li>
+</ol>
+<br>
+<h3 id="6-다음-코드는-파일에서-내용을-읽어오는-코드이다-datatxt-파일의-내용이-다음과-같을-때-이-코드의-실행-결과는"><a class="header" href="#6-다음-코드는-파일에서-내용을-읽어오는-코드이다-datatxt-파일의-내용이-다음과-같을-때-이-코드의-실행-결과는"><strong>6. 다음 코드는 파일에서 내용을 읽어오는 코드이다. data.txt 파일의 내용이 다음과 같을 때 이 코드의 실행 결과는?</strong></a></h3>
+<p><img src="img/20240821144459.png" alt="" /></p>
+<pre><code class="language-python">file = open("data.txt", 'r')
+line = file.readline()
+print (line)
+file.close()
+</code></pre>
+<ol>
+<li>역삼역</li>
+<li>기러기</li>
+<li>역삼역<br />
+기러기</li>
+<li>아무 것도 표시되지 않는다.</li>
+</ol>
+<br>
+<h3 id="7-다음-코드는-파일에서-내용을-읽어오는-코드이다-datatxt-파일의-내용이-다음과-같을-때-파일의-전체-내용을-다-가져오려-하는-경우--부분에-맞는-것은"><a class="header" href="#7-다음-코드는-파일에서-내용을-읽어오는-코드이다-datatxt-파일의-내용이-다음과-같을-때-파일의-전체-내용을-다-가져오려-하는-경우--부분에-맞는-것은"><strong>7. 다음 코드는 파일에서 내용을 읽어오는 코드이다. data.txt 파일의 내용이 다음과 같을 때, 파일의 전체 내용을 다 가져오려 하는 경우 ??? 부분에 맞는 것은?</strong></a></h3>
+<p><img src="img/20240821144459.png" alt="" /></p>
+<pre><code class="language-python">file = open("data.txt", 'r')
+lines = file.readlines()
+for line ??? lines :
+    print (line)
+file.close()
+</code></pre>
+<ol>
+<li>as</li>
+<li>in</li>
+<li>all</li>
+<li>with</li>
+</ol>
+<br>
+<h3 id="8-다음-코드는-엑셀용-csv-파일을-만들기-위한-코드이다-엑셀에서-열었을-때-왼쪽처럼-보일-거라는-기대와-달리-오른쪽-그림처럼-보이고-있다-해결-방법은"><a class="header" href="#8-다음-코드는-엑셀용-csv-파일을-만들기-위한-코드이다-엑셀에서-열었을-때-왼쪽처럼-보일-거라는-기대와-달리-오른쪽-그림처럼-보이고-있다-해결-방법은"><strong>8. 다음 코드는 엑셀용 csv 파일을 만들기 위한 코드이다. 엑셀에서 열었을 때 왼쪽처럼 보일 거라는 기대와 달리 오른쪽 그림처럼 보이고 있다. 해결 방법은?</strong></a></h3>
+<p><img src="img/20240821145601.png" alt="" /></p>
+<pre><code class="language-python">file = open("data.csv", 'w')
+
+file.write ("이름,전화번호")
+file.write ("홍길동,02-1111-1111")
+file.write ("박길동,02-1111-2222")
+file.write ("최길동,03-1111-3333")
+
+file.close()
+</code></pre>
+<ol>
+<li>확장자를 csv가 아닌 xlsx 로 바꿔서 생성한다.</li>
+<li>각 줄의 끝에 “,“를 추가한다.</li>
+<li>각 줄의 끝에 개행문자인 “\n“을 추가한다.</li>
+<li>각 줄의 앞에 “,“를 추가한다.</li>
+</ol>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../python_2025/quiz/python-05.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../../python_2025/quiz/html-01.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../python_2025/quiz/python-05.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../../python_2025/quiz/html-01.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en" class="light" dir="ltr">
+<html lang="en" class="light sidebar-visible" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
@@ -8,7 +8,7 @@
 
 
         <!-- Custom HTML head -->
-        
+
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
@@ -32,15 +32,17 @@
         <!-- Custom theme stylesheets -->
         <link rel="stylesheet" href="custom.css">
 
-    </head>
-    <body class="sidebar-visible no-js">
-    <div id="body-container">
+
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
-
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
             try {
@@ -62,19 +64,16 @@
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
-            var html = document.querySelector('html');
+            const html = document.documentElement;
             html.classList.remove('light')
             html.classList.add(theme);
-            var body = document.querySelector('body');
-            body.classList.remove('no-js')
-            body.classList.add('js');
+            html.classList.add("js");
         </script>
 
         <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var body = document.querySelector('body');
             var sidebar = null;
             var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
@@ -84,45 +83,25 @@
                 sidebar = 'hidden';
             }
             sidebar_toggle.checked = sidebar === 'visible';
-            body.classList.remove('sidebar-visible');
-            body.classList.add("sidebar-" + sidebar);
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item "><a href="gisws/index.html">공간정보 웹서비스 개발</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="gisws/assets.html">학습자료</a></li><li class="chapter-item "><a href="gisws/quiz/index.html">복습문제</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="gisws/quiz/postgresql-01.html">1. 공간 데이터베이스</a></li><li class="chapter-item "><a href="gisws/quiz/postgresql-02.html">2. postgreSQL, postgis 설치</a></li><li class="chapter-item "><a href="gisws/quiz/postgresql-03.html">3. SQL</a></li><li class="chapter-item "><a href="gisws/quiz/postgresql-04.html">4. postgis</a></li></ol></li><li class="chapter-item "><a href="gisws/practice/index.html">연습문제</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="gisws/practice/postgresql-01.html">1. 공간데이터베이스</a></li></ol></li></ol></li><li class="chapter-item "><a href="python_2024/index.html">국토정보프로그래밍(python)</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="python_2024/assets.html">학습자료</a></li><li class="chapter-item "><a href="python_2024/quiz/index.html">복습문제</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="python_2024/quiz/python-01.html">1. 파이썬의 개요</a></li><li class="chapter-item "><a href="python_2024/quiz/python-02.html">2. 파이썬 자료형</a></li><li class="chapter-item "><a href="python_2024/quiz/python-03.html">3. 파이썬 조건문</a></li><li class="chapter-item "><a href="python_2024/quiz/python-04.html">4. 파이썬 반복문</a></li><li class="chapter-item "><a href="python_2024/quiz/python-08.html">5. 파이썬 자료형 II</a></li><li class="chapter-item "><a href="python_2024/quiz/python-05.html">6. 함수</a></li><li class="chapter-item "><a href="python_2024/quiz/python-09.html">7. 정규표현식</a></li><li class="chapter-item "><a href="python_2024/quiz/python-06.html">8. 파이썬 입출력</a></li><li class="chapter-item "><a href="python_2024/quiz/python-07.html">9. 파이썬 라이브러리</a></li></ol></li><li class="chapter-item "><a href="python_2024/practice/index.html">연습문제</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="python_2024/practice/python-01.html">1. 파이썬의 자료형</a></li><li class="chapter-item "><a href="python_2024/practice/python-02.html">2. 파이썬의 조건문</a></li><li class="chapter-item "><a href="python_2024/practice/python-03.html">3. 파이썬의 반복문</a></li><li class="chapter-item "><a href="python_2024/practice/python-04.html">4. 함수</a></li><li class="chapter-item "><a href="python_2024/practice/python-05.html">5. 파이썬입출력</a></li></ol></li><li class="chapter-item "><a href="python_2024/codes/index.html">소스코드</a></li></ol></li><li class="chapter-item "><a href="goodphotos/photos.html">사진 보정의 세계</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="goodphotos/samples.html">샘플사진</a></li><li class="chapter-item "><a href="goodphotos/tutorial.html">스냅시드 튜토리얼</a></li></ol></li><li class="chapter-item "><a href="geo3D_2024/geo3d.html">3차원 공간정보 서비스 구현</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="geo3D_2024/codes/codes.html">소스코드</a></li><li class="chapter-item "><a href="geo3D_2024/sample/samples.html">샘플: 웹 3D 지도</a></li><li class="chapter-item "><a href="geo3D_2024/quiz/index.html">복습문제</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="geo3D_2024/quiz/blender-01.html">1. 블렌더 기초 실습(1)</a></li><li class="chapter-item "><a href="geo3D_2024/quiz/blender-02.html">2. 블렌더 기초 실습(2)</a></li><li class="chapter-item "><a href="geo3D_2024/quiz/blender-03.html">3. 블렌더 기초 실습(3)</a></li><li class="chapter-item "><a href="geo3D_2024/quiz/blender-04.html">4. 블렌더 활용 실습</a></li><li class="chapter-item "><a href="geo3D_2024/quiz/cesium-01.html">5. 세슘 기초 실습(1)</a></li><li class="chapter-item "><a href="geo3D_2024/quiz/cesium-02.html">6. 세슘 기초 실습(2)</a></li><li class="chapter-item "><a href="geo3D_2024/quiz/cesium-03.html">7. 세슘 활용 실습</a></li><li class="chapter-item "><a href="geo3D_2024/quiz/cesium-04.html">8. 공간정보 웹서비스 구현</a></li></ol></li></ol></li></ol>
-            </div>
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
             </div>
         </nav>
 
-        <!-- Track and set sidebar scroll position -->
-        <script>
-            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
-            sidebarScrollbox.addEventListener('click', function(e) {
-                if (e.target.tagName === 'A') {
-                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
-                }
-            }, { passive: true });
-            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
-            sessionStorage.removeItem('sidebar-scroll');
-            if (sidebarScrollTop) {
-                // preserve sidebar scroll position when navigating via links within sidebar
-                sidebarScrollbox.scrollTop = sidebarScrollTop;
-            } else {
-                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
-                var activeSection = document.querySelector('#sidebar .active');
-                if (activeSection) {
-                    activeSection.scrollIntoView({ block: 'center' });
-                }
-            }
-        </script>
-
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
                         <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
@@ -175,350 +154,8 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="공간정보-웹서비스-개발"><a class="header" href="#공간정보-웹서비스-개발">공간정보 웹서비스 개발</a></h1>
+                        <h1 id="파이썬-기초-및-활용"><a class="header" href="#파이썬-기초-및-활용">파이썬 기초 및 활용</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="학습자료"><a class="header" href="#학습자료">학습자료</a></h1>
-<h2 id="postgresql"><a class="header" href="#postgresql">postgreSQL</a></h2>
-<ul>
-<li>postgreSQL 공식 홈페이지: <a href="https://www.postgresql.org" title="" target="_blank">https://www.postgresql.org</a></li>
-<li>postgreSQL 안내서: <a href="https://www.postgresql.org/files/documentation/pdf/16/postgresql-16-A4.pdf" title="" target="_blank">https://www.postgresql.org/files/documentation/pdf/16/postgresql-16-A4.pdf</a></li>
-</ul>
-<h2 id="postgis"><a class="header" href="#postgis">postGIS</a></h2>
-<ul>
-<li>postGIS 공식 홈페이지: <a href="https://postgis.net" title="" target="_blank">https://postgis.net</a></li>
-<li>postGIS 안내서: <a href="https://postgis.net/workshops/en/postgis-intro/PostGISIntro.pdf" title="" target="_blank">https://postgis.net/workshops/en/postgis-intro/PostGISIntro.pdf</a></li>
-<li>postGIS 함수들: <a href="https://postgis.net/docs/manual-3.5/ko_KR/PostGIS_Special_Functions_Index.html" title="" target="_blank">https://postgis.net/docs/manual-3.5/ko_KR/PostGIS_Special_Functions_Index.html</a></li>
-</ul>
-<h2 id="pgadmin"><a class="header" href="#pgadmin">pgAdmin</a></h2>
-<ul>
-<li>pgAdmin 공식 홈페이지: <a href="https://www.pgadmin.org" title="" target="_blank">https://www.pgadmin.org</a></li>
-</ul>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="복습문제"><a class="header" href="#복습문제">복습문제</a></h1>
-<p><img src="gisws/quiz/../../default/quiz01.png" alt="" /></p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="복습문제-1"><a class="header" href="#복습문제-1">복습문제</a></h1>
-<h3 id="1-다음-중-데이터베이스의-특징이-아닌-것은"><a class="header" href="#1-다음-중-데이터베이스의-특징이-아닌-것은"><strong>1. 다음 중 데이터베이스의 특징이 아닌 것은?</strong></a></h3>
-<ol>
-<li>자료를 체계적으로 저장한다.</li>
-<li>자료를 저장하기 쉽고 읽기 쉽게 관리한다.</li>
-<li>자료를 모아 놓은 것은 모두 데이터베이스이다.</li>
-<li>회사 ERP가 데이터베이스의 한 예이다.</li>
-</ol>
-<h3 id="2-dbms의-약자로-맞는-것은"><a class="header" href="#2-dbms의-약자로-맞는-것은"><strong>2. DBMS의 약자로 맞는 것은?</strong></a></h3>
-<ol>
-<li>DataBase Management System</li>
-<li>DB Manager System</li>
-<li>DB Management System</li>
-<li>DataBase Manager System</li>
-</ol>
-<h3 id="3-postgresql에-대한-설명-중-틀린-것은"><a class="header" href="#3-postgresql에-대한-설명-중-틀린-것은"><strong>3. postgreSQL에 대한 설명 중 틀린 것은?</strong></a></h3>
-<ol>
-<li>open source로 개발된다.</li>
-<li>개인은 무료, 공공기관은 비용을 지불해야 한다.</li>
-<li>공간정보에 특화된 기능을 제공한다.</li>
-<li><code>포스트그레스큐엘</code>이라고 읽는다.</li>
-</ol>
-<h3 id="4-다음-중-dbms가-아닌-것은"><a class="header" href="#4-다음-중-dbms가-아닌-것은"><strong>4. 다음 중 DBMS가 아닌 것은?</strong></a></h3>
-<ol>
-<li>postgreSQL</li>
-<li>MS SQLServer</li>
-<li>MySQL</li>
-<li>DBeaver</li>
-</ol>
-<h3 id="5-다음-중-공간정보-데이터베이스에서-지원하는-기능이-아닌-것은"><a class="header" href="#5-다음-중-공간정보-데이터베이스에서-지원하는-기능이-아닌-것은"><strong>5. 다음 중 공간정보 데이터베이스에서 지원하는 기능이 아닌 것은?</strong></a></h3>
-<ol>
-<li>다양한 좌표계 지원</li>
-<li>3차원 스캐닝 기능 지원</li>
-<li>공간정보 자료(점, 선, 면)을 자유롭게 저장</li>
-<li>공간정보 계산 기능 지원</li>
-</ol>
-<h3 id="6-다음-중-epsg에-대한-설명으로-틀린-것은"><a class="header" href="#6-다음-중-epsg에-대한-설명으로-틀린-것은"><strong>6. 다음 중 EPSG에 대한 설명으로 틀린 것은?</strong></a></h3>
-<ol>
-<li>석유 산업계에서 탐사를 위해 표준화된 좌표 체계가 필요해 정리한 코드들이다.</li>
-<li>EPSG의 원 뜻은 <code>유럽 석유 조사 그룹</code>이다.</li>
-<li>각 좌표계 코드 표현식은 <code>EPSG-4326</code> 과 같은 식이다.</li>
-<li>한국의 좌표 체계도 포함되어 있다.</li>
-</ol>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="복습문제-2"><a class="header" href="#복습문제-2">복습문제</a></h1>
-<h3 id="1-postgresql-설치에-대한-설명-중-틀린-것은"><a class="header" href="#1-postgresql-설치에-대한-설명-중-틀린-것은"><strong>1. postgreSQL 설치에 대한 설명 중 틀린 것은?</strong></a></h3>
-<ol>
-<li>공식 홈페이지에는 설치 프로그램이 업로드되어 있지 않아 다른 사이트에 가서 받아야 한다.</li>
-<li>postgreSQL을 설치하면 postGIS도 자동으로 설치된다.</li>
-<li>기본으로 설치되는 postgreSQL 관리자 ID는 ‘postgres’ 이다.</li>
-<li>postgreSQL과 접속하는 기본 프로그램으로 pgAdmin이 같이 설치된다.</li>
-</ol>
-<h3 id="2-db-구성의-한-요소로-엑셀과-같이-2차원의-표-형태로-자료를-관리하는-것은"><a class="header" href="#2-db-구성의-한-요소로-엑셀과-같이-2차원의-표-형태로-자료를-관리하는-것은"><strong>2. DB 구성의 한 요소로 엑셀과 같이 2차원의 표 형태로 자료를 관리하는 것은?</strong></a></h3>
-<ol>
-<li>DBMS</li>
-<li>함수</li>
-<li>sheet</li>
-<li>table</li>
-</ol>
-<h3 id="3-엑셀과-달리-db-테이블은-각-항목에-숫자를-적을지-문자를-적을지를-미리-정해야-한다-그-이유를-2개-고르시오"><a class="header" href="#3-엑셀과-달리-db-테이블은-각-항목에-숫자를-적을지-문자를-적을지를-미리-정해야-한다-그-이유를-2개-고르시오"><strong>3. 엑셀과 달리 DB 테이블은 각 항목에 숫자를 적을지 문자를 적을지를 미리 정해야 한다. 그 이유를 2개 고르시오</strong></a></h3>
-<ol>
-<li>빠른 처리를 위해</li>
-<li>해킹 등 재난에 대비하기 위해</li>
-<li>전기 사용량을 줄이기 위해</li>
-<li>효율적이고 정확하게 자료를 기록하기 위해</li>
-</ol>
-<h3 id="4-postgresql에서-member-라는-이름의-테이블을-만드는-방법으로-맞는-것은"><a class="header" href="#4-postgresql에서-member-라는-이름의-테이블을-만드는-방법으로-맞는-것은"><strong>4. postgreSQL에서 member 라는 이름의 테이블을 만드는 방법으로 맞는 것은?</strong></a></h3>
-<ol>
-<li>create table member (name varchar(10));</li>
-<li>create member (name char);</li>
-<li>create table member (name 문자)</li>
-<li>create table member (name varchar(10))</li>
-</ol>
-<h3 id="5-postgresql의-주요-데이터-유형에-대해-올바르게-설명한-것은"><a class="header" href="#5-postgresql의-주요-데이터-유형에-대해-올바르게-설명한-것은"><strong>5. postgreSQL의 주요 데이터 유형에 대해 올바르게 설명한 것은?</strong></a></h3>
-<ol>
-<li>Integer: 약 -900경 ~ + 900경 사이의 정수를 다룰 수 있다.</li>
-<li>BigInt: 약 -21억 ~ + 21억 사이의 정수를 다룰 수 있다.</li>
-<li>boolean: 참 또는 거짓을 기록할 수 있다.</li>
-<li>varchar: 사번처럼 그 길이가 정해진 문자만 입력할 수 있다.</li>
-</ol>
-<h3 id="6-pgadmin에-대한-설명으로-틀린-것은"><a class="header" href="#6-pgadmin에-대한-설명으로-틀린-것은"><strong>6. pgAdmin에 대한 설명으로 틀린 것은?</strong></a></h3>
-<ol>
-<li>postgreSQL에 접속하기 위한 클라이언트 프로그램이다.</li>
-<li>DBMS에 sql문을 보내 실행할 수 있다.</li>
-<li>table을 생성하는 기능도 제공한다.</li>
-<li>그래픽 UI가 아닌 텍스트 기반의 클라이언트 프로그램이다.</li>
-</ol>
-<h3 id="7-psql에-대한-바른-설명은"><a class="header" href="#7-psql에-대한-바른-설명은"><strong>7. psql에 대한 바른 설명은?</strong></a></h3>
-<ol>
-<li>postgreSQL에 접속해 postgreSQL을 관리하거나 SQL문을 실행하는 데 사용하는 텍스트 기반의 클라이언트 프로그램</li>
-<li>sql문 만을 실행할 수 있다.</li>
-<li>유료 버전을 구입하면 그래픽 UI도 사용할 수 있다.</li>
-<li>관리자 전용 프로그램이다.</li>
-</ol>
-<h3 id="8-pgadmin에서-psql을-실행하는-아이콘은"><a class="header" href="#8-pgadmin에서-psql을-실행하는-아이콘은"><strong>8. pgAdmin에서 psql을 실행하는 아이콘은?</strong></a></h3>
-<p><img src="gisws/quiz/img/20240722204950.png" alt="" /></p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="복습문제-3"><a class="header" href="#복습문제-3">복습문제</a></h1>
-<h3 id="1-sql에-대해-맞는-설명은"><a class="header" href="#1-sql에-대해-맞는-설명은"><strong>1. SQL에 대해 맞는 설명은?</strong></a></h3>
-<ol>
-<li>DBMS에서만 사용하는 언어이다.</li>
-<li>자료를 DB에 입력, 수정, 삭제, 검색할 때 사용한다.</li>
-<li>DB관리자만 사용할 수 있다.</li>
-<li>유료 버전에서만 사용할 수 있다.</li>
-</ol>
-<h3 id="2-자료를-입력하기-위해-사용하는-sql-명령어는"><a class="header" href="#2-자료를-입력하기-위해-사용하는-sql-명령어는"><strong>2. 자료를 입력하기 위해 사용하는 SQL 명령어는?</strong></a></h3>
-<ol>
-<li>insert into 테이블명</li>
-<li>input 테이블명</li>
-<li>input into 테이블명</li>
-<li>insert 테이블명</li>
-</ol>
-<h3 id="3-자료를-검색하기-위해-사용하는-sql-명령어는"><a class="header" href="#3-자료를-검색하기-위해-사용하는-sql-명령어는"><strong>3. 자료를 검색하기 위해 사용하는 SQL 명령어는?</strong></a></h3>
-<ol>
-<li>get from</li>
-<li>query from</li>
-<li>find from</li>
-<li>select from</li>
-</ol>
-<h3 id="4-member-테이블의-모든-자료를-가져오는-sql-명령어는"><a class="header" href="#4-member-테이블의-모든-자료를-가져오는-sql-명령어는"><strong>4. member 테이블의 모든 자료를 가져오는 SQL 명령어는?</strong></a></h3>
-<ol>
-<li>get all from member;</li>
-<li>select * from member;</li>
-<li>select % from member;</li>
-<li>query from member;</li>
-</ol>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="복습문제-4"><a class="header" href="#복습문제-4">복습문제</a></h1>
-<h3 id="1-postgis에-대해-맞는-설명은"><a class="header" href="#1-postgis에-대해-맞는-설명은"><strong>1. postgis에 대해 맞는 설명은?</strong></a></h3>
-<ol>
-<li>postgreSQL을 설치하면 자동으로 같이 설치된다.</li>
-<li>postgreSQL에서 옵션으로 기능을 켜고 끌 수 있다.</li>
-<li>postgreSQL 설치 후 별도 설치해야 한다.</li>
-<li>pgAdmin을 통해서만 설치할 수 있다.</li>
-</ol>
-<h3 id="2-1개의-점을-저장할-때-맞는-테이터-유형은"><a class="header" href="#2-1개의-점을-저장할-때-맞는-테이터-유형은"><strong>2. 1개의 점을 저장할 때 맞는 테이터 유형은?</strong></a></h3>
-<ol>
-<li>geometry</li>
-<li>geometry(Point)</li>
-<li>geom(Point)</li>
-<li>geom(Point, 4326)</li>
-</ol>
-<h3 id="3-1개의-점을-저장하되-좌표계를-epsg4326으로-정할-때-맞는-데이터-유형은"><a class="header" href="#3-1개의-점을-저장하되-좌표계를-epsg4326으로-정할-때-맞는-데이터-유형은"><strong>3. 1개의 점을 저장하되, 좌표계를 EPSG:4326으로 정할 때 맞는 데이터 유형은?</strong></a></h3>
-<ol>
-<li>geometry(EPSG, 4326)</li>
-<li>geometry(Point, 4326)</li>
-<li>geom(Point, 4326)</li>
-<li>geom(4326, Point)</li>
-</ol>
-<h3 id="4-한-번에-1개-이상의-점을-저장할-수-있는-데이터-유형은"><a class="header" href="#4-한-번에-1개-이상의-점을-저장할-수-있는-데이터-유형은"><strong>4. 한 번에 1개 이상의 점을 저장할 수 있는 데이터 유형은?</strong></a></h3>
-<ol>
-<li>geometry(MultiPoint)</li>
-<li>geometry(4326)</li>
-<li>geom(Points)</li>
-<li>geom(4326, MultiPoint)</li>
-</ol>
-<h3 id="5-1개의-선을-저장할-수-있는-데이터-유형은"><a class="header" href="#5-1개의-선을-저장할-수-있는-데이터-유형은"><strong>5. 1개의 선을 저장할 수 있는 데이터 유형은?</strong></a></h3>
-<ol>
-<li>geometry(Line)</li>
-<li>geometry(OneLine)</li>
-<li>geometry(Line1)</li>
-<li>geometry(LineString)</li>
-</ol>
-<h3 id="6-한-번에-1개-이상의-선을-저장할-수-있는-데이터-유형은"><a class="header" href="#6-한-번에-1개-이상의-선을-저장할-수-있는-데이터-유형은"><strong>6. 한 번에 1개 이상의 선을 저장할 수 있는 데이터 유형은?</strong></a></h3>
-<ol>
-<li>geometry(Lines)</li>
-<li>geometry(MoreLine)</li>
-<li>geometry(LineStrings)</li>
-<li>geometry(MultiLineString)</li>
-</ol>
-<h3 id="7-1개의-면을-저장할-수-있는-데이터-유형은"><a class="header" href="#7-1개의-면을-저장할-수-있는-데이터-유형은"><strong>7. 1개의 면을 저장할 수 있는 데이터 유형은?</strong></a></h3>
-<ol>
-<li>geometry(Box)</li>
-<li>geometry(Polygon)</li>
-<li>geometry(Poly)</li>
-<li>geometry(2DBox)</li>
-</ol>
-<h3 id="8-한-번에-1개-이상의-면을-저장할-수-있는-데이터-유형은"><a class="header" href="#8-한-번에-1개-이상의-면을-저장할-수-있는-데이터-유형은"><strong>8. 한 번에 1개 이상의 면을 저장할 수 있는 데이터 유형은?</strong></a></h3>
-<ol>
-<li>geometry(Area)</li>
-<li>geometry(Polygons)</li>
-<li>geometry(MultiPolygon)</li>
-<li>geometry(MultiArea)</li>
-</ol>
-<h3 id="9-geometry-형식에-입력된-자료는-열어-보아도-값이-매우-복잡해-사람이-이해하기-어렵다-이를-x-y-좌표값으로-변환해-보여주는-함수의-짝으로-맞는-것은"><a class="header" href="#9-geometry-형식에-입력된-자료는-열어-보아도-값이-매우-복잡해-사람이-이해하기-어렵다-이를-x-y-좌표값으로-변환해-보여주는-함수의-짝으로-맞는-것은"><strong>9. geometry 형식에 입력된 자료는 열어 보아도 값이 매우 복잡해 사람이 이해하기 어렵다. 이를 X, Y 좌표값으로 변환해 보여주는 함수의 짝으로 맞는 것은?</strong></a></h3>
-<ol>
-<li>ST_getXY()</li>
-<li>ST_getX(), ST_getY()</li>
-<li>ST_X(), ST_Y()</li>
-<li>ST_convX(), ST_convY()</li>
-</ol>
-<h3 id="10-좌표계-간-변환하는-함수는"><a class="header" href="#10-좌표계-간-변환하는-함수는"><strong>10. 좌표계 간 변환하는 함수는?</strong></a></h3>
-<ol>
-<li>ST_Transaction()</li>
-<li>ST_Conversion()</li>
-<li>ST_Convert()</li>
-<li>ST_Transform()</li>
-</ol>
-<h3 id="11-현재-데이터베이스에-epsg4326으로-설계되어-있는-테이블이-있고-필드명은-location이다-이-테이블의-값을-epsg3857로-변환해-사용해야-하는-경우-맞는-sql문은"><a class="header" href="#11-현재-데이터베이스에-epsg4326으로-설계되어-있는-테이블이-있고-필드명은-location이다-이-테이블의-값을-epsg3857로-변환해-사용해야-하는-경우-맞는-sql문은"><strong>11. 현재 데이터베이스에 EPSG:4326으로 설계되어 있는 테이블이 있고 필드명은 location이다. 이 테이블의 값을 EPSG:3857로 변환해 사용해야 하는 경우 맞는 SQL문은?</strong></a></h3>
-<ol>
-<li>select st_transform(4326, 3857) from 테이블명</li>
-<li>select st_transform(location, 4326, 3857) from 테이블명</li>
-<li>select st_transform(location, EPSG:3857) from 테이블명</li>
-<li>select st_transform(location, 3857) from 테이블명</li>
-</ol>
-<h3 id="12-위-11번-문제와-같이-좌표계-값을-변환해-사용할-경우-틀린-것은"><a class="header" href="#12-위-11번-문제와-같이-좌표계-값을-변환해-사용할-경우-틀린-것은"><strong>12. 위 11번 문제와 같이 좌표계 값을 변환해 사용할 경우 틀린 것은?</strong></a></h3>
-<ol>
-<li>좌표계 변환할 때 약간의 오차가 있을 수 있다.</li>
-<li>위 11번 문제의 답과 같이 select 문을 사용하면 원래 테이블의 값 자체가 변환된 EPSG:3857의 값으로 변한다.</li>
-<li>st_transform(  ) 괄호 안의 값 중 숫자는 EPSG 코드를 뜻한다.</li>
-<li>최종적으로 변환될 좌표계의 코드만 적어줘도 된다.</li>
-</ol>
-<h3 id="13-st_distancesphere-함수를-사용해-곡률을-반영한-점간-거리를-계산하는-경우-이-계산-결과의-단위는"><a class="header" href="#13-st_distancesphere-함수를-사용해-곡률을-반영한-점간-거리를-계산하는-경우-이-계산-결과의-단위는"><strong>13. ST_DistanceSphere() 함수를 사용해 곡률을 반영한 점간 거리를 계산하는 경우, 이 계산 결과의 단위는?</strong></a></h3>
-<ol>
-<li>mm</li>
-<li>cm</li>
-<li>m</li>
-<li>km</li>
-</ol>
-<h3 id="14-공간정보-자료를-설명하는-문자열을-이용해-geometry-값을-만들-때-사용하는-함수는"><a class="header" href="#14-공간정보-자료를-설명하는-문자열을-이용해-geometry-값을-만들-때-사용하는-함수는"><strong>14. 공간정보 자료를 설명하는 문자열을 이용해 geometry 값을 만들 때 사용하는 함수는?</strong></a></h3>
-<ol>
-<li>ST_GISDataFromText() 함수</li>
-<li>ST_GeometryFromText() 함수</li>
-<li>ST_GeomText() 함수</li>
-<li>ST_GeomFromText() 함수</li>
-</ol>
-<h3 id="15-점이-면-안에-포함되어-있는지-여부를-판단하기-위해-만든-sql-문의-일부이다-다음-중-감싸고-있는-자료와-안에-있는-자료를-순서대로-적은-것은-"><a class="header" href="#15-점이-면-안에-포함되어-있는지-여부를-판단하기-위해-만든-sql-문의-일부이다-다음-중-감싸고-있는-자료와-안에-있는-자료를-순서대로-적은-것은-"><strong>15. 점이 면 안에 포함되어 있는지 여부를 판단하기 위해 만든 SQL 문의 일부이다. 다음 중 감싸고 있는 자료와 안에 있는 자료를 순서대로 적은 것은 ?</strong></a></h3>
-<pre><code class="language-sql">ST_Contains(A, B)
-</code></pre>
-<ol>
-<li>A, B</li>
-<li>B, A</li>
-<li>순서는 상관없다.</li>
-</ol>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="연습문제"><a class="header" href="#연습문제">연습문제</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="공간데이터베이스-연습문제"><a class="header" href="#공간데이터베이스-연습문제">공간데이터베이스 연습문제</a></h1>
-<h3 id="q-다음과-같은-food-테이블을-sql문을-이용해-생성"><a class="header" href="#q-다음과-같은-food-테이블을-sql문을-이용해-생성">Q. 다음과 같은 food 테이블을 SQL문을 이용해 생성</a></h3>
-<p><img src="gisws/practice/img/20240722210944.png" alt="" /></p>
-<p>A.</p>
-<pre><code class="language-sql">create table food
-(
-    name varchar(20),
-    price int
-);
-</code></pre>
-<br>
-<h3 id="q-food-테이블에-sql을-사용해-값-입력하기데이터-추가"><a class="header" href="#q-food-테이블에-sql을-사용해-값-입력하기데이터-추가">Q. food 테이블에 SQL을 사용해 값 입력하기(데이터 추가)</a></h3>
-<p>A.</p>
-<pre><code class="language-sql">insert into food (name, price) values ('짜장면', 6000);
-insert into food (name, price) values ('탕수육', 21000);
-insert into food (name, price) values ('연어구이', 11000);
-insert into food (name, price) values ('고등어구이', 12000);
-insert into food (name, price) values ('짬뽕', 7000);
-</code></pre>
-<h3 id="q-다음과-같이-점이-지도에-표시되도록-자료-입력"><a class="header" href="#q-다음과-같이-점이-지도에-표시되도록-자료-입력">Q. 다음과 같이 점이 지도에 표시되도록 자료 입력</a></h3>
-<p><img src="gisws/practice/img/crop_20240723_141222.png" alt="alt text" /></p>
-<p>A.</p>
-<pre><code class="language-sql">insert into point_test (location, name) values 
-('point( 5 4 )', '금 묻은 곳');
-</code></pre>
-<h3 id="q-다음과-같이-점이-지도에-표시되도록-자료-입력-1"><a class="header" href="#q-다음과-같이-점이-지도에-표시되도록-자료-입력-1">Q. 다음과 같이 점이 지도에 표시되도록 자료 입력</a></h3>
-<p><img src="gisws/practice/img/crop_20240723_141254.png" alt="alt text" /></p>
-<p>A.</p>
-<pre><code class="language-sql">insert into point_test (location, name) values 
-('point( -5 -4 )', '은 묻은 곳');
-</code></pre>
-<h3 id="q-다음과-같이-점들이-지도에-표시되도록-1개의-자료-입력"><a class="header" href="#q-다음과-같이-점들이-지도에-표시되도록-1개의-자료-입력">Q. 다음과 같이 점들이 지도에 표시되도록 1개의 자료 입력</a></h3>
-<p><img src="gisws/practice/img/crop_20240723_141318.png" alt="alt text" /></p>
-<p>A.</p>
-<pre><code class="language-sql">insert into multi_point_test (location, name) values 
-('multipoint( -5 -4, 5 4 )', '해상 공원');
-</code></pre>
-<h3 id="q-다음과-같이-점들이-지도에-표시되도록-1개의-자료-입력-1"><a class="header" href="#q-다음과-같이-점들이-지도에-표시되도록-1개의-자료-입력-1">Q. 다음과 같이 점들이 지도에 표시되도록 1개의 자료 입력</a></h3>
-<p><img src="gisws/practice/img/crop_20240723_141416.png" alt="alt text" /></p>
-<p>A.</p>
-<pre><code class="language-sql">insert into multi_point_test (location, name) values 
-('multipoint( -10 -11.5, 10 3 )', '석유 매장 추정지');
-</code></pre>
-<h3 id="q-다음과-같이-선이-지도에-표시되도록-1개의-자료-입력"><a class="header" href="#q-다음과-같이-선이-지도에-표시되도록-1개의-자료-입력">Q. 다음과 같이 선이 지도에 표시되도록 1개의 자료 입력</a></h3>
-<p><img src="gisws/practice/img/crop_20240723_141915.png" alt="alt text" /></p>
-<p>A.</p>
-<pre><code class="language-sql">insert into line_test (location, name) values 
-('lineString(-10 12.7, 10 11.5  )', '이동 최단거리');
-</code></pre>
-<h3 id="q-다음과-같이-선이-지도에-표시되도록-1개의-자료-입력-1"><a class="header" href="#q-다음과-같이-선이-지도에-표시되도록-1개의-자료-입력-1">Q. 다음과 같이 선이 지도에 표시되도록 1개의 자료 입력</a></h3>
-<p><img src="gisws/practice/img/crop_20240723_141750.png" alt="alt text" /></p>
-<p>A.</p>
-<pre><code class="language-sql">insert into line_test (location, name) values 
-('lineString(-20 -12.7, -10 -11.5, 5 3.7  )', '이동 최단거리');
-</code></pre>
-<h3 id="q-다음과-같이-여러-선이-지도에-표시되도록-1개의-자료-입력"><a class="header" href="#q-다음과-같이-여러-선이-지도에-표시되도록-1개의-자료-입력">Q. 다음과 같이 여러 선이 지도에 표시되도록 1개의 자료 입력</a></h3>
-<p><img src="gisws/practice/img/crop_20240723_142400.png" alt="alt text" /></p>
-<p>A.</p>
-<pre><code class="language-sql">insert into multi_line_test (location, name) values
-('MultiLineString( (20.5 0.5, 20.6 0.6  ), (20.8 0.6, 20.95 0.61) )', '등산로');
-</code></pre>
-<h3 id="q-다음과-같이-여러-선이-지도에-표시되도록-1개의-자료-입력-1"><a class="header" href="#q-다음과-같이-여러-선이-지도에-표시되도록-1개의-자료-입력-1">Q. 다음과 같이 여러 선이 지도에 표시되도록 1개의 자료 입력</a></h3>
-<p><img src="gisws/practice/img/crop_20240723_142936.png" alt="alt text" /></p>
-<p>A.</p>
-<pre><code class="language-sql">insert into multi_line_test (location, name) values
-('MultiLineString( (3 4, 3 5, 4 6, 5 4  ), (0 1, 1 1, 2 2, 3 1, 1 0) )', '등산로');
-</code></pre>
-<h3 id="q-다음과-같이-면이-지도에-표시되도록-1개의-자료-입력"><a class="header" href="#q-다음과-같이-면이-지도에-표시되도록-1개의-자료-입력">Q. 다음과 같이 면이 지도에 표시되도록 1개의 자료 입력</a></h3>
-<p><img src="gisws/practice/img/crop_20240723_143210.png" alt="alt text" /></p>
-<p>A.</p>
-<pre><code class="language-sql">insert into polygon_test (location, name) values 
-('polygon( (3 4, 3 5, 4 6, 3 4 ) )', '어장1');
-</code></pre>
-<h3 id="q-다음과-같이-면이-지도에-표시되도록-1개의-자료-입력-1"><a class="header" href="#q-다음과-같이-면이-지도에-표시되도록-1개의-자료-입력-1">Q. 다음과 같이 면이 지도에 표시되도록 1개의 자료 입력</a></h3>
-<p><img src="gisws/practice/img/crop_20240723_143650.png" alt="alt text" /></p>
-<p>A.</p>
-<pre><code class="language-sql">insert into polygon_test (location, name) values 
-('polygon( (3.5 4, 3.3 5.2, 4.7 6.1, 5.0 3.5, 5.3 3.2, 3.5 4 ) )', '어장 2');
-</code></pre>
-<h3 id="q-다음과-같이-여러-면이-지도에-표시되도록-1개의-자료-입력"><a class="header" href="#q-다음과-같이-여러-면이-지도에-표시되도록-1개의-자료-입력">Q. 다음과 같이 여러 면이 지도에 표시되도록 1개의 자료 입력</a></h3>
-<p><img src="gisws/practice/img/crop_20240723_144555.png" alt="alt text" /></p>
-<p>A.</p>
-<pre><code class="language-sql">insert into multi_polygon_test (location, name) values 
-('Polygon( (3 -5, 4 -5, 2 -6, 3 -5 ), (2.5 -7, 5 -8, 4 -9, 2.5 -7) )', '석유 매장지');
-</code></pre>
-<h3 id="q-다음과-같이-여러-면이-지도에-표시되도록-1개의-자료-입력-1"><a class="header" href="#q-다음과-같이-여러-면이-지도에-표시되도록-1개의-자료-입력-1">Q. 다음과 같이 여러 면이 지도에 표시되도록 1개의 자료 입력</a></h3>
-<p><img src="gisws/practice/img/crop_20240723_144248.png" alt="alt text" /></p>
-<p>A.</p>
-<pre><code class="language-sql">insert into multi_polygon_test (location, name) values 
-('Polygon( (1 4, 1 5, 2 6, 1 4 ), (3.5 4, 3.3 5.2, 4.7 6.1, 5.0 3.5, 5.3 3.2, 3.5 4 ) )', '어장들');
-</code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="국토정보프로그래밍python"><a class="header" href="#국토정보프로그래밍python">국토정보프로그래밍(python)</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="학습자료-1"><a class="header" href="#학습자료-1">학습자료</a></h1>
 <h2 id="python"><a class="header" href="#python">python</a></h2>
 <ul>
 <li>
@@ -531,9 +168,9 @@ insert into food (name, price) values ('짬뽕', 7000);
 <p><a href="https://medium.com/@ns_geoai/70-geospatial-python-libraries-54604d815a7b" title="" target="_blank">70 Geospatial Python Libraries</a></p>
 </li>
 </ul>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="복습문제-5"><a class="header" href="#복습문제-5">복습문제</a></h1>
-<p><img src="python_2024/quiz/../../default/quiz01.png" alt="" /></p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="1-파이썬의-개요"><a class="header" href="#1-파이썬의-개요">1. 파이썬의 개요</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="복습문제"><a class="header" href="#복습문제">복습문제</a></h1>
+<p><img src="python_2025/quiz/../../default/quiz01.png" alt="" /></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="파이썬의-개요"><a class="header" href="#파이썬의-개요">파이썬의 개요</a></h1>
 <h3 id="1-파이썬이라는-이름에-대한-설명-중-틀린-것은"><a class="header" href="#1-파이썬이라는-이름에-대한-설명-중-틀린-것은"><strong>1. 파이썬이라는 이름에 대한 설명 중 틀린 것은?</strong></a></h3>
 <ol>
 <li>비단뱀이라는 뜻도 있다.</li>
@@ -573,7 +210,7 @@ insert into food (name, price) values ('짬뽕', 7000);
 <li>&lt;&lt;&lt;</li>
 <li>***</li>
 </ol>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="2-파이썬-자료형"><a class="header" href="#2-파이썬-자료형">2. 파이썬 자료형</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="파이썬-자료형"><a class="header" href="#파이썬-자료형">파이썬 자료형</a></h1>
 <h3 id="1-한-변수에--3--2--1-이렇게-3개-값만-들어간다-이-경우-파이썬은-이-변수의-자료형을-무엇이라-판단할까"><a class="header" href="#1-한-변수에--3--2--1-이렇게-3개-값만-들어간다-이-경우-파이썬은-이-변수의-자료형을-무엇이라-판단할까"><strong>1. 한 변수에 -3, -2, -1, 이렇게 3개 값만 들어간다. 이 경우 파이썬은 이 변수의 자료형을 무엇이라 판단할까?</strong></a></h3>
 <ol>
 <li>문자열</li>
@@ -588,10 +225,10 @@ insert into food (name, price) values ('짬뽕', 7000);
 &gt;&gt;&gt; a = 7
 </code></pre>
 <ol>
-<li><img src="python_2024/quiz/img/20240821105736.png" alt="" /></li>
-<li><img src="python_2024/quiz/img/20240821105815.png" alt="" /></li>
-<li><img src="python_2024/quiz/img/20240821105831.png" alt="" /></li>
-<li><img src="python_2024/quiz/img/20240821105906.png" alt="" /></li>
+<li><img src="python_2025/quiz/img/20240821105736.png" alt="" /></li>
+<li><img src="python_2025/quiz/img/20240821105815.png" alt="" /></li>
+<li><img src="python_2025/quiz/img/20240821105831.png" alt="" /></li>
+<li><img src="python_2025/quiz/img/20240821105906.png" alt="" /></li>
 </ol>
 <br>
 <h3 id="3-다음-코드의-결과는"><a class="header" href="#3-다음-코드의-결과는"><strong>3. 다음 코드의 결과는?</strong></a></h3>
@@ -773,7 +410,7 @@ insert into food (name, price) values ('짬뽕', 7000);
 <li>False, True</li>
 <li>False, False</li>
 </ol>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="3-파이썬-제어문"><a class="header" href="#3-파이썬-제어문">3. 파이썬 제어문</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="파이썬-조건문"><a class="header" href="#파이썬-조건문">파이썬 조건문</a></h1>
 <h3 id="1-파이썬에서-제공하는-제어문-2가지는"><a class="header" href="#1-파이썬에서-제공하는-제어문-2가지는"><strong>1. 파이썬에서 제공하는 제어문 2가지는?</strong></a></h3>
 <ol>
 <li>조건문, 입출력</li>
@@ -940,7 +577,7 @@ else:
 <li>‘banana’</li>
 <li>‘kiwi’</li>
 </ol>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="4-파이썬-반복문"><a class="header" href="#4-파이썬-반복문">4. 파이썬 반복문</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="파이썬-반복문"><a class="header" href="#파이썬-반복문">파이썬 반복문</a></h1>
 <h3 id="1-하는-동안에-라는-뜻으로-조건식이-참인-경우에만-반복-처리하는-반복문은-"><a class="header" href="#1-하는-동안에-라는-뜻으로-조건식이-참인-경우에만-반복-처리하는-반복문은-"><strong>1. “~하는 동안에” 라는 뜻으로 조건식이 참인 경우에만 반복 처리하는 반복문은 ?</strong></a></h3>
 <ol>
 <li>for</li>
@@ -1134,7 +771,7 @@ print (a)
 <li>6</li>
 <li>[0, 3, 6]</li>
 </ol>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="5-파이썬-자료형-ii"><a class="header" href="#5-파이썬-자료형-ii">5. 파이썬 자료형 II</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="파이썬-자료형-ii"><a class="header" href="#파이썬-자료형-ii">파이썬 자료형 II</a></h1>
 <h3 id="1-list의-고정형-버전으로-각-항목들을--으로-감싸는-list와-달리-으로-감싸는-파이썬-자료형은"><a class="header" href="#1-list의-고정형-버전으로-각-항목들을--으로-감싸는-list와-달리-으로-감싸는-파이썬-자료형은"><strong>1. list의 고정형 버전으로 각 항목들을 [] 으로 감싸는 list와 달리 ()으로 감싸는 파이썬 자료형은?</strong></a></h3>
 <ol>
 <li>boolean</li>
@@ -1174,7 +811,7 @@ print (a)
 <li>di.‘apple’</li>
 <li>di(‘apple’)</li>
 </ol>
-<br><div style="break-before: page; page-break-before: always;"></div><h1 id="6-함수"><a class="header" href="#6-함수">6. 함수</a></h1>
+<br><div style="break-before: page; page-break-before: always;"></div><h1 id="함수"><a class="header" href="#함수">함수</a></h1>
 <h3 id="1-영어로는-function으로-번역되며-프로그램-내에서-어떤-기능을-하도록-미리-만들어-놓은-것은"><a class="header" href="#1-영어로는-function으로-번역되며-프로그램-내에서-어떤-기능을-하도록-미리-만들어-놓은-것은"><strong>1. 영어로는 function으로 번역되며, 프로그램 내에서 어떤 기능을 하도록 미리 만들어 놓은 것은?</strong></a></h3>
 <ol>
 <li>라이브러리</li>
@@ -1250,54 +887,7 @@ print (b)
 <li>res 는 예약어라 변수명으로 사용하면 안된다.</li>
 <li>아무런 에러없이 잘 실행된다.</li>
 </ol>
-<br><div style="break-before: page; page-break-before: always;"></div><h1 id="7-정규표현식"><a class="header" href="#7-정규표현식">7. 정규표현식</a></h1>
-<h3 id="1-정규표현식에-대한-설명으로-틀린-것은"><a class="header" href="#1-정규표현식에-대한-설명으로-틀린-것은"><strong>1. 정규표현식에 대한 설명으로 틀린 것은?</strong></a></h3>
-<ol>
-<li>주어진 문자열이 어떤 패턴에 맞는지를 검사한다.</li>
-<li>정규표현식의 표현 방법은 모든 개발 언어나 프로그램마다 다 똑같다.</li>
-<li>파이썬은 기본적으로 정규표현식을 지원한다.</li>
-<li>패턴의 문자열이 앞에 시작하는지 뒤에서 시작하는지 정할 수 있다.</li>
-</ol>
-<br>
-<h3 id="2-윈도우-탐색기-프로그램에서-lx-라는-문자가-포함된-모든-파일을-찾으려-할-때-사용하는-정규표현식은"><a class="header" href="#2-윈도우-탐색기-프로그램에서-lx-라는-문자가-포함된-모든-파일을-찾으려-할-때-사용하는-정규표현식은"><strong>2. 윈도우 탐색기 프로그램에서 ‘LX’ 라는 문자가 포함된 모든 파일을 찾으려 할 때 사용하는 정규표현식은?</strong></a></h3>
-<ol>
-<li>LX</li>
-<li>LX.*</li>
-<li>*LX*</li>
-<li>*.LX</li>
-</ol>
-<br>  
-<h3 id="3-윈도우-탐색기-프로그램에서-lx-라는-문자열로-시작하는-모든-파일을-찾으려-할-때-사용하는-정규표현식은"><a class="header" href="#3-윈도우-탐색기-프로그램에서-lx-라는-문자열로-시작하는-모든-파일을-찾으려-할-때-사용하는-정규표현식은"><strong>3. 윈도우 탐색기 프로그램에서 ‘LX’ 라는 문자열로 시작하는 모든 파일을 찾으려 할 때 사용하는 정규표현식은?</strong></a></h3>
-<ol>
-<li>LX</li>
-<li>LX*</li>
-<li>*LX*</li>
-<li>*LX</li>
-</ol>
-<br>  
-<h3 id="4-파이썬-정규표현식에서-lx-라는-문자열로-시작하는-모든-파일을-찾으려-할-때-사용하는-정규표현식은"><a class="header" href="#4-파이썬-정규표현식에서-lx-라는-문자열로-시작하는-모든-파일을-찾으려-할-때-사용하는-정규표현식은"><strong>4. 파이썬 정규표현식에서 ‘LX’ 라는 문자열로 시작하는 모든 파일을 찾으려 할 때 사용하는 정규표현식은?</strong></a></h3>
-<ol>
-<li>‘LX*’</li>
-<li>‘*LX’</li>
-<li>‘^LX’</li>
-<li>‘LX^’</li>
-</ol>
-<br>  
-<h3 id="5-다음-파이썬-정규표현식-코드의-결과는"><a class="header" href="#5-다음-파이썬-정규표현식-코드의-결과는"><strong>5. 다음 파이썬 정규표현식 코드의 결과는?</strong></a></h3>
-<pre><code class="language-python">&gt;&gt;&gt; import re
-&gt;&gt;&gt; pattern = re.compile('배움')
-&gt;&gt;&gt; title = '나라배움터'
-&gt;&gt;&gt; m = pattern.search(title)
-&gt;&gt;&gt; m
-</code></pre>
-<ol>
-<li>찾을 수 없다고 나온다.</li>
-<li>한글은 정규표현식으로 찾을 수 없다.</li>
-<li>파이썬은 기본적으로 정규표현식을 지원하지 않는다.</li>
-<li>찾았다고 나온다.</li>
-</ol>
-<br>  
-<div style="break-before: page; page-break-before: always;"></div><h1 id="8-파이썬-입출력"><a class="header" href="#8-파이썬-입출력">8. 파이썬 입출력</a></h1>
+<br><div style="break-before: page; page-break-before: always;"></div><h1 id="파이썬-입출력"><a class="header" href="#파이썬-입출력">파이썬 입출력</a></h1>
 <h3 id="1-입력의-옳은-예가-아닌-것은"><a class="header" href="#1-입력의-옳은-예가-아닌-것은"><strong>1. 입력의 옳은 예가 아닌 것은?</strong></a></h3>
 <ol>
 <li>키보드로부터 입력</li>
@@ -1343,7 +933,7 @@ file.close() ⓒ
 </ol>
 <br>
 <h3 id="6-다음-코드는-파일에서-내용을-읽어오는-코드이다-datatxt-파일의-내용이-다음과-같을-때-이-코드의-실행-결과는"><a class="header" href="#6-다음-코드는-파일에서-내용을-읽어오는-코드이다-datatxt-파일의-내용이-다음과-같을-때-이-코드의-실행-결과는"><strong>6. 다음 코드는 파일에서 내용을 읽어오는 코드이다. data.txt 파일의 내용이 다음과 같을 때 이 코드의 실행 결과는?</strong></a></h3>
-<p><img src="python_2024/quiz/img/20240821144459.png" alt="" /></p>
+<p><img src="python_2025/quiz/img/20240821144459.png" alt="" /></p>
 <pre><code class="language-python">file = open("data.txt", 'r')
 line = file.readline()
 print (line)
@@ -1358,7 +948,7 @@ file.close()
 </ol>
 <br>
 <h3 id="7-다음-코드는-파일에서-내용을-읽어오는-코드이다-datatxt-파일의-내용이-다음과-같을-때-파일의-전체-내용을-다-가져오려-하는-경우--부분에-맞는-것은"><a class="header" href="#7-다음-코드는-파일에서-내용을-읽어오는-코드이다-datatxt-파일의-내용이-다음과-같을-때-파일의-전체-내용을-다-가져오려-하는-경우--부분에-맞는-것은"><strong>7. 다음 코드는 파일에서 내용을 읽어오는 코드이다. data.txt 파일의 내용이 다음과 같을 때, 파일의 전체 내용을 다 가져오려 하는 경우 ??? 부분에 맞는 것은?</strong></a></h3>
-<p><img src="python_2024/quiz/img/20240821144459.png" alt="" /></p>
+<p><img src="python_2025/quiz/img/20240821144459.png" alt="" /></p>
 <pre><code class="language-python">file = open("data.txt", 'r')
 lines = file.readlines()
 for line ??? lines :
@@ -1373,7 +963,7 @@ file.close()
 </ol>
 <br>
 <h3 id="8-다음-코드는-엑셀용-csv-파일을-만들기-위한-코드이다-엑셀에서-열었을-때-왼쪽처럼-보일-거라는-기대와-달리-오른쪽-그림처럼-보이고-있다-해결-방법은"><a class="header" href="#8-다음-코드는-엑셀용-csv-파일을-만들기-위한-코드이다-엑셀에서-열었을-때-왼쪽처럼-보일-거라는-기대와-달리-오른쪽-그림처럼-보이고-있다-해결-방법은"><strong>8. 다음 코드는 엑셀용 csv 파일을 만들기 위한 코드이다. 엑셀에서 열었을 때 왼쪽처럼 보일 거라는 기대와 달리 오른쪽 그림처럼 보이고 있다. 해결 방법은?</strong></a></h3>
-<p><img src="python_2024/quiz/img/20240821145601.png" alt="" /></p>
+<p><img src="python_2025/quiz/img/20240821145601.png" alt="" /></p>
 <pre><code class="language-python">file = open("data.csv", 'w')
 
 file.write ("이름,전화번호")
@@ -1389,92 +979,395 @@ file.close()
 <li>각 줄의 끝에 개행문자인 “\n“을 추가한다.</li>
 <li>각 줄의 앞에 “,“를 추가한다.</li>
 </ol>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="9-파이썬-라이브러리"><a class="header" href="#9-파이썬-라이브러리">9. 파이썬 라이브러리</a></h1>
-<h3 id="1-파이썬에서-제공하는-math-라이브러리의-기능-중-올림-기능예-31--4을-제공하는-함수는"><a class="header" href="#1-파이썬에서-제공하는-math-라이브러리의-기능-중-올림-기능예-31--4을-제공하는-함수는"><strong>1. 파이썬에서 제공하는 math 라이브러리의 기능 중 올림 기능(예: 3.1 =&gt; 4)을 제공하는 함수는?</strong></a></h3>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="html"><a class="header" href="#html">HTML</a></h1>
+<h3 id="1-html은-무엇의-약자인가"><a class="header" href="#1-html은-무엇의-약자인가">1. HTML은 무엇의 약자인가?</a></h3>
 <ol>
-<li>ceil()</li>
-<li>floor()</li>
-<li>gcd()</li>
-<li>print()</li>
+<li>High Text Markup Language</li>
+<li>Hyper Text Military Language</li>
+<li>Higher Text Military Language</li>
+<li>Hyper Text Markup Language</li>
 </ol>
 <br>
-<h3 id="2-파이썬에서-제공하는-math-라이브러리의-기능-중-내림-기능예-31--3을-제공하는-함수는"><a class="header" href="#2-파이썬에서-제공하는-math-라이브러리의-기능-중-내림-기능예-31--3을-제공하는-함수는"><strong>2. 파이썬에서 제공하는 math 라이브러리의 기능 중 내림 기능(예: 3.1 =&gt; 3)을 제공하는 함수는?</strong></a></h3>
+<h3 id="2-주로-태그를-이용해-문서에-정보를-추가해-색이나-굵기-등을-바꾸라는-정보-등-추가-정보를-저장하는-것을-무엇이라-하는가"><a class="header" href="#2-주로-태그를-이용해-문서에-정보를-추가해-색이나-굵기-등을-바꾸라는-정보-등-추가-정보를-저장하는-것을-무엇이라-하는가">2. 주로 태그를 이용해 문서에 정보를 추가해 색이나 굵기 등을 바꾸라는 정보 등 추가 정보를 저장하는 것을 무엇이라 하는가?</a></h3>
 <ol>
-<li>ceil()</li>
-<li>floor()</li>
-<li>gcd()</li>
-<li>print()</li>
+<li>Markup</li>
+<li>MarkDown</li>
+<li>MakeUp</li>
+<li>MakeDown</li>
 </ol>
 <br>
-<h3 id="3-임의의-수난수를-만들어-주는-기능을-제공하는-파이썬-표준-라이브러리는"><a class="header" href="#3-임의의-수난수를-만들어-주는-기능을-제공하는-파이썬-표준-라이브러리는"><strong>3. 임의의 수(난수)를 만들어 주는 기능을 제공하는 파이썬 표준 라이브러리는?</strong></a></h3>
+<h3 id="3-html에서-b-태그의-기능은"><a class="header" href="#3-html에서-b-태그의-기능은">3. HTML에서 <code>&lt;b&gt;</code> 태그의 기능은?</a></h3>
 <ol>
-<li>math</li>
-<li>random</li>
-<li>string</li>
-<li>AI</li>
+<li>이탤릭체로 보여주라는 신호를 웹브라우저에게 준다.</li>
+<li>시작 부분에 동그라미 같은 bullet을 보여주라는 신호를 웹브라우저에게 준다.</li>
+<li>굵은 글씨체로 보여주라는 신호를 웹브라우저에게 준다.</li>
+<li>취소선을 보여주라는 신호를 웹브라우저에게 준다.</li>
 </ol>
 <br>
-<h3 id="4-다음-코드의-실행-결과는-1"><a class="header" href="#4-다음-코드의-실행-결과는-1"><strong>4. 다음 코드의 실행 결과는?</strong></a></h3>
-<pre><code class="language-python">import random
-
-a = random.randint(1, 7)
-print(a)
+<h3 id="4-링크를-거는-태그와-속성은"><a class="header" href="#4-링크를-거는-태그와-속성은">4. 링크를 거는 태그와 속성은?</a></h3>
+<ol>
+<li><code>&lt;a&gt;</code>태그, link 속성</li>
+<li><code>&lt;a&gt;</code>태그, href 속성</li>
+<li><code>&lt;l&gt;</code>태그, link 속성</li>
+<li><code>&lt;l&gt;</code>태그, href 속성</li>
+</ol>
+<br>
+<h3 id="5-태그에-대한-틀린-말은"><a class="header" href="#5-태그에-대한-틀린-말은">5. 태그에 대한 틀린 말은?</a></h3>
+<ol>
+<li>열었으면 반드시 닫아야 한다.</li>
+<li>속성이 여러 개 올 수 있다.</li>
+<li><code>&lt;태그명&gt;</code> 의 형태를 가진다.</li>
+<li>닫는 태그는 <code>&lt;/태그명&gt;</code>의 형태를 가진다.</li>
+</ol>
+<br>
+<h3 id="6-html5-문서의-맨-위에-적어야-하는-문구는"><a class="header" href="#6-html5-문서의-맨-위에-적어야-하는-문구는">6. HTML5 문서의 맨 위에 적어야 하는 문구는?</a></h3>
+<ol>
+<li><code>&lt;!DOCTYPE html5&gt;</code></li>
+<li><code>&lt;DOCTYPE='html5'&gt;</code></li>
+<li><code>&lt;!DOCTYPE html&gt;</code></li>
+<li><code>&lt;!DOCTYPE='html'&gt;</code></li>
+</ol>
+<br>
+<h3 id="7-해당-html-문서에-대한-다양한-메타-정보들을-적거나-javascript를-적는-태그는"><a class="header" href="#7-해당-html-문서에-대한-다양한-메타-정보들을-적거나-javascript를-적는-태그는">7. 해당 HTML 문서에 대한 다양한 메타 정보들을 적거나 javascript를 적는 태그는?</a></h3>
+<ol>
+<li><code>&lt;html&gt;</code></li>
+<li><code>&lt;!DOCTYPE&gt;</code></li>
+<li><code>&lt;!title&gt;</code></li>
+<li><code>&lt;head&gt;</code></li>
+</ol>
+<br>
+<h3 id="8-아래-그림과-같이-브라우저-탭에-내가-원하는-문구를-넣으려면-어떤-태그를-이용해야-하는가"><a class="header" href="#8-아래-그림과-같이-브라우저-탭에-내가-원하는-문구를-넣으려면-어떤-태그를-이용해야-하는가">8. 아래 그림과 같이 브라우저 탭에 내가 원하는 문구를 넣으려면 어떤 태그를 이용해야 하는가?</a></h3>
+<p><img src="python_2025/quiz/img/20250321132938.png" alt="" /></p>
+<ol>
+<li>태그를 사용하는 게 아니라 해당 HTML 파일의 파일명이 자동으로 표시된다.</li>
+<li><code>&lt;subject&gt;</code></li>
+<li><code>&lt;tab&gt;</code></li>
+<li><code>&lt;title&gt;</code></li>
+</ol>
+<br>
+<h3 id="9-html-태그와-css-javascript를-이해하고-해석해서-보여주는-프로그램은"><a class="header" href="#9-html-태그와-css-javascript를-이해하고-해석해서-보여주는-프로그램은">9. HTML 태그와 CSS, JavaScript를 이해하고 해석해서 보여주는 프로그램은?</a></h3>
+<ol>
+<li>CPU</li>
+<li>인터넷</li>
+<li>웹브라우저</li>
+<li>HTML</li>
+</ol>
+<br>
+<h3 id="10-다음-중-가장-큰-글씨를-넣을-수-있는-태그는"><a class="header" href="#10-다음-중-가장-큰-글씨를-넣을-수-있는-태그는">10. 다음 중 가장 큰 글씨를 넣을 수 있는 태그는?</a></h3>
+<ol>
+<li><code>&lt;h1&gt;</code></li>
+<li><code>&lt;title&gt;</code></li>
+<li><code>&lt;h6&gt;</code></li>
+<li><code>&lt;title6&gt;</code></li>
+</ol>
+<br>
+<h3 id="11-다음-중-수평선을-그어-내용을-구분하거나-분위기를-전환하는데-사용하는-태그는"><a class="header" href="#11-다음-중-수평선을-그어-내용을-구분하거나-분위기를-전환하는데-사용하는-태그는">11. 다음 중 수평선을 그어 내용을 구분하거나 분위기를 전환하는데 사용하는 태그는?</a></h3>
+<ol>
+<li><code>&lt;line&gt;</code></li>
+<li><code>&lt;split&gt;</code></li>
+<li><code>&lt;hr&gt;</code></li>
+<li><code>&lt;section&gt;</code></li>
+</ol>
+<br>
+<h3 id="12-다음-html-코드가-브라우저에서-보여지는-결과는"><a class="header" href="#12-다음-html-코드가-브라우저에서-보여지는-결과는">12. 다음 HTML 코드가 브라우저에서 보여지는 결과는?</a></h3>
+<pre><code class="language-html">&lt;body&gt;
+	1번줄
+	2번줄
+&lt;/body&gt;
+</code></pre>
+<ol>
+<li><img src="python_2025/quiz/img/20250321134003.png" alt="" /></li>
+</ol>
+<br>
+<ol start="2">
+<li><img src="python_2025/quiz/img/20250321134029.png" alt="" /></li>
+</ol>
+<br>
+<h3 id="13-위-문제와-같이-보여지는-현상에-대한-설명이-아닌-것은"><a class="header" href="#13-위-문제와-같이-보여지는-현상에-대한-설명이-아닌-것은">13. 위 문제와 같이 보여지는 현상에 대한 설명이 아닌 것은?</a></h3>
+<ol>
+<li>HTML은 원래 자동 줄 나누기의 개념이 없다.</li>
+<li>줄 나누기를 위한 태그가 따로 있다.</li>
+<li>줄 나누기를 하려면 \n을 해야 한다.</li>
+<li>브라우저에 따라 다르게 보일 수 있다.</li>
+</ol>
+<br>
+<h3 id="14-글자를-기울여-보이도록-해주는데-사용되는-태그는"><a class="header" href="#14-글자를-기울여-보이도록-해주는데-사용되는-태그는">14. <em>글자를 기울여 보이도록</em> 해주는데 사용되는 태그는?</a></h3>
+<ol>
+<li><code>&lt;i&gt;</code></li>
+<li><code>&lt;s&gt;</code></li>
+<li><code>&lt;a&gt;</code></li>
+<li><code>&lt;c&gt;</code></li>
+</ol>
+<br>
+<h3 id="15-strong-태그에-대한-설명으로-틀린-것은"><a class="header" href="#15-strong-태그에-대한-설명으로-틀린-것은">15. <code>&lt;strong&gt;</code> 태그에 대한 설명으로 틀린 것은?</a></h3>
+<ol>
+<li><code>&lt;b&gt;</code> 태그와 거의 같은 기능을 한다.</li>
+<li>이제는 쓰지 않는 태그이다.</li>
+<li>두꺼운 글씨체로 보여줘 강조한다.</li>
+<li>닫아야 하는 태그이다.</li>
+</ol>
+<br>
+<h3 id="16-오른쪽과-같이-보여지도록-하기-위해-각-1-2-3에-넣어야-하는-태그로-맞는-것은"><a class="header" href="#16-오른쪽과-같이-보여지도록-하기-위해-각-1-2-3에-넣어야-하는-태그로-맞는-것은">16. 오른쪽과 같이 보여지도록 하기 위해 각 1, 2, 3에 넣어야 하는 태그로 맞는 것은?</a></h3>
+<p><img src="python_2025/quiz/img/20250321134509.png" alt="" /></p>
+<ol>
+<li>ul, ol, li</li>
+<li>li, ol, ul</li>
+<li>ol, li, ul</li>
+<li>ul, li, ol</li>
+<li>li, ul, ol</li>
+<li>ol, ui, li</li>
+</ol>
+<br>
+<h3 id="17-html로-테이블을-만들-때-한-줄을-표현하는-태그와-셀-하나를-표현하는-태그가-순서대로-짝지어진-것은"><a class="header" href="#17-html로-테이블을-만들-때-한-줄을-표현하는-태그와-셀-하나를-표현하는-태그가-순서대로-짝지어진-것은">17. HTML로 테이블을 만들 때, 한 줄을 표현하는 태그와 셀 하나를 표현하는 태그가 순서대로 짝지어진 것은?</a></h3>
+<ol>
+<li><code>&lt;td&gt;&lt;tr&gt;</code></li>
+<li><code>&lt;cell&gt;&lt;td&gt;</code></li>
+<li><code>&lt;tr&gt;&lt;td&gt;</code></li>
+<li><code>&lt;td&gt;&lt;cell&gt;</code></li>
+</ol>
+<br>
+<h3 id="18-다음과-같은-테이블을-만들기-위해-1과-2에-들어갈-속성이-순서대로-짝지어진-것은"><a class="header" href="#18-다음과-같은-테이블을-만들기-위해-1과-2에-들어갈-속성이-순서대로-짝지어진-것은">18. 다음과 같은 테이블을 만들기 위해 1과 2에 들어갈 속성이 순서대로 짝지어진 것은?</a></h3>
+<p><img src="python_2025/quiz/img/image-1.png" alt="alt text" /></p>
+<ol>
+<li>colspan=2, rowspan=3</li>
+<li>colspan=2, rowspan=2</li>
+<li>rowspan=2, colspan=2</li>
+<li>rowspan=2, colspan=3</li>
+</ol>
+<br>
+<h3 id="19-테이블에-헤더를-추가하는데-사용되는-태그는"><a class="header" href="#19-테이블에-헤더를-추가하는데-사용되는-태그는">19. 테이블에 헤더를 추가하는데 사용되는 태그는?</a></h3>
+<ol>
+<li><code>&lt;tr&gt;</code></li>
+<li><code>&lt;header&gt;</code></li>
+<li><code>&lt;head&gt;</code></li>
+<li><code>&lt;th&gt;</code></li>
+</ol>
+<br>
+<h3 id="20-html에서-색을-표현하는-방법으로-ff0000과-같은-방식을-사용할-수-있다-다음-중-이-방식으로-표현한-색과-그-색을-부르는-이름의-짝이-맞는-것은"><a class="header" href="#20-html에서-색을-표현하는-방법으로-ff0000과-같은-방식을-사용할-수-있다-다음-중-이-방식으로-표현한-색과-그-색을-부르는-이름의-짝이-맞는-것은">20. HTML에서 색을 표현하는 방법으로 #FF0000과 같은 방식을 사용할 수 있다. 다음 중 이 방식으로 표현한 색과 그 색을 부르는 이름의 짝이 맞는 것은?</a></h3>
+<ol>
+<li>#000000: 하얀색</li>
+<li>#FFFFFF: 노란색</li>
+<li>#00FF00: 초록색</li>
+<li>#0000FF: 빨간색</li>
+</ol>
+<br>
+<h3 id="21-전-세계적으로-약속된-파일로-특정-파일명을-명시하지-않았을-때-웹서버에서-제일-먼저-찾아-보여주는-파일명은"><a class="header" href="#21-전-세계적으로-약속된-파일로-특정-파일명을-명시하지-않았을-때-웹서버에서-제일-먼저-찾아-보여주는-파일명은">21. 전 세계적으로 약속된 파일로, 특정 파일명을 명시하지 않았을 때, 웹서버에서 제일 먼저 찾아 보여주는 파일명은?</a></h3>
+<ol>
+<li>front.html</li>
+<li>firstdoor.html</li>
+<li>index.html</li>
+<li>first.html</li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="파이썬을-이용한-스크래핑"><a class="header" href="#파이썬을-이용한-스크래핑">파이썬을 이용한 스크래핑</a></h1>
+<h3 id="1--웹의-정보를-긁어-내가-만들고-있는-프로그램-안으로-가져-오는-것은"><a class="header" href="#1--웹의-정보를-긁어-내가-만들고-있는-프로그램-안으로-가져-오는-것은">1.  웹의 정보를 긁어 내가 만들고 있는 프로그램 안으로 가져 오는 것은?</a></h3>
+<ol>
+<li>scrapping</li>
+<li>scraping</li>
+<li>hacking</li>
+<li>API</li>
+</ol>
+<br>
+<h3 id="2-웹페이지의-파일-확장자는"><a class="header" href="#2-웹페이지의-파일-확장자는">2. 웹페이지의 파일 확장자는?</a></h3>
+<ol>
+<li>hwp</li>
+<li>web</li>
+<li>page</li>
+<li>html</li>
+</ol>
+<br>
+<h3 id="3-스크래핑할-때-서버에-자료를-요청하고-받아올-때-사용하는-라이브러리는"><a class="header" href="#3-스크래핑할-때-서버에-자료를-요청하고-받아올-때-사용하는-라이브러리는">3. 스크래핑할 때 서버에 자료를 요청하고 받아올 때 사용하는 라이브러리는?</a></h3>
+<ol>
+<li>response</li>
+<li>request</li>
+<li>web</li>
+<li>search</li>
+</ol>
+<br>
+<h3 id="4-다음-중-웹-서버에게-catjpg-이미지-파일을-달라고-요청하는-코드로-맞는-것은"><a class="header" href="#4-다음-중-웹-서버에게-catjpg-이미지-파일을-달라고-요청하는-코드로-맞는-것은">4. 다음 중 웹 서버에게 <code>cat.jpg</code> 이미지 파일을 달라고 요청하는 코드로 맞는 것은?</a></h3>
+<ol>
+<li>request.get(‘https://www.lx.or.kr/cat.jpg’)</li>
+<li>requests.get(‘https://www.lx.or.kr/cat.jpg’)</li>
+<li>request.get(https://www.lx.or.kr/cat.jpg)</li>
+<li>requests.get(https://www.lx.or.kr/cat.jpg)</li>
+</ol>
+<br>
+<h3 id="5-웹서버에-요청한-파일이-없을-때-받는-상태-코드는"><a class="header" href="#5-웹서버에-요청한-파일이-없을-때-받는-상태-코드는">5. 웹서버에 요청한 파일이 없을 때 받는 상태 코드는?</a></h3>
+<ol>
+<li>200</li>
+<li>400</li>
+<li>403</li>
+<li>404</li>
+</ol>
+<br>
+<h3 id="6-웹서버로부터-다음과-같이-infohtml-파일을-받아왔을-때-이-infohtml-파일의-내용을-가지고-있는-것은"><a class="header" href="#6-웹서버로부터-다음과-같이-infohtml-파일을-받아왔을-때-이-infohtml-파일의-내용을-가지고-있는-것은">6. 웹서버로부터 다음과 같이 info.html 파일을 받아왔을 때, 이 info.html 파일의 내용을 가지고 있는 것은?</a></h3>
+<pre><code class="language-html">import requests
+response = requests.get('https://www.lx.or.kr/info.html')
+</code></pre>
+<ol>
+<li>response.html</li>
+<li>response.page</li>
+<li>response.text</li>
+<li>response.value</li>
+</ol>
+<br>
+<h3 id="7-다음과-같은-문자열-iu가-있을-때-밤-편지만-빼내기-위한-코드는"><a class="header" href="#7-다음과-같은-문자열-iu가-있을-때-밤-편지만-빼내기-위한-코드는">7. 다음과 같은 문자열 iu가 있을 때 ’밤 편지’만 빼내기 위한 코드는?</a></h3>
+<p><img src="python_2025/quiz/img/20250321150712.png" alt="" /></p>
+<ol>
+<li>iu[4:8]</li>
+<li>iu[4:7]</li>
+<li>iu[5:9]</li>
+<li>iu[5:8]</li>
+</ol>
+<br>
+<h3 id="8-다음과-같은-문자열-iu가-있을-때-다음-코드를-실행한-후-i-의-값은"><a class="header" href="#8-다음과-같은-문자열-iu가-있을-때-다음-코드를-실행한-후-i-의-값은">8. 다음과 같은 문자열 iu가 있을 때, 다음 코드를 실행한 후 i 의 값은?</a></h3>
+<p><img src="python_2025/quiz/img/20250321150712.png" alt="" /></p>
+<pre><code class="language-python">i = iu.find('&gt;')
 </code></pre>
 <ol>
 <li>0</li>
-<li>5</li>
-<li>10</li>
-<li>15</li>
+<li>1</li>
+<li>2</li>
+<li>3</li>
 </ol>
 <br>
-<h3 id="5-다음-중-파이썬의-ai-관련-외부-라이브러리가-아닌-것은"><a class="header" href="#5-다음-중-파이썬의-ai-관련-외부-라이브러리가-아닌-것은"><strong>5. 다음 중 파이썬의 AI 관련 외부 라이브러리가 아닌 것은?</strong></a></h3>
+<h3 id="9-다음과-같은-문자열-iu가-있을-때-다음-코드를-실행한-후-i-의-값은"><a class="header" href="#9-다음과-같은-문자열-iu가-있을-때-다음-코드를-실행한-후-i-의-값은">9. 다음과 같은 문자열 iu가 있을 때, 다음 코드를 실행한 후 i 의 값은?</a></h3>
+<p><img src="python_2025/quiz/img/20250321150712.png" alt="" /></p>
+<pre><code class="language-python">i = iu.find('&gt;', 5)
+</code></pre>
 <ol>
-<li>TensorFlow</li>
-<li>PyTorch</li>
-<li>Scikit Learn</li>
-<li>pip</li>
+<li>3</li>
+<li>4</li>
+<li>12</li>
+<li>13</li>
 </ol>
 <br>
-<h3 id="6-다음-중-파이썬의-데이터-시각화-라이브러리는"><a class="header" href="#6-다음-중-파이썬의-데이터-시각화-라이브러리는"><strong>6. 다음 중 파이썬의 데이터 시각화 라이브러리는?</strong></a></h3>
+<h3 id="10-rest에-대한-설명으로-틀린-것은"><a class="header" href="#10-rest에-대한-설명으로-틀린-것은">10. REST에 대한 설명으로 틀린 것은?</a></h3>
 <ol>
-<li>TensorFlow</li>
-<li>Matplotlib</li>
-<li>pip</li>
-<li>anaconda</li>
+<li>웹을 통해 데이터를 배포하는 방법 중 하나이다.</li>
+<li>화면을 꾸미는 요소없이 자료만 배포하기 때문에 HTML 분석 방법에 비해 훨씬 편하게 자료를 사용할 수 있다.</li>
+<li>최근에는 대부분 JSON으로 자료를 배포한다.</li>
+<li>모든 REST를 이용한 자료배포는 무료로 배포하기로 약속되어 있다.</li>
 </ol>
 <br>
-<h3 id="7-다음-중-파이썬의-라이브러리-관리-프로그램은"><a class="header" href="#7-다음-중-파이썬의-라이브러리-관리-프로그램은"><strong>7. 다음 중 파이썬의 라이브러리 관리 프로그램은?</strong></a></h3>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="파이썬을-이용한-업무자동화"><a class="header" href="#파이썬을-이용한-업무자동화">파이썬을 이용한 업무자동화</a></h1>
+<h3 id="1-정해진-시간에-어떤-기능이나-프로그램이-동작하도록-만드는-것은"><a class="header" href="#1-정해진-시간에-어떤-기능이나-프로그램이-동작하도록-만드는-것은">1. 정해진 시간에 어떤 기능이나 프로그램이 동작하도록 만드는 것은?</a></h3>
 <ol>
-<li>TensorFlow</li>
-<li>Matplotlib</li>
-<li>pip</li>
-<li>anaconda</li>
+<li>batch(배치)</li>
+<li>timer</li>
+<li>clock</li>
+<li>스케쥴링</li>
 </ol>
 <br>
-<h3 id="8-다음-중-파이썬의-라이브러리를-효율적으로-관리하기-위해-가상환경을-만들어-각-가상환경마다-각기-다른-라이브러리-버전을-설치할-수-있도록-해-주는-프로그램은"><a class="header" href="#8-다음-중-파이썬의-라이브러리를-효율적으로-관리하기-위해-가상환경을-만들어-각-가상환경마다-각기-다른-라이브러리-버전을-설치할-수-있도록-해-주는-프로그램은"><strong>8. 다음 중 파이썬의 라이브러리를 효율적으로 관리하기 위해 가상환경을 만들어 각 가상환경마다 각기 다른 라이브러리 버전을 설치할 수 있도록 해 주는 프로그램은?</strong></a></h3>
+<h3 id="2-스케쥴링이-동작하는-일반적인-방식이-아닌-것은"><a class="header" href="#2-스케쥴링이-동작하는-일반적인-방식이-아닌-것은">2. 스케쥴링이 동작하는 일반적인 방식이 아닌 것은?</a></h3>
 <ol>
-<li>TensorFlow</li>
-<li>Matplotlib</li>
-<li>pip</li>
-<li>anaconda</li>
+<li>1시간에 한 번씩 실행</li>
+<li>매일 15:00에 실행</li>
+<li>매주 수요일 10:00에 실행</li>
+<li>컴퓨터가 꺼져 있으면 매일 00:00에 컴퓨터를 자동으로 켜고 실행</li>
 </ol>
 <br>
-<h3 id="9-다음-중-아나콘다에-대한-설명-중-틀린-것은"><a class="header" href="#9-다음-중-아나콘다에-대한-설명-중-틀린-것은"><strong>9. 다음 중 아나콘다에 대한 설명 중 틀린 것은?</strong></a></h3>
+<h3 id="3-스케쥴링을-편하게-사용할-수-있게-도와주는-라이브러리는"><a class="header" href="#3-스케쥴링을-편하게-사용할-수-있게-도와주는-라이브러리는">3. 스케쥴링을 편하게 사용할 수 있게 도와주는 라이브러리는?</a></h3>
 <ol>
-<li>오픈소스로 누구나 무료로 사용할 수 있다.</li>
-<li>파이썬이 실행되는 가상환경을 만들어 주는 프로그램이다.</li>
-<li>라이브러리 버전 문제가 발생하는 경우 좋은 해결책이다.</li>
-<li>각 가상환경마다 파이썬 버전을 달리 설정할 수 있다.</li>
-</ol>
-<br>
-<h3 id="10-다음-중-엑셀과-같이-2차원-표형식으로-데이터를-처리하는-라이브러리는"><a class="header" href="#10-다음-중-엑셀과-같이-2차원-표형식으로-데이터를-처리하는-라이브러리는"><strong>10. 다음 중 엑셀과 같이 2차원 표형식으로 데이터를 처리하는 라이브러리는?</strong></a></h3>
-<ol>
+<li>timer</li>
+<li>schedule</li>
+<li>taskmanager</li>
 <li>pandas</li>
-<li>Matplotlib</li>
-<li>moviepy</li>
-<li>anaconda</li>
 </ol>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="연습문제-1"><a class="header" href="#연습문제-1">연습문제</a></h1>
+<br>
+<h3 id="4-schedule-라이브러리를-이용해-1초에-한-번씩-job-함수를-실행하도록-만드는-코드는"><a class="header" href="#4-schedule-라이브러리를-이용해-1초에-한-번씩-job-함수를-실행하도록-만드는-코드는">4. schedule 라이브러리를 이용해 1초에 한 번씩 job 함수를 실행하도록 만드는 코드는?</a></h3>
+<ol>
+<li>schedule.every(1).seconds.do(job)</li>
+<li>schedule.seconds.every.do(job)</li>
+<li>schedule.every(1).hour.do(job)</li>
+<li>schedule.seconds.do(job)</li>
+</ol>
+<br>
+<h3 id="5-schedule-라이브러리를-이용해-매일-1300에-한-번씩-job-함수를-실행하도록-만드는-코드는"><a class="header" href="#5-schedule-라이브러리를-이용해-매일-1300에-한-번씩-job-함수를-실행하도록-만드는-코드는">5. schedule 라이브러리를 이용해 매일 13:00에 한 번씩 job 함수를 실행하도록 만드는 코드는?</a></h3>
+<ol>
+<li>schedule.every.day.at(“13:00”).do(job)</li>
+<li>schedule.day.every.at(“13:00”).do(job)</li>
+<li>schedule.day.every().at(“13:00”).do(job)</li>
+<li>schedule.every().day.at(“13:00”).do(job)</li>
+</ol>
+<br>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="파이썬을-이용한-오피스연동"><a class="header" href="#파이썬을-이용한-오피스연동">파이썬을 이용한 오피스연동</a></h1>
+<h3 id="1-한컴오피스의-hwpx-파일에-대한-설명으로-맞는-것은"><a class="header" href="#1-한컴오피스의-hwpx-파일에-대한-설명으로-맞는-것은">1. 한컴오피스의 hwpx 파일에 대한 설명으로 맞는 것은?</a></h3>
+<ol>
+<li>확장자 hwp와 hwpx는 사실 같은 형식이다.</li>
+<li>확장자 hwpx를 ’zip’으로 바꾸면 압축이 풀린다.</li>
+<li>확장자 hwpx를 ’doc’로 바꾸면 MS word에서 정상적으로 열린다.</li>
+<li>확장자 hwp가 표준이고 hwpx는 특별한 파일이므로 대부분의 경우 hwp 파일을 사용하면 된다.</li>
+</ol>
+<br>
+<h3 id="2-파이썬에서-엑셀-파일을-쉽게-조작하기-위해-사용하는-라이브러리는"><a class="header" href="#2-파이썬에서-엑셀-파일을-쉽게-조작하기-위해-사용하는-라이브러리는">2. 파이썬에서 엑셀 파일을 쉽게 조작하기 위해 사용하는 라이브러리는?</a></h3>
+<ol>
+<li>excelib</li>
+<li>openexcellib</li>
+<li>openpyxl</li>
+<li>pythonxl</li>
+</ol>
+<br>
+<h3 id="3-다음-중-openpyxl-라이브러리를-이용해-엑셀의-b3-셀에-값을-쓰는-코드는"><a class="header" href="#3-다음-중-openpyxl-라이브러리를-이용해-엑셀의-b3-셀에-값을-쓰는-코드는">3. 다음 중 openpyxl 라이브러리를 이용해 엑셀의 B3 셀에 값을 쓰는 코드는?</a></h3>
+<p><img src="python_2025/quiz/img/20250321161022.png" alt="" /></p>
+<ol>
+<li>ws[B, 3] = 150</li>
+<li>ws[‘3, B’] = 150</li>
+<li>ws[B3] = 150</li>
+<li>ws[‘B3’] = 150</li>
+</ol>
+<br>
+<h3 id="4-위-3번과-같이-값을-적어준-후-그-b3-셀의-값을-읽는-방법으로-맞는-코드는"><a class="header" href="#4-위-3번과-같이-값을-적어준-후-그-b3-셀의-값을-읽는-방법으로-맞는-코드는">4. 위 3번과 같이 값을 적어준 후 그 B3 셀의 값을 읽는 방법으로 맞는 코드는?</a></h3>
+<ol>
+<li>sal = ws[‘B3’]</li>
+<li>sal = ws[B3]</li>
+<li>sal = ws[‘B3’].value</li>
+<li>sal = ws[B3].value</li>
+</ol>
+<br>
+<h3 id="5-파이썬에서-파워포인트를-조작하기-위해-사용하는-라이브러리는"><a class="header" href="#5-파이썬에서-파워포인트를-조작하기-위해-사용하는-라이브러리는">5. 파이썬에서 파워포인트를 조작하기 위해 사용하는 라이브러리는?</a></h3>
+<ol>
+<li>python-ppt</li>
+<li>python-pptx</li>
+<li>pptlib</li>
+<li>pptxlib</li>
+</ol>
+<br>
+<h3 id="6-파워포인트에는-다양한-레이아웃이-있다-이-중-다음과-같은-모양을-가지는-레이아웃은"><a class="header" href="#6-파워포인트에는-다양한-레이아웃이-있다-이-중-다음과-같은-모양을-가지는-레이아웃은">6. 파워포인트에는 다양한 레이아웃이 있다. 이 중 다음과 같은 모양을 가지는 레이아웃은?</a></h3>
+<p><img src="python_2025/quiz/img/20250321161907.png" alt="" /></p>
+<ol>
+<li>presentation.slide_layouts[-1]</li>
+<li>presentation.slide_layouts[0]</li>
+<li>presentation.slide_layouts[1]</li>
+<li>presentation.slide_layouts[2]</li>
+</ol>
+<br>
+<h3 id="7-파워포인트에는-다양한-레이아웃이-있다-이-중-다음과-같은-모양을-가지는-레이아웃은"><a class="header" href="#7-파워포인트에는-다양한-레이아웃이-있다-이-중-다음과-같은-모양을-가지는-레이아웃은">7. 파워포인트에는 다양한 레이아웃이 있다. 이 중 다음과 같은 모양을 가지는 레이아웃은?</a></h3>
+<p><img src="python_2025/quiz/img/20250321162049.png" alt="" /></p>
+<ol>
+<li>presentation.slide_layouts[-1]</li>
+<li>presentation.slide_layouts[0]</li>
+<li>presentation.slide_layouts[1]</li>
+<li>presentation.slide_layouts[2]</li>
+</ol>
+<br>
+<h3 id="8-파워포인트의-레이아웃-구성-요소-중-다음-부분에-대한-설명으로-맞는-것은"><a class="header" href="#8-파워포인트의-레이아웃-구성-요소-중-다음-부분에-대한-설명으로-맞는-것은">8. 파워포인트의 레이아웃 구성 요소 중 다음 부분에 대한 설명으로 맞는 것은?</a></h3>
+<p><img src="python_2025/quiz/img/20250321162207.png" alt="" /></p>
+<ol>
+<li>slide.head</li>
+<li>slide.shapes.head</li>
+<li>slide.title</li>
+<li>slide.shapes.title</li>
+</ol>
+<br>
+<h3 id="9-python-pptx를-이용해-코딩할-때-파워포인트에-슬라이드를-하나도-추가하지-않고-파워포인트를-저장하면-어떻게-될까"><a class="header" href="#9-python-pptx를-이용해-코딩할-때-파워포인트에-슬라이드를-하나도-추가하지-않고-파워포인트를-저장하면-어떻게-될까">9. python-pptx를 이용해 코딩할 때 파워포인트에 슬라이드를 하나도 추가하지 않고 파워포인트를 저장하면 어떻게 될까?</a></h3>
+<ol>
+<li>저장할 때 에러가 나면서 저장되지 않는다.</li>
+<li>자동으로 슬라이드 1개가 추가되어 있는 파워포인트 파일이 생성된다.</li>
+<li>슬라이드가 하나도 없는 파워포인트 파일이 생성된다.</li>
+<li>에러는 나지 않지만 파일은 생성되지 않는다.</li>
+</ol>
+<br>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="연습문제"><a class="header" href="#연습문제">연습문제</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="연습문제---파이썬-자료형"><a class="header" href="#연습문제---파이썬-자료형">연습문제 - 파이썬 자료형</a></h1>
 <h3 id="1-apple-문자열의-길이를-구하는-코드를-작성하시오"><a class="header" href="#1-apple-문자열의-길이를-구하는-코드를-작성하시오"><strong>1. “apple” 문자열의 길이를 구하는 코드를 작성하시오.</strong></a></h3>
 <details>
@@ -1628,7 +1521,7 @@ print(a)
 </code></pre>
 </details><div style="break-before: page; page-break-before: always;"></div><h1 id="2-파이썬의-조건문"><a class="header" href="#2-파이썬의-조건문">2. 파이썬의 조건문</a></h1>
 <h3 id="1-총싸움-게임에서-주인공-몸의-3d-공간상-위치-x-y-z를-player_x-player_y-player_z-라-하고-총알의-3d-공간상-위치를-bullet_x-bullet_y-bullet_z라-할-때-주인공의-몸과-총알의-3d-공간상-x축-상의-간격-y축-상의-간격-z축-상의-간격이-모두-10이하면-총알에-맞은-것으로-간주하는-코드-작성"><a class="header" href="#1-총싸움-게임에서-주인공-몸의-3d-공간상-위치-x-y-z를-player_x-player_y-player_z-라-하고-총알의-3d-공간상-위치를-bullet_x-bullet_y-bullet_z라-할-때-주인공의-몸과-총알의-3d-공간상-x축-상의-간격-y축-상의-간격-z축-상의-간격이-모두-10이하면-총알에-맞은-것으로-간주하는-코드-작성"><strong>1. 총싸움 게임에서 주인공 몸의 3D 공간상 위치 x, y, z를 player_x, player_y, player_z 라 하고, 총알의 3D 공간상 위치를 bullet_x, bullet_y, bullet_z라 할 때, 주인공의 몸과 총알의 3D 공간상 x축 상의 간격, y축 상의 간격, z축 상의 간격이 모두 10이하면 총알에 맞은 것으로 간주하는 코드 작성</strong></a></h3>
-<p><img src="python_2024/practice/player_bullet.png" alt="" /></p>
+<p><img src="python_2025/practice/player_bullet.png" alt="" /></p>
 <p align='center'>x축의 예</p>
 <details><summary>답(안) 1</summary>
 <pre><code class="language-python">player_x = 0
@@ -2141,7 +2034,7 @@ file.close()
 </details>
 <br>
 <h3 id="3-구구단을-아래-그림처럼-엑셀에서-읽을-수-있는-gugudancsv-파일로-출력하는-코드"><a class="header" href="#3-구구단을-아래-그림처럼-엑셀에서-읽을-수-있는-gugudancsv-파일로-출력하는-코드"><strong>3. 구구단을 아래 그림처럼 엑셀에서 읽을 수 있는 gugudan.csv 파일로 출력하는 코드</strong></a></h3>
-<p><img src="python_2024/practice/img/20240826214750.png" alt="" /></p>
+<p><img src="python_2025/practice/img/20240826214750.png" alt="" /></p>
 <details><summary>답(안) </summary>
 <pre><code class="language-python">file = open("gugudan.txt", 'w')
 
@@ -2422,59 +2315,6 @@ print(res)
 res = get_min(10, 11)
 print(res)
 </code></pre>
-<h2 id="파이썬의-정규표현식"><a class="header" href="#파이썬의-정규표현식">파이썬의 정규표현식</a></h2>
-<pre><code class="language-python">import re
-pattern = re.compile('연어')
-
-pic = '멸치요리.jpg'
-m = pattern.search(pic)
-</code></pre>
-<h2 id="파이썬의-정규표현식-1"><a class="header" href="#파이썬의-정규표현식-1">파이썬의 정규표현식</a></h2>
-<pre><code class="language-python">import re
-pattern = re.compile('멸치')
-
-pic = '멸치요리.jpg'
-m = pattern.search(pic)
-</code></pre>
-<h2 id="파일명으로-리스트-만들고-그-리스트를-돌며-연어라는-글자가-들어있는-파일명만-찾기"><a class="header" href="#파일명으로-리스트-만들고-그-리스트를-돌며-연어라는-글자가-들어있는-파일명만-찾기">파일명으로 리스트 만들고, 그 리스트를 돌며 ’연어’라는 글자가 들어있는 파일명만 찾기</a></h2>
-<pre><code class="language-python">import re
-
-files = ["멸치요리.jpg", "연어요리.jpg", "연어 튀기기 전.png"]
-
-pattern = re.compile('연어')
-
-for item in files:
-    m = pattern.search(item)
-    
-    if m != None:
-        print(item, '은 조건에 맞음.')
-    else:
-        print(item, '은 조건에 맞지 않음')
-</code></pre>
-<h2 id="시작이-같은지-검사하기--k로-시작하는지-검사"><a class="header" href="#시작이-같은지-검사하기--k로-시작하는지-검사">시작이 같은지 검사하기 : K로 시작하는지 검사</a></h2>
-<pre><code class="language-python">import re
-pic = "Korea.jpg"
-pattern = re.compile('^K')
-m = pattern.search(pic)
-</code></pre>
-<pre><code class="language-python">import re
-pic = "booK.jpg"
-pattern = re.compile('^K')
-m = pattern.search(pic)
-</code></pre>
-<h2 id="끝이-같은지-검사하기-jpg로-끝나는지-검사하기"><a class="header" href="#끝이-같은지-검사하기-jpg로-끝나는지-검사하기">끝이 같은지 검사하기: ’jpg’로 끝나는지 검사하기</a></h2>
-<pre><code class="language-python">import re
-
-pic = "booK.jpg"
-pattern = re.compile('jpg$')
-m = pattern.search(pic)
-</code></pre>
-<pre><code class="language-python">import re
-
-pic = "booK.jpg"
-pattern = re.compile('png$')
-m = pattern.search(pic)
-</code></pre>
 <h2 id="input-함수-사용"><a class="header" href="#input-함수-사용">input() 함수 사용</a></h2>
 <pre><code class="language-python">a = input()
 print(a)
@@ -2556,6 +2396,2798 @@ for line in all_line_list :
 file.close()
 </code></pre>
 <h3 id="samplecsv"><a class="header" href="#samplecsv">sample.csv</a></h3>
+<pre><code class="language-python">file = open("sample.csv", 'w')
+
+file.write ("이름,전화번호\n")
+file.write ("홍길동,02-1111-1111\n")
+file.write ("박길동,02-1111-2222\n")
+file.write ("최길동,03-1111-3333\n")
+
+file.close()
+</code></pre>
+<hr />
+<h2 id="html-예제"><a class="header" href="#html-예제">HTML 예제</a></h2>
+<pre><code class="language-html">저는 &lt;b&gt;치즈&lt;/b&gt;를 좋아하는 &lt;b&gt;MIN&lt;/b&gt;입니다.
+</code></pre>
+<h2 id="hypertext"><a class="header" href="#hypertext">hypertext</a></h2>
+<pre><code class="language-html">저는 &lt;a&gt;치즈&lt;/a&gt;를 좋아하는 &lt;a&gt;MIN&lt;/a&gt;입니다.
+</code></pre>
+<h2 id="hypertext-1"><a class="header" href="#hypertext-1">hypertext</a></h2>
+<pre><code class="language-html">저는 &lt;a href='https://www.lx.or.kr'&gt;치즈&lt;/a&gt;를 좋아하는 &lt;a&gt;MIN&lt;/a&gt;입니다.
+</code></pre>
+<h2 id="hypertext-2"><a class="header" href="#hypertext-2">hypertext</a></h2>
+<pre><code class="language-html">저는 &lt;a href='https://www.lx.or.kr' target='_blank'&gt;치즈&lt;/a&gt;를 좋아하는 &lt;a&gt;MIN&lt;/a&gt;입니다.
+</code></pre>
+<h2 id="html5-전반적인-구조"><a class="header" href="#html5-전반적인-구조">HTML5 전반적인 구조</a></h2>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta charset="UTF-8"&gt;
+        &lt;title&gt;Insert title here&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h2 id="list-태그"><a class="header" href="#list-태그">list 태그</a></h2>
+<pre><code class="language-html">&lt;ul&gt;
+  &lt;li&gt;한식&lt;/li&gt;
+  &lt;li&gt;
+    중식
+    &lt;ol&gt;
+      &lt;li&gt;짜장면&lt;/li&gt;
+      &lt;li&gt;짬뽕&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+<h2 id="html로-표-만들기"><a class="header" href="#html로-표-만들기">HTML로 표 만들기</a></h2>
+<pre><code class="language-html">&lt;table&gt;
+  &lt;tr&gt;
+    &lt;td&gt;cell 1&lt;/td&gt;
+    &lt;td&gt;cell 2&lt;/td&gt;
+  &lt;/tr&gt;    
+  &lt;tr&gt;
+    &lt;td&gt;cell 3&lt;/td&gt;
+    &lt;td&gt;cell 4&lt;/td&gt;
+  &lt;/tr&gt;    
+&lt;/table&gt;
+</code></pre>
+<h2 id="html로-표-만들기-1"><a class="header" href="#html로-표-만들기-1">HTML로 표 만들기</a></h2>
+<pre><code class="language-html">&lt;table border=1&gt;
+  &lt;tr&gt;
+    &lt;td&gt;cell 1&lt;/td&gt;
+    &lt;td&gt;cell 2&lt;/td&gt;
+  &lt;/tr&gt;    
+  &lt;tr&gt;
+    &lt;td&gt;cell 3&lt;/td&gt;
+    &lt;td&gt;cell 4&lt;/td&gt;
+  &lt;/tr&gt;    
+&lt;/table&gt;
+</code></pre>
+<h2 id="셀-합치기"><a class="header" href="#셀-합치기">셀 합치기</a></h2>
+<pre><code class="language-html">&lt;table border=1&gt;
+  &lt;tr&gt;
+    &lt;td colspan=2&gt;cell 1&lt;/td&gt;
+  &lt;/tr&gt;    
+  &lt;tr&gt;
+    &lt;td&gt;cell 3&lt;/td&gt;
+    &lt;td&gt;cell 4&lt;/td&gt;
+  &lt;/tr&gt;    
+&lt;/table&gt;
+</code></pre>
+<h2 id="셀-합치기-1"><a class="header" href="#셀-합치기-1">셀 합치기</a></h2>
+<pre><code class="language-html">&lt;table border=1&gt;
+  &lt;tr&gt;
+    &lt;td rowspan=2&gt;cell 1&lt;/td&gt;
+    &lt;td&gt;cell 2&lt;/td&gt;
+  &lt;/tr&gt;    
+  &lt;tr&gt;
+    &lt;td&gt;cell 4&lt;/td&gt;
+  &lt;/tr&gt;    
+&lt;/table&gt;
+</code></pre>
+<h2 id="테이블에-헤더-추가"><a class="header" href="#테이블에-헤더-추가">테이블에 헤더 추가</a></h2>
+<pre><code class="language-html">&lt;table border=1&gt;
+  &lt;tr&gt;
+    &lt;th&gt;cell 1&lt;/th&gt;
+    &lt;th&gt;cell 2&lt;/th&gt;
+  &lt;/tr&gt;    
+  &lt;tr&gt;
+    &lt;td&gt;cell 3&lt;/td&gt;
+    &lt;td&gt;cell 4&lt;/td&gt;
+  &lt;/tr&gt;    
+&lt;/table&gt;
+</code></pre>
+<h2 id="테이블을-색으로-꾸미기"><a class="header" href="#테이블을-색으로-꾸미기">테이블을 색으로 꾸미기</a></h2>
+<pre><code class="language-html">&lt;table border=1&gt;
+  &lt;tr&gt;
+    &lt;th&gt;cell 1&lt;/th&gt;
+    &lt;th&gt;cell 2&lt;/th&gt;
+  &lt;/tr&gt;    
+  &lt;tr style="background-color: yellow"&gt;
+    &lt;td&gt;cell 3&lt;/td&gt;
+    &lt;td&gt;cell 4&lt;/td&gt;
+  &lt;/tr&gt;    
+&lt;/table&gt;
+</code></pre>
+<h2 id="테이블을-색으로-꾸미기-1"><a class="header" href="#테이블을-색으로-꾸미기-1">테이블을 색으로 꾸미기</a></h2>
+<pre><code class="language-html">&lt;table border=1&gt;
+  &lt;tr&gt;
+    &lt;th&gt;cell 1&lt;/th&gt;
+    &lt;th&gt;cell 2&lt;/th&gt;
+  &lt;/tr&gt;    
+  &lt;tr&gt;
+    &lt;td style="background-color: red"&gt;cell 3&lt;/td&gt;
+    &lt;td&gt;cell 4&lt;/td&gt;
+  &lt;/tr&gt;    
+&lt;/table&gt;
+</code></pre>
+<h2 id="테이블을-색으로-꾸미기-2"><a class="header" href="#테이블을-색으로-꾸미기-2">테이블을 색으로 꾸미기</a></h2>
+<pre><code class="language-html">&lt;table border=1&gt;
+  &lt;tr style="background-color: #FF0000"&gt;
+    &lt;th&gt;cell 1&lt;/th&gt;
+    &lt;th&gt;cell 2&lt;/th&gt;
+  &lt;/tr&gt;    
+  &lt;tr&gt;
+    &lt;td&gt;cell 3&lt;/td&gt;
+    &lt;td&gt;cell 4&lt;/td&gt;
+  &lt;/tr&gt;    
+&lt;/table&gt;
+</code></pre>
+<hr />
+<h2 id="request를-이용한-통신"><a class="header" href="#request를-이용한-통신">request를 이용한 통신</a></h2>
+<pre><code class="language-py">import requests
+requests.get('https://www.lx.or.kr')
+</code></pre>
+<h2 id="request를-이용한-통신-1"><a class="header" href="#request를-이용한-통신-1">request를 이용한 통신</a></h2>
+<pre><code class="language-py">import requests
+requests.get('https://www.lx.or.kr/aaaaa.hwp')
+</code></pre>
+<h2 id="웹서버에서-가져온-html-파일indexhtml"><a class="header" href="#웹서버에서-가져온-html-파일indexhtml">웹서버에서 가져온 html 파일(index.html)</a></h2>
+<pre><code class="language-py">import requests
+response = requests.get('https://lxeduweb.web.app')
+response
+</code></pre>
+<h2 id="웹서버에서-가져온-html-파일-분석1html"><a class="header" href="#웹서버에서-가져온-html-파일-분석1html">웹서버에서 가져온 html 파일 분석(1.html)</a></h2>
+<pre><code class="language-py">import requests
+response = requests.get('https://lxeduweb.web.app/1.html')
+</code></pre>
+<h2 id="웹서버에서-가져온-html-파일-분석1html-1"><a class="header" href="#웹서버에서-가져온-html-파일-분석1html-1">웹서버에서 가져온 html 파일 분석(1.html)</a></h2>
+<pre><code class="language-py">import requests
+response = requests.get('https://lxeduweb.web.app/1.html')
+A = response.text.find('A전자')
+start = response.text.find('&lt;td&gt;', A + 3)
+end = response.text.find('&lt;/td&gt;', start + 1)
+price = response.text[start+4 : end]
+price
+</code></pre>
+<h2 id="웹서버에서-가져온-html-파일-분석-정보-표시"><a class="header" href="#웹서버에서-가져온-html-파일-분석-정보-표시">웹서버에서 가져온 html 파일 분석, 정보 표시</a></h2>
+<pre><code class="language-py">import requests
+response = requests.get('https://lxeduweb.web.app/1.html')
+A = response.text.find('A전자')
+start = response.text.find('&lt;td&gt;', A + 3)
+end = response.text.find('&lt;/td&gt;', start + 1)
+price = response.text[start+4 : end]
+print("A전자 현재가:", price)
+</code></pre>
+<h2 id="python에서-json-사용"><a class="header" href="#python에서-json-사용">python에서 JSON 사용</a></h2>
+<pre><code class="language-py">import json
+
+data = '{"name": "홍길동", "year": 1999, "phone": "010-1111-1111"}'
+value = json.loads(data)
+
+print(value["phone"])
+</code></pre>
+<h2 id="1초에-한-번씩-자동-실행"><a class="header" href="#1초에-한-번씩-자동-실행">1초에 한 번씩 자동 실행</a></h2>
+<pre><code class="language-py">import schedule
+import time
+
+# 실행할 함수 정의
+def task():
+    print("task 실행")
+
+#1초에 한 번씩 실행
+schedule.every(1).seconds.do(task)
+
+while True:
+    schedule.run_pending()
+    time.sleep(1)
+</code></pre>
+<h2 id="1분에-한-번씩-자동-실행"><a class="header" href="#1분에-한-번씩-자동-실행">1분에 한 번씩 자동 실행</a></h2>
+<pre><code class="language-py">import schedule
+import time
+
+# 실행할 함수 정의
+def task():
+    print("task 실행")
+
+#1분에 한 번씩 실행
+schedule.every(1).minutes.do(task)
+
+while True:
+    schedule.run_pending()
+    time.sleep(1)
+</code></pre>
+<h2 id="1시간에-한-번씩-자동-실행"><a class="header" href="#1시간에-한-번씩-자동-실행">1시간에 한 번씩 자동 실행</a></h2>
+<pre><code class="language-py">import schedule
+import time
+
+# 실행할 함수 정의
+def task():
+    print("task 실행")
+
+# 1시간에 한 번씩 실행
+schedule.every(1).hour.do(task)
+
+while True:
+    schedule.run_pending()
+    time.sleep(1)
+</code></pre>
+<h2 id="매일-0000에-자동-실행"><a class="header" href="#매일-0000에-자동-실행">매일 00:00에 자동 실행</a></h2>
+<pre><code class="language-py">import schedule
+import time
+
+# 실행할 함수 정의
+def task():
+    print("task 실행")
+
+# 매일 00:00에 실행
+schedule.every().day.at("00:00").do(task)
+
+while True:
+    schedule.run_pending()
+    time.sleep(1)
+</code></pre>
+<h2 id="openpyxl-기본-사용법쓰기"><a class="header" href="#openpyxl-기본-사용법쓰기">Openpyxl 기본 사용법(쓰기)</a></h2>
+<pre><code class="language-py">from openpyxl import Workbook
+wb = Workbook()
+
+# 워크북(엑셀)에서 활성화된 sheet을 ws라 부름. 
+ws = wb.active	
+
+# A1 셀에 자료 할당
+ws['A1'] = '공개값'
+ws['B2'] = 42   
+
+# 파일 저장
+wb.save("sample.xlsx") 
+</code></pre>
+<h2 id="openpyxl-기본-사용법셀-읽고-쓰기"><a class="header" href="#openpyxl-기본-사용법셀-읽고-쓰기">Openpyxl 기본 사용법(셀 읽고 쓰기)</a></h2>
+<pre><code class="language-py">from openpyxl import Workbook
+wb = Workbook()
+
+# 워크북(엑셀)에서 활성화된 sheet을 ws라 부름. 
+ws = wb.active	
+
+# A1 셀에 자료 할당
+ws['A1'] = '공개값'
+ws['B2'] = 42   
+
+c = ws['B2'].value
+ws['C3'] = c + 1
+
+# 파일 저장
+wb.save("sample2.xlsx") 
+</code></pre>
+<h2 id="openpyxl-기본-사용법파일-읽기"><a class="header" href="#openpyxl-기본-사용법파일-읽기">Openpyxl 기본 사용법(파일 읽기)</a></h2>
+<pre><code class="language-py">from openpyxl import load_workbook
+wb = load_workbook(filename = 'sample2.xlsx)
+
+# 워크북(엑셀)에서 활성화된 sheet을 ws라 부름. 
+ws = wb['Sheet']	
+v = ws['C3'].value
+print("v:", v)
+</code></pre>
+<h2 id="python-pptx-기본-사용법"><a class="header" href="#python-pptx-기본-사용법">python-pptx 기본 사용법</a></h2>
+<pre><code class="language-py">from pptx import Presentation
+
+prs = Presentation() 	# 파워포인트형으로 객체 생성
+slide_layout = prs.slide_layouts[1]  		# 레이아웃 설정
+slide = prs.slides.add_slide(slide_layout)	# 슬라이드 하나 추가
+
+slide.shapes.title.text = "제목"
+slide.shapes.placeholders[1].text_frame.text = '내용1'
+slide.shapes.placeholders[1].text_frame.add_paragraph().text = '내용2'
+
+prs.save('sample.pptx')				# 파일 저장
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="영업전문가-양성-과정"><a class="header" href="#영업전문가-양성-과정">영업전문가 양성 과정</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="자료"><a class="header" href="#자료">자료</a></h1>
+<ol>
+<li>
+<p><a href="proposal_2025/write-w6_pw.pdf">자료 1</a></p>
+</li>
+<li>
+<p><a href="proposal_2025/OREO_practice.hwp">OREO 실습 양식지 다운로드</a></p>
+</li>
+<li>
+<p><a href="proposal_2025/campingcar_rfp.hwp">캠핑카 RFP</a></p>
+</li>
+<li>
+<p><a href="proposal_2025/campingcar_proposal.hwp">캠핑카 제안서</a></p>
+</li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="복습문제-1"><a class="header" href="#복습문제-1">복습문제</a></h1>
+<h3 id="1-제안요청서에-대해-틀린-설명은"><a class="header" href="#1-제안요청서에-대해-틀린-설명은">1. 제안요청서에 대해 틀린 설명은?</a></h3>
+<ol>
+<li>요구사항을 적는다</li>
+<li>제안 업체가 작성한다.</li>
+<li>제안서를 작성하는 방법에 대해서도 적혀있다.</li>
+<li>RFP라고도 부른다.</li>
+</ol>
+<br>
+<h3 id="2-선정된-업체가-사업수행을-할-때-필요한-사업-관련-세부-사항을-적는-것은"><a class="header" href="#2-선정된-업체가-사업수행을-할-때-필요한-사업-관련-세부-사항을-적는-것은">2. 선정된 업체가 사업수행을 할 때 필요한 사업 관련 세부 사항을 적는 것은?</a></h3>
+<ol>
+<li>제안요청서</li>
+<li>제안서</li>
+<li>RFP</li>
+<li>과업지시서</li>
+</ol>
+<br>
+<h3 id="3-rfp에-적힌-발주처의-요구사항을-나름의-기술과-아이디어로-해결할-방법을-제안하는-문서로-사업에-참여하고-싶은-업체가-작성하는-문서는"><a class="header" href="#3-rfp에-적힌-발주처의-요구사항을-나름의-기술과-아이디어로-해결할-방법을-제안하는-문서로-사업에-참여하고-싶은-업체가-작성하는-문서는">3. RFP에 적힌 발주처의 요구사항을 나름의 기술과 아이디어로 해결할 방법을 제안하는 문서로, 사업에 참여하고 싶은 업체가 작성하는 문서는?</a></h3>
+<ol>
+<li>제안요청서</li>
+<li>제안서</li>
+<li>RFP</li>
+<li>과업지시서</li>
+</ol>
+<br>
+<h3 id="4-제안서-전체를-관통하는-가장-중요한-가치이며-사업-수행을-할-때-가장-중요하게-고려해야-할-한-가지는"><a class="header" href="#4-제안서-전체를-관통하는-가장-중요한-가치이며-사업-수행을-할-때-가장-중요하게-고려해야-할-한-가지는">4. 제안서 전체를 관통하는 가장 중요한 가치이며, 사업 수행을 할 때 가장 중요하게 고려해야 할 한 가지는?</a></h3>
+<ol>
+<li>제안요청서</li>
+<li>제안서</li>
+<li>고객 요구사항</li>
+<li>과업지시서</li>
+</ol>
+<br>
+<h3 id="5-검수-단계에-대한-설명-중-틀린-것은"><a class="header" href="#5-검수-단계에-대한-설명-중-틀린-것은">5. 검수 단계에 대한 설명 중 틀린 것은?</a></h3>
+<ol>
+<li>RFP에 적힌 요구사항 목록을 펴 놓고 완료 여부를 하나하나 확인한다.</li>
+<li>관련 분야 전문가와 감사실 직원이 참여한다.</li>
+<li>RFP에 적힌 산출물 목록을 펴 놓고 제출 여부를 하나하나 확인한다.</li>
+<li>검수를 통과하지 못해도 법적으로 사업 수행 대금을 지불해야 한다.</li>
+</ol>
+<br>
+<h3 id="6-사업-진행-중-법적-분쟁이-발생할-경우-판단의-기준이-되는-것들로만-묶은-것은"><a class="header" href="#6-사업-진행-중-법적-분쟁이-발생할-경우-판단의-기준이-되는-것들로만-묶은-것은">6. 사업 진행 중 법적 분쟁이 발생할 경우 판단의 기준이 되는 것들로만 묶은 것은?</a></h3>
+<ol>
+<li>RFP, 작업인원 명세서</li>
+<li>제안서, 제안사 일반현황</li>
+<li>작업인원 명세서, 제안서</li>
+<li>RFP, 제안서</li>
+</ol>
+<br>
+<h3 id="7-민법-제2조에-명시된-모든-계약의-근간이며-사업-진행의-기본-원칙은"><a class="header" href="#7-민법-제2조에-명시된-모든-계약의-근간이며-사업-진행의-기본-원칙은">7. 민법 제2조에 명시된 모든 계약의 근간이며, 사업 진행의 기본 원칙은?</a></h3>
+<ol>
+<li>RFP</li>
+<li>납세의 원칙</li>
+<li>신의성실의 원칙</li>
+<li>제안서</li>
+</ol>
+<br>
+<h3 id="8-하버드대에서-가르치는-글쓰기-방식이라-알려지며-유명해진-글쓰기-기법은"><a class="header" href="#8-하버드대에서-가르치는-글쓰기-방식이라-알려지며-유명해진-글쓰기-기법은">8. 하버드대에서 가르치는 글쓰기 방식이라 알려지며 유명해진 글쓰기 기법은?</a></h3>
+<ol>
+<li>COOKIE 기법</li>
+<li>ICE 기법</li>
+<li>CREAM 기법</li>
+<li>OREO 기법</li>
+</ol>
+<br>
+<h3 id="9-입찰-전에-실시하며-조달청-등에-미리-등록해-이해-관계자의-의견을-수집하는-절차는"><a class="header" href="#9-입찰-전에-실시하며-조달청-등에-미리-등록해-이해-관계자의-의견을-수집하는-절차는">9. 입찰 전에 실시하며 조달청 등에 미리 등록해 이해 관계자의 의견을 수집하는 절차는?</a></h3>
+<ol>
+<li>공개입찰</li>
+<li>투찰</li>
+<li>사전규격공개</li>
+<li>발주계획</li>
+</ol>
+<br>
+<h3 id="10-제안평가위원이-제안평가에서-좋은-점수를-주는-이유가-아닌-것은"><a class="header" href="#10-제안평가위원이-제안평가에서-좋은-점수를-주는-이유가-아닌-것은">10. 제안평가위원이 제안평가에서 좋은 점수를 주는 이유가 아닌 것은?</a></h3>
+<ol>
+<li>RFP의 요구 사항이 제안서에 잘 드러나 있어서</li>
+<li>RFP의 사업 목적이 제안서에 잘 드러나 있어서</li>
+<li>제안사의 단점을 잘 숨겨서</li>
+<li>문제해결을 위한 창의적인 아이디어를 제시해서</li>
+</ol>
+<br>
+<h3 id="11-제안서의-마스킹에-대해-잘못-설명한-것은"><a class="header" href="#11-제안서의-마스킹에-대해-잘못-설명한-것은">11. 제안서의 마스킹에 대해 잘못 설명한 것은?</a></h3>
+<ol>
+<li>일반적으로 제안평가위원이 제안 업체의 이름을 알 수 없도록 마스킹한다.</li>
+<li>일반적으로 제안서의 개인정보, 주소 정보 등은 마스킹해야 한다.</li>
+<li>일반적으로 제안서에 추가하는 서류는 평가를 위해 제안 업체 이름이 잘 드러나도록 한다.</li>
+<li>제안서에 제안 업체의 회사 로고가 노출되면 탈락될 수도 있다.</li>
+</ol>
+<br>
+<h3 id="12-제안의-궁극적인-목적은"><a class="header" href="#12-제안의-궁극적인-목적은">12. 제안의 궁극적인 목적은?</a></h3>
+<ol>
+<li>RFP의 모든 요구사항 만족</li>
+<li>발주처가 우리(제안사)가 원하는 방향으로 의사결정하도록 만드는 것</li>
+<li>공정한 입찰 참여</li>
+<li>비즈니스 기회 창출</li>
+</ol>
+<br>
+<div style="break-before: page; page-break-before: always;"></div><p><a href="https://flatquizz.web.app/index.html?id=Wa83js0p" title="" target="_blank">스피드 퀴즈</a></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="공간정보-웹서비스-개발"><a class="header" href="#공간정보-웹서비스-개발">공간정보 웹서비스 개발</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="학습자료-1"><a class="header" href="#학습자료-1">학습자료</a></h1>
+<h2 id="postgresql"><a class="header" href="#postgresql">postgreSQL</a></h2>
+<ul>
+<li>postgreSQL 공식 홈페이지: <a href="https://www.postgresql.org" title="" target="_blank">https://www.postgresql.org</a></li>
+<li>postgreSQL 안내서: <a href="https://www.postgresql.org/files/documentation/pdf/16/postgresql-16-A4.pdf" title="" target="_blank">https://www.postgresql.org/files/documentation/pdf/16/postgresql-16-A4.pdf</a></li>
+</ul>
+<h2 id="postgis"><a class="header" href="#postgis">postGIS</a></h2>
+<ul>
+<li>postGIS 공식 홈페이지: <a href="https://postgis.net" title="" target="_blank">https://postgis.net</a></li>
+<li>postGIS 안내서: <a href="https://postgis.net/workshops/en/postgis-intro/PostGISIntro.pdf" title="" target="_blank">https://postgis.net/workshops/en/postgis-intro/PostGISIntro.pdf</a></li>
+<li>postGIS 함수들: <a href="https://postgis.net/docs/manual-3.5/ko_KR/PostGIS_Special_Functions_Index.html" title="" target="_blank">https://postgis.net/docs/manual-3.5/ko_KR/PostGIS_Special_Functions_Index.html</a></li>
+</ul>
+<h2 id="pgadmin"><a class="header" href="#pgadmin">pgAdmin</a></h2>
+<ul>
+<li>pgAdmin 공식 홈페이지: <a href="https://www.pgadmin.org" title="" target="_blank">https://www.pgadmin.org</a></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="복습문제-2"><a class="header" href="#복습문제-2">복습문제</a></h1>
+<p><img src="gisws/quiz/../../default/quiz01.png" alt="" /></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="복습문제-3"><a class="header" href="#복습문제-3">복습문제</a></h1>
+<h3 id="1-다음-중-데이터베이스의-특징이-아닌-것은"><a class="header" href="#1-다음-중-데이터베이스의-특징이-아닌-것은"><strong>1. 다음 중 데이터베이스의 특징이 아닌 것은?</strong></a></h3>
+<ol>
+<li>자료를 체계적으로 저장한다.</li>
+<li>자료를 저장하기 쉽고 읽기 쉽게 관리한다.</li>
+<li>자료를 모아 놓은 것은 모두 데이터베이스이다.</li>
+<li>회사 ERP가 데이터베이스의 한 예이다.</li>
+</ol>
+<h3 id="2-dbms의-약자로-맞는-것은"><a class="header" href="#2-dbms의-약자로-맞는-것은"><strong>2. DBMS의 약자로 맞는 것은?</strong></a></h3>
+<ol>
+<li>DataBase Management System</li>
+<li>DB Manager System</li>
+<li>DB Management System</li>
+<li>DataBase Manager System</li>
+</ol>
+<h3 id="3-postgresql에-대한-설명-중-틀린-것은"><a class="header" href="#3-postgresql에-대한-설명-중-틀린-것은"><strong>3. postgreSQL에 대한 설명 중 틀린 것은?</strong></a></h3>
+<ol>
+<li>open source로 개발된다.</li>
+<li>개인은 무료, 공공기관은 비용을 지불해야 한다.</li>
+<li>공간정보에 특화된 기능을 제공한다.</li>
+<li><code>포스트그레스큐엘</code>이라고 읽는다.</li>
+</ol>
+<h3 id="4-다음-중-dbms가-아닌-것은"><a class="header" href="#4-다음-중-dbms가-아닌-것은"><strong>4. 다음 중 DBMS가 아닌 것은?</strong></a></h3>
+<ol>
+<li>postgreSQL</li>
+<li>MS SQLServer</li>
+<li>MySQL</li>
+<li>DBeaver</li>
+</ol>
+<h3 id="5-다음-중-공간정보-데이터베이스에서-지원하는-기능이-아닌-것은"><a class="header" href="#5-다음-중-공간정보-데이터베이스에서-지원하는-기능이-아닌-것은"><strong>5. 다음 중 공간정보 데이터베이스에서 지원하는 기능이 아닌 것은?</strong></a></h3>
+<ol>
+<li>다양한 좌표계 지원</li>
+<li>3차원 스캐닝 기능 지원</li>
+<li>공간정보 자료(점, 선, 면)을 자유롭게 저장</li>
+<li>공간정보 계산 기능 지원</li>
+</ol>
+<h3 id="6-다음-중-epsg에-대한-설명으로-틀린-것은"><a class="header" href="#6-다음-중-epsg에-대한-설명으로-틀린-것은"><strong>6. 다음 중 EPSG에 대한 설명으로 틀린 것은?</strong></a></h3>
+<ol>
+<li>석유 산업계에서 탐사를 위해 표준화된 좌표 체계가 필요해 정리한 코드들이다.</li>
+<li>EPSG의 원 뜻은 <code>유럽 석유 조사 그룹</code>이다.</li>
+<li>각 좌표계 코드 표현식은 <code>EPSG-4326</code> 과 같은 식이다.</li>
+<li>한국의 좌표 체계도 포함되어 있다.</li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="복습문제-4"><a class="header" href="#복습문제-4">복습문제</a></h1>
+<h3 id="1-postgresql-설치에-대한-설명-중-틀린-것은"><a class="header" href="#1-postgresql-설치에-대한-설명-중-틀린-것은"><strong>1. postgreSQL 설치에 대한 설명 중 틀린 것은?</strong></a></h3>
+<ol>
+<li>공식 홈페이지에는 설치 프로그램이 업로드되어 있지 않아 다른 사이트에 가서 받아야 한다.</li>
+<li>postgreSQL을 설치하면 postGIS도 자동으로 설치된다.</li>
+<li>기본으로 설치되는 postgreSQL 관리자 ID는 ‘postgres’ 이다.</li>
+<li>postgreSQL과 접속하는 기본 프로그램으로 pgAdmin이 같이 설치된다.</li>
+</ol>
+<h3 id="2-db-구성의-한-요소로-엑셀과-같이-2차원의-표-형태로-자료를-관리하는-것은"><a class="header" href="#2-db-구성의-한-요소로-엑셀과-같이-2차원의-표-형태로-자료를-관리하는-것은"><strong>2. DB 구성의 한 요소로 엑셀과 같이 2차원의 표 형태로 자료를 관리하는 것은?</strong></a></h3>
+<ol>
+<li>DBMS</li>
+<li>함수</li>
+<li>sheet</li>
+<li>table</li>
+</ol>
+<h3 id="3-엑셀과-달리-db-테이블은-각-항목에-숫자를-적을지-문자를-적을지를-미리-정해야-한다-그-이유를-2개-고르시오"><a class="header" href="#3-엑셀과-달리-db-테이블은-각-항목에-숫자를-적을지-문자를-적을지를-미리-정해야-한다-그-이유를-2개-고르시오"><strong>3. 엑셀과 달리 DB 테이블은 각 항목에 숫자를 적을지 문자를 적을지를 미리 정해야 한다. 그 이유를 2개 고르시오</strong></a></h3>
+<ol>
+<li>빠른 처리를 위해</li>
+<li>해킹 등 재난에 대비하기 위해</li>
+<li>전기 사용량을 줄이기 위해</li>
+<li>효율적이고 정확하게 자료를 기록하기 위해</li>
+</ol>
+<h3 id="4-postgresql에서-member-라는-이름의-테이블을-만드는-방법으로-맞는-것은"><a class="header" href="#4-postgresql에서-member-라는-이름의-테이블을-만드는-방법으로-맞는-것은"><strong>4. postgreSQL에서 member 라는 이름의 테이블을 만드는 방법으로 맞는 것은?</strong></a></h3>
+<ol>
+<li>create table member (name varchar(10));</li>
+<li>create member (name char);</li>
+<li>create table member (name 문자)</li>
+<li>create table member (name varchar(10))</li>
+</ol>
+<h3 id="5-postgresql의-주요-데이터-유형에-대해-올바르게-설명한-것은"><a class="header" href="#5-postgresql의-주요-데이터-유형에-대해-올바르게-설명한-것은"><strong>5. postgreSQL의 주요 데이터 유형에 대해 올바르게 설명한 것은?</strong></a></h3>
+<ol>
+<li>Integer: 약 -900경 ~ + 900경 사이의 정수를 다룰 수 있다.</li>
+<li>BigInt: 약 -21억 ~ + 21억 사이의 정수를 다룰 수 있다.</li>
+<li>boolean: 참 또는 거짓을 기록할 수 있다.</li>
+<li>varchar: 사번처럼 그 길이가 정해진 문자만 입력할 수 있다.</li>
+</ol>
+<h3 id="6-pgadmin에-대한-설명으로-틀린-것은"><a class="header" href="#6-pgadmin에-대한-설명으로-틀린-것은"><strong>6. pgAdmin에 대한 설명으로 틀린 것은?</strong></a></h3>
+<ol>
+<li>postgreSQL에 접속하기 위한 클라이언트 프로그램이다.</li>
+<li>DBMS에 sql문을 보내 실행할 수 있다.</li>
+<li>table을 생성하는 기능도 제공한다.</li>
+<li>그래픽 UI가 아닌 텍스트 기반의 클라이언트 프로그램이다.</li>
+</ol>
+<h3 id="7-psql에-대한-바른-설명은"><a class="header" href="#7-psql에-대한-바른-설명은"><strong>7. psql에 대한 바른 설명은?</strong></a></h3>
+<ol>
+<li>postgreSQL에 접속해 postgreSQL을 관리하거나 SQL문을 실행하는 데 사용하는 텍스트 기반의 클라이언트 프로그램</li>
+<li>sql문 만을 실행할 수 있다.</li>
+<li>유료 버전을 구입하면 그래픽 UI도 사용할 수 있다.</li>
+<li>관리자 전용 프로그램이다.</li>
+</ol>
+<h3 id="8-pgadmin에서-psql을-실행하는-아이콘은"><a class="header" href="#8-pgadmin에서-psql을-실행하는-아이콘은"><strong>8. pgAdmin에서 psql을 실행하는 아이콘은?</strong></a></h3>
+<p><img src="gisws/quiz/img/20240722204950.png" alt="" /></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="복습문제-5"><a class="header" href="#복습문제-5">복습문제</a></h1>
+<h3 id="1-sql에-대해-맞는-설명은"><a class="header" href="#1-sql에-대해-맞는-설명은"><strong>1. SQL에 대해 맞는 설명은?</strong></a></h3>
+<ol>
+<li>DBMS에서만 사용하는 언어이다.</li>
+<li>자료를 DB에 입력, 수정, 삭제, 검색할 때 사용한다.</li>
+<li>DB관리자만 사용할 수 있다.</li>
+<li>유료 버전에서만 사용할 수 있다.</li>
+</ol>
+<h3 id="2-자료를-입력하기-위해-사용하는-sql-명령어는"><a class="header" href="#2-자료를-입력하기-위해-사용하는-sql-명령어는"><strong>2. 자료를 입력하기 위해 사용하는 SQL 명령어는?</strong></a></h3>
+<ol>
+<li>insert into 테이블명</li>
+<li>input 테이블명</li>
+<li>input into 테이블명</li>
+<li>insert 테이블명</li>
+</ol>
+<h3 id="3-자료를-검색하기-위해-사용하는-sql-명령어는"><a class="header" href="#3-자료를-검색하기-위해-사용하는-sql-명령어는"><strong>3. 자료를 검색하기 위해 사용하는 SQL 명령어는?</strong></a></h3>
+<ol>
+<li>get from</li>
+<li>query from</li>
+<li>find from</li>
+<li>select from</li>
+</ol>
+<h3 id="4-member-테이블의-모든-자료를-가져오는-sql-명령어는"><a class="header" href="#4-member-테이블의-모든-자료를-가져오는-sql-명령어는"><strong>4. member 테이블의 모든 자료를 가져오는 SQL 명령어는?</strong></a></h3>
+<ol>
+<li>get all from member;</li>
+<li>select * from member;</li>
+<li>select % from member;</li>
+<li>query from member;</li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="복습문제-6"><a class="header" href="#복습문제-6">복습문제</a></h1>
+<h3 id="1-postgis에-대해-맞는-설명은"><a class="header" href="#1-postgis에-대해-맞는-설명은"><strong>1. postgis에 대해 맞는 설명은?</strong></a></h3>
+<ol>
+<li>postgreSQL을 설치하면 자동으로 같이 설치된다.</li>
+<li>postgreSQL에서 옵션으로 기능을 켜고 끌 수 있다.</li>
+<li>postgreSQL 설치 후 별도 설치해야 한다.</li>
+<li>pgAdmin을 통해서만 설치할 수 있다.</li>
+</ol>
+<h3 id="2-1개의-점을-저장할-때-맞는-테이터-유형은"><a class="header" href="#2-1개의-점을-저장할-때-맞는-테이터-유형은"><strong>2. 1개의 점을 저장할 때 맞는 테이터 유형은?</strong></a></h3>
+<ol>
+<li>geometry</li>
+<li>geometry(Point)</li>
+<li>geom(Point)</li>
+<li>geom(Point, 4326)</li>
+</ol>
+<h3 id="3-1개의-점을-저장하되-좌표계를-epsg4326으로-정할-때-맞는-데이터-유형은"><a class="header" href="#3-1개의-점을-저장하되-좌표계를-epsg4326으로-정할-때-맞는-데이터-유형은"><strong>3. 1개의 점을 저장하되, 좌표계를 EPSG:4326으로 정할 때 맞는 데이터 유형은?</strong></a></h3>
+<ol>
+<li>geometry(EPSG, 4326)</li>
+<li>geometry(Point, 4326)</li>
+<li>geom(Point, 4326)</li>
+<li>geom(4326, Point)</li>
+</ol>
+<h3 id="4-한-번에-1개-이상의-점을-저장할-수-있는-데이터-유형은"><a class="header" href="#4-한-번에-1개-이상의-점을-저장할-수-있는-데이터-유형은"><strong>4. 한 번에 1개 이상의 점을 저장할 수 있는 데이터 유형은?</strong></a></h3>
+<ol>
+<li>geometry(MultiPoint)</li>
+<li>geometry(4326)</li>
+<li>geom(Points)</li>
+<li>geom(4326, MultiPoint)</li>
+</ol>
+<h3 id="5-1개의-선을-저장할-수-있는-데이터-유형은"><a class="header" href="#5-1개의-선을-저장할-수-있는-데이터-유형은"><strong>5. 1개의 선을 저장할 수 있는 데이터 유형은?</strong></a></h3>
+<ol>
+<li>geometry(Line)</li>
+<li>geometry(OneLine)</li>
+<li>geometry(Line1)</li>
+<li>geometry(LineString)</li>
+</ol>
+<h3 id="6-한-번에-1개-이상의-선을-저장할-수-있는-데이터-유형은"><a class="header" href="#6-한-번에-1개-이상의-선을-저장할-수-있는-데이터-유형은"><strong>6. 한 번에 1개 이상의 선을 저장할 수 있는 데이터 유형은?</strong></a></h3>
+<ol>
+<li>geometry(Lines)</li>
+<li>geometry(MoreLine)</li>
+<li>geometry(LineStrings)</li>
+<li>geometry(MultiLineString)</li>
+</ol>
+<h3 id="7-1개의-면을-저장할-수-있는-데이터-유형은"><a class="header" href="#7-1개의-면을-저장할-수-있는-데이터-유형은"><strong>7. 1개의 면을 저장할 수 있는 데이터 유형은?</strong></a></h3>
+<ol>
+<li>geometry(Box)</li>
+<li>geometry(Polygon)</li>
+<li>geometry(Poly)</li>
+<li>geometry(2DBox)</li>
+</ol>
+<h3 id="8-한-번에-1개-이상의-면을-저장할-수-있는-데이터-유형은"><a class="header" href="#8-한-번에-1개-이상의-면을-저장할-수-있는-데이터-유형은"><strong>8. 한 번에 1개 이상의 면을 저장할 수 있는 데이터 유형은?</strong></a></h3>
+<ol>
+<li>geometry(Area)</li>
+<li>geometry(Polygons)</li>
+<li>geometry(MultiPolygon)</li>
+<li>geometry(MultiArea)</li>
+</ol>
+<h3 id="9-geometry-형식에-입력된-자료는-열어-보아도-값이-매우-복잡해-사람이-이해하기-어렵다-이를-x-y-좌표값으로-변환해-보여주는-함수의-짝으로-맞는-것은"><a class="header" href="#9-geometry-형식에-입력된-자료는-열어-보아도-값이-매우-복잡해-사람이-이해하기-어렵다-이를-x-y-좌표값으로-변환해-보여주는-함수의-짝으로-맞는-것은"><strong>9. geometry 형식에 입력된 자료는 열어 보아도 값이 매우 복잡해 사람이 이해하기 어렵다. 이를 X, Y 좌표값으로 변환해 보여주는 함수의 짝으로 맞는 것은?</strong></a></h3>
+<ol>
+<li>ST_getXY()</li>
+<li>ST_getX(), ST_getY()</li>
+<li>ST_X(), ST_Y()</li>
+<li>ST_convX(), ST_convY()</li>
+</ol>
+<h3 id="10-좌표계-간-변환하는-함수는"><a class="header" href="#10-좌표계-간-변환하는-함수는"><strong>10. 좌표계 간 변환하는 함수는?</strong></a></h3>
+<ol>
+<li>ST_Transaction()</li>
+<li>ST_Conversion()</li>
+<li>ST_Convert()</li>
+<li>ST_Transform()</li>
+</ol>
+<h3 id="11-현재-데이터베이스에-epsg4326으로-설계되어-있는-테이블이-있고-필드명은-location이다-이-테이블의-값을-epsg3857로-변환해-사용해야-하는-경우-맞는-sql문은"><a class="header" href="#11-현재-데이터베이스에-epsg4326으로-설계되어-있는-테이블이-있고-필드명은-location이다-이-테이블의-값을-epsg3857로-변환해-사용해야-하는-경우-맞는-sql문은"><strong>11. 현재 데이터베이스에 EPSG:4326으로 설계되어 있는 테이블이 있고 필드명은 location이다. 이 테이블의 값을 EPSG:3857로 변환해 사용해야 하는 경우 맞는 SQL문은?</strong></a></h3>
+<ol>
+<li>select st_transform(4326, 3857) from 테이블명</li>
+<li>select st_transform(location, 4326, 3857) from 테이블명</li>
+<li>select st_transform(location, EPSG:3857) from 테이블명</li>
+<li>select st_transform(location, 3857) from 테이블명</li>
+</ol>
+<h3 id="12-위-11번-문제와-같이-좌표계-값을-변환해-사용할-경우-틀린-것은"><a class="header" href="#12-위-11번-문제와-같이-좌표계-값을-변환해-사용할-경우-틀린-것은"><strong>12. 위 11번 문제와 같이 좌표계 값을 변환해 사용할 경우 틀린 것은?</strong></a></h3>
+<ol>
+<li>좌표계 변환할 때 약간의 오차가 있을 수 있다.</li>
+<li>위 11번 문제의 답과 같이 select 문을 사용하면 원래 테이블의 값 자체가 변환된 EPSG:3857의 값으로 변한다.</li>
+<li>st_transform(  ) 괄호 안의 값 중 숫자는 EPSG 코드를 뜻한다.</li>
+<li>최종적으로 변환될 좌표계의 코드만 적어줘도 된다.</li>
+</ol>
+<h3 id="13-st_distancesphere-함수를-사용해-곡률을-반영한-점간-거리를-계산하는-경우-이-계산-결과의-단위는"><a class="header" href="#13-st_distancesphere-함수를-사용해-곡률을-반영한-점간-거리를-계산하는-경우-이-계산-결과의-단위는"><strong>13. ST_DistanceSphere() 함수를 사용해 곡률을 반영한 점간 거리를 계산하는 경우, 이 계산 결과의 단위는?</strong></a></h3>
+<ol>
+<li>mm</li>
+<li>cm</li>
+<li>m</li>
+<li>km</li>
+</ol>
+<h3 id="14-공간정보-자료를-설명하는-문자열을-이용해-geometry-값을-만들-때-사용하는-함수는"><a class="header" href="#14-공간정보-자료를-설명하는-문자열을-이용해-geometry-값을-만들-때-사용하는-함수는"><strong>14. 공간정보 자료를 설명하는 문자열을 이용해 geometry 값을 만들 때 사용하는 함수는?</strong></a></h3>
+<ol>
+<li>ST_GISDataFromText() 함수</li>
+<li>ST_GeometryFromText() 함수</li>
+<li>ST_GeomText() 함수</li>
+<li>ST_GeomFromText() 함수</li>
+</ol>
+<h3 id="15-점이-면-안에-포함되어-있는지-여부를-판단하기-위해-만든-sql-문의-일부이다-다음-중-감싸고-있는-자료와-안에-있는-자료를-순서대로-적은-것은-"><a class="header" href="#15-점이-면-안에-포함되어-있는지-여부를-판단하기-위해-만든-sql-문의-일부이다-다음-중-감싸고-있는-자료와-안에-있는-자료를-순서대로-적은-것은-"><strong>15. 점이 면 안에 포함되어 있는지 여부를 판단하기 위해 만든 SQL 문의 일부이다. 다음 중 감싸고 있는 자료와 안에 있는 자료를 순서대로 적은 것은 ?</strong></a></h3>
+<pre><code class="language-sql">ST_Contains(A, B)
+</code></pre>
+<ol>
+<li>A, B</li>
+<li>B, A</li>
+<li>순서는 상관없다.</li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="연습문제-1"><a class="header" href="#연습문제-1">연습문제</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="공간데이터베이스-연습문제"><a class="header" href="#공간데이터베이스-연습문제">공간데이터베이스 연습문제</a></h1>
+<h3 id="q-다음과-같은-food-테이블을-sql문을-이용해-생성"><a class="header" href="#q-다음과-같은-food-테이블을-sql문을-이용해-생성">Q. 다음과 같은 food 테이블을 SQL문을 이용해 생성</a></h3>
+<p><img src="gisws/practice/img/20240722210944.png" alt="" /></p>
+<p>A.</p>
+<pre><code class="language-sql">create table food
+(
+    name varchar(20),
+    price int
+);
+</code></pre>
+<br>
+<h3 id="q-food-테이블에-sql을-사용해-값-입력하기데이터-추가"><a class="header" href="#q-food-테이블에-sql을-사용해-값-입력하기데이터-추가">Q. food 테이블에 SQL을 사용해 값 입력하기(데이터 추가)</a></h3>
+<p>A.</p>
+<pre><code class="language-sql">insert into food (name, price) values ('짜장면', 6000);
+insert into food (name, price) values ('탕수육', 21000);
+insert into food (name, price) values ('연어구이', 11000);
+insert into food (name, price) values ('고등어구이', 12000);
+insert into food (name, price) values ('짬뽕', 7000);
+</code></pre>
+<h3 id="q-다음과-같이-점이-지도에-표시되도록-자료-입력"><a class="header" href="#q-다음과-같이-점이-지도에-표시되도록-자료-입력">Q. 다음과 같이 점이 지도에 표시되도록 자료 입력</a></h3>
+<p><img src="gisws/practice/img/crop_20240723_141222.png" alt="alt text" /></p>
+<p>A.</p>
+<pre><code class="language-sql">insert into point_test (location, name) values 
+('point( 5 4 )', '금 묻은 곳');
+</code></pre>
+<h3 id="q-다음과-같이-점이-지도에-표시되도록-자료-입력-1"><a class="header" href="#q-다음과-같이-점이-지도에-표시되도록-자료-입력-1">Q. 다음과 같이 점이 지도에 표시되도록 자료 입력</a></h3>
+<p><img src="gisws/practice/img/crop_20240723_141254.png" alt="alt text" /></p>
+<p>A.</p>
+<pre><code class="language-sql">insert into point_test (location, name) values 
+('point( -5 -4 )', '은 묻은 곳');
+</code></pre>
+<h3 id="q-다음과-같이-점들이-지도에-표시되도록-1개의-자료-입력"><a class="header" href="#q-다음과-같이-점들이-지도에-표시되도록-1개의-자료-입력">Q. 다음과 같이 점들이 지도에 표시되도록 1개의 자료 입력</a></h3>
+<p><img src="gisws/practice/img/crop_20240723_141318.png" alt="alt text" /></p>
+<p>A.</p>
+<pre><code class="language-sql">insert into multi_point_test (location, name) values 
+('multipoint( -5 -4, 5 4 )', '해상 공원');
+</code></pre>
+<h3 id="q-다음과-같이-점들이-지도에-표시되도록-1개의-자료-입력-1"><a class="header" href="#q-다음과-같이-점들이-지도에-표시되도록-1개의-자료-입력-1">Q. 다음과 같이 점들이 지도에 표시되도록 1개의 자료 입력</a></h3>
+<p><img src="gisws/practice/img/crop_20240723_141416.png" alt="alt text" /></p>
+<p>A.</p>
+<pre><code class="language-sql">insert into multi_point_test (location, name) values 
+('multipoint( -10 -11.5, 10 3 )', '석유 매장 추정지');
+</code></pre>
+<h3 id="q-다음과-같이-선이-지도에-표시되도록-1개의-자료-입력"><a class="header" href="#q-다음과-같이-선이-지도에-표시되도록-1개의-자료-입력">Q. 다음과 같이 선이 지도에 표시되도록 1개의 자료 입력</a></h3>
+<p><img src="gisws/practice/img/crop_20240723_141915.png" alt="alt text" /></p>
+<p>A.</p>
+<pre><code class="language-sql">insert into line_test (location, name) values 
+('lineString(-10 12.7, 10 11.5  )', '이동 최단거리');
+</code></pre>
+<h3 id="q-다음과-같이-선이-지도에-표시되도록-1개의-자료-입력-1"><a class="header" href="#q-다음과-같이-선이-지도에-표시되도록-1개의-자료-입력-1">Q. 다음과 같이 선이 지도에 표시되도록 1개의 자료 입력</a></h3>
+<p><img src="gisws/practice/img/crop_20240723_141750.png" alt="alt text" /></p>
+<p>A.</p>
+<pre><code class="language-sql">insert into line_test (location, name) values 
+('lineString(-20 -12.7, -10 -11.5, 5 3.7  )', '이동 최단거리');
+</code></pre>
+<h3 id="q-다음과-같이-여러-선이-지도에-표시되도록-1개의-자료-입력"><a class="header" href="#q-다음과-같이-여러-선이-지도에-표시되도록-1개의-자료-입력">Q. 다음과 같이 여러 선이 지도에 표시되도록 1개의 자료 입력</a></h3>
+<p><img src="gisws/practice/img/crop_20240723_142400.png" alt="alt text" /></p>
+<p>A.</p>
+<pre><code class="language-sql">insert into multi_line_test (location, name) values
+('MultiLineString( (20.5 0.5, 20.6 0.6  ), (20.8 0.6, 20.95 0.61) )', '등산로');
+</code></pre>
+<h3 id="q-다음과-같이-여러-선이-지도에-표시되도록-1개의-자료-입력-1"><a class="header" href="#q-다음과-같이-여러-선이-지도에-표시되도록-1개의-자료-입력-1">Q. 다음과 같이 여러 선이 지도에 표시되도록 1개의 자료 입력</a></h3>
+<p><img src="gisws/practice/img/crop_20240723_142936.png" alt="alt text" /></p>
+<p>A.</p>
+<pre><code class="language-sql">insert into multi_line_test (location, name) values
+('MultiLineString( (3 4, 3 5, 4 6, 5 4  ), (0 1, 1 1, 2 2, 3 1, 1 0) )', '등산로');
+</code></pre>
+<h3 id="q-다음과-같이-면이-지도에-표시되도록-1개의-자료-입력"><a class="header" href="#q-다음과-같이-면이-지도에-표시되도록-1개의-자료-입력">Q. 다음과 같이 면이 지도에 표시되도록 1개의 자료 입력</a></h3>
+<p><img src="gisws/practice/img/crop_20240723_143210.png" alt="alt text" /></p>
+<p>A.</p>
+<pre><code class="language-sql">insert into polygon_test (location, name) values 
+('polygon( (3 4, 3 5, 4 6, 3 4 ) )', '어장1');
+</code></pre>
+<h3 id="q-다음과-같이-면이-지도에-표시되도록-1개의-자료-입력-1"><a class="header" href="#q-다음과-같이-면이-지도에-표시되도록-1개의-자료-입력-1">Q. 다음과 같이 면이 지도에 표시되도록 1개의 자료 입력</a></h3>
+<p><img src="gisws/practice/img/crop_20240723_143650.png" alt="alt text" /></p>
+<p>A.</p>
+<pre><code class="language-sql">insert into polygon_test (location, name) values 
+('polygon( (3.5 4, 3.3 5.2, 4.7 6.1, 5.0 3.5, 5.3 3.2, 3.5 4 ) )', '어장 2');
+</code></pre>
+<h3 id="q-다음과-같이-여러-면이-지도에-표시되도록-1개의-자료-입력"><a class="header" href="#q-다음과-같이-여러-면이-지도에-표시되도록-1개의-자료-입력">Q. 다음과 같이 여러 면이 지도에 표시되도록 1개의 자료 입력</a></h3>
+<p><img src="gisws/practice/img/crop_20240723_144555.png" alt="alt text" /></p>
+<p>A.</p>
+<pre><code class="language-sql">insert into multi_polygon_test (location, name) values 
+('Polygon( (3 -5, 4 -5, 2 -6, 3 -5 ), (2.5 -7, 5 -8, 4 -9, 2.5 -7) )', '석유 매장지');
+</code></pre>
+<h3 id="q-다음과-같이-여러-면이-지도에-표시되도록-1개의-자료-입력-1"><a class="header" href="#q-다음과-같이-여러-면이-지도에-표시되도록-1개의-자료-입력-1">Q. 다음과 같이 여러 면이 지도에 표시되도록 1개의 자료 입력</a></h3>
+<p><img src="gisws/practice/img/crop_20240723_144248.png" alt="alt text" /></p>
+<p>A.</p>
+<pre><code class="language-sql">insert into multi_polygon_test (location, name) values 
+('Polygon( (1 4, 1 5, 2 6, 1 4 ), (3.5 4, 3.3 5.2, 4.7 6.1, 5.0 3.5, 5.3 3.2, 3.5 4 ) )', '어장들');
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="국토정보프로그래밍python"><a class="header" href="#국토정보프로그래밍python">국토정보프로그래밍(python)</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="학습자료-2"><a class="header" href="#학습자료-2">학습자료</a></h1>
+<h2 id="python-1"><a class="header" href="#python-1">python</a></h2>
+<ul>
+<li>
+<p>python 공식 홈페이지: <a href="https://www.python.org" title="" target="_blank">https://www.python.org</a></p>
+</li>
+<li>
+<p>python 무료 책: <a href="https://wikidocs.net/book/1" title="" target="_blank">점프 투 파이썬</a></p>
+</li>
+<li>
+<p><a href="https://medium.com/@ns_geoai/70-geospatial-python-libraries-54604d815a7b" title="" target="_blank">70 Geospatial Python Libraries</a></p>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="복습문제-7"><a class="header" href="#복습문제-7">복습문제</a></h1>
+<p><img src="python_2024/quiz/../../default/quiz01.png" alt="" /></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="1-파이썬의-개요"><a class="header" href="#1-파이썬의-개요">1. 파이썬의 개요</a></h1>
+<h3 id="1-파이썬이라는-이름에-대한-설명-중-틀린-것은-1"><a class="header" href="#1-파이썬이라는-이름에-대한-설명-중-틀린-것은-1"><strong>1. 파이썬이라는 이름에 대한 설명 중 틀린 것은?</strong></a></h3>
+<ol>
+<li>비단뱀이라는 뜻도 있다.</li>
+<li>고대 신화에 나오는 큰 뱀 이라는 뜻도 있다.</li>
+<li>제작자가 좋아하는 코미디에서 따온 이름이다.</li>
+<li>제작자의 이름이다.</li>
+</ol>
+<br>
+<h3 id="2-파이썬의-특징이-아닌-것은-1"><a class="header" href="#2-파이썬의-특징이-아닌-것은-1"><strong>2. 파이썬의 특징이 아닌 것은?</strong></a></h3>
+<ol>
+<li>언어 자체는 쉽지만 아직 라이브러리가 많지 않아 일일이 개발해야 하는 어려움이 있다.</li>
+<li>문법이 비교적 간결하다.</li>
+<li>배우려고 마음만 먹으면 도움이 될 참고자료들이 넘쳐난다.</li>
+<li>무료로 사용할 수 있다.</li>
+</ol>
+<br>
+<h3 id="3-파이썬으로-만들면-문제가-생길-만한-프로그램-종류는-1"><a class="header" href="#3-파이썬으로-만들면-문제가-생길-만한-프로그램-종류는-1"><strong>3. 파이썬으로 만들면 문제가 생길 만한 프로그램 종류는?</strong></a></h3>
+<ol>
+<li>웹사이트</li>
+<li>AI 프로그램</li>
+<li>데이터 분석 프로그램</li>
+<li>real time을 요하는 실시간 처리가 중요한 프로그램</li>
+</ol>
+<br>
+<h3 id="4-파이썬의-언어적-특징이-아닌-것은-1"><a class="header" href="#4-파이썬의-언어적-특징이-아닌-것은-1"><strong>4. 파이썬의 언어적 특징이 아닌 것은?</strong></a></h3>
+<ol>
+<li>인터프리터 언어이다.</li>
+<li>대화형 언어이다.</li>
+<li>실행파일(exe 파일)이 생성된다.</li>
+<li>질문하면 대답하는 형식으로 프로그램이 진행된다.</li>
+</ol>
+<br>
+<h3 id="5-다음-중-파이썬의-프롬프트는-1"><a class="header" href="#5-다음-중-파이썬의-프롬프트는-1"><strong>5. 다음 중 파이썬의 프롬프트는?</strong></a></h3>
+<ol>
+<li>###</li>
+<li>&gt;&gt;&gt;</li>
+<li>&lt;&lt;&lt;</li>
+<li>***</li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="2-파이썬-자료형"><a class="header" href="#2-파이썬-자료형">2. 파이썬 자료형</a></h1>
+<h3 id="1-한-변수에--3--2--1-이렇게-3개-값만-들어간다-이-경우-파이썬은-이-변수의-자료형을-무엇이라-판단할까-1"><a class="header" href="#1-한-변수에--3--2--1-이렇게-3개-값만-들어간다-이-경우-파이썬은-이-변수의-자료형을-무엇이라-판단할까-1"><strong>1. 한 변수에 -3, -2, -1, 이렇게 3개 값만 들어간다. 이 경우 파이썬은 이 변수의 자료형을 무엇이라 판단할까?</strong></a></h3>
+<ol>
+<li>문자열</li>
+<li>정수형(integer)</li>
+<li>실수형(float)</li>
+<li>참/거짓형(boolean)</li>
+</ol>
+<br>
+<h3 id="2-다음-코드를-실행한-후-메모리의-모습으로-맞는-것은-1"><a class="header" href="#2-다음-코드를-실행한-후-메모리의-모습으로-맞는-것은-1"><strong>2. 다음 코드를 실행한 후 메모리의 모습으로 맞는 것은?</strong></a></h3>
+<pre><code class="language-python">&gt;&gt;&gt; a = 5
+&gt;&gt;&gt; b = 10
+&gt;&gt;&gt; a = 7
+</code></pre>
+<ol>
+<li><img src="python_2024/quiz/img/20240821105736.png" alt="" /></li>
+<li><img src="python_2024/quiz/img/20240821105815.png" alt="" /></li>
+<li><img src="python_2024/quiz/img/20240821105831.png" alt="" /></li>
+<li><img src="python_2024/quiz/img/20240821105906.png" alt="" /></li>
+</ol>
+<br>
+<h3 id="3-다음-코드의-결과는-1"><a class="header" href="#3-다음-코드의-결과는-1"><strong>3. 다음 코드의 결과는?</strong></a></h3>
+<pre><code class="language-python">&gt;&gt;&gt; a = 1
+&gt;&gt;&gt; b = a + 0.1
+&gt;&gt;&gt; print (b)
+</code></pre>
+<ol>
+<li>1 + 0.1</li>
+<li>1.01</li>
+<li>10.1</li>
+<li>1.1</li>
+</ol>
+<br>
+<h3 id="4-다음-코드에서-변수-b의-자료형은-1"><a class="header" href="#4-다음-코드에서-변수-b의-자료형은-1"><strong>4. 다음 코드에서 변수 b의 자료형은?</strong></a></h3>
+<pre><code class="language-python">&gt;&gt;&gt; a = 1
+&gt;&gt;&gt; b = a + 0.1
+</code></pre>
+<ol>
+<li>문자열</li>
+<li>정수형(integer)</li>
+<li>실수형(float)</li>
+<li>참/거짓형(boolean)</li>
+</ol>
+<br>
+<h3 id="5-다음-코드의-결과는-2"><a class="header" href="#5-다음-코드의-결과는-2"><strong>5. 다음 코드의 결과는?</strong></a></h3>
+<pre><code class="language-python">&gt;&gt;&gt; 5 // 3
+</code></pre>
+<ol>
+<li>1</li>
+<li>1.6666666666666667</li>
+<li>2</li>
+<li>3</li>
+</ol>
+<br>
+<h3 id="6-다음-코드의-결과는-1"><a class="header" href="#6-다음-코드의-결과는-1"><strong>6. 다음 코드의 결과는?</strong></a></h3>
+<pre><code class="language-python">&gt;&gt;&gt; 5 % 3
+</code></pre>
+<ol>
+<li>1</li>
+<li>1.6666666666666667</li>
+<li>2</li>
+<li>3</li>
+</ol>
+<br>
+<h3 id="7-다음-코드의-결과는-1"><a class="header" href="#7-다음-코드의-결과는-1"><strong>7. 다음 코드의 결과는?</strong></a></h3>
+<pre><code class="language-python">&gt;&gt;&gt; 3 ** 3
+</code></pre>
+<ol>
+<li>9</li>
+<li>33</li>
+<li>27</li>
+<li>45</li>
+</ol>
+<br>
+<h3 id="8-다음-코드의-결과는-1"><a class="header" href="#8-다음-코드의-결과는-1"><strong>8. 다음 코드의 결과는?</strong></a></h3>
+<pre><code class="language-python">&gt;&gt;&gt; a = "올해 연도 : "
+&gt;&gt;&gt; b = 2024
+&gt;&gt;&gt; c = a + b
+</code></pre>
+<ol>
+<li>에러가 발생한다.</li>
+<li>‘올해 연도 : 2024’</li>
+<li>‘올해 연도 :’</li>
+<li>‘2024’</li>
+</ol>
+<br>
+<h3 id="9-바로-위-문제에서-에러가-발생했다면-이를-해결하기-위한-방법은-1"><a class="header" href="#9-바로-위-문제에서-에러가-발생했다면-이를-해결하기-위한-방법은-1"><strong>9. 바로 위 문제에서 에러가 발생했다면 이를 해결하기 위한 방법은?</strong></a></h3>
+<ol>
+<li>문제없이 실행된다.</li>
+<li>c = a + b 를 c = a + len(b)로 수정한다.</li>
+<li>c = a + b 를 c = str(a) + b로 수정한다.</li>
+<li>c = a + b 를 c = a + str(b)로 수정한다.</li>
+</ol>
+<br>
+<h3 id="10-다음-코드의-결과는-1"><a class="header" href="#10-다음-코드의-결과는-1"><strong>10. 다음 코드의 결과는?</strong></a></h3>
+<pre><code class="language-python">&gt;&gt;&gt; a = 2024
+&gt;&gt;&gt; b = "올해 연도 : {0}".format(a)
+&gt;&gt;&gt; b
+</code></pre>
+<ol>
+<li>에러가 발생한다.</li>
+<li>‘올해 연도 : 2024’</li>
+<li>‘올해 연도 :’</li>
+<li>‘2024’</li>
+</ol>
+<br>
+<h3 id="11-다음-코드의-결과는-1"><a class="header" href="#11-다음-코드의-결과는-1"><strong>11. 다음 코드의 결과는?</strong></a></h3>
+<pre><code class="language-python">&gt;&gt;&gt; a = "올해 연도 : {0}"
+&gt;&gt;&gt; b = 2024
+&gt;&gt;&gt; c =  a.format(b)
+&gt;&gt;&gt; c
+</code></pre>
+<ol>
+<li>에러가 발생한다.</li>
+<li>‘올해 연도 : 2024’</li>
+<li>‘올해 연도 :’</li>
+<li>‘2024’</li>
+</ol>
+<br>
+<h3 id="12-list를-사용하는-이유가-아닌-것은-1"><a class="header" href="#12-list를-사용하는-이유가-아닌-것은-1"><strong>12. list를 사용하는 이유가 아닌 것은?</strong></a></h3>
+<ol>
+<li>변수 하나로 많은 양의 자료를 관리할 수 있다.</li>
+<li>파이썬은 사용할 수 있는 변수의 갯수가 128개로 정해져 있다.</li>
+<li>자료마다 변수를 생성하는 것은 매우 불편하고 사실상 그렇게는 개발이 불가능하기 때문</li>
+<li>개발의 편리함때문</li>
+</ol>
+<br>
+<h3 id="13-다음-list에서-하나의-요소를-읽어오는-코드의-결과는-1"><a class="header" href="#13-다음-list에서-하나의-요소를-읽어오는-코드의-결과는-1"><strong>13. 다음 list에서 하나의 요소를 읽어오는 코드의 결과는?</strong></a></h3>
+<pre><code class="language-python">&gt;&gt;&gt; a = ['짜장', '짬뽕', '탕수육', '회']
+&gt;&gt;&gt; a[2]
+</code></pre>
+<ol>
+<li>‘짜장’</li>
+<li>‘짬뽕’</li>
+<li>‘탕수육’</li>
+<li>‘회’</li>
+</ol>
+<br>
+<h3 id="14-list에서-하나의-요소를-바꾼-코드의-결과는-1"><a class="header" href="#14-list에서-하나의-요소를-바꾼-코드의-결과는-1"><strong>14. list에서 하나의 요소를 바꾼 코드의 결과는?</strong></a></h3>
+<pre><code class="language-python">&gt;&gt;&gt; a = ['짜장', '짬뽕', '탕수육', '회']
+&gt;&gt;&gt; a[2] = '깐풍기'
+&gt;&gt;&gt; a
+</code></pre>
+<ol>
+<li>[‘짜장’, ‘짬뽕’, ‘탕수육’, ‘회’]</li>
+<li>[‘짜장’, ‘짬뽕’, ‘깐풍기’, ‘회’]</li>
+<li>‘깐풍기’</li>
+<li>에러가 발생하고 값을 바꿀 수 없다.</li>
+</ol>
+<br>
+<h3 id="15-list에-하나의-요소를-추가한-코드의-결과는-1"><a class="header" href="#15-list에-하나의-요소를-추가한-코드의-결과는-1"><strong>15. list에 하나의 요소를 추가한 코드의 결과는?</strong></a></h3>
+<pre><code class="language-python">&gt;&gt;&gt; a = ['짜장', '짬뽕', '탕수육', '회']
+&gt;&gt;&gt; a.append("육회")
+&gt;&gt;&gt; a
+</code></pre>
+<ol>
+<li>[‘짜장’, ‘짬뽕’, ‘탕수육’, ‘회’]</li>
+<li>[‘짜장’, ‘짬뽕’, ‘탕수육’, ‘회’, ‘육회’]</li>
+<li>‘육회’</li>
+<li>에러가 발생하고 값을 바꿀 수 없다.</li>
+</ol>
+<br>
+<h3 id="16-list에-하나의-요소를-특정-위치에-추가하기-위해--부분에-작성해야-하는-코드는-1"><a class="header" href="#16-list에-하나의-요소를-특정-위치에-추가하기-위해--부분에-작성해야-하는-코드는-1"><strong>16. list에 하나의 요소를 특정 위치에 추가하기 위해, ??? 부분에 작성해야 하는 코드는?</strong></a></h3>
+<pre><code class="language-python">&gt;&gt;&gt; a = ['짜장', '짬뽕', '탕수육', '회']
+&gt;&gt;&gt; ???
+&gt;&gt;&gt; a
+['짜장', '짬뽕', '깐풍기', '탕수육', '회']
+</code></pre>
+<ol>
+<li>a.insert(0, ‘깐풍기’)</li>
+<li>a.insert(1, ‘깐풍기’)</li>
+<li>a.insert(2, ‘깐풍기’)</li>
+<li>a.insert(3, ‘깐풍기’)</li>
+</ol>
+<br>
+<h3 id="17-list에-하나의-요소를-삭제하기-위해--부분에-작성해야-하는-코드는-1"><a class="header" href="#17-list에-하나의-요소를-삭제하기-위해--부분에-작성해야-하는-코드는-1"><strong>17. list에 하나의 요소를 삭제하기 위해, ??? 부분에 작성해야 하는 코드는?</strong></a></h3>
+<pre><code class="language-python">&gt;&gt;&gt; a = ['짜장', '짬뽕', '탕수육', '회']
+&gt;&gt;&gt; ???
+&gt;&gt;&gt; a
+['짜장', '탕수육', '회']
+</code></pre>
+<ol>
+<li>del a[0]</li>
+<li>a.del[0]</li>
+<li>del a[1]</li>
+<li>a.del[1]</li>
+</ol>
+<br>
+<h3 id="18-다음-코드의-결과를-순서대로-표시한-것은-1"><a class="header" href="#18-다음-코드의-결과를-순서대로-표시한-것은-1"><strong>18. 다음 코드의 결과를 순서대로 표시한 것은?</strong></a></h3>
+<pre><code class="language-python">&gt;&gt;&gt; 2 &lt; 5
+???
+&gt;&gt;&gt; 5 &lt; 2
+???
+</code></pre>
+<ol>
+<li>True, True</li>
+<li>True, False</li>
+<li>False, True</li>
+<li>False, False</li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="3-파이썬-제어문"><a class="header" href="#3-파이썬-제어문">3. 파이썬 제어문</a></h1>
+<h3 id="1-파이썬에서-제공하는-제어문-2가지는-1"><a class="header" href="#1-파이썬에서-제공하는-제어문-2가지는-1"><strong>1. 파이썬에서 제공하는 제어문 2가지는?</strong></a></h3>
+<ol>
+<li>조건문, 입출력</li>
+<li>입출력, 라이브러리</li>
+<li>조건문, 반복문</li>
+<li>반복문, 입출력</li>
+</ol>
+<br>
+<h3 id="2-조건식이-참인-경우에만-실행되는-제어문은-1"><a class="header" href="#2-조건식이-참인-경우에만-실행되는-제어문은-1"><strong>2. 조건식이 참인 경우에만 실행되는 제어문은?</strong></a></h3>
+<ol>
+<li>입출력</li>
+<li>라이브러리</li>
+<li>반복문</li>
+<li>조건문</li>
+</ol>
+<br>
+<h3 id="3-다음-조건문에서-실행되는-내용은-1"><a class="header" href="#3-다음-조건문에서-실행되는-내용은-1"><strong>3. 다음 조건문에서 실행되는 내용은?</strong></a></h3>
+<pre><code class="language-python">if 3 &lt; 5 :
+    a = 1 ⓐ 
+    b = 2 ⓑ 
+    c = 3 ⓒ 
+d = 4 ⓓ
+</code></pre>
+<ol>
+<li>ⓐ</li>
+<li>ⓐ ⓑ</li>
+<li>ⓐ ⓑ ⓒ</li>
+<li>ⓓ</li>
+</ol>
+<br>
+<h3 id="4-다음-조건문에서-실행되는-내용은-1"><a class="header" href="#4-다음-조건문에서-실행되는-내용은-1"><strong>4. 다음 조건문에서 실행되는 내용은?</strong></a></h3>
+<pre><code class="language-python">if 3 &gt; 5 :
+    a = 1 ⓐ 
+    b = 2 ⓑ 
+    c = 3 ⓒ 
+d = 4 ⓓ
+</code></pre>
+<ol>
+<li>ⓐ</li>
+<li>ⓐ ⓑ</li>
+<li>ⓐ ⓑ ⓒ</li>
+<li>ⓓ</li>
+</ol>
+<br>
+<h3 id="5-다음-조건문의-실행-결과는-1"><a class="header" href="#5-다음-조건문의-실행-결과는-1"><strong>5. 다음 조건문의 실행 결과는?</strong></a></h3>
+<pre><code class="language-python">if 3 == 5 :
+    print("a")
+print("b")
+</code></pre>
+<ol>
+<li>에러가 난다.</li>
+<li>‘a’</li>
+<li>‘b’</li>
+<li>‘a’<br />
+‘b’</li>
+</ol>
+<br>
+<h3 id="6-다음-조건문의-실행-결과는-1"><a class="header" href="#6-다음-조건문의-실행-결과는-1"><strong>6. 다음 조건문의 실행 결과는?</strong></a></h3>
+<pre><code class="language-python">if 3 != 5 :
+    print("a")
+print("b")
+</code></pre>
+<ol>
+<li>에러가 난다.</li>
+<li>‘a’</li>
+<li>‘b’</li>
+<li>‘a’<br />
+‘b’</li>
+</ol>
+<br>
+<h3 id="7-조건식이-참이-아닐-경우-실행하는-부분은-1"><a class="header" href="#7-조건식이-참이-아닐-경우-실행하는-부분은-1"><strong>7. 조건식이 참이 아닐 경우 실행하는 부분은?</strong></a></h3>
+<ol>
+<li>iif</li>
+<li>then</li>
+<li>print()</li>
+<li>else</li>
+</ol>
+<br>
+<h3 id="8-다음-조건문-코드의-실행-결과는-1"><a class="header" href="#8-다음-조건문-코드의-실행-결과는-1"><strong>8. 다음 조건문 코드의 실행 결과는?</strong></a></h3>
+<pre><code class="language-python">a = 10
+
+if a &lt; 3 :
+    print ("apple")
+else:
+    print ("banana")
+</code></pre>
+<ol>
+<li>에러가 발생한다.</li>
+<li>‘apple’</li>
+<li>‘banana’</li>
+<li>‘apple’<br />
+‘banana’</li>
+</ol>
+<br>
+<h3 id="9-다음-조건문-코드의-실행-결과는-1"><a class="header" href="#9-다음-조건문-코드의-실행-결과는-1"><strong>9. 다음 조건문 코드의 실행 결과는?</strong></a></h3>
+<pre><code class="language-python">a = 3
+
+if a &lt; 7 :
+    print ("apple")
+elif a &lt; 5 :
+    print ("kiwi")
+else:
+    print ("banana")
+</code></pre>
+<ol>
+<li>에러가 발생한다.</li>
+<li>‘apple’</li>
+<li>‘kiwi’</li>
+<li>‘banana’</li>
+</ol>
+<br>  
+<h3 id="10-다음-조건문-코드의-실행-결과는-1"><a class="header" href="#10-다음-조건문-코드의-실행-결과는-1"><strong>10. 다음 조건문 코드의 실행 결과는?</strong></a></h3>
+<pre><code class="language-python">a = 9
+
+if a &lt; 7 :
+    print ("apple")
+elif 8 &lt;= a :
+    print ("kiwi")
+else:
+    print ("banana")
+</code></pre>
+<ol>
+<li>에러가 발생한다.</li>
+<li>‘apple’</li>
+<li>‘kiwi’</li>
+<li>‘banana’</li>
+</ol>
+<br>
+<h3 id="11-다음-조건문-코드의-실행-결과는-1"><a class="header" href="#11-다음-조건문-코드의-실행-결과는-1"><strong>11. 다음 조건문 코드의 실행 결과는?</strong></a></h3>
+<pre><code class="language-python">a = 11
+
+if a &lt; 7 :
+    print ("apple")
+elif a &lt; 4 :
+    print ("kiwi")
+else:
+    print ("banana")
+</code></pre>
+<ol>
+<li>에러가 발생한다.</li>
+<li>‘apple’</li>
+<li>‘kiwi’</li>
+<li>‘banana’</li>
+</ol>
+<br>
+<h3 id="12-다음-조건문-코드의-실행-결과는-1"><a class="header" href="#12-다음-조건문-코드의-실행-결과는-1"><strong>12. 다음 조건문 코드의 실행 결과는?</strong></a></h3>
+<pre><code class="language-python">a = 6
+
+if a &lt; 7 :
+    print ("apple")
+    
+    if 5 &lt;= a :
+        print ("mango")
+elif a &lt; 4 :
+    print ("kiwi")
+else:
+    print ("banana")
+</code></pre>
+<ol>
+<li>‘apple’<br />
+‘mango’</li>
+<li>‘apple’</li>
+<li>‘mango’</li>
+<li>‘banana’</li>
+<li>‘kiwi’</li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="4-파이썬-반복문"><a class="header" href="#4-파이썬-반복문">4. 파이썬 반복문</a></h1>
+<h3 id="1-하는-동안에-라는-뜻으로-조건식이-참인-경우에만-반복-처리하는-반복문은--1"><a class="header" href="#1-하는-동안에-라는-뜻으로-조건식이-참인-경우에만-반복-처리하는-반복문은--1"><strong>1. “~하는 동안에” 라는 뜻으로 조건식이 참인 경우에만 반복 처리하는 반복문은 ?</strong></a></h3>
+<ol>
+<li>for</li>
+<li>during</li>
+<li>whale</li>
+<li>while</li>
+</ol>
+<br>
+<h3 id="2-주로-리스트의-모든-요소들을-하나씩-꺼내서-처리하는-방식의-반복문은-1"><a class="header" href="#2-주로-리스트의-모든-요소들을-하나씩-꺼내서-처리하는-방식의-반복문은-1"><strong>2. 주로 리스트의 모든 요소들을 하나씩 꺼내서 처리하는 방식의 반복문은?</strong></a></h3>
+<ol>
+<li>for</li>
+<li>during</li>
+<li>whale</li>
+<li>while</li>
+</ol>
+<br>
+<h3 id="3-다음-코드의-실행-결과는-1"><a class="header" href="#3-다음-코드의-실행-결과는-1"><strong>3. 다음 코드의 실행 결과는?</strong></a></h3>
+<pre><code class="language-python">while True:
+  print("apple")
+</code></pre>
+<ol>
+<li>에러가 난다.</li>
+<li>아무 것도 실행되지 않는 것처럼 보인다.</li>
+<li>“apple”</li>
+<li>“apple“이 무한히 출력된다.</li>
+</ol>
+<br>
+<h3 id="4-다음-코드의-실행-결과는-1"><a class="header" href="#4-다음-코드의-실행-결과는-1"><strong>4. 다음 코드의 실행 결과는?</strong></a></h3>
+<pre><code class="language-python">a = 3
+
+while a &lt; 5 :
+    print(a)
+</code></pre>
+<ol>
+<li>에러가 난다.</li>
+<li>아무 것도 실행되지 않는 것처럼 보인다.</li>
+<li>“3 4 5”</li>
+<li>“3“이 무한히 출력된다.</li>
+</ol>
+<br>
+<h3 id="5-다음-코드의-실행-결과는-1"><a class="header" href="#5-다음-코드의-실행-결과는-1"><strong>5. 다음 코드의 실행 결과는?</strong></a></h3>
+<pre><code class="language-python">a = 3
+
+while a &lt; 5 :
+    print (a)
+    a = a + 1
+</code></pre>
+<ol>
+<li>에러가 난다.</li>
+<li>“3“이 무한히 출력된다.</li>
+<li>3<br />
+4</li>
+<li>3<br />
+4<br />
+5</li>
+</ol>
+<br>
+<h3 id="6-다음-코드의-실행-결과는-1"><a class="header" href="#6-다음-코드의-실행-결과는-1"><strong>6. 다음 코드의 실행 결과는?</strong></a></h3>
+<pre><code class="language-python">a = 3
+
+while a &lt; 5 :
+    print (a)
+a = a + 1
+</code></pre>
+<ol>
+<li>에러가 난다.</li>
+<li>“3“이 무한히 출력된다.</li>
+<li>3<br />
+4</li>
+<li>3<br />
+4<br />
+5</li>
+</ol>
+<br>
+<h3 id="7-다음-코드의-실행-결과는-1"><a class="header" href="#7-다음-코드의-실행-결과는-1"><strong>7. 다음 코드의 실행 결과는?</strong></a></h3>
+<pre><code class="language-python">a = [1, 2, 3]
+
+for item in a :
+    print(a)
+</code></pre>
+<ol>
+<li>[1, 2, 3]</li>
+<li>1<br />
+2<br />
+3</li>
+<li>[1, 2, 3]<br />
+[1, 2, 3]<br />
+[1, 2, 3]</li>
+<li>1 2 3</li>
+</ol>
+<br>
+<h3 id="8-다음-코드의-실행-결과는-1"><a class="header" href="#8-다음-코드의-실행-결과는-1"><strong>8. 다음 코드의 실행 결과는?</strong></a></h3>
+<pre><code class="language-python">a = [1, 2, 3]
+
+for item in a :
+    print(item)
+</code></pre>
+<ol>
+<li>[1, 2, 3]</li>
+<li>1<br />
+2<br />
+3</li>
+<li>[1, 2, 3]<br />
+[1, 2, 3]<br />
+[1, 2, 3]</li>
+<li>1 2 3</li>
+</ol>
+<br>
+<h3 id="9-다음-코드의-실행-결과는-1"><a class="header" href="#9-다음-코드의-실행-결과는-1"><strong>9. 다음 코드의 실행 결과는?</strong></a></h3>
+<pre><code class="language-python">a = [1, 2, 3]
+
+for item in a :
+    if item = 2 :
+        break
+    
+    print(item)
+</code></pre>
+<ol>
+<li>에러가 발생한다.</li>
+<li>1<br />
+2<br />
+3</li>
+<li>[1, 2, 3]<br />
+[1, 2, 3]<br />
+[1, 2, 3]</li>
+<li>1e</li>
+</ol>
+<br>
+<h3 id="10-다음-코드의-실행-결과는-1"><a class="header" href="#10-다음-코드의-실행-결과는-1"><strong>10. 다음 코드의 실행 결과는?</strong></a></h3>
+<pre><code class="language-python">a = [1, 2, 3]
+
+for item in a :
+    if item == 2 :
+        break
+    
+    print(item)
+</code></pre>
+<ol>
+<li>에러가 발생한다.</li>
+<li>1<br />
+2<br />
+3</li>
+<li>[1, 2, 3]<br />
+[1, 2, 3]<br />
+[1, 2, 3]</li>
+<li>1</li>
+</ol>
+<br>         
+<h3 id="11-다음-코드의-실행-결과는-1"><a class="header" href="#11-다음-코드의-실행-결과는-1"><strong>11. 다음 코드의 실행 결과는?</strong></a></h3>
+<pre><code class="language-python">a = [1, 2, 3]
+
+for item in a :
+    if item == 2 :
+        continue
+    
+    print(item)
+</code></pre>
+<ol>
+<li>1<br />
+2</li>
+<li>1<br />
+2<br />
+3</li>
+<li>2</li>
+<li>1<br />
+3</li>
+</ol>
+<br>         
+<h3 id="12-다음-코드의-실행-결과는-1"><a class="header" href="#12-다음-코드의-실행-결과는-1"><strong>12. 다음 코드의 실행 결과는?</strong></a></h3>
+<pre><code class="language-python">for i in range(3):
+    print (i)
+</code></pre>
+<ol>
+<li>1<br />
+2<br />
+3</li>
+<li>3</li>
+<li>2</li>
+<li>0<br />
+1<br />
+2</li>
+</ol>
+<br>
+<h3 id="13-다음-코드의-실행-결과는-1"><a class="header" href="#13-다음-코드의-실행-결과는-1"><strong>13. 다음 코드의 실행 결과는?</strong></a></h3>
+<pre><code class="language-python">a = [i*3 for i in range(3)]
+print (a)
+</code></pre>
+<ol>
+<li>[1, 2, 3]</li>
+<li>[1, 3, 6]</li>
+<li>6</li>
+<li>[0, 3, 6]</li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="5-파이썬-자료형-ii"><a class="header" href="#5-파이썬-자료형-ii">5. 파이썬 자료형 II</a></h1>
+<h3 id="1-list의-고정형-버전으로-각-항목들을--으로-감싸는-list와-달리-으로-감싸는-파이썬-자료형은-1"><a class="header" href="#1-list의-고정형-버전으로-각-항목들을--으로-감싸는-list와-달리-으로-감싸는-파이썬-자료형은-1"><strong>1. list의 고정형 버전으로 각 항목들을 [] 으로 감싸는 list와 달리 ()으로 감싸는 파이썬 자료형은?</strong></a></h3>
+<ol>
+<li>boolean</li>
+<li>float</li>
+<li>tuple</li>
+<li>map</li>
+</ol>
+<br>
+<h3 id="2-tuple에-대한-설명으로-옳은-것은-1"><a class="header" href="#2-tuple에-대한-설명으로-옳은-것은-1"><strong>2. tuple에 대한 설명으로 옳은 것은?</strong></a></h3>
+<ol>
+<li>[]나 ()로 항목들을 감싼다.</li>
+<li>한 번 넣어둔 항목들은 바꿀 수 없다.</li>
+<li>항목을 나중에 추가할 수 있다.</li>
+<li>tuple 안에 들어가는 하나의 항목으로 tuple을 사용할 수 없다.</li>
+</ol>
+<br>
+<h3 id="3-tuple에-입력된-가장-첫-번째-항목을-사용하는-바른-코드는-1"><a class="header" href="#3-tuple에-입력된-가장-첫-번째-항목을-사용하는-바른-코드는-1"><strong>3. tuple에 입력된 가장 첫 번째 항목을 사용하는 바른 코드는?</strong></a></h3>
+<ol>
+<li>a = tup[0]</li>
+<li>a = tup[1]</li>
+<li>a = tup.0</li>
+<li>a = tup.1</li>
+</ol>
+<br>
+<h3 id="4-apple--애플과-같이-key와-value의-짝으로-이루어진-파이썬-자료형은-1"><a class="header" href="#4-apple--애플과-같이-key와-value의-짝으로-이루어진-파이썬-자료형은-1"><strong>4. “apple” = “애플“과 같이 key와 value의 짝으로 이루어진 파이썬 자료형은?</strong></a></h3>
+<ol>
+<li>map</li>
+<li>float</li>
+<li>tuple</li>
+<li>dictionary</li>
+</ol>
+<br>
+<h3 id="5-apple--애플과-같이-key와-value의-짝으로-이루어진-자료형에서-key가-apple인-자료를-가져오는-코드는--1"><a class="header" href="#5-apple--애플과-같이-key와-value의-짝으로-이루어진-자료형에서-key가-apple인-자료를-가져오는-코드는--1"><strong>5. “apple” = “애플“과 같이 key와 value의 짝으로 이루어진 자료형에서 key가 “apple“인 자료를 가져오는 코드는 ?</strong></a></h3>
+<ol>
+<li>di[‘apple’]</li>
+<li>di.apple</li>
+<li>di.‘apple’</li>
+<li>di(‘apple’)</li>
+</ol>
+<br><div style="break-before: page; page-break-before: always;"></div><h1 id="6-함수"><a class="header" href="#6-함수">6. 함수</a></h1>
+<h3 id="1-영어로는-function으로-번역되며-프로그램-내에서-어떤-기능을-하도록-미리-만들어-놓은-것은-1"><a class="header" href="#1-영어로는-function으로-번역되며-프로그램-내에서-어떤-기능을-하도록-미리-만들어-놓은-것은-1"><strong>1. 영어로는 function으로 번역되며, 프로그램 내에서 어떤 기능을 하도록 미리 만들어 놓은 것은?</strong></a></h3>
+<ol>
+<li>라이브러리</li>
+<li>제어문</li>
+<li>비교문</li>
+<li>함수</li>
+</ol>
+<br>
+<h3 id="2-다음-중-파이썬-내장-함수가-아닌-것은-1"><a class="header" href="#2-다음-중-파이썬-내장-함수가-아닌-것은-1"><strong>2. 다음 중 파이썬 내장 함수가 아닌 것은?</strong></a></h3>
+<ol>
+<li>print()</li>
+<li>len()</li>
+<li>get_temp()</li>
+<li>str()</li>
+</ol>
+<br>
+<h3 id="3-다음과-같이-사용자-정의-함수를-호출할-경우-실행되는-함수의-몸체-부분은-1"><a class="header" href="#3-다음과-같이-사용자-정의-함수를-호출할-경우-실행되는-함수의-몸체-부분은-1"><strong>3. 다음과 같이 사용자 정의 함수를 호출할 경우 실행되는, 함수의 몸체 부분은?</strong></a></h3>
+<pre><code class="language-python">def plus1(a) :
+    b = 1 ⓐ
+    c = 2 ⓑ
+    d = 3 ⓒ
+e = 4 ⓓ
+
+plus1(5)
+</code></pre>
+<ol>
+<li>ⓐ</li>
+<li>ⓐ ⓑ</li>
+<li>ⓐ ⓑ ⓒ</li>
+<li>ⓐ ⓑ ⓒ ⓓ</li>
+</ol>
+<br>
+<h3 id="4-다음-코드는-결과가-나오지-않는다-그-이유는-1"><a class="header" href="#4-다음-코드는-결과가-나오지-않는다-그-이유는-1"><strong>4. 다음 코드는 결과가 나오지 않는다. 그 이유는?</strong></a></h3>
+<pre><code class="language-python">def plus1(a) :
+    b = a + 1
+
+res = plus1(3)
+print (res)
+</code></pre>
+<ol>
+<li>파이썬이 이해 못하는 심각한 오류가 있다.</li>
+<li>함수 정의할 때 들여쓰기를 잘못 했다.</li>
+<li>res 는 예약어라 변수명으로 사용하면 안된다.</li>
+<li>plus1() 함수는 결과값을 리턴하지 않고 있다.</li>
+</ol>
+<br>
+<h3 id="5-다음-코드의-결과는-3"><a class="header" href="#5-다음-코드의-결과는-3"><strong>5. 다음 코드의 결과는?</strong></a></h3>
+<pre><code class="language-python">def plus1(a) :
+    b = a + 1
+    return b
+
+res = plus1(3)
+print (res)
+</code></pre>
+<ol>
+<li>1</li>
+<li>2</li>
+<li>3</li>
+<li>4</li>
+</ol>
+<br>
+<h3 id="6-다음-코드는-에러를-발생시킨다-그-이유는-1"><a class="header" href="#6-다음-코드는-에러를-발생시킨다-그-이유는-1"><strong>6. 다음 코드는 에러를 발생시킨다. 그 이유는?</strong></a></h3>
+<pre><code class="language-python">def plus1(a) :
+    b = a + 1
+    return b
+
+res = plus1(3)
+print (b)
+</code></pre>
+<ol>
+<li>plus1() 함수 내에 심각한 오류가 있다.</li>
+<li>b는 plus1() 함수 내에서만 사용하는 지역변수다</li>
+<li>res 는 예약어라 변수명으로 사용하면 안된다.</li>
+<li>아무런 에러없이 잘 실행된다.</li>
+</ol>
+<br><div style="break-before: page; page-break-before: always;"></div><h1 id="7-정규표현식"><a class="header" href="#7-정규표현식">7. 정규표현식</a></h1>
+<h3 id="1-정규표현식에-대한-설명으로-틀린-것은"><a class="header" href="#1-정규표현식에-대한-설명으로-틀린-것은"><strong>1. 정규표현식에 대한 설명으로 틀린 것은?</strong></a></h3>
+<ol>
+<li>주어진 문자열이 어떤 패턴에 맞는지를 검사한다.</li>
+<li>정규표현식의 표현 방법은 모든 개발 언어나 프로그램마다 다 똑같다.</li>
+<li>파이썬은 기본적으로 정규표현식을 지원한다.</li>
+<li>패턴의 문자열이 앞에 시작하는지 뒤에서 시작하는지 정할 수 있다.</li>
+</ol>
+<br>
+<h3 id="2-윈도우-탐색기-프로그램에서-lx-라는-문자가-포함된-모든-파일을-찾으려-할-때-사용하는-정규표현식은"><a class="header" href="#2-윈도우-탐색기-프로그램에서-lx-라는-문자가-포함된-모든-파일을-찾으려-할-때-사용하는-정규표현식은"><strong>2. 윈도우 탐색기 프로그램에서 ‘LX’ 라는 문자가 포함된 모든 파일을 찾으려 할 때 사용하는 정규표현식은?</strong></a></h3>
+<ol>
+<li>LX</li>
+<li>LX.*</li>
+<li>*LX*</li>
+<li>*.LX</li>
+</ol>
+<br>  
+<h3 id="3-윈도우-탐색기-프로그램에서-lx-라는-문자열로-시작하는-모든-파일을-찾으려-할-때-사용하는-정규표현식은"><a class="header" href="#3-윈도우-탐색기-프로그램에서-lx-라는-문자열로-시작하는-모든-파일을-찾으려-할-때-사용하는-정규표현식은"><strong>3. 윈도우 탐색기 프로그램에서 ‘LX’ 라는 문자열로 시작하는 모든 파일을 찾으려 할 때 사용하는 정규표현식은?</strong></a></h3>
+<ol>
+<li>LX</li>
+<li>LX*</li>
+<li>*LX*</li>
+<li>*LX</li>
+</ol>
+<br>  
+<h3 id="4-파이썬-정규표현식에서-lx-라는-문자열로-시작하는-모든-파일을-찾으려-할-때-사용하는-정규표현식은"><a class="header" href="#4-파이썬-정규표현식에서-lx-라는-문자열로-시작하는-모든-파일을-찾으려-할-때-사용하는-정규표현식은"><strong>4. 파이썬 정규표현식에서 ‘LX’ 라는 문자열로 시작하는 모든 파일을 찾으려 할 때 사용하는 정규표현식은?</strong></a></h3>
+<ol>
+<li>‘LX*’</li>
+<li>‘*LX’</li>
+<li>‘^LX’</li>
+<li>‘LX^’</li>
+</ol>
+<br>  
+<h3 id="5-다음-파이썬-정규표현식-코드의-결과는"><a class="header" href="#5-다음-파이썬-정규표현식-코드의-결과는"><strong>5. 다음 파이썬 정규표현식 코드의 결과는?</strong></a></h3>
+<pre><code class="language-python">&gt;&gt;&gt; import re
+&gt;&gt;&gt; pattern = re.compile('배움')
+&gt;&gt;&gt; title = '나라배움터'
+&gt;&gt;&gt; m = pattern.search(title)
+&gt;&gt;&gt; m
+</code></pre>
+<ol>
+<li>찾을 수 없다고 나온다.</li>
+<li>한글은 정규표현식으로 찾을 수 없다.</li>
+<li>파이썬은 기본적으로 정규표현식을 지원하지 않는다.</li>
+<li>찾았다고 나온다.</li>
+</ol>
+<br>  
+<div style="break-before: page; page-break-before: always;"></div><h1 id="8-파이썬-입출력"><a class="header" href="#8-파이썬-입출력">8. 파이썬 입출력</a></h1>
+<h3 id="1-입력의-옳은-예가-아닌-것은-1"><a class="header" href="#1-입력의-옳은-예가-아닌-것은-1"><strong>1. 입력의 옳은 예가 아닌 것은?</strong></a></h3>
+<ol>
+<li>키보드로부터 입력</li>
+<li>파일로부터 입력</li>
+<li>모니터로부터 입력</li>
+<li>마우스로부터 입력</li>
+</ol>
+<br>
+<h3 id="2-출력의-옳은-예가-아닌-것은-1"><a class="header" href="#2-출력의-옳은-예가-아닌-것은-1"><strong>2. 출력의 옳은 예가 아닌 것은?</strong></a></h3>
+<ol>
+<li>파일로 출력</li>
+<li>스피커로 출력</li>
+<li>프린터로 출력</li>
+<li>마이크로 출력</li>
+</ol>
+<br>
+<h3 id="3-키보드로-문자를-입력받을-때-사용하는-함수는-1"><a class="header" href="#3-키보드로-문자를-입력받을-때-사용하는-함수는-1"><strong>3. 키보드로 문자를 입력받을 때 사용하는 함수는?</strong></a></h3>
+<ol>
+<li>keyboard()</li>
+<li>str()</li>
+<li>input()</li>
+<li>print()</li>
+</ol>
+<br>
+<h3 id="4-키보드로-숫자를-입력받을-때-사용하는-함수-조합은-1"><a class="header" href="#4-키보드로-숫자를-입력받을-때-사용하는-함수-조합은-1"><strong>4. 키보드로 숫자를 입력받을 때 사용하는 함수 조합은?</strong></a></h3>
+<ol>
+<li>int( input() )</li>
+<li>input( int() )</li>
+<li>str( input() )</li>
+<li>input( str() )</li>
+</ol>
+<br>
+<h3 id="5-파일을-새로-만들고-그-안에-내용을-쓰려-한다-잘못된-부분은-1"><a class="header" href="#5-파일을-새로-만들고-그-안에-내용을-쓰려-한다-잘못된-부분은-1"><strong>5. 파일을 새로 만들고 그 안에 내용을 쓰려 한다. 잘못된 부분은?</strong></a></h3>
+<pre><code class="language-python">file = open("data.txt", 'r') ⓐ
+file.write("내 이름은 별똥별") ⓑ
+file.close() ⓒ
+</code></pre>
+<ol>
+<li>잘못된 부분 없음</li>
+<li>ⓐ</li>
+<li>ⓑ</li>
+<li>ⓒ</li>
+</ol>
+<br>
+<h3 id="6-다음-코드는-파일에서-내용을-읽어오는-코드이다-datatxt-파일의-내용이-다음과-같을-때-이-코드의-실행-결과는-1"><a class="header" href="#6-다음-코드는-파일에서-내용을-읽어오는-코드이다-datatxt-파일의-내용이-다음과-같을-때-이-코드의-실행-결과는-1"><strong>6. 다음 코드는 파일에서 내용을 읽어오는 코드이다. data.txt 파일의 내용이 다음과 같을 때 이 코드의 실행 결과는?</strong></a></h3>
+<p><img src="python_2024/quiz/img/20240821144459.png" alt="" /></p>
+<pre><code class="language-python">file = open("data.txt", 'r')
+line = file.readline()
+print (line)
+file.close()
+</code></pre>
+<ol>
+<li>역삼역</li>
+<li>기러기</li>
+<li>역삼역<br />
+기러기</li>
+<li>아무 것도 표시되지 않는다.</li>
+</ol>
+<br>
+<h3 id="7-다음-코드는-파일에서-내용을-읽어오는-코드이다-datatxt-파일의-내용이-다음과-같을-때-파일의-전체-내용을-다-가져오려-하는-경우--부분에-맞는-것은-1"><a class="header" href="#7-다음-코드는-파일에서-내용을-읽어오는-코드이다-datatxt-파일의-내용이-다음과-같을-때-파일의-전체-내용을-다-가져오려-하는-경우--부분에-맞는-것은-1"><strong>7. 다음 코드는 파일에서 내용을 읽어오는 코드이다. data.txt 파일의 내용이 다음과 같을 때, 파일의 전체 내용을 다 가져오려 하는 경우 ??? 부분에 맞는 것은?</strong></a></h3>
+<p><img src="python_2024/quiz/img/20240821144459.png" alt="" /></p>
+<pre><code class="language-python">file = open("data.txt", 'r')
+lines = file.readlines()
+for line ??? lines :
+    print (line)
+file.close()
+</code></pre>
+<ol>
+<li>as</li>
+<li>in</li>
+<li>all</li>
+<li>with</li>
+</ol>
+<br>
+<h3 id="8-다음-코드는-엑셀용-csv-파일을-만들기-위한-코드이다-엑셀에서-열었을-때-왼쪽처럼-보일-거라는-기대와-달리-오른쪽-그림처럼-보이고-있다-해결-방법은-1"><a class="header" href="#8-다음-코드는-엑셀용-csv-파일을-만들기-위한-코드이다-엑셀에서-열었을-때-왼쪽처럼-보일-거라는-기대와-달리-오른쪽-그림처럼-보이고-있다-해결-방법은-1"><strong>8. 다음 코드는 엑셀용 csv 파일을 만들기 위한 코드이다. 엑셀에서 열었을 때 왼쪽처럼 보일 거라는 기대와 달리 오른쪽 그림처럼 보이고 있다. 해결 방법은?</strong></a></h3>
+<p><img src="python_2024/quiz/img/20240821145601.png" alt="" /></p>
+<pre><code class="language-python">file = open("data.csv", 'w')
+
+file.write ("이름,전화번호")
+file.write ("홍길동,02-1111-1111")
+file.write ("박길동,02-1111-2222")
+file.write ("최길동,03-1111-3333")
+
+file.close()
+</code></pre>
+<ol>
+<li>확장자를 csv가 아닌 xlsx 로 바꿔서 생성한다.</li>
+<li>각 줄의 끝에 “,“를 추가한다.</li>
+<li>각 줄의 끝에 개행문자인 “\n“을 추가한다.</li>
+<li>각 줄의 앞에 “,“를 추가한다.</li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="9-파이썬-라이브러리"><a class="header" href="#9-파이썬-라이브러리">9. 파이썬 라이브러리</a></h1>
+<h3 id="1-파이썬에서-제공하는-math-라이브러리의-기능-중-올림-기능예-31--4을-제공하는-함수는"><a class="header" href="#1-파이썬에서-제공하는-math-라이브러리의-기능-중-올림-기능예-31--4을-제공하는-함수는"><strong>1. 파이썬에서 제공하는 math 라이브러리의 기능 중 올림 기능(예: 3.1 =&gt; 4)을 제공하는 함수는?</strong></a></h3>
+<ol>
+<li>ceil()</li>
+<li>floor()</li>
+<li>gcd()</li>
+<li>print()</li>
+</ol>
+<br>
+<h3 id="2-파이썬에서-제공하는-math-라이브러리의-기능-중-내림-기능예-31--3을-제공하는-함수는"><a class="header" href="#2-파이썬에서-제공하는-math-라이브러리의-기능-중-내림-기능예-31--3을-제공하는-함수는"><strong>2. 파이썬에서 제공하는 math 라이브러리의 기능 중 내림 기능(예: 3.1 =&gt; 3)을 제공하는 함수는?</strong></a></h3>
+<ol>
+<li>ceil()</li>
+<li>floor()</li>
+<li>gcd()</li>
+<li>print()</li>
+</ol>
+<br>
+<h3 id="3-임의의-수난수를-만들어-주는-기능을-제공하는-파이썬-표준-라이브러리는"><a class="header" href="#3-임의의-수난수를-만들어-주는-기능을-제공하는-파이썬-표준-라이브러리는"><strong>3. 임의의 수(난수)를 만들어 주는 기능을 제공하는 파이썬 표준 라이브러리는?</strong></a></h3>
+<ol>
+<li>math</li>
+<li>random</li>
+<li>string</li>
+<li>AI</li>
+</ol>
+<br>
+<h3 id="4-다음-코드의-실행-결과는-2"><a class="header" href="#4-다음-코드의-실행-결과는-2"><strong>4. 다음 코드의 실행 결과는?</strong></a></h3>
+<pre><code class="language-python">import random
+
+a = random.randint(1, 7)
+print(a)
+</code></pre>
+<ol>
+<li>0</li>
+<li>5</li>
+<li>10</li>
+<li>15</li>
+</ol>
+<br>
+<h3 id="5-다음-중-파이썬의-ai-관련-외부-라이브러리가-아닌-것은"><a class="header" href="#5-다음-중-파이썬의-ai-관련-외부-라이브러리가-아닌-것은"><strong>5. 다음 중 파이썬의 AI 관련 외부 라이브러리가 아닌 것은?</strong></a></h3>
+<ol>
+<li>TensorFlow</li>
+<li>PyTorch</li>
+<li>Scikit Learn</li>
+<li>pip</li>
+</ol>
+<br>
+<h3 id="6-다음-중-파이썬의-데이터-시각화-라이브러리는"><a class="header" href="#6-다음-중-파이썬의-데이터-시각화-라이브러리는"><strong>6. 다음 중 파이썬의 데이터 시각화 라이브러리는?</strong></a></h3>
+<ol>
+<li>TensorFlow</li>
+<li>Matplotlib</li>
+<li>pip</li>
+<li>anaconda</li>
+</ol>
+<br>
+<h3 id="7-다음-중-파이썬의-라이브러리-관리-프로그램은"><a class="header" href="#7-다음-중-파이썬의-라이브러리-관리-프로그램은"><strong>7. 다음 중 파이썬의 라이브러리 관리 프로그램은?</strong></a></h3>
+<ol>
+<li>TensorFlow</li>
+<li>Matplotlib</li>
+<li>pip</li>
+<li>anaconda</li>
+</ol>
+<br>
+<h3 id="8-다음-중-파이썬의-라이브러리를-효율적으로-관리하기-위해-가상환경을-만들어-각-가상환경마다-각기-다른-라이브러리-버전을-설치할-수-있도록-해-주는-프로그램은"><a class="header" href="#8-다음-중-파이썬의-라이브러리를-효율적으로-관리하기-위해-가상환경을-만들어-각-가상환경마다-각기-다른-라이브러리-버전을-설치할-수-있도록-해-주는-프로그램은"><strong>8. 다음 중 파이썬의 라이브러리를 효율적으로 관리하기 위해 가상환경을 만들어 각 가상환경마다 각기 다른 라이브러리 버전을 설치할 수 있도록 해 주는 프로그램은?</strong></a></h3>
+<ol>
+<li>TensorFlow</li>
+<li>Matplotlib</li>
+<li>pip</li>
+<li>anaconda</li>
+</ol>
+<br>
+<h3 id="9-다음-중-아나콘다에-대한-설명-중-틀린-것은"><a class="header" href="#9-다음-중-아나콘다에-대한-설명-중-틀린-것은"><strong>9. 다음 중 아나콘다에 대한 설명 중 틀린 것은?</strong></a></h3>
+<ol>
+<li>오픈소스로 누구나 무료로 사용할 수 있다.</li>
+<li>파이썬이 실행되는 가상환경을 만들어 주는 프로그램이다.</li>
+<li>라이브러리 버전 문제가 발생하는 경우 좋은 해결책이다.</li>
+<li>각 가상환경마다 파이썬 버전을 달리 설정할 수 있다.</li>
+</ol>
+<br>
+<h3 id="10-다음-중-엑셀과-같이-2차원-표형식으로-데이터를-처리하는-라이브러리는"><a class="header" href="#10-다음-중-엑셀과-같이-2차원-표형식으로-데이터를-처리하는-라이브러리는"><strong>10. 다음 중 엑셀과 같이 2차원 표형식으로 데이터를 처리하는 라이브러리는?</strong></a></h3>
+<ol>
+<li>pandas</li>
+<li>Matplotlib</li>
+<li>moviepy</li>
+<li>anaconda</li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="연습문제-2"><a class="header" href="#연습문제-2">연습문제</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="연습문제---파이썬-자료형-1"><a class="header" href="#연습문제---파이썬-자료형-1">연습문제 - 파이썬 자료형</a></h1>
+<h3 id="1-apple-문자열의-길이를-구하는-코드를-작성하시오-1"><a class="header" href="#1-apple-문자열의-길이를-구하는-코드를-작성하시오-1"><strong>1. “apple” 문자열의 길이를 구하는 코드를 작성하시오.</strong></a></h3>
+<details>
+<summary>답(안) 1</summary>
+<pre><code class="language-python">a = "apple"
+b = len(a)
+print(b)
+</code></pre>
+</details>
+<details>
+<summary>답(안) 2</summary>
+<pre><code class="language-python">a = "apple"
+print(len(a))
+</code></pre>
+</details>
+<details>
+<summary>답(안) 3</summary>
+<pre><code class="language-python">print(len("apple"))
+</code></pre>
+</details>
+<br>
+<h3 id="2-오늘-기온은-30도와-같이-보여지는-코드를-작성하시오-단-30은-숫자형임-1"><a class="header" href="#2-오늘-기온은-30도와-같이-보여지는-코드를-작성하시오-단-30은-숫자형임-1"><strong>2. “오늘 기온은 30도“와 같이 보여지는 코드를 작성하시오. 단 30은 숫자형임.</strong></a></h3>
+<details>
+<summary>답(안) 1</summary>
+<pre><code class="language-python">a = "오늘 기온은 "
+b = 30
+c = a + str(b) + "도"
+print(c)
+</code></pre>
+</details>
+<details>
+<summary>답(안) 2</summary>
+<pre><code class="language-python">a = "오늘 기온은 {0}도".format(30)
+print(a)
+</code></pre>
+</details>
+<br>
+<h3 id="3-오늘-기온은-30도-습도는-65와-같이-보여지는-코드를-작성하시오-단-30-65는-숫자형임-1"><a class="header" href="#3-오늘-기온은-30도-습도는-65와-같이-보여지는-코드를-작성하시오-단-30-65는-숫자형임-1"><strong>3. “오늘 기온은 30도, 습도는 65%“와 같이 보여지는 코드를 작성하시오. 단 30, 65는 숫자형임.</strong></a></h3>
+<details>
+<summary>답(안) 1</summary>
+<pre><code class="language-python">a = "오늘 기온은 "
+b = 30
+c = "도, "
+d = "습도는 "
+e = 65
+f = "%"
+
+g = a + str(b) + c + d + str(e) + f
+
+print(g)
+</code></pre>
+</details>
+<details>
+<summary>답(안) 2</summary>
+<pre><code class="language-python">a = "오늘 기온은 {0}도, 습도는 {1}%".format(30, 65)
+print(a)
+</code></pre>
+</details>
+<br>
+<h3 id="4-a와-같은-리스트를-b와-같은-리스트로-바꾸는-코드를-작성하시오-1"><a class="header" href="#4-a와-같은-리스트를-b와-같은-리스트로-바꾸는-코드를-작성하시오-1"><strong>4. a와 같은 리스트를 b와 같은 리스트로 바꾸는 코드를 작성하시오.</strong></a></h3>
+<pre><code class="language-python">a = ["국어", "영어", "수학", "과학"]
+b = ["국어", "불어", "수학", "과학"]
+</code></pre>
+<details>
+<summary>답(안)</summary>
+<pre><code class="language-python">a = ["국어", "영어", "수학", "과학"]
+a[1] = "불어"
+print(a)
+</code></pre>
+</details>
+<br>
+<h3 id="5-a와-같은-리스트를-b와-같은-리스트로-바꾸는-코드를-작성하시오-1"><a class="header" href="#5-a와-같은-리스트를-b와-같은-리스트로-바꾸는-코드를-작성하시오-1"><strong>5. a와 같은 리스트를 b와 같은 리스트로 바꾸는 코드를 작성하시오.</strong></a></h3>
+<pre><code class="language-python">a = ["국어", "영어", "수학", "과학"]
+b = ["국어", "영어", "수학", "과학", "체육"]
+</code></pre>
+<details>
+<summary>답(안) </summary>
+<pre><code class="language-python">a = ["국어", "영어", "수학", "과학"]
+a.append("체육")
+print(a)
+</code></pre>
+</details>
+<br>
+<h3 id="6-a와-같은-리스트를-b와-같은-리스트로-바꾸는-코드를-작성하시오-1"><a class="header" href="#6-a와-같은-리스트를-b와-같은-리스트로-바꾸는-코드를-작성하시오-1"><strong>6. a와 같은 리스트를 b와 같은 리스트로 바꾸는 코드를 작성하시오.</strong></a></h3>
+<pre><code class="language-python">a = ["국어", "영어", "수학", "과학"]
+b = ["국어", "음악", "영어", "수학", "과학"]
+</code></pre>
+<details>
+<summary>답(안) </summary>
+<pre><code class="language-python">a = ["국어", "영어", "수학", "과학"]
+a.insert(1, "음악")
+print(a)
+</code></pre>
+</details>
+<br>
+<h3 id="7-a와-같은-리스트를-b와-같은-리스트로-바꾸는-코드를-작성하시오-1"><a class="header" href="#7-a와-같은-리스트를-b와-같은-리스트로-바꾸는-코드를-작성하시오-1"><strong>7. a와 같은 리스트를 b와 같은 리스트로 바꾸는 코드를 작성하시오.</strong></a></h3>
+<pre><code class="language-python">a = ["국어", "영어", "수학", "과학"]
+b = ["국어", "음악", "영어", "과학"]
+</code></pre>
+<details>
+<summary>답(안) 1</summary>
+<pre><code class="language-python">a = ["국어", "영어", "수학", "과학"]
+a.insert(1, "음악")
+del a[3]
+print(a)
+</code></pre>
+</details>
+<details>
+<summary>답(안) 2</summary>
+<pre><code class="language-python">a = ["국어", "영어", "수학", "과학"]
+del a[2]
+a.insert(1, "음악")
+print(a)
+</code></pre>
+</details>
+<br>
+<h3 id="8-a와-같은-리스트를-정렬하여-b와-같은-리스트로-만드는-코드를-작성하시오-1"><a class="header" href="#8-a와-같은-리스트를-정렬하여-b와-같은-리스트로-만드는-코드를-작성하시오-1"><strong>8. a와 같은 리스트를 정렬하여 b와 같은 리스트로 만드는 코드를 작성하시오.</strong></a></h3>
+<pre><code class="language-python">a = ["국어", "영어", "수학", "과학"]
+b = ['과학', '국어', '수학', '영어']
+</code></pre>
+<details>
+<summary>답(안)</summary>
+<pre><code class="language-python">a = ["국어", "영어", "수학", "과학"]
+a.sort()
+print(a)
+</code></pre>
+</details>
+<br>
+<h3 id="9-a와-같은-리스트를-역순으로-바꿔서정렬아님-b와-같은-리스트로-만드는-코드를-작성하시오-1"><a class="header" href="#9-a와-같은-리스트를-역순으로-바꿔서정렬아님-b와-같은-리스트로-만드는-코드를-작성하시오-1"><strong>9. a와 같은 리스트를 역순으로 바꿔서(정렬아님) b와 같은 리스트로 만드는 코드를 작성하시오.</strong></a></h3>
+<pre><code class="language-python">a = ["국어", "영어", "수학", "과학"]
+b = ['과학', '수학', '영어', '국어']
+</code></pre>
+<details>
+<summary>답(안)</summary>
+<pre><code class="language-python">a = ["국어", "영어", "수학", "과학"]
+a.sort()
+print(a)
+</code></pre>
+</details>
+<br>
+<h3 id="10-a와-같은-리스트를-역순으로-정렬해서-b와-같은-리스트로-만드는-코드를-작성하시오-1"><a class="header" href="#10-a와-같은-리스트를-역순으로-정렬해서-b와-같은-리스트로-만드는-코드를-작성하시오-1"><strong>10. a와 같은 리스트를 역순으로 정렬해서 b와 같은 리스트로 만드는 코드를 작성하시오.</strong></a></h3>
+<pre><code class="language-python">a = ["국어", "영어", "수학", "과학"]
+b = ['영어', '수학', '국어', '과학']
+</code></pre>
+<details>
+<summary>답(안)</summary>
+<pre><code class="language-python">a = ["국어", "영어", "수학", "과학"]
+a.sort()
+a.reverse()
+print(a)
+</code></pre>
+</details><div style="break-before: page; page-break-before: always;"></div><h1 id="2-파이썬의-조건문-1"><a class="header" href="#2-파이썬의-조건문-1">2. 파이썬의 조건문</a></h1>
+<h3 id="1-총싸움-게임에서-주인공-몸의-3d-공간상-위치-x-y-z를-player_x-player_y-player_z-라-하고-총알의-3d-공간상-위치를-bullet_x-bullet_y-bullet_z라-할-때-주인공의-몸과-총알의-3d-공간상-x축-상의-간격-y축-상의-간격-z축-상의-간격이-모두-10이하면-총알에-맞은-것으로-간주하는-코드-작성-1"><a class="header" href="#1-총싸움-게임에서-주인공-몸의-3d-공간상-위치-x-y-z를-player_x-player_y-player_z-라-하고-총알의-3d-공간상-위치를-bullet_x-bullet_y-bullet_z라-할-때-주인공의-몸과-총알의-3d-공간상-x축-상의-간격-y축-상의-간격-z축-상의-간격이-모두-10이하면-총알에-맞은-것으로-간주하는-코드-작성-1"><strong>1. 총싸움 게임에서 주인공 몸의 3D 공간상 위치 x, y, z를 player_x, player_y, player_z 라 하고, 총알의 3D 공간상 위치를 bullet_x, bullet_y, bullet_z라 할 때, 주인공의 몸과 총알의 3D 공간상 x축 상의 간격, y축 상의 간격, z축 상의 간격이 모두 10이하면 총알에 맞은 것으로 간주하는 코드 작성</strong></a></h3>
+<p><img src="python_2024/practice/player_bullet.png" alt="" /></p>
+<p align='center'>x축의 예</p>
+<details><summary>답(안) 1</summary>
+<pre><code class="language-python">player_x = 0
+player_y = 0
+player_z = 0
+
+bullet_x = 5
+bullet_y = 5
+bullet_z = 5
+
+if bullet_x - player_x &lt;= 10:
+    if bullet_y - player_y &lt;= 10:
+        if bullet_z - player_z &lt;= 10:
+            print("총알에 맞았음")
+</code></pre>
+</details>
+<details><summary>답(안) 2</summary>
+<pre><code class="language-python">player_x = 0
+player_y = 0
+player_z = 0
+
+bullet_x = 5
+bullet_y = 5
+bullet_z = 10
+
+if bullet_x - player_x &lt;= 10 and bullet_y - player_y &lt;= 10 and bullet_z - player_z &lt;= 10:
+    print("총알에 맞았음")
+
+</code></pre>
+</details>
+<br>
+<h3 id="2-기온이-30도-이상이면-바다로-가고-미만이면-산으로-가자-1"><a class="header" href="#2-기온이-30도-이상이면-바다로-가고-미만이면-산으로-가자-1"><strong>2. 기온이 30도 이상이면 바다로 가고 미만이면 산으로 가자</strong></a></h3>
+<details><summary>답(안) </summary>
+<pre><code class="language-python">temp = 30
+dest = ""
+if 30 &lt;= temp:
+    dest = "바다"
+else:
+    dest = "산"
+
+msg = "{0}(으)로 가자!".format(dest)    
+print(msg)
+</code></pre>
+</details>
+<br>
+<h3 id="3-남은-시간이-10분-이상이면-계속-책을-보고-미만이면-화장실에-간다-1"><a class="header" href="#3-남은-시간이-10분-이상이면-계속-책을-보고-미만이면-화장실에-간다-1"><strong>3. 남은 시간이 10분 이상이면 계속 책을 보고 미만이면 화장실에 간다.</strong></a></h3>
+<details><summary>답(안) </summary>
+<pre><code class="language-python">remain = 9
+
+if 10 &lt;= remain :
+    print("계속 책 본다.")
+else:
+    print("화장실 다녀온다.")        
+</code></pre>
+</details>
+<br>
+<h3 id="4-마트가서-우유사고-만약-아보카드-있으면-6개-사와-1"><a class="header" href="#4-마트가서-우유사고-만약-아보카드-있으면-6개-사와-1"><strong>4. 마트가서 우유사고 만약 아보카드 있으면 6개 사와</strong></a></h3>
+<pre><code>* 사실 이 문제는 유명한 개발자 유머임. 
+
+개발자 남편에게 위와 같이 말했는데 남편이 마트에 아보카드가 있었다면서 우유만 6개 사옴.
+(어쩌면 개발자만 이해할 수 있는 유머)
+</code></pre>
+<details><summary>답(안) 1</summary>
+<pre><code class="language-python">avocado = 1  # 또는 0
+
+if 0 &lt; avocado :
+    print("마트에 아보카드 있어서 우유 1개와 아보카드 6개 사왔어")
+else:
+    print("마트에 아보카드 없어서 우유 1개만 사왔어")
+</code></pre>
+</details>
+<details><summary>답(안) 2</summary>
+<pre><code class="language-python">avocado = 1   # 또는 0
+
+if 0 &lt; avocado :
+    print("마트에 아보카드 있어서 우유 6개 사왔어")
+else:
+    print("마트에 아보카드 없어서 우유 1개 사왔어")
+</code></pre>
+</details>
+<br>
+<h3 id="5-설날-삼촌이-세배돈으로-30000원-이하로-주시면-너희들에게-떡볶이-사고-50000원-이하면-피자-사고-100000원-이하면-고기-부페-쏜다-그-이상이면-조용히-헤드폰-바꿈-1"><a class="header" href="#5-설날-삼촌이-세배돈으로-30000원-이하로-주시면-너희들에게-떡볶이-사고-50000원-이하면-피자-사고-100000원-이하면-고기-부페-쏜다-그-이상이면-조용히-헤드폰-바꿈-1"><strong>5. 설날 삼촌이 세배돈으로 30,000원 이하로 주시면 너희들에게 떡볶이 사고, 50,000원 이하면 피자 사고, 100,000원 이하면 고기 부페 쏜다! (그 이상이면 조용히 헤드폰 바꿈)</strong></a></h3>
+<pre><code class="language-python">============= RESTART: E:\TEST\test.py ============
+삼촌이 20000원 주셨어. 떡볶이 쏜다!
+
+============= RESTART: E:\TEST\test.py ============
+삼촌이 50000원 주셨어. 피자 쏜다!
+
+============= RESTART: E:\TEST\test.py ============
+삼촌이 70000원 주셨어. 고기 부페 쏜다!
+
+============= RESTART: E:\TEST\test.py ============
+(200000원으로 헤드폰이나 바꾸자)
+</code></pre>
+<details><summary>답(안) </summary>
+<pre><code class="language-python">money = 200000
+dest = ""
+
+if money &lt;= 30000 :
+    dest = "떡볶이"
+elif money &lt;= 50000 :
+    dest = "피자"
+elif money &lt;= 100000 :    
+    dest = "고기 부페"
+else :
+    dest = ""
+
+msg = ""
+
+if dest != "" :
+    msg = "삼촌이 {0}원 주셨어. {1} 쏜다!".format(money, dest)
+else :
+    msg = "({0}원으로 헤드폰이나 바꾸자)".format(money)
+    
+print(msg)
+</code></pre>
+</details>
+<br>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="3-파이썬의-반복문-1"><a class="header" href="#3-파이썬의-반복문-1">3. 파이썬의 반복문</a></h1>
+<h3 id="1-15까지의-정수가-출력되는-코드-1"><a class="header" href="#1-15까지의-정수가-출력되는-코드-1"><strong>1. 1~5까지의 정수가 출력되는 코드</strong></a></h3>
+<pre><code class="language-python">============= RESTART: E:\TEST\test.py ============
+1
+2
+3
+4
+5
+</code></pre>
+<details><summary>답(안) 1: while문 사용 </summary>
+<pre><code class="language-python">i = 1
+while i &lt;= 5 :
+    print(i)
+    i = i + 1
+</code></pre>
+</details>
+<details><summary>답(안) 2: for문 사용 </summary>
+<pre><code class="language-python">for i in [1, 2, 3, 4, 5] :
+    print(i)
+</code></pre>
+</details>
+<br>
+<h3 id="2-1--100까지의-정수가-출력되는-코드-1"><a class="header" href="#2-1--100까지의-정수가-출력되는-코드-1"><strong>2. 1 ~ 100까지의 정수가 출력되는 코드</strong></a></h3>
+<pre><code class="language-python">============= RESTART: E:\TEST\test.py ============
+1
+2
+3
+...
+100
+</code></pre>
+<details><summary>답(안) 1: while문 사용 </summary>
+<pre><code class="language-python">i = 1
+while i &lt;= 100 :
+    print(i)
+    i = i + 1
+</code></pre>
+</details>
+<details><summary>답(안) 2: for문 사용 </summary>
+<pre><code class="language-python">a = range(1, 101)  # 1 ~ 100까지의 정수 리스트를 만든다. range()는 정수 리스트를 만드는 함수. 
+for i in a :
+    print(i)
+</code></pre>
+</details>
+<br>
+<h3 id="3-다음과-같이-오늘의-출근-일자를-리스트로-가져왔을-때-지각한-사람이-누구인지-출력하는-코드-1"><a class="header" href="#3-다음과-같이-오늘의-출근-일자를-리스트로-가져왔을-때-지각한-사람이-누구인지-출력하는-코드-1"><strong>3. 다음과 같이 오늘의 출근 일자를 리스트로 가져왔을 때 지각한 사람이 누구인지 출력하는 코드</strong></a></h3>
+<pre><code class="language-python">morning = [ ["홍길동", "08:45"], ["나지적", "08:37"], ["박문수", "09:11"] ]
+</code></pre>
+<pre><code class="language-python">============= RESTART: E:\TEST\test.py ============
+지각한 사람은 박문수
+</code></pre>
+<details><summary>답(안) for 문</summary>
+<pre><code class="language-python">morning = [ ["홍길동", "08:45"], ["나지적", "08:37"], ["박문수", "09:11"] ]
+
+for item in morning :
+    if "09:00" &lt; item[1] :
+        print("지각한 사람은 " + item[0])
+</code></pre>
+</details>
+<details><summary>답(안) while 문</summary>
+<pre><code class="language-python">morning = [ ["홍길동", "08:45"], ["나지적", "08:37"], ["박문수", "09:11"] ]
+
+for item in morning :
+    if "09:00" &lt; item[1] :
+        print("지각한 사람은 " + item[0])
+</code></pre>
+</details>
+<br>
+<h3 id="4-구구단-프로그램-1"><a class="header" href="#4-구구단-프로그램-1"><strong>4. 구구단 프로그램</strong></a></h3>
+<pre><code class="language-python">=================================== RESTART: E:\test\test.py ==================================
+2 * 1 = 2
+2 * 2 = 4
+2 * 3 = 6
+2 * 4 = 8
+2 * 5 = 10
+2 * 6 = 12
+2 * 7 = 14
+2 * 8 = 16
+2 * 9 = 18
+3 * 1 = 3
+3 * 2 = 6
+3 * 3 = 9
+3 * 4 = 12
+3 * 5 = 15
+3 * 6 = 18
+3 * 7 = 21
+3 * 8 = 24
+3 * 9 = 27
+4 * 1 = 4
+4 * 2 = 8
+4 * 3 = 12
+4 * 4 = 16
+4 * 5 = 20
+4 * 6 = 24
+4 * 7 = 28
+4 * 8 = 32
+4 * 9 = 36
+5 * 1 = 5
+5 * 2 = 10
+5 * 3 = 15
+5 * 4 = 20
+5 * 5 = 25
+5 * 6 = 30
+5 * 7 = 35
+5 * 8 = 40
+5 * 9 = 45
+6 * 1 = 6
+6 * 2 = 12
+6 * 3 = 18
+6 * 4 = 24
+6 * 5 = 30
+6 * 6 = 36
+6 * 7 = 42
+6 * 8 = 48
+6 * 9 = 54
+7 * 1 = 7
+7 * 2 = 14
+7 * 3 = 21
+7 * 4 = 28
+7 * 5 = 35
+7 * 6 = 42
+7 * 7 = 49
+7 * 8 = 56
+7 * 9 = 63
+8 * 1 = 8
+8 * 2 = 16
+8 * 3 = 24
+8 * 4 = 32
+8 * 5 = 40
+8 * 6 = 48
+8 * 7 = 56
+8 * 8 = 64
+8 * 9 = 72
+9 * 1 = 9
+9 * 2 = 18
+9 * 3 = 27
+9 * 4 = 36
+9 * 5 = 45
+9 * 6 = 54
+9 * 7 = 63
+9 * 8 = 72
+9 * 9 = 81
+</code></pre>
+<details><summary>답(안) </summary>
+<pre><code class="language-python">a = 2
+while a &lt;= 9 :
+    b = 1
+
+    while b &lt;= 9 :
+        c = a * b
+        msg = "{0} * {1} = {2}".format(a, b, c)
+        print(msg)
+
+        b = b + 1
+    a = a + 1
+</code></pre>
+</details>
+<br>
+<h3 id="5-위-구구단-프로그램에-단마다-구분하기-1"><a class="header" href="#5-위-구구단-프로그램에-단마다-구분하기-1"><strong>5. 위 구구단 프로그램에 단마다 구분하기</strong></a></h3>
+<pre><code class="language-python">=================================== RESTART: E:\test\test.py ==================================
+2 * 1 = 2
+2 * 2 = 4
+2 * 3 = 6
+2 * 4 = 8
+2 * 5 = 10
+2 * 6 = 12
+2 * 7 = 14
+2 * 8 = 16
+2 * 9 = 18
+
+3 * 1 = 3
+3 * 2 = 6
+3 * 3 = 9
+3 * 4 = 12
+3 * 5 = 15
+3 * 6 = 18
+3 * 7 = 21
+3 * 8 = 24
+3 * 9 = 27
+
+4 * 1 = 4
+4 * 2 = 8
+4 * 3 = 12
+4 * 4 = 16
+4 * 5 = 20
+4 * 6 = 24
+4 * 7 = 28
+4 * 8 = 32
+4 * 9 = 36
+
+5 * 1 = 5
+5 * 2 = 10
+5 * 3 = 15
+5 * 4 = 20
+5 * 5 = 25
+5 * 6 = 30
+5 * 7 = 35
+5 * 8 = 40
+5 * 9 = 45
+
+6 * 1 = 6
+6 * 2 = 12
+6 * 3 = 18
+6 * 4 = 24
+6 * 5 = 30
+6 * 6 = 36
+6 * 7 = 42
+6 * 8 = 48
+6 * 9 = 54
+
+7 * 1 = 7
+7 * 2 = 14
+7 * 3 = 21
+7 * 4 = 28
+7 * 5 = 35
+7 * 6 = 42
+7 * 7 = 49
+7 * 8 = 56
+7 * 9 = 63
+
+8 * 1 = 8
+8 * 2 = 16
+8 * 3 = 24
+8 * 4 = 32
+8 * 5 = 40
+8 * 6 = 48
+8 * 7 = 56
+8 * 8 = 64
+8 * 9 = 72
+
+9 * 1 = 9
+9 * 2 = 18
+9 * 3 = 27
+9 * 4 = 36
+9 * 5 = 45
+9 * 6 = 54
+9 * 7 = 63
+9 * 8 = 72
+9 * 9 = 81
+</code></pre>
+<details><summary>답(안) </summary>
+<pre><code class="language-python">a = 2
+while a &lt;= 9 :
+    b = 1
+
+    while b &lt;= 9 :
+        c = a * b
+        msg = "{0} * {1} = {2}".format(a, b, c)
+        print(msg)
+
+        b = b + 1
+    a = a + 1
+    print("")
+</code></pre>
+</details>
+<br>
+<h3 id="6-좋아하는-과일로-리스트를-만들고-바나나가-있으면-미끄러져-조심해-라고-출력하고-없으면-바나나는-왜-없어-라고-출력하는-코드-1"><a class="header" href="#6-좋아하는-과일로-리스트를-만들고-바나나가-있으면-미끄러져-조심해-라고-출력하고-없으면-바나나는-왜-없어-라고-출력하는-코드-1"><strong>6. 좋아하는 과일로 리스트를 만들고 ’바나나’가 있으면 ‘미끄러져 조심해’ 라고 출력하고, 없으면 ‘바나나는 왜 없어’ 라고 출력하는 코드</strong></a></h3>
+<details><summary>답(안) </summary>
+<pre><code class="language-python">fruits = ['사과', '딸기', '바나나', '망고']
+
+find_banana = False
+
+for item in fruits :
+    if item == '바나나' :
+        find_banana = True
+
+if find_banana == True :
+    print("미끄러져 조심해")
+else :
+    print("바나나는 왜 없어")
+</code></pre>
+</details>
+<br>
+<h3 id="7-좋아하는-과일로-리스트를-만들고-바나나가-있으면-미끄러져-조심해-라고-출력하고-더-이상-리스트를-조사하지-않는다-바나나가-없으면-바나나는-왜-없어-라고-출력하는-코드-1"><a class="header" href="#7-좋아하는-과일로-리스트를-만들고-바나나가-있으면-미끄러져-조심해-라고-출력하고-더-이상-리스트를-조사하지-않는다-바나나가-없으면-바나나는-왜-없어-라고-출력하는-코드-1"><strong>7. 좋아하는 과일로 리스트를 만들고 ’바나나’가 있으면 ‘미끄러져 조심해’ 라고 출력하고, 더 이상 리스트를 조사하지 않는다. 바나나가 없으면 ‘바나나는 왜 없어’ 라고 출력하는 코드</strong></a></h3>
+<details><summary>답(안) 1</summary>
+<pre><code class="language-python">fruits = ['사과', '딸기', '바나나', '망고']
+
+find_banana = False
+
+for item in fruits :
+    if item == '바나나' :
+        find_banana = True
+        break
+
+if find_banana == True :
+    print("미끄러져 조심해")
+else :
+    print("바나나는 왜 없어")
+</code></pre>
+</details>
+<details><summary>답(안) 2</summary>
+<pre><code class="language-python">fruits = ['사과', '딸기', '바나나', '망고']
+
+find_banana = False
+
+for item in fruits :
+    print ("{0} 검사 중...".format(item))
+    if item == '바나나' :
+        find_banana = True
+        break
+
+if find_banana == True :
+    print("미끄러져 조심해")
+else :
+    print("바나나는 왜 없어")
+</code></pre>
+</details>
+<br>
+<h3 id="8-좋아하는-과일로-리스트를-만들고-리스트의-각-아이템마다-ooo-잼-만들기를-출력하되-아이템이-바나나-일-때만-그렇게-출력하지-않는-코드-1"><a class="header" href="#8-좋아하는-과일로-리스트를-만들고-리스트의-각-아이템마다-ooo-잼-만들기를-출력하되-아이템이-바나나-일-때만-그렇게-출력하지-않는-코드-1"><strong>8. 좋아하는 과일로 리스트를 만들고, 리스트의 각 아이템마다 “OOO 잼 만들기“를 출력하되 아이템이 ‘바나나’ 일 때만 그렇게 출력하지 않는 코드</strong></a></h3>
+<details><summary>답(안) </summary>
+<pre><code class="language-python">fruits = ['사과', '딸기', '바나나', '망고']
+
+for item in fruits :
+    if item == '바나나' :
+        continue
+
+    print("{0} 잼 만들기".format(item) )
+</code></pre>
+</details>
+<br><div style="break-before: page; page-break-before: always;"></div><h1 id="4-함수-1"><a class="header" href="#4-함수-1">4. 함수</a></h1>
+<h3 id="1-10을-더해서-리턴하는-함수-1"><a class="header" href="#1-10을-더해서-리턴하는-함수-1"><strong>1. 10을 더해서 리턴하는 함수</strong></a></h3>
+<details><summary>답(안) </summary>
+<pre><code class="language-python">def plus10(a) :
+    return a + 10
+
+res = plus10(5)
+print(res)
+</code></pre>
+</details>
+<br>
+<h3 id="2-a-b-두-수를-받아서-a의-b제곱을-리턴하는-함수-foo-1"><a class="header" href="#2-a-b-두-수를-받아서-a의-b제곱을-리턴하는-함수-foo-1"><strong>2. a, b 두 수를 받아서 a의 b제곱을 리턴하는 함수 foo()</strong></a></h3>
+<details><summary>답(안) </summary>
+<pre><code class="language-python">def foo(a, b) :
+    c = a ** b
+    return c
+
+res = foo(2, 3)
+print(res)
+</code></pre>
+</details>
+<br>
+<h3 id="3-a-b-두-수를-받아서-a를-b로-나눈-계산값의-나머지를-리턴하는-함수-foo-1"><a class="header" href="#3-a-b-두-수를-받아서-a를-b로-나눈-계산값의-나머지를-리턴하는-함수-foo-1"><strong>3. a, b 두 수를 받아서 a를 b로 나눈 계산값의 나머지를 리턴하는 함수 foo()</strong></a></h3>
+<details><summary>답(안) </summary>
+<pre><code class="language-python">def foo(a, b) :
+    c = a % b
+    return c
+
+res = foo(11, 3)
+print(res)
+</code></pre>
+</details>
+<br>
+<h3 id="4-a-b-두-수를-받아서-a를-b로-나눈-계산값의-몫을-리턴하는-함수-foo-1"><a class="header" href="#4-a-b-두-수를-받아서-a를-b로-나눈-계산값의-몫을-리턴하는-함수-foo-1"><strong>4. a, b 두 수를 받아서 a를 b로 나눈 계산값의 몫을 리턴하는 함수 foo()</strong></a></h3>
+<details><summary>답(안) </summary>
+<pre><code class="language-python">def foo(a, b) :
+    c = a // b
+    return c
+
+res = foo(11, 3)
+print(res)
+</code></pre>
+</details>
+<br>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="5-파이썬입출력-1"><a class="header" href="#5-파이썬입출력-1">5. 파이썬입출력</a></h1>
+<h3 id="1-사용자-키보드로-이름을-받아-안녕하세요-ooo님-이라고-출력하는-코드-1"><a class="header" href="#1-사용자-키보드로-이름을-받아-안녕하세요-ooo님-이라고-출력하는-코드-1"><strong>1. 사용자 키보드로 이름을 받아 “안녕하세요 OOO님” 이라고 출력하는 코드</strong></a></h3>
+<pre><code class="language-python">=================================== RESTART: E:\test\test.py ==================================
+이름: apple
+안녕하세요 apple님
+</code></pre>
+<details><summary>답(안) </summary>
+<pre><code>a = input("이름: ")
+b = "안녕하세요 {0}님".format(a)
+print(b)
+</code></pre>
+</details>
+<br>
+<h3 id="2-구구단을-gugudantxt-파일로-출력하는-코드-1"><a class="header" href="#2-구구단을-gugudantxt-파일로-출력하는-코드-1"><strong>2. 구구단을 gugudan.txt 파일로 출력하는 코드</strong></a></h3>
+<details><summary>답(안) </summary>
+<pre><code class="language-python">file = open("gugudan.txt", 'w')
+
+i = 2
+while i &lt;= 9 :
+    j = 1    
+    while j &lt;= 9 :
+        a = "{0} * {1} = {2}\n".format(i, j, i*j)        
+        file.write(a)
+
+        j += 1
+    i += 1
+
+file.close()
+</code></pre>
+</details>
+<br>
+<h3 id="3-구구단을-아래-그림처럼-엑셀에서-읽을-수-있는-gugudancsv-파일로-출력하는-코드-1"><a class="header" href="#3-구구단을-아래-그림처럼-엑셀에서-읽을-수-있는-gugudancsv-파일로-출력하는-코드-1"><strong>3. 구구단을 아래 그림처럼 엑셀에서 읽을 수 있는 gugudan.csv 파일로 출력하는 코드</strong></a></h3>
+<p><img src="python_2024/practice/img/20240826214750.png" alt="" /></p>
+<details><summary>답(안) </summary>
+<pre><code class="language-python">file = open("gugudan.txt", 'w')
+
+i = 2
+while i &lt;= 9 :
+    j = 1    
+    while j &lt;= 9 :
+        a = "{0} * {1} = {2}\n".format(i, j, i*j)        
+        file.write(a)
+
+        j += 1
+    i += 1
+
+file.close()
+
+</code></pre>
+</details>
+<br><div style="break-before: page; page-break-before: always;"></div><h1 id="소스코드-1"><a class="header" href="#소스코드-1">소스코드</a></h1>
+<h2 id="실습-비교연산자를-이용한-if-문-1"><a class="header" href="#실습-비교연산자를-이용한-if-문-1">실습: 비교연산자를 이용한 if 문</a></h2>
+<pre><code class="language-python">if 3 &lt; 5 :
+    print ("3 &lt; 5가 참이면 이 문장이 표시됨")
+    
+if 3 &gt; 5 :
+    print ("3 &gt; 5가 참이면 이 문장이 표시됨")
+
+if 3 &lt;= 5 :
+    print ("3 &lt;= 5가 참이면 이 문장이 표시됨")
+
+if 3 &gt;= 5 :
+    print ("3 &gt;= 5가 참이면 이 문장이 표시됨")
+
+if 3 == 5 :
+    print ("3 == 5가 참이면 이 문장이 표시됨")
+
+if 3 != 5 :
+    print ("3 != 5가 참이면 이 문장이 표시됨")    
+</code></pre>
+<h2 id="에어컨-온도조절-동작-코드-1"><a class="header" href="#에어컨-온도조절-동작-코드-1">에어컨 온도조절 동작 코드</a></h2>
+<pre><code class="language-python">temp = 33
+user_want_temp = 26
+
+if temp &lt;= user_want_temp :
+    print("에어컨을 잠시 멈춥니다.")    
+</code></pre>
+<h2 id="수박이-20000원-미만이면-한-통-사와-1"><a class="header" href="#수박이-20000원-미만이면-한-통-사와-1">수박이 20,000원 미만이면 한 통 사와</a></h2>
+<pre><code class="language-python">water_melon = 25000
+
+if water_melon &lt; 20000 :
+    print("수박을 한 통 구입합니다")
+</code></pre>
+<h2 id="온도가-내려가-에어컨이-멈추면-다시는-에어컨이-재가동되지-않는-문제-해결-1"><a class="header" href="#온도가-내려가-에어컨이-멈추면-다시는-에어컨이-재가동되지-않는-문제-해결-1">온도가 내려가 에어컨이 멈추면 다시는 에어컨이 재가동되지 않는 문제 해결</a></h2>
+<pre><code class="language-python">temp = 27
+user_want_temp = 26
+
+if temp &lt;= user_want_temp :
+    print("에어컨을 잠시 멈춥니다.")
+else :
+    print("에어컨을 가동합니다.")
+</code></pre>
+<h2 id="수박이-20000원-미만이면-2통-사오고-그-이상이면-1통만-사와-1"><a class="header" href="#수박이-20000원-미만이면-2통-사오고-그-이상이면-1통만-사와-1">수박이 20,000원 미만이면 2통 사오고, 그 이상이면 1통만 사와</a></h2>
+<pre><code class="language-python">water_melon = 19000
+
+if water_melon &lt; 20000 :
+    print("수박을 2통 구입합니다.")
+else :
+    print("수박을 1통 구입합니다.")
+</code></pre>
+<h2 id="수박이-20000원-미만이고-사이다가-1000원-미만이면-둘-다-하나씩-사와-그렇지-않으면-아무-것도-사오지-마-2"><a class="header" href="#수박이-20000원-미만이고-사이다가-1000원-미만이면-둘-다-하나씩-사와-그렇지-않으면-아무-것도-사오지-마-2">수박이 20,000원 미만이고 사이다가 1,000원 미만이면 둘 다 하나씩 사와. 그렇지 않으면 아무 것도 사오지 마.</a></h2>
+<pre><code class="language-python">water_melon = 19000
+cider = 950
+
+if water_melon &lt; 20000 :
+    if cider &lt; 1000 :
+        print("수박 1통과 사이다 1개를 구입합니다.")   
+</code></pre>
+<h2 id="수박이-20000원-미만이고-사이다가-1000원-미만이면-둘-다-하나씩-사와-그렇지-않으면-아무-것도-사오지-마-3"><a class="header" href="#수박이-20000원-미만이고-사이다가-1000원-미만이면-둘-다-하나씩-사와-그렇지-않으면-아무-것도-사오지-마-3">수박이 20,000원 미만이고 사이다가 1,000원 미만이면 둘 다 하나씩 사와. 그렇지 않으면 아무 것도 사오지 마.</a></h2>
+<pre><code class="language-python">water_melon = 19000
+cider = 1000
+
+if water_melon &lt; 20000 :
+    if cider &lt; 1000 :
+        print("수박 1통과 사이다 1개를 구입합니다.")
+    else:
+        print("수박은 싼 데 사이다가 비싸서 아무 것도 안 사감")
+else:
+    print("일단 수박부터 비싸서 아무 것도 안 사감")    
+</code></pre>
+<h2 id="수박이-20000원-미만이면-3통-사오고-20000원-이상--2500미만이면-2통만-사오고-25000원-이상이면-1통만-사와-2"><a class="header" href="#수박이-20000원-미만이면-3통-사오고-20000원-이상--2500미만이면-2통만-사오고-25000원-이상이면-1통만-사와-2">수박이 20,000원 미만이면 3통 사오고, 20,000원 이상 ~ 25,00미만이면 2통만 사오고, 25,000원 이상이면 1통만 사와</a></h2>
+<pre><code class="language-python">if water_melon &lt; 20000 :
+    print("수박을 3통 구입합니다.")
+else :
+    if water_melon &lt; 25000 :
+        print("수박을 2통 구입합니다.")
+    else :
+        print("수박을 1통 구입합니다.")
+</code></pre>
+<h2 id="수박이-20000원-미만이면-3통-사오고-20000원-이상--2500미만이면-2통만-사오고-25000원-이상이면-1통만-사와-3"><a class="header" href="#수박이-20000원-미만이면-3통-사오고-20000원-이상--2500미만이면-2통만-사오고-25000원-이상이면-1통만-사와-3">수박이 20,000원 미만이면 3통 사오고, 20,000원 이상 ~ 25,00미만이면 2통만 사오고, 25,000원 이상이면 1통만 사와</a></h2>
+<pre><code class="language-python">if water_melon &lt; 20000 :
+    print("수박을 3통 구입합니다.")
+elif water_melon &lt; 25000 :
+    print("수박을 2통 구입합니다.")
+else :
+    print("수박을 1통 구입합니다.")
+</code></pre>
+<h2 id="실습-약속에-늦은-날elif-1"><a class="header" href="#실습-약속에-늦은-날elif-1">실습: 약속에 늦은 날(elif)</a></h2>
+<pre><code class="language-python">message = ""        # 메시지
+late = 20           # 지각할 거 같은 시간(분)
+
+if late &lt; 5 :
+    message = ""
+elif late &lt; 20 :
+    message = "미안하다"
+else:
+    message = "오늘 자동차가 펑크날거 같아"
+
+if message != "":
+    print("친구에게 다음과 같이 메시지를 보냈습니다: ", message)
+</code></pre>
+<h2 id="반복문---while-2"><a class="header" href="#반복문---while-2">반복문 - while</a></h2>
+<pre><code class="language-python">a = 0
+
+while a &lt; 3 :
+    print (a)
+    a = a + 1
+</code></pre>
+<h2 id="반복문---while-3"><a class="header" href="#반복문---while-3">반복문 - while</a></h2>
+<pre><code class="language-python">a = 0
+
+while True :
+    print (a)
+    a = a + 1
+</code></pre>
+<h2 id="1-3-5-7-9--와-같이-홀수만-99까지-출력-1"><a class="header" href="#1-3-5-7-9--와-같이-홀수만-99까지-출력-1">1, 3, 5, 7, 9, … 와 같이 홀수만 99까지 출력</a></h2>
+<pre><code class="language-python">a = 1
+
+while a &lt;= 99 :
+    print(a)
+    a = a + 2
+</code></pre>
+<h2 id="반복문---for-1"><a class="header" href="#반복문---for-1">반복문 - for</a></h2>
+<pre><code class="language-python">data = [1, 2, 3, 4, 5]
+
+for a in data :
+    print (a)
+</code></pre>
+<h2 id="1-9까지의-숫자를-list로-만들고-그-목록을-하나씩-출력-1"><a class="header" href="#1-9까지의-숫자를-list로-만들고-그-목록을-하나씩-출력-1">1-9까지의 숫자를 list로 만들고 그 목록을 하나씩 출력</a></h2>
+<pre><code class="language-python">nums = [1,2,3,4,5,6,7,8,9]
+
+for a in nums :
+    print (a)
+</code></pre>
+<h2 id="좋아하는-음식을-list로-만들고-그-목록을-하나씩-출력-1"><a class="header" href="#좋아하는-음식을-list로-만들고-그-목록을-하나씩-출력-1">좋아하는 음식을 list로 만들고 그 목록을 하나씩 출력</a></h2>
+<pre><code class="language-python">food_list = ["짜장", "회", "탕수육", "트러플버섯", "치킨"]
+
+for food in food_list :
+    print (food)
+</code></pre>
+<h2 id="좋아하는-음식을-list로-만들고-그-목록-중-치킨이-있을-때만-치킨-찾았다-출력-1"><a class="header" href="#좋아하는-음식을-list로-만들고-그-목록-중-치킨이-있을-때만-치킨-찾았다-출력-1">좋아하는 음식을 list로 만들고 그 목록 중 “치킨“이 있을 때만 “치킨 찾았다!” 출력</a></h2>
+<pre><code class="language-python">food_list = ["짜장", "회", "탕수육", "트러플버섯", "치킨"]
+
+for food in food_list :
+    if food == "치킨" :
+        print (food, "찾았다!")
+</code></pre>
+<h2 id="좋아하는-음식을-list로-만들고-그-목록-중-탕수육이-있을-때만-탕수육-찾았다-o번째에-있었어-출력-1"><a class="header" href="#좋아하는-음식을-list로-만들고-그-목록-중-탕수육이-있을-때만-탕수육-찾았다-o번째에-있었어-출력-1">좋아하는 음식을 list로 만들고 그 목록 중 “탕수육“이 있을 때만 “탕수육 찾았다! O번째에 있었어!” 출력</a></h2>
+<pre><code class="language-python">food_list = ["짜장", "회", "탕수육", "트러플버섯", "치킨"]
+
+index = 0
+
+for food in food_list :
+    if food == "탕수육" :
+        print (food, "찾았다!", index, "번째에 있었어!")
+
+    index = index + 1
+</code></pre>
+<h2 id="무의미한-반복-작업-중단---break-1"><a class="header" href="#무의미한-반복-작업-중단---break-1">무의미한 반복 작업 중단 - break</a></h2>
+<pre><code class="language-python">food_list = ["짜장", "회", "탕수육", "트러플버섯", "치킨"]
+
+index = 0
+
+for food in food_list :
+    if food == "탕수육" :
+        print (food, "찾았다!", index, "번째에 있었어!")
+	break;
+
+    index = index + 1
+</code></pre>
+<h2 id="break-문이-없을-때-1"><a class="header" href="#break-문이-없을-때-1">break 문이 없을 때</a></h2>
+<pre><code class="language-python">food_list = ["짜장", "회", "탕수육", "트러플버섯", "치킨"]
+
+index = 0
+
+for food in food_list :
+    print(index, "번째 자료 조사 중...")
+    if food == "탕수육" :
+        print (food, "찾았다!", index, "번째에 있었어!")
+
+
+    index = index + 1
+</code></pre>
+<h2 id="break-문이-있을-때-1"><a class="header" href="#break-문이-있을-때-1">break 문이 있을 때</a></h2>
+<pre><code class="language-python">food_list = ["짜장", "회", "탕수육", "트러플버섯", "치킨"]
+
+index = 0
+
+for food in food_list :
+    print(index, "번째 자료 조사 중...")
+    if food == "탕수육" :
+        print (food, "찾았다!", index, "번째에 있었어!")
+        break;
+
+    index = index + 1
+</code></pre>
+<h2 id="목록-중-트러플버섯-사달라고-조를-때-1"><a class="header" href="#목록-중-트러플버섯-사달라고-조를-때-1">목록 중 ‘트러플버섯’ 사달라고 조를 때</a></h2>
+<pre><code class="language-python">food_list = ["짜장", "회", "탕수육", "트러플버섯", "치킨"]
+
+for food in food_list :
+    
+    if food != "트러플버섯" :
+        continue
+    print (food, "사 주세요!")
+</code></pre>
+<h2 id="반복문으로-list-값-추가하기list-comprehension-1"><a class="header" href="#반복문으로-list-값-추가하기list-comprehension-1">반복문으로 list 값 추가하기(list comprehension)</a></h2>
+<pre><code class="language-python">for i in range(5):
+    print(i)
+</code></pre>
+<h2 id="range-함수-사용해-list-값-추가-2"><a class="header" href="#range-함수-사용해-list-값-추가-2">range() 함수 사용해 list 값 추가</a></h2>
+<pre><code class="language-python">a = [i for i in range(10)]
+</code></pre>
+<h2 id="range-함수-사용해-list-값-추가-3"><a class="header" href="#range-함수-사용해-list-값-추가-3">range() 함수 사용해 list 값 추가</a></h2>
+<pre><code class="language-python">a = [i*2 for i in range(10)]
+</code></pre>
+<h2 id="함수-사용하기-1"><a class="header" href="#함수-사용하기-1">함수 사용하기</a></h2>
+<pre><code class="language-python">def plus1(a) :
+    b = a + 1
+
+plus1(10)
+</code></pre>
+<h2 id="함수-결과를-사용하자---return-1"><a class="header" href="#함수-결과를-사용하자---return-1">함수 결과를 사용하자 - return</a></h2>
+<pre><code class="language-python">def plus1(a) :
+    b = a + 1
+    return b
+
+c = plus1(10)
+print(c)
+</code></pre>
+<h2 id="실습-두-수를-더해서-return-하는-함수-1"><a class="header" href="#실습-두-수를-더해서-return-하는-함수-1">실습: 두 수를 더해서 return 하는 함수</a></h2>
+<pre><code class="language-python">def plus_2(a, b) :
+    return a + b
+
+a = plus_2(10, 20)
+print(a)
+</code></pre>
+<h2 id="실습-두-수를-빼서-return-하는-함수-1"><a class="header" href="#실습-두-수를-빼서-return-하는-함수-1">실습: 두 수를 빼서 return 하는 함수</a></h2>
+<pre><code class="language-python">def minus_2(a, b) :
+    return a - b
+
+a = minus_2(10, 20)
+print(a)
+</code></pre>
+<h2 id="실습-두-수-중-더-큰-수를-return-하는-함수-1"><a class="header" href="#실습-두-수-중-더-큰-수를-return-하는-함수-1">실습: 두 수 중 더 큰 수를 return 하는 함수</a></h2>
+<pre><code class="language-python">def get_max(a, b):
+    if a &lt; b :
+        return b
+    else :
+        return a
+
+res = get_max(10, 11)
+print(res)
+</code></pre>
+<h2 id="실습-두-수-중-더-작은-수를-return-하는-함수-1"><a class="header" href="#실습-두-수-중-더-작은-수를-return-하는-함수-1">실습: 두 수 중 더 작은 수를 return 하는 함수</a></h2>
+<pre><code class="language-python">def get_min(a, b):
+    if a &lt; b :
+        return a
+    else :
+        return b
+
+res = get_min(10, 11)
+print(res)
+</code></pre>
+<h2 id="파이썬의-정규표현식"><a class="header" href="#파이썬의-정규표현식">파이썬의 정규표현식</a></h2>
+<pre><code class="language-python">import re
+pattern = re.compile('연어')
+
+pic = '멸치요리.jpg'
+m = pattern.search(pic)
+</code></pre>
+<h2 id="파이썬의-정규표현식-1"><a class="header" href="#파이썬의-정규표현식-1">파이썬의 정규표현식</a></h2>
+<pre><code class="language-python">import re
+pattern = re.compile('멸치')
+
+pic = '멸치요리.jpg'
+m = pattern.search(pic)
+</code></pre>
+<h2 id="파일명으로-리스트-만들고-그-리스트를-돌며-연어라는-글자가-들어있는-파일명만-찾기"><a class="header" href="#파일명으로-리스트-만들고-그-리스트를-돌며-연어라는-글자가-들어있는-파일명만-찾기">파일명으로 리스트 만들고, 그 리스트를 돌며 ’연어’라는 글자가 들어있는 파일명만 찾기</a></h2>
+<pre><code class="language-python">import re
+
+files = ["멸치요리.jpg", "연어요리.jpg", "연어 튀기기 전.png"]
+
+pattern = re.compile('연어')
+
+for item in files:
+    m = pattern.search(item)
+    
+    if m != None:
+        print(item, '은 조건에 맞음.')
+    else:
+        print(item, '은 조건에 맞지 않음')
+</code></pre>
+<h2 id="시작이-같은지-검사하기--k로-시작하는지-검사"><a class="header" href="#시작이-같은지-검사하기--k로-시작하는지-검사">시작이 같은지 검사하기 : K로 시작하는지 검사</a></h2>
+<pre><code class="language-python">import re
+pic = "Korea.jpg"
+pattern = re.compile('^K')
+m = pattern.search(pic)
+</code></pre>
+<pre><code class="language-python">import re
+pic = "booK.jpg"
+pattern = re.compile('^K')
+m = pattern.search(pic)
+</code></pre>
+<h2 id="끝이-같은지-검사하기-jpg로-끝나는지-검사하기"><a class="header" href="#끝이-같은지-검사하기-jpg로-끝나는지-검사하기">끝이 같은지 검사하기: ’jpg’로 끝나는지 검사하기</a></h2>
+<pre><code class="language-python">import re
+
+pic = "booK.jpg"
+pattern = re.compile('jpg$')
+m = pattern.search(pic)
+</code></pre>
+<pre><code class="language-python">import re
+
+pic = "booK.jpg"
+pattern = re.compile('png$')
+m = pattern.search(pic)
+</code></pre>
+<h2 id="input-함수-사용-2"><a class="header" href="#input-함수-사용-2">input() 함수 사용</a></h2>
+<pre><code class="language-python">a = input()
+print(a)
+</code></pre>
+<h2 id="화면에-메시지-출력하면서-입력하라고-안내-1"><a class="header" href="#화면에-메시지-출력하면서-입력하라고-안내-1">화면에 메시지 출력하면서 입력하라고 안내</a></h2>
+<pre><code class="language-python">a = input(“입력하세요:”)
+print(a)
+</code></pre>
+<h2 id="input-함수-사용-3"><a class="header" href="#input-함수-사용-3">input() 함수 사용</a></h2>
+<pre><code class="language-python">a = int( input("1~3중 입력하세요: ") )
+print(a)
+</code></pre>
+<h2 id="사용자-키보드로-숫자-값을-받아-1-더한-값을-보여주는-프로그램-1"><a class="header" href="#사용자-키보드로-숫자-값을-받아-1-더한-값을-보여주는-프로그램-1">사용자 키보드로 숫자 값을 받아 1 더한 값을 보여주는 프로그램</a></h2>
+<pre><code class="language-python">a = int( input("숫자를 입력하세요: ") )
+b = a + 1
+print("결과 :" , b)
+</code></pre>
+<h2 id="사용자-키보드로-숫자-값을-받아-1-뺀-값을-보여주는-프로그램-1"><a class="header" href="#사용자-키보드로-숫자-값을-받아-1-뺀-값을-보여주는-프로그램-1">사용자 키보드로 숫자 값을 받아 1 뺀 값을 보여주는 프로그램</a></h2>
+<pre><code class="language-python">a = int( input("숫자를 입력하세요: ") )
+b = a - 1
+print("결과 :" , b)
+</code></pre>
+<h2 id="사용자-키보드로-이름-받아-뒤에-님-안녕하세요를--보여주는-프로그램-1"><a class="header" href="#사용자-키보드로-이름-받아-뒤에-님-안녕하세요를--보여주는-프로그램-1">사용자 키보드로 이름 받아 뒤에 “님 안녕하세요”를  보여주는 프로그램</a></h2>
+<pre><code class="language-python">a = input("이름을 입력하세요: ")
+b = a + "님 안녕하세요"
+print("결과 : " , b)
+</code></pre>
+<h2 id="파일-새로-만들고-파일에-내용-쓰기-1"><a class="header" href="#파일-새로-만들고-파일에-내용-쓰기-1">파일 새로 만들고 파일에 내용 쓰기</a></h2>
+<pre><code class="language-python"># 파일 생성하고 열기
+file = open("sample.txt", 'w')
+
+# 파일에 내용 쓰기
+file.write("안녕하세요")
+
+# 파일 닫기. 파일을 열었으면 꼭 닫아야 한다
+file.close()
+</code></pre>
+<h2 id="파일-읽기-1"><a class="header" href="#파일-읽기-1">파일 읽기</a></h2>
+<pre><code class="language-python"># 파일 생성하고 열기
+file = open("sample.txt", 'r')
+
+# 파일 내용에서 맨 위 한 줄 읽어 오기
+line = file.readline()
+print (line)
+
+# 파일 닫기. 파일을 열었으면 꼭 닫아야 한다
+file.close()
+</code></pre>
+<h2 id="반복문으로-여러-줄-쓰기-1"><a class="header" href="#반복문으로-여러-줄-쓰기-1">반복문으로 여러 줄 쓰기</a></h2>
+<pre><code class="language-python">file = open("여러줄.txt", 'w')
+
+index = 1
+
+while index &lt;= 100 :
+    file.write(str(index))
+    file.write("\n")
+    index = index + 1
+
+file.close()
+</code></pre>
+<h2 id="여러-줄-읽기-2"><a class="header" href="#여러-줄-읽기-2">여러 줄 읽기</a></h2>
+<pre><code class="language-python">file = open("여러줄.txt", 'r')
+
+while True:
+    line = file.readline()
+    if not line:
+        break;
+    print (line)
+
+file.close()
+</code></pre>
+<h2 id="여러-줄-읽기-3"><a class="header" href="#여러-줄-읽기-3">여러 줄 읽기</a></h2>
+<pre><code class="language-python">file = open("여러줄.txt", 'r')
+
+all_line_list = file.readlines()
+for line in all_line_list :
+    print(line)
+
+file.close()
+</code></pre>
+<h3 id="samplecsv-1"><a class="header" href="#samplecsv-1">sample.csv</a></h3>
 <pre><code class="language-python">file = open("sample.csv", 'w')
 
 file.write ("이름,전화번호\n")
@@ -2681,6 +5313,41 @@ clip.write_videofile(video_name)
 <p>이 사이트의 샘플사진을 다운로드 받아 스냅시드를 이용해 보정하는 방법을 보여주는 간단한 영상입니다.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="3차원-공간정보-서비스-구현"><a class="header" href="#3차원-공간정보-서비스-구현">3차원 공간정보 서비스 구현</a></h1>
 <p><img src="geo3D_2024/img/cover.png" alt="logo" /></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="샘플-웹-3d-지도"><a class="header" href="#샘플-웹-3d-지도">샘플: 웹 3D 지도</a></h1>
+<ul>
+<li>
+<p><a href="https://profkim2000.github.io/cesiumjs_1" title="" target="_blank">https://profkim2000.github.io/cesiumjs_1</a></p>
+<p>* PC, 스마트폰에서 사용 가능.</p>
+</li>
+</ul>
+<p><img src="geo3D_2024/sample/img/20241112221726.png" alt="" /></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="블렌더-활용실습"><a class="header" href="#블렌더-활용실습">블렌더 활용실습</a></h1>
+<h2 id="1-건물만들기"><a class="header" href="#1-건물만들기">1. 건물만들기</a></h2>
+<iframe width="800" height="450" src="https://www.youtube.com/embed/WbtI131sD4g?si=3J9TDTFogEQNmu3d" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<h2 id="2-책상만들기-1"><a class="header" href="#2-책상만들기-1">2. 책상만들기 1</a></h2>
+<iframe width="800" height="450" src="https://www.youtube.com/embed/Gv_PMvUfV_Q?si=rESZNU0yVX3DfYek" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<h2 id="3-책상만들기-2"><a class="header" href="#3-책상만들기-2">3. 책상만들기 2</a></h2>
+<iframe width="800" height="450" src="https://www.youtube.com/embed/8u0vaEIxSME?si=BNidFrcGzOb1dHlg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<h3 id="loop-cut"><a class="header" href="#loop-cut">loop cut</a></h3>
+<p>면을 나눌 때 사용. 단축키: <code>ctrl + R</code></p>
+<p><img src="geo3D_2024/exercise/img/20241127214259.png" alt="" /></p>
+<h2 id="4-책상만들기-3"><a class="header" href="#4-책상만들기-3">4. 책상만들기 3</a></h2>
+<iframe width="800" height="450" src="https://www.youtube.com/embed/R_PQLPoEcQQ?si=qRF5_ZCnBmBDzCJR" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<h2 id="5-탑"><a class="header" href="#5-탑">5. 탑</a></h2>
+<iframe width="800" height="450" src="https://www.youtube.com/embed/rrudT6MyY-4?si=TmIcq8KOgX12ZpnK" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<h3 id="inset"><a class="header" href="#inset">inset</a></h3>
+<p>선택한 면과 같은 모양으로 내부에 작은 면을 만들 때 사용. 단축키: <code>I</code></p>
+<p><img src="geo3D_2024/exercise/img/20241127213912.png" alt="" /></p>
+<h2 id="6-시계탑"><a class="header" href="#6-시계탑">6. 시계탑</a></h2>
+<iframe width="800" height="450" src="https://www.youtube.com/embed/KvSgM8Uoe3Q?si=k7br0JIstfxMKV2N" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<h2 id="7-나무-글자"><a class="header" href="#7-나무-글자">7. 나무 글자</a></h2>
+<iframe width="800" height="450" src="https://www.youtube.com/embed/KccKPw6j57I?si=L8i6gWzT9RnyU6H4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<h2 id="8-평면도"><a class="header" href="#8-평면도">8. 평면도</a></h2>
+<h3 id="13"><a class="header" href="#13">1/3</a></h3>
+<iframe width="800" height="450" src="https://www.youtube.com/embed/Awzspx63zPE?si=zP8corbcBNOResQi" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<h3 id="23"><a class="header" href="#23">2/3</a></h3>
+<iframe width="800" height="450" src="https://www.youtube.com/embed/NPmQ2zQyrpM?si=yNj201fWrXz2iVm7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<h3 id="33"><a class="header" href="#33">3/3</a></h3>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="cesium-소스코드"><a class="header" href="#cesium-소스코드">cesium 소스코드</a></h1>
 <p>* 2024. 11. 12. cesium js 1.123 동작 확인.</p>
 <h2 id="cesium_jsserverjs"><a class="header" href="#cesium_jsserverjs">cesium_js/server.js</a></h2>
@@ -2789,24 +5456,647 @@ app.listen(3000, () =&gt; {
 &lt;/body&gt;
 &lt;/html&gt;
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="샘플-웹-3d-지도"><a class="header" href="#샘플-웹-3d-지도">샘플: 웹 3D 지도</a></h1>
-<ul>
-<li>
-<p><a href="https://profkim2000.github.io/cesiumjs_1" title="" target="_blank">https://profkim2000.github.io/cesiumjs_1</a></p>
-<p>* PC, 스마트폰에서 사용 가능.</p>
-</li>
-</ul>
-<p><img src="geo3D_2024/sample/img/20241112221726.png" alt="" /></p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="복습문제-6"><a class="header" href="#복습문제-6">복습문제</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="평면도-샘플"><a class="header" href="#평면도-샘플">평면도 샘플</a></h1>
+<p><img src="geo3D_2024/sample/img/flat3.png" alt="평면도" /></p>
+<p><img src="geo3D_2024/sample/img/flat3-withoutgrid.png" alt="평면도 밑그림용" /></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="복습문제-8"><a class="header" href="#복습문제-8">복습문제</a></h1>
 <p><img src="geo3D_2024/quiz/../../default/quiz01.png" alt="" /></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="1-블렌더-기초-실습1"><a class="header" href="#1-블렌더-기초-실습1">1. 블렌더 기초 실습(1)</a></h1>
+<h3 id="1-blender에-대한-설명으로-틀린-것은"><a class="header" href="#1-blender에-대한-설명으로-틀린-것은"><strong>1. blender에 대한 설명으로 틀린 것은?</strong></a></h3>
+<ol>
+<li>공사 규모에서는 유료로 구입해야 한다.</li>
+<li>오픈소스로 개발되고 있다.</li>
+<li>직관적인 UI로 큰 인기를 모으고 있다.</li>
+<li>다양한 시스템들과 co-work하고 있다.</li>
+</ol>
+<br>
+<h3 id="2-blender에-대한-설명으로-맞는-것은"><a class="header" href="#2-blender에-대한-설명으로-맞는-것은"><strong>2. blender에 대한 설명으로 맞는 것은?</strong></a></h3>
+<ol>
+<li>사진과 같은 품질을 제작할 수 있다.</li>
+<li>동영상은 만들 수 없다.</li>
+<li>플러그인을 사용할 수 없어 활용도가 낮다.</li>
+<li>유료 구입하면 특수 기능을 사용할 수 있다.</li>
+</ol>
+<br>
+<h3 id="3-x-y-z라고-축의-이름이-붙어-있지-않은-경우라도-어떤-축이-각각-x-y-z-축임을-알-수-있는-방법은"><a class="header" href="#3-x-y-z라고-축의-이름이-붙어-있지-않은-경우라도-어떤-축이-각각-x-y-z-축임을-알-수-있는-방법은"><strong>3. x, y, z라고 축의 이름이 붙어 있지 않은 경우라도 어떤 축이 각각 x, y, z 축임을 알 수 있는 방법은?</strong></a></h3>
+<ol>
+<li>ABC</li>
+<li>GOD</li>
+<li>YOU</li>
+<li>RGB</li>
+</ol>
+<br>
+<h3 id="4-빨간색-축은-x-y-z-중-어떤-축인가"><a class="header" href="#4-빨간색-축은-x-y-z-중-어떤-축인가"><strong>4. 빨간색 축은 x, y, z 중 어떤 축인가?</strong></a></h3>
+<ol>
+<li>X</li>
+<li>Y</li>
+<li>Z</li>
+<li>아무런 축도 나타내지 않는다.</li>
+</ol>
+<br>
+<h3 id="5-파란색-축은-x-y-z-중-어떤-축인가"><a class="header" href="#5-파란색-축은-x-y-z-중-어떤-축인가"><strong>5. 파란색 축은 x, y, z, 중 어떤 축인가?</strong></a></h3>
+<ol>
+<li>X</li>
+<li>Y</li>
+<li>Z</li>
+<li>아무런 축도 나타내지 않는다.</li>
+</ol>
+<br>
+<h3 id="6-2d에-비해-3d의-특징은"><a class="header" href="#6-2d에-비해-3d의-특징은"><strong>6. 2D에 비해 3D의 특징은?</strong></a></h3>
+<ol>
+<li>더 많은 색을 표현할 수 있다.</li>
+<li>더 촘촘하게 간격을 구분할 수 있다.</li>
+<li>높이 개념이 있다.</li>
+<li>데이터의 양이 더 적다.</li>
+</ol>
+<br>
+<h3 id="7-다음-그림에서-빨간-점의-좌표값은"><a class="header" href="#7-다음-그림에서-빨간-점의-좌표값은"><strong>7. 다음 그림에서 빨간 점의 좌표값은?</strong></a></h3>
+<p><img src="geo3D_2024/quiz/img/3dquiz.png" alt="alt text" /></p>
+<ol>
+<li>(5, 4, 0)</li>
+<li>(0, 4, 5)</li>
+<li>(5, 0, 4)</li>
+<li>(4, 5, 0)</li>
+</ol>
+<br>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="2-블렌더-기초-실습2"><a class="header" href="#2-블렌더-기초-실습2">2. 블렌더 기초 실습(2)</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="3-블렌더-기초-실습2"><a class="header" href="#3-블렌더-기초-실습2">3. 블렌더 기초 실습(2)</a></h1>
+<h3 id="1-lmb는-무엇의-약자인가"><a class="header" href="#1-lmb는-무엇의-약자인가"><strong>1. LMB는 무엇의 약자인가?</strong></a></h3>
+<ol>
+<li>Large Mouse Button</li>
+<li>Left Mouse Button</li>
+<li>Left Move Button</li>
+<li>Light Move Button</li>
+</ol>
+<br>
+<h3 id="2-mmb를-누르라고-적혀-있으면-마우스의-어떤-부분을-눌러야-하나"><a class="header" href="#2-mmb를-누르라고-적혀-있으면-마우스의-어떤-부분을-눌러야-하나"><strong>2. MMB를 누르라고 적혀 있으면 마우스의 어떤 부분을 눌러야 하나?</strong></a></h3>
+<ol>
+<li>왼쪽 버튼</li>
+<li>왼쪽 버튼과 오른쪽 버튼을 동시에</li>
+<li>마우스 휠</li>
+<li>오른쪽 버튼</li>
+</ol>
+<br>
+<h3 id="3-cube가-하나-있는-경우-이-큐브를-확인하기-위해-궤도식-회전orbit을-하려-한다-가장-좋은-방법은"><a class="header" href="#3-cube가-하나-있는-경우-이-큐브를-확인하기-위해-궤도식-회전orbit을-하려-한다-가장-좋은-방법은"><strong>3. cube가 하나 있는 경우 이 큐브를 확인하기 위해 궤도식 회전(orbit)을 하려 한다. 가장 좋은 방법은?</strong></a></h3>
+<ol>
+<li>왼쪽 버튼으로 화면을 눌러 돌린다.</li>
+<li>shift + 왼쪽 버튼으로 화면을 눌러 돌린다.</li>
+<li>오른쪽 버튼으로 화면을 눌러 돌린다.</li>
+<li>마우스 휠로 화면을 눌러 돌린다.</li>
+</ol>
+<br>
+<h3 id="4-궤도식-회전orbit을-하면-어느-한-점을-중심으로-카메라가-일정거리를-두고-회전하게-된다-이-때-회전-중점을-바꾸고-싶다면-어떻게-해야-하나"><a class="header" href="#4-궤도식-회전orbit을-하면-어느-한-점을-중심으로-카메라가-일정거리를-두고-회전하게-된다-이-때-회전-중점을-바꾸고-싶다면-어떻게-해야-하나"><strong>4. 궤도식 회전(orbit)을 하면 어느 한 점을 중심으로 카메라가 일정거리를 두고 회전하게 된다. 이 때 회전 중점을 바꾸고 싶다면 어떻게 해야 하나?</strong></a></h3>
+<ol>
+<li>원하는 중점에 마우스를 위치하고 MMB를 누른다.</li>
+<li>원하는 중점에 마우스를 위치하고 Alt + MMB를 누른다.</li>
+<li>원하는 중점에 마우스를 위치하고 LMB를 누른다.</li>
+<li>원하는 중점에 마우스를 위치하고 Alt + LMB를 누른다.</li>
+</ol>
+<br>
+<h3 id="5-현재-화면에서-오른쪽에-반만-보이는-object를-화면-가운데에-보이도록-하고-싶으면-panning을-해야-한다-패닝하는-방법은"><a class="header" href="#5-현재-화면에서-오른쪽에-반만-보이는-object를-화면-가운데에-보이도록-하고-싶으면-panning을-해야-한다-패닝하는-방법은"><strong>5. 현재 화면에서 오른쪽에 반만 보이는 object를 화면 가운데에 보이도록 하고 싶으면 panning을 해야 한다. 패닝하는 방법은?</strong></a></h3>
+<p><img src="geo3D_2024/quiz/img/20241116202703.png" alt="" /></p>
+<ol>
+<li>MMB를 누른 채로 마우스를 움직인다.</li>
+<li>LMB를 누른 채로 마우스를 움직인다.</li>
+<li>Shift를 누른 상태에서 MMB를 꾹 누르고 (떼지않고) 마우스를 움직인다.</li>
+<li>Shift를 누른 상태에서 LMB를 꾹 누르고 (떼지않고) 마우스를 움직인다.</li>
+</ol>
+<br>
+<h3 id="6-zoom-in--zoom-out-하는-방법으로-틀린-것은"><a class="header" href="#6-zoom-in--zoom-out-하는-방법으로-틀린-것은"><strong>6. zoom in / zoom out 하는 방법으로 틀린 것은?</strong></a></h3>
+<ol>
+<li>마우스 휠을 돌린다.</li>
+<li>숫자 키패드에서 + 키나 - 키를 누른다.</li>
+<li>마우스 휠을 누르고 움직인다.</li>
+<li>Ctrl + MMB를 하고 마우스를 위아래로 움직인다.</li>
+</ol>
+<br>
+<h3 id="7-작업하다-보니-많은-수의-mesh들을-만들게-되었다-이-mesh들과-카메라-조명까지-모두-한-화면에-표시되도록-zoom-out-하는-가장-빠르고-쉬운-방법은"><a class="header" href="#7-작업하다-보니-많은-수의-mesh들을-만들게-되었다-이-mesh들과-카메라-조명까지-모두-한-화면에-표시되도록-zoom-out-하는-가장-빠르고-쉬운-방법은"><strong>7. 작업하다 보니 많은 수의 mesh들을 만들게 되었다. 이 mesh들과 카메라, 조명까지 모두 한 화면에 표시되도록 zoom out 하는 가장 빠르고 쉬운 방법은?</strong></a></h3>
+<ol>
+<li><code>/</code> 키를 누른다.</li>
+<li><code>.</code> 키를 누른다.</li>
+<li><code>*</code> 키를 누른다.</li>
+<li><code>home</code> 키를 누른다.</li>
+</ol>
+<br>
+<h3 id="8-작업하면서-zoom-in--out-을-여러-번-하다보니-어느-순간부터-zoom-in-이-제대로-안되었다-이-문제를-가장-빠르게-해결하는-방법은-"><a class="header" href="#8-작업하면서-zoom-in--out-을-여러-번-하다보니-어느-순간부터-zoom-in-이-제대로-안되었다-이-문제를-가장-빠르게-해결하는-방법은-"><strong>8. 작업하면서 zoom in / out 을 여러 번 하다보니 어느 순간부터 zoom in 이 제대로 안되었다. 이 문제를 가장 빠르게 해결하는 방법은 ?</strong></a></h3>
+<ol>
+<li>zoom in하고 싶은 mesh를 선택하고 <code>/</code> 키를 누른다.</li>
+<li>zoom in하고 싶은 mesh를 선택하고 <code>.</code> 키를 누른다.</li>
+<li>zoom in하고 싶은 mesh를 선택하고 <code>*</code> 키를 누른다.</li>
+<li>zoom in하고 싶은 mesh를 선택하고 <code>home</code> 키를 누른다.</li>
+</ol>
+<br>
+<h3 id="9-viewpoint를-설정하는-방법으로-틀린-것은-"><a class="header" href="#9-viewpoint를-설정하는-방법으로-틀린-것은-"><strong>9. viewpoint를 설정하는 방법으로 틀린 것은 ?</strong></a></h3>
+<ol>
+<li>Top view: 숫자키패드 7</li>
+<li>Front view: 숫자키패드 5</li>
+<li>Right view: 숫자키패드 3</li>
+<li>Bottom view: Ctrl + 숫자키패드 7</li>
+</ol>
+<br>
+<h3 id="10-top-view로-보고-있다가-반대쪽인-bottom-view로-바꾸고-싶거나-left-view로-보고-있다가-반대쪽인-right-view로-바꾸고-싶거나-front-view로-보고-있다가-back-view로-바꾸고-싶을-때-모든-경우에-한-번에-바꾸는-방법은-"><a class="header" href="#10-top-view로-보고-있다가-반대쪽인-bottom-view로-바꾸고-싶거나-left-view로-보고-있다가-반대쪽인-right-view로-바꾸고-싶거나-front-view로-보고-있다가-back-view로-바꾸고-싶을-때-모든-경우에-한-번에-바꾸는-방법은-"><strong>10. Top view로 보고 있다가 반대쪽인 bottom view로 바꾸고 싶거나, Left view로 보고 있다가 반대쪽인 right view로 바꾸고 싶거나, Front view로 보고 있다가 back view로 바꾸고 싶을 때 모든 경우에 한 번에 바꾸는 방법은 ?</strong></a></h3>
+<ol>
+<li><code>숫자키패드 5</code>를 누른다.</li>
+<li><code>숫자키패드 9</code>를 누른다.</li>
+<li><code>숫자키패드 .</code>을 누른다.</li>
+<li><code>숫자키패드 -</code>를 누른다.</li>
+</ol>
+<br>
+<h3 id="11-다음과-같이-quad-view로-전환하는-방법은-"><a class="header" href="#11-다음과-같이-quad-view로-전환하는-방법은-"><strong>11. 다음과 같이 quad view로 전환하는 방법은 ?</strong></a></h3>
+<p><img src="geo3D_2024/quiz/img/20241116233736.png" alt="" /></p>
+<ol>
+<li><code>ctrl</code> + <code>alt</code> + <code>q</code>를 누른다.</li>
+<li><code>ctrl</code> + <code>alt</code> + <code>v</code>를 누른다.</li>
+<li><code>ctrl</code> + <code>alt</code> + <code>4</code>를 누른다.</li>
+<li><code>ctrl</code> + <code>alt</code> + <code>/</code>를 누른다.</li>
+</ol>
+<br><div style="break-before: page; page-break-before: always;"></div><h1 id="3-블렌더-기초-실습3"><a class="header" href="#3-블렌더-기초-실습3">3. 블렌더 기초 실습(3)</a></h1>
+<h3 id="1-다음-줄-틀린-말은-"><a class="header" href="#1-다음-줄-틀린-말은-"><strong>1. 다음 줄 틀린 말은 ?</strong></a></h3>
+<ol>
+<li>perspective: 입체적인 표현을 한다.</li>
+<li>orthographic: 직교투영으로 표현한다.</li>
+<li>perspective: top view, front view, right view에서 사용한다.</li>
+<li>orthographic: 거리와 상관없이 물체의 크기를 똑같이 보여준다.</li>
+</ol>
+<br>
+<h3 id="2-오브젝트를-이동할-때-사용하는-키는-"><a class="header" href="#2-오브젝트를-이동할-때-사용하는-키는-"><strong>2. 오브젝트를 이동할 때 사용하는 키는 ?</strong></a></h3>
+<ol>
+<li><code>G</code>키</li>
+<li><code>R</code>키</li>
+<li><code>A</code>키</li>
+<li><code>S</code>키</li>
+</ol>
+<br>
+<h3 id="3-오브젝트를-이동할-때-y축으로만-이동하려-한다-이-경우-눌러야-하는-키는-"><a class="header" href="#3-오브젝트를-이동할-때-y축으로만-이동하려-한다-이-경우-눌러야-하는-키는-"><strong>3. 오브젝트를 이동할 때 y축으로만 이동하려 한다. 이 경우 눌러야 하는 키는 ?</strong></a></h3>
+<ol>
+<li><code>G</code>키</li>
+<li><code>X</code>키</li>
+<li><code>Y</code>키</li>
+<li><code>Z</code>키</li>
+</ol>
+<br>
+<h3 id="4-오브젝트를-이동할-때-x-y축으로만-이동하고-z축으로의-이동은-제한하려-한다-이-경우-눌러야-하는-키는-"><a class="header" href="#4-오브젝트를-이동할-때-x-y축으로만-이동하고-z축으로의-이동은-제한하려-한다-이-경우-눌러야-하는-키는-"><strong>4. 오브젝트를 이동할 때 x, y축으로만 이동하고 z축으로의 이동은 제한하려 한다. 이 경우 눌러야 하는 키는 ?</strong></a></h3>
+<ol>
+<li><code>Ctrl</code> + <code>Z</code>키</li>
+<li><code>Z</code>키</li>
+<li><code>Alt</code> + <code>Z</code>키</li>
+<li><code>Shift</code> + <code>Z</code>키</li>
+</ol>
+<br>
+<h3 id="5-아래-그림과-같이-cube가-회전되어-있을-때-바닥과-평형을-이루도록-하는-방법은-"><a class="header" href="#5-아래-그림과-같이-cube가-회전되어-있을-때-바닥과-평형을-이루도록-하는-방법은-"><strong>5. 아래 그림과 같이 cube가 회전되어 있을 때 바닥과 평형을 이루도록 하는 방법은 ?</strong></a></h3>
+<p><img src="geo3D_2024/quiz/img/20241117000006.png" alt="" /></p>
+<ol>
+<li><code>G</code>키를 눌러 회전시킨다.</li>
+<li><code>R</code>키를 눌러 회전시킨다.</li>
+<li><code>B</code>키를 눌러 회전시킨다.</li>
+<li><code>A</code>키를 눌러 회전시킨다.</li>
+</ol>
+<br>
+<h3 id="6-위-문제의-답과-같이-회전시켰더니-오히려-더-이상한-방향으로-회전되었다-바닥과-평형을-이루도록-회전시키는-방법은-"><a class="header" href="#6-위-문제의-답과-같이-회전시켰더니-오히려-더-이상한-방향으로-회전되었다-바닥과-평형을-이루도록-회전시키는-방법은-"><strong>6. 위 문제의 답과 같이 회전시켰더니 오히려 더 이상한 방향으로 회전되었다. 바닥과 평형을 이루도록 회전시키는 방법은 ?</strong></a></h3>
+<p><img src="geo3D_2024/quiz/img/20241117000306.png" alt="" /></p>
+<ol>
+<li><code>X</code>키를 눌러 X축을 기준으로 회전시킨다.</li>
+<li><code>Y</code>키를 눌러 Y축을 기준으로 회전시킨다.</li>
+<li><code>Z</code>키를 눌러 Z축을 기준으로 회전시킨다.</li>
+<li>blender는 무료 프로그램이라 이런 문제는 해결할 수 없다.</li>
+</ol>
+<br>
+<h3 id="7-아래와-같이-눈사람을-만들었는데-아래에-있는-sphere구를-좀-더-크게-해주고-싶을-때-사용할-수-있는-방법은-"><a class="header" href="#7-아래와-같이-눈사람을-만들었는데-아래에-있는-sphere구를-좀-더-크게-해주고-싶을-때-사용할-수-있는-방법은-"><strong>7. 아래와 같이 눈사람을 만들었는데 아래에 있는 sphere(구)를 좀 더 크게 해주고 싶을 때 사용할 수 있는 방법은 ?</strong></a></h3>
+<p><img src="geo3D_2024/quiz/img/20241117000819.png" alt="" /></p>
+<ol>
+<li>아래에 있는 sphere를 선택하고 <code>G</code>키를 눌러 약간 키워준다.</li>
+<li>아래에 있는 sphere를 선택하고 <code>R</code>키를 눌러 약간 키워준다.</li>
+<li>아래에 있는 sphere를 선택하고 <code>S</code>키를 눌러 약간 키워준다.</li>
+<li>아래에 있는 sphere를 선택하고 <code>A</code>키를 눌러 약간 키워준다.</li>
+</ol>
+<br>
+<h3 id="8-아래와-같이-어느-한-점의-위치를-변경하려-할-때-제일-처음-할-일은-"><a class="header" href="#8-아래와-같이-어느-한-점의-위치를-변경하려-할-때-제일-처음-할-일은-"><strong>8. 아래와 같이 어느 한 점의 위치를 변경하려 할 때 제일 처음 할 일은 ?</strong></a></h3>
+<p><img src="geo3D_2024/quiz/img/20241117113800.png" alt="" /></p>
+<ol>
+<li><code>e</code>키를 눌러 edit 모드로 들어간다.</li>
+<li><code>ctrl</code>키를 눌러 edit 모드로 들어간다.</li>
+<li><code>m</code>키를 눌러 edit 모드로 들어간다.</li>
+<li><code>tab</code>키를 눌러 edit 모드로 들어간다.</li>
+</ol>
+<br>
+<h3 id="9-edit-모드-진입-후-아래와-같이-어느-한-점vertex의-위치를-변경하려-할-때-할-일은-"><a class="header" href="#9-edit-모드-진입-후-아래와-같이-어느-한-점vertex의-위치를-변경하려-할-때-할-일은-"><strong>9. edit 모드 진입 후 아래와 같이 어느 한 점(vertex)의 위치를 변경하려 할 때 할 일은 ?</strong></a></h3>
+<p><img src="geo3D_2024/quiz/img/20241117113800.png" alt="" /></p>
+<ol>
+<li><code>p</code>키를 눌러 점편집 모드로 변경한다.</li>
+<li><code>1</code>키를 눌러 edit 모드로 변경한다.</li>
+<li><code>2</code>키를 눌러 edit 모드로 변경한다.</li>
+<li><code>3</code>키를 눌러 edit 모드로 변경한다.</li>
+</ol>
+<br>
+<h3 id="10-edit-모드-진입-후-아래와-같이-어느-한-선edge의-위치를-변경하려-할-때-할-일은-"><a class="header" href="#10-edit-모드-진입-후-아래와-같이-어느-한-선edge의-위치를-변경하려-할-때-할-일은-"><strong>10. edit 모드 진입 후 아래와 같이 어느 한 선(edge)의 위치를 변경하려 할 때 할 일은 ?</strong></a></h3>
+<p><img src="geo3D_2024/quiz/img/20241117115312.png" alt="" /></p>
+<ol>
+<li><code>L</code>키를 눌러 선편집 모드로 변경한다.</li>
+<li><code>1</code>키를 눌러 선편집 모드로 변경한다.</li>
+<li><code>2</code>키를 눌러 선편집 모드로 변경한다.</li>
+<li><code>3</code>키를 눌러 선편집 모드로 변경한다.</li>
+</ol>
+<br>
+<h3 id="11-edit-모드-진입-후-아래와-같이-어느-한-면face의-크기를-변경하려-할-때-할-일은-"><a class="header" href="#11-edit-모드-진입-후-아래와-같이-어느-한-면face의-크기를-변경하려-할-때-할-일은-"><strong>11. edit 모드 진입 후 아래와 같이 어느 한 면(face)의 크기를 변경하려 할 때 할 일은 ?</strong></a></h3>
+<p><img src="geo3D_2024/quiz/img/20241117115727.png" alt="" /></p>
+<ol>
+<li><code>f</code>키를 눌러 면편집 모드로 변경한다.</li>
+<li><code>1</code>키를 눌러 면편집 모드로 변경한다.</li>
+<li><code>2</code>키를 눌러 면편집 모드로 변경한다.</li>
+<li><code>3</code>키를 눌러 면편집 모드로 변경한다.</li>
+</ol>
+<br>
+<h3 id="12-다음과-같이-작업했을-때-결과물은-"><a class="header" href="#12-다음과-같이-작업했을-때-결과물은-"><strong>12. 다음과 같이 작업했을 때 결과물은 ?</strong></a></h3>
+<pre><code>1. cube를 선택한다.
+2. tab 키를 눌러 edit 모드로 들어간다.
+3. 1키를 누른다.
+4. 어느 한 점을 선택한다.
+5. G키를 누른다.
+6. X키를 누른다.
+7. 마우스를 움직인다.
+</code></pre>
+<ol>
+<li></li>
+</ol>
+<p><img src="geo3D_2024/quiz/img/20241117120604.png" alt="" /></p>
+<ol start="2">
+<li></li>
+</ol>
+<p><img src="geo3D_2024/quiz/img/20241117120710.png" alt="" /></p>
+<ol start="3">
+<li></li>
+</ol>
+<p><img src="geo3D_2024/quiz/img/20241117120922.png" alt="" /></p>
+<ol start="4">
+<li></li>
+</ol>
+<p><img src="geo3D_2024/quiz/img/20241117121027.png" alt="" /></p>
+<br>
+<h3 id="13-다음과-같은-작업결과물을-만드는-작업을-순서대로-기술했다-이-중-틀린-것은-"><a class="header" href="#13-다음과-같은-작업결과물을-만드는-작업을-순서대로-기술했다-이-중-틀린-것은-"><strong>13. 다음과 같은 작업결과물을 만드는 작업을 순서대로 기술했다. 이 중 틀린 것은 ?</strong></a></h3>
+<p><img src="geo3D_2024/quiz/img/20241117121422.png" alt="" /></p>
+<ul>
+<li>
+<p>cube를 선택한다.</p>
+</li>
+<li>
+<p><code>tab</code>키를 눌러 편집 모드로 들어간다.</p>
+</li>
+</ul>
+<ol>
+<li>
+<p><code>3</code>키를 눌러 면편집 모드로 변경한다.</p>
+</li>
+<li>
+<p><code>r</code>키를 눌러 회전 기능을 활성화한다.</p>
+</li>
+<li>
+<p><code>ctrl + z</code>키를 눌러 z축 회전으로 설정한다.</p>
+</li>
+<li>
+<p>마우스를 움직여 선택된 면을 회전한다.</p>
+</li>
+</ol>
+<br>
+<h3 id="14-다음-그림과-같은-편집과-방법을-올바르게-짝지은-것은"><a class="header" href="#14-다음-그림과-같은-편집과-방법을-올바르게-짝지은-것은">14. 다음 그림과 같은 편집과 방법을 올바르게 짝지은 것은?</a></h3>
+<p><img src="geo3D_2024/quiz/img/20241117122503.png" alt="" /></p>
+<ol>
+<li>모따기, <code>ctrl + v</code>키</li>
+<li>모깎기, <code>ctrl + v</code>키</li>
+<li>모따기, <code>ctrl + b</code>키</li>
+<li>모깎기, <code>ctrl + b</code>키</li>
+</ol>
+<br>
+<h3 id="15-다음-그림과-같은-편집과-방법을-올바르게-짝지은-것은"><a class="header" href="#15-다음-그림과-같은-편집과-방법을-올바르게-짝지은-것은">15. 다음 그림과 같은 편집과 방법을 올바르게 짝지은 것은?</a></h3>
+<p><img src="geo3D_2024/quiz/img/20241117122649.png" alt="" /></p>
+<ol>
+<li>모따기, 모깎기 후 마우스 휠</li>
+<li>모깎기, 모따기 후 마우스 휠</li>
+<li>모따기, 모깎기 후 마우스 휠</li>
+<li>모깎기, 모따기 후 마우스 휠</li>
+</ol>
+<br>
+<h3 id="16-다음-그림과-같이-면을-도출extrude할-떄-사용하는-키는"><a class="header" href="#16-다음-그림과-같이-면을-도출extrude할-떄-사용하는-키는">16. 다음 그림과 같이 면을 도출(extrude)할 떄 사용하는 키는?</a></h3>
+<p><img src="geo3D_2024/quiz/img/20241117123521.png" alt="" /></p>
+<ol>
+<li><code>e</code>키</li>
+<li><code>x</code>키</li>
+<li><code>t</code>키</li>
+<li><code>r</code>키</li>
+</ol>
+<br>
+<h3 id="17-면을-도출extrude시킨-직후-이-작업을-취소하려면-ctrl--z-키를-누른다-그런데-이-때-ctrl--z-키를-2번-이상-눌러-그-면을-선택한-것까지-취소해야-한다-그-이유는답-2개"><a class="header" href="#17-면을-도출extrude시킨-직후-이-작업을-취소하려면-ctrl--z-키를-누른다-그런데-이-때-ctrl--z-키를-2번-이상-눌러-그-면을-선택한-것까지-취소해야-한다-그-이유는답-2개">17. 면을 도출(extrude)시킨 직후 이 작업을 취소하려면 ctrl + z 키를 누른다. 그런데 이 때, ctrl + z 키를 2번 이상 눌러 그 면을 선택한 것까지 취소해야 한다. 그 이유는(답 2개)?</a></h3>
+<ol>
+<li>extrude는 메모리를 많이 차지하는 연산이므로</li>
+<li>extrude는 CPU를 많이 차지하는 연산이라 정확하게 제거하지 않으면 앞으로 CPU를 더 많이 사용하기 때문</li>
+<li>extrude는 면을 하나 더 생성하는 거라 나중에 이 면이 반드시 문제가 되기 때문에 완벽하게 제거하려고.</li>
+<li>extrude하면 바로 그 자리에 똑같은 면이 하나 더 생성되기 때문에 면이 하나 더 있는지 알아보기 어렵기 때문</li>
+</ol>
+<br>
+<h3 id="18-fbx는-무엇의-약자인가"><a class="header" href="#18-fbx는-무엇의-약자인가">18. fbx는 무엇의 약자인가?</a></h3>
+<ol>
+<li>약자가 아니다.</li>
+<li><strong>F</strong>ace<strong>B</strong>ook e<strong>X</strong>tension</li>
+<li><strong>F</strong>ilm<strong>B</strong>ook e<strong>X</strong>tension</li>
+<li><strong>F</strong>ilm<strong>B</strong>o<strong>X</strong></li>
+</ol>
+<br>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="4-블렌더-활용-실습"><a class="header" href="#4-블렌더-활용-실습">4. 블렌더 활용 실습</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="5-세슘-기초-실습"><a class="header" href="#5-세슘-기초-실습">5. 세슘 기초 실습</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="5-세슘-기초-실습2"><a class="header" href="#5-세슘-기초-실습2">5. 세슘 기초 실습(2)</a></h1>
+<h3 id="1-다음과-같이-건물-모델의-벽에-붙인-그림을-3d에서는-특별히-무엇이라-부르는가"><a class="header" href="#1-다음과-같이-건물-모델의-벽에-붙인-그림을-3d에서는-특별히-무엇이라-부르는가">1. 다음과 같이 건물 모델의 벽에 붙인 그림을 3D에서는 특별히 무엇이라 부르는가?</a></h3>
+<p><img src="geo3D_2024/quiz/img/building_tr.png" alt="alt text" /></p>
+<ol>
+<li>pic</li>
+<li>texture</li>
+<li>uv</li>
+<li>jpg</li>
+</ol>
+<br>
+<h3 id="2-건물-모델의-벽에-texture를-붙이기-위해-생성한-전개도를-부르는-말은"><a class="header" href="#2-건물-모델의-벽에-texture를-붙이기-위해-생성한-전개도를-부르는-말은">2. 건물 모델의 벽에 texture를 붙이기 위해 생성한 전개도를 부르는 말은?</a></h3>
+<ol>
+<li>pic</li>
+<li>texture</li>
+<li>uv map</li>
+<li>jpg</li>
+</ol>
+<br>
+<h3 id="3-하나의-mesh로-책상을-만들기-위해-다리를-뽑아내는-경우-mesh를-여러-개로-나누기-위해-사용하는-기술과-단축키로-옳은-것은"><a class="header" href="#3-하나의-mesh로-책상을-만들기-위해-다리를-뽑아내는-경우-mesh를-여러-개로-나누기-위해-사용하는-기술과-단축키로-옳은-것은">3. 하나의 mesh로 책상을 만들기 위해 다리를 뽑아내는 경우 mesh를 여러 개로 나누기 위해 사용하는 기술과 단축키로 옳은 것은?</a></h3>
+<ol>
+<li>loop cut, ctrl + L</li>
+<li>knife, ctrl + L</li>
+<li>loop cut, ctrl + R</li>
+<li>knife, ctrl + K</li>
+</ol>
+<br>
+<h3 id="4-하나의-mesh-object에-여러-개의-재질을-사용하려-한다-새-재질을-추가하기-위해-눌러야-하는-버튼은"><a class="header" href="#4-하나의-mesh-object에-여러-개의-재질을-사용하려-한다-새-재질을-추가하기-위해-눌러야-하는-버튼은">4. 하나의 mesh object에 여러 개의 재질을 사용하려 한다. 새 재질을 추가하기 위해 눌러야 하는 버튼은?</a></h3>
+<p><img src="geo3D_2024/quiz/img/20241117134247.png" alt="" /></p>
+<ol>
+<li>1</li>
+<li>2</li>
+<li>3</li>
+<li>4</li>
+</ol>
+<br>
+<h3 id="5-mesh의-크기를-조절한-후-ctrl--a키를-눌러-apply---scale로-scale을-재설정하는-이유는"><a class="header" href="#5-mesh의-크기를-조절한-후-ctrl--a키를-눌러-apply---scale로-scale을-재설정하는-이유는">5. mesh의 크기를 조절한 후 ctrl + A키를 눌러 apply - scale로 scale을 재설정하는 이유는?</a></h3>
+<ol>
+<li>크기가 변경되었다고 조명에 알려준다.</li>
+<li>크기가 변경되었다고 카메라에 알려준다.</li>
+<li>UV맵을 펼 때 크기가 변경된 사항이 적용되도록 하기 위해</li>
+<li>blender에서 발생하는 오류를 막기 위해</li>
+</ol>
+<br>
+<h3 id="6-창문-등을-위해-벽에-구멍을-뚫을-때-사용하는-기능은"><a class="header" href="#6-창문-등을-위해-벽에-구멍을-뚫을-때-사용하는-기능은">6. 창문 등을 위해 벽에 구멍을 뚫을 때 사용하는 기능은?</a></h3>
+<ol>
+<li>merge(합치기)</li>
+<li>loop cut</li>
+<li>extrude</li>
+<li>boolean</li>
+</ol>
+<br>
+<h3 id="7-다음-그림과-같이-연결된-면을-한-번에-선택하는-기능의-용어는"><a class="header" href="#7-다음-그림과-같이-연결된-면을-한-번에-선택하는-기능의-용어는">7. 다음 그림과 같이 연결된 면을 한 번에 선택하는 기능의 용어는?</a></h3>
+<p><img src="geo3D_2024/quiz/img/20241125212919.png" alt="" /></p>
+<ol>
+<li>select all</li>
+<li>loop cut</li>
+<li>select loop</li>
+<li>boolean</li>
+</ol>
+<br>
+<h3 id="8-다음-그림과-같이-연결된-면을-한-번에-선택하는-방법은"><a class="header" href="#8-다음-그림과-같이-연결된-면을-한-번에-선택하는-방법은">8. 다음 그림과 같이 연결된 면을 한 번에 선택하는 방법은?</a></h3>
+<p><img src="geo3D_2024/quiz/img/20241125212919.png" alt="" /></p>
+<ol>
+<li>ctrl 키를 누른 채로 LMB로 면을 누른다.</li>
+<li>alt 키를 누른 채로 LMB로 면을 누른다.</li>
+<li>shift 키를 누른 채로 LMB로 면을 누른다.</li>
+<li>면을 더블클릭한다.</li>
+</ol>
+<br>
+<h3 id="9-다음-그림과-같이-연결된-면을-한-번에-선택하는-select-loop-기능을-사용하려-할-때-정확하게-눌러야-하는-곳은"><a class="header" href="#9-다음-그림과-같이-연결된-면을-한-번에-선택하는-select-loop-기능을-사용하려-할-때-정확하게-눌러야-하는-곳은">9. 다음 그림과 같이 연결된 면을 한 번에 선택하는 select loop 기능을 사용하려 할 때 정확하게 눌러야 하는 곳은?</a></h3>
+<p><img src="geo3D_2024/quiz/img/20241125213731.png" alt="" /></p>
+<ol>
+<li>1</li>
+<li>2</li>
+<li>3</li>
+</ol>
+<br>
+<h3 id="10-select-loop-기능을-쓰기-어려워-면을-하나하나-선택하려-한다-이-때-한-면을-선택하고-이-면이-계속-선택되게-만들면서-다른-면도-선택에-포함하려-할-때-lmb와-같이-눌러야-하는-키는"><a class="header" href="#10-select-loop-기능을-쓰기-어려워-면을-하나하나-선택하려-한다-이-때-한-면을-선택하고-이-면이-계속-선택되게-만들면서-다른-면도-선택에-포함하려-할-때-lmb와-같이-눌러야-하는-키는">10. select loop 기능을 쓰기 어려워 면을 하나하나 선택하려 한다. 이 때 한 면을 선택하고 이 면이 계속 선택되게 만들면서 다른 면도 선택에 포함하려 할 때 LMB와 같이 눌러야 하는 키는?</a></h3>
+<ol>
+<li>ctrl</li>
+<li>alt</li>
+<li>shift</li>
+<li>ctrl + alt</li>
+</ol>
+<br>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="5-세슘-기초-실습1"><a class="header" href="#5-세슘-기초-실습1">5. 세슘 기초 실습(1)</a></h1>
+<h3 id="1-세슘의-특징이-아닌-것은"><a class="header" href="#1-세슘의-특징이-아닌-것은">1. 세슘의 특징이 아닌 것은?</a></h3>
+<ol>
+<li>무료이며 누구나 사용할 수 있다.</li>
+<li>사용자가 추가한 asset들을 3D 형태로 보여준다.</li>
+<li>나만의 3D 맵을 만들 수 있다.</li>
+<li>내가 올린 3D asset들은 기본적으로 나한테만 보인다.</li>
+</ol>
+<br>
+<h3 id="2-blender에서-만든-3d-모델을-세슘에-asset으로-등록할-때-사용하는-파일-포맷은"><a class="header" href="#2-blender에서-만든-3d-모델을-세슘에-asset으로-등록할-때-사용하는-파일-포맷은">2. blender에서 만든 3D 모델을 세슘에 asset으로 등록할 때 사용하는 파일 포맷은?</a></h3>
+<ol>
+<li>.blender</li>
+<li>.fbx</li>
+<li>.blend</li>
+<li>.asset</li>
+</ol>
+<br>
+<h3 id="3-blender에서-만든-3d-모델을-fbx-파일로-내보내기-할-때-틀린-것은"><a class="header" href="#3-blender에서-만든-3d-모델을-fbx-파일로-내보내기-할-때-틀린-것은">3. blender에서 만든 3D 모델을 fbx 파일로 내보내기 할 때 틀린 것은?</a></h3>
+<ol>
+<li>특정 모델만 fbx 파일에 추가되게 설정할 수 있다.</li>
+<li>File / Export / FBX(.fbx) 메뉴를 선택한다.</li>
+<li>export 하기 전에 export할 모델을 선택해 놓아야 한다.</li>
+<li>기본 설정으로 texture가 자동 포함된다.</li>
+</ol>
+<br>
+<h3 id="4-blender로-만든-3d-모델을-세슘에-asset으로-등록한-후에-할-일은"><a class="header" href="#4-blender로-만든-3d-모델을-세슘에-asset으로-등록한-후에-할-일은">4. blender로 만든 3D 모델을 세슘에 asset으로 등록한 후에 할 일은?</a></h3>
+<ol>
+<li>정합을 확인한다.</li>
+<li>texture를 변경한다</li>
+<li>ID를 확인한다.</li>
+<li>좌표를 설정한다.</li>
+</ol>
+<br>
+<h3 id="5-세슘을-무료로-사용할-수-있는-경우는"><a class="header" href="#5-세슘을-무료로-사용할-수-있는-경우는">5. 세슘을 무료로 사용할 수 있는 경우는?</a></h3>
+<ol>
+<li>비상업적인 개인적인 프로젝트</li>
+<li>국가 SOC 사업</li>
+<li>공공기관의 업무</li>
+<li>대학의 상업적인 프로젝트</li>
+</ol>
+<br>
+<h3 id="6-세슘에-등록한-3d-asset의-좌표를-잘못-등록할-것을-알게-되었다-현재-asset-관리-창에-있을-때-이-문제를-해결하기-위해-눌러야-하는-것은"><a class="header" href="#6-세슘에-등록한-3d-asset의-좌표를-잘못-등록할-것을-알게-되었다-현재-asset-관리-창에-있을-때-이-문제를-해결하기-위해-눌러야-하는-것은">6. 세슘에 등록한 3D asset의 좌표를 잘못 등록할 것을 알게 되었다. 현재 asset 관리 창에 있을 때 이 문제를 해결하기 위해 눌러야 하는 것은?</a></h3>
+<p><img src="geo3D_2024/quiz/img/20241125221826.png" alt="" /></p>
+<ol>
+<li>1</li>
+<li>2</li>
+<li>3</li>
+<li>4</li>
+</ol>
+<br>
+<h3 id="7-세슘-제품군-중-사용자의-3d-asset-들을-등록-등-관리하고-3d-맵을-만들기-위한-자료를-제공하는-것은"><a class="header" href="#7-세슘-제품군-중-사용자의-3d-asset-들을-등록-등-관리하고-3d-맵을-만들기-위한-자료를-제공하는-것은">7. 세슘 제품군 중 사용자의 3D asset 들을 등록 등 관리하고, 3D 맵을 만들기 위한 자료를 제공하는 것은?</a></h3>
+<ol>
+<li>cesium ion</li>
+<li>cesium js</li>
+<li>cesium for unreal</li>
+<li>cesium for unity</li>
+</ol>
+<br>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="6-세슘-기초-실습2"><a class="header" href="#6-세슘-기초-실습2">6. 세슘 기초 실습(2)</a></h1>
+<h3 id="1-세슘이-제공하는-기능으로-3d-지도를-기반으로-한-프레젠테이션-기능을-제공하는-것은"><a class="header" href="#1-세슘이-제공하는-기능으로-3d-지도를-기반으로-한-프레젠테이션-기능을-제공하는-것은">1. 세슘이 제공하는 기능으로 3D 지도를 기반으로 한 프레젠테이션 기능을 제공하는 것은?</a></h3>
+<ol>
+<li>cesium ion</li>
+<li>cesium stories</li>
+<li>cesium assets</li>
+<li>cesium js</li>
+</ol>
+<br>
+<h3 id="2-세슘-스토리에서-새-슬라이드를-추가하는-방법은"><a class="header" href="#2-세슘-스토리에서-새-슬라이드를-추가하는-방법은">2. 세슘 스토리에서 새 슬라이드를 추가하는 방법은?</a></h3>
+<ol>
+<li>ctrl + + 키를 누른다.</li>
+<li>alt + n 키를 누른다.</li>
+<li>[new page] 버튼을 누른다.</li>
+<li>[new slide] 버튼을 누른다.</li>
+</ol>
+<br>
+<h3 id="3-세슘-스토리에서-내가-올린-3d-asset을-추가할-때-맞는-것은"><a class="header" href="#3-세슘-스토리에서-내가-올린-3d-asset을-추가할-때-맞는-것은">3. 세슘 스토리에서, 내가 올린 3D asset을 추가할 때 맞는 것은?</a></h3>
+<ol>
+<li>내가 올린 3D asset들의 목록이 나타나서 선택할 수 있다.</li>
+<li>스토리에 보여주기 위해서는 새로 asset을 추가해야 한다.</li>
+<li>내가 올린 asset들은 보여줄 수 없고 공용 asset 들만 보여줄 수 있다.</li>
+<li>유료 버전은 가능하지만 무료 버전은 내가 올린 asset들을 볼 수 없다.</li>
+</ol>
+<br>
+<h3 id="4-세슘-스토리에서-슬라이드에-보여줄-모습을-확정하기-위해-누르는-버튼은"><a class="header" href="#4-세슘-스토리에서-슬라이드에-보여줄-모습을-확정하기-위해-누르는-버튼은">4. 세슘 스토리에서 슬라이드에 보여줄 모습을 확정하기 위해 누르는 버튼은?</a></h3>
+<ol>
+<li>OK good</li>
+<li>Good position</li>
+<li>confirm</li>
+<li>capture view</li>
+</ol>
+<br>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="7-세슘-활용-실습"><a class="header" href="#7-세슘-활용-실습">7. 세슘 활용 실습</a></h1>
+<h3 id="1-세슘은-기본적으로-대용량의-3d-지도-자료를-한-번에-전송하지-않고-잘게-쪼개서-전송한다-이러한-기술을-무엇이라-하는가"><a class="header" href="#1-세슘은-기본적으로-대용량의-3d-지도-자료를-한-번에-전송하지-않고-잘게-쪼개서-전송한다-이러한-기술을-무엇이라-하는가">1. 세슘은 기본적으로 대용량의 3D 지도 자료를 한 번에 전송하지 않고 잘게 쪼개서 전송한다. 이러한 기술을 무엇이라 하는가?</a></h3>
+<ol>
+<li>스트리밍</li>
+<li>down bit</li>
+<li>분할 전송</li>
+<li>3D Tiles</li>
+</ol>
+<br>
+<h3 id="2-세슘은-모든-현재-보여줘야-하는-모든-파일이-다-다운로드-될-때-까지-한참-기다린-후-화면에-짠-하고-한꺼번에-나타나는-것이-아닌-조금씩이라도-다운로드받은-내용을-지속적으로-화면에-보여주는-방식을-사용한다-이런-기술을-무엇이라-하는가"><a class="header" href="#2-세슘은-모든-현재-보여줘야-하는-모든-파일이-다-다운로드-될-때-까지-한참-기다린-후-화면에-짠-하고-한꺼번에-나타나는-것이-아닌-조금씩이라도-다운로드받은-내용을-지속적으로-화면에-보여주는-방식을-사용한다-이런-기술을-무엇이라-하는가">2. 세슘은 모든 현재 보여줘야 하는 모든 파일이 다 다운로드 될 때 까지 한참 기다린 후 화면에 짠 하고 한꺼번에 나타나는 것이 아닌, 조금씩이라도 다운로드받은 내용을 지속적으로 화면에 보여주는 방식을 사용한다. 이런 기술을 무엇이라 하는가?</a></h3>
+<ol>
+<li>스트리밍</li>
+<li>down bit</li>
+<li>분할 전송</li>
+<li>3D Tiles</li>
+</ol>
+<br>
+<h3 id="3-세슘이-기본-제공하는-기능이-아닌-것은"><a class="header" href="#3-세슘이-기본-제공하는-기능이-아닌-것은">3. 세슘이 기본 제공하는 기능이 아닌 것은?</a></h3>
+<ol>
+<li>Cesium World Terrain(전 세계의 3차원 지도)</li>
+<li>Imagery(위성 영상)</li>
+<li>OSM 건물</li>
+<li>네이버지도</li>
+</ol>
+<br>
+<h3 id="4-세슘에-저장한-자료를-java-script-언어로-프로그래밍해-볼-수-있게-해주는-cesium-의-구성-요소는"><a class="header" href="#4-세슘에-저장한-자료를-java-script-언어로-프로그래밍해-볼-수-있게-해주는-cesium-의-구성-요소는">4. 세슘에 저장한 자료를 java script 언어로 프로그래밍해 볼 수 있게 해주는 cesium 의 구성 요소는?</a></h3>
+<ol>
+<li>cesium ion</li>
+<li>cesium for unity</li>
+<li>cesium js</li>
+<li>cesium for o3de</li>
+</ol>
+<br>
+<h3 id="5-세슘에-저장한-자료를-이용해-전-세계-지도가-3d형태로-보여지고-내가-만들어-올린-3d-asset-들이-3d-지도-위에-정확하게-위치하는-3d-게임을-만들고-싶을-때-사용하는-cesium-구성-요소는"><a class="header" href="#5-세슘에-저장한-자료를-이용해-전-세계-지도가-3d형태로-보여지고-내가-만들어-올린-3d-asset-들이-3d-지도-위에-정확하게-위치하는-3d-게임을-만들고-싶을-때-사용하는-cesium-구성-요소는">5. 세슘에 저장한 자료를 이용해 전 세계 지도가 3D형태로 보여지고 내가 만들어 올린 3D asset 들이 3D 지도 위에 정확하게 위치하는 3D 게임을 만들고 싶을 때 사용하는 cesium 구성 요소는?</a></h3>
+<ol>
+<li>cesium ion</li>
+<li>cesium for unreal</li>
+<li>cesium js</li>
+<li>cesium</li>
+</ol>
+<br>
+<h3 id="6-세슘을-이용해-디지털트윈-웹버전을-만들려고-한다-이-때-사용하는-세슘의-구성-요소는"><a class="header" href="#6-세슘을-이용해-디지털트윈-웹버전을-만들려고-한다-이-때-사용하는-세슘의-구성-요소는">6. 세슘을 이용해 디지털트윈 웹버전을 만들려고 한다. 이 때 사용하는 세슘의 구성 요소는?</a></h3>
+<ol>
+<li>cesium ion</li>
+<li>cesium for unity</li>
+<li>cesium js</li>
+<li>cesium for o3de</li>
+</ol>
+<br>
+<h3 id="7-세슘을-이용해-디지털트윈-웹버전을-만들려고-개발환경을-구축하려-한다-이-때-설치하는-프로그램으로-자바스크립트를-웹브라우저가-아닌-곳에서-실행할-수-있도록-만들어-주는-프로그램은"><a class="header" href="#7-세슘을-이용해-디지털트윈-웹버전을-만들려고-개발환경을-구축하려-한다-이-때-설치하는-프로그램으로-자바스크립트를-웹브라우저가-아닌-곳에서-실행할-수-있도록-만들어-주는-프로그램은">7. 세슘을 이용해 디지털트윈 웹버전을 만들려고 개발환경을 구축하려 한다. 이 때 설치하는 프로그램으로 자바스크립트를 웹브라우저가 아닌 곳에서 실행할 수 있도록 만들어 주는 프로그램은?</a></h3>
+<ol>
+<li>visual studio code</li>
+<li>node.js</li>
+<li>express.js</li>
+<li>cesium js</li>
+</ol>
+<br>
+<h3 id="8-nodejs를-기반으로-실행되는-프로그램으로-내-pc를-웹서버로-만들어-주는-프로그램은"><a class="header" href="#8-nodejs를-기반으로-실행되는-프로그램으로-내-pc를-웹서버로-만들어-주는-프로그램은">8. node.js를 기반으로 실행되는 프로그램으로 내 PC를 웹서버로 만들어 주는 프로그램은?</a></h3>
+<ol>
+<li>visual studio code</li>
+<li>node.js</li>
+<li>express.js</li>
+<li>cesium js</li>
+</ol>
+<br>
+<h3 id="9-다음-중-heading에-대해-설명한-그림은"><a class="header" href="#9-다음-중-heading에-대해-설명한-그림은">9. 다음 중 heading에 대해 설명한 그림은?</a></h3>
+<ol>
+<li></li>
+</ol>
+<p><img src="geo3D_2024/quiz/img/20241126112940.png" alt="" /></p>
+<ol start="2">
+<li></li>
+</ol>
+<p><img src="geo3D_2024/quiz/img/20241126113013.png" alt="" /></p>
+<ol start="3">
+<li></li>
+</ol>
+<p><img src="geo3D_2024/quiz/img/20241126113050.png" alt="" /></p>
+<br>
+<h3 id="10-세슘을-이용해-디지털트윈-웹버전을-만들기-위해-cisium-js를-사용해-프로그램을-만들었다-다음과-같은-코드에서-aaaa-부분에-실제로-넣어야-하는-값은"><a class="header" href="#10-세슘을-이용해-디지털트윈-웹버전을-만들기-위해-cisium-js를-사용해-프로그램을-만들었다-다음과-같은-코드에서-aaaa-부분에-실제로-넣어야-하는-값은">10. 세슘을 이용해 디지털트윈 웹버전을 만들기 위해 cisium js를 사용해 프로그램을 만들었다. 다음과 같은 코드에서 AAAA 부분에 실제로 넣어야 하는 값은?</a></h3>
+<pre><code class="language-javascript">Cesium.Ion.defaultAccessToken = "AAAA"
+</code></pre>
+<ol>
+<li>cesium ion에 로그인할 때 사용하는 user ID</li>
+<li>cesium ion에 로그인할 때 사용하는 password</li>
+<li>cesium ion에서 제공하는 토큰</li>
+<li>cesium ion에서 제공하는 asset ID</li>
+</ol>
+<br>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="8-공간정보-웹서비스-구현"><a class="header" href="#8-공간정보-웹서비스-구현">8. 공간정보 웹서비스 구현</a></h1>
+<h3 id="1-대부분-건물의-경우-최소-5장의-이미지가-필요한데-일반적으로-3d에서는-텍스처-파일-하나에-5장의-이미지를-모두-저장해-사용하는-이유는"><a class="header" href="#1-대부분-건물의-경우-최소-5장의-이미지가-필요한데-일반적으로-3d에서는-텍스처-파일-하나에-5장의-이미지를-모두-저장해-사용하는-이유는">1. 대부분 건물의 경우 최소 5장의 이미지가 필요한데, 일반적으로 3D에서는 텍스처 파일 하나에 5장의 이미지를 모두 저장해 사용하는 이유는?</a></h3>
+<ol>
+<li>하나의 모델에 이미지 파일을 여러 장 사용하면 보여질 때 실행속도가 느려지기 때문.</li>
+<li>대부분의 3D 프로그램들이 여러 개의 텍스처를 허용하지 않기 때문</li>
+<li>아무런 상관없으나 관례이다.</li>
+<li>색감을 고정하기 위해</li>
+</ol>
+<br>
+<h3 id="2-gimp의-기능-중-층이라는-뜻을-가지고-있으며-각-층마다-순서대로-덮어쓰며-그려지는-기능을-제공하는-것은"><a class="header" href="#2-gimp의-기능-중-층이라는-뜻을-가지고-있으며-각-층마다-순서대로-덮어쓰며-그려지는-기능을-제공하는-것은">2. GIMP의 기능 중 “층“이라는 뜻을 가지고 있으며, 각 층마다 순서대로 덮어쓰며 그려지는 기능을 제공하는 것은”?</a></h3>
+<ol>
+<li>brush</li>
+<li>alpha</li>
+<li>layer</li>
+<li>layout</li>
+</ol>
+<br>
+<h3 id="3-텍스처-파일을-만들기-위해-사진촬영을-할-때-광각으로-촬영하는-것은-가급적-피해야-하는-이유는"><a class="header" href="#3-텍스처-파일을-만들기-위해-사진촬영을-할-때-광각으로-촬영하는-것은-가급적-피해야-하는-이유는">3. 텍스처 파일을 만들기 위해 사진촬영을 할 때 광각으로 촬영하는 것은 가급적 피해야 하는 이유는?</a></h3>
+<ol>
+<li>사진 중앙부가 왜곡되기 때문</li>
+<li>사진 주변부가 왜곡되기 때문</li>
+<li>구조적으로 화질이 나빠지기 때문</li>
+<li>가로세로 비율을 정확하게 맞출 수 없기 때문</li>
+</ol>
+<br>
+<h3 id="4-gimp에-대해-틀린-설명은"><a class="header" href="#4-gimp에-대해-틀린-설명은">4. gimp에 대해 틀린 설명은?</a></h3>
+<ol>
+<li>오픈소스에 무료이다.</li>
+<li>상업적인 사용을 할 때는 요금을 지불해야 한다.</li>
+<li>layer 기능을 제공한다.</li>
+<li>uv map을 편집하기에 적절한 기능을 제공한다.</li>
+</ol>
+<br>
 
                     </main>
 

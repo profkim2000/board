@@ -437,59 +437,6 @@ print(res)
 res = get_min(10, 11)
 print(res)
 </code></pre>
-<h2 id="파이썬의-정규표현식"><a class="header" href="#파이썬의-정규표현식">파이썬의 정규표현식</a></h2>
-<pre><code class="language-python">import re
-pattern = re.compile('연어')
-
-pic = '멸치요리.jpg'
-m = pattern.search(pic)
-</code></pre>
-<h2 id="파이썬의-정규표현식-1"><a class="header" href="#파이썬의-정규표현식-1">파이썬의 정규표현식</a></h2>
-<pre><code class="language-python">import re
-pattern = re.compile('멸치')
-
-pic = '멸치요리.jpg'
-m = pattern.search(pic)
-</code></pre>
-<h2 id="파일명으로-리스트-만들고-그-리스트를-돌며-연어라는-글자가-들어있는-파일명만-찾기"><a class="header" href="#파일명으로-리스트-만들고-그-리스트를-돌며-연어라는-글자가-들어있는-파일명만-찾기">파일명으로 리스트 만들고, 그 리스트를 돌며 ’연어’라는 글자가 들어있는 파일명만 찾기</a></h2>
-<pre><code class="language-python">import re
-
-files = ["멸치요리.jpg", "연어요리.jpg", "연어 튀기기 전.png"]
-
-pattern = re.compile('연어')
-
-for item in files:
-    m = pattern.search(item)
-    
-    if m != None:
-        print(item, '은 조건에 맞음.')
-    else:
-        print(item, '은 조건에 맞지 않음')
-</code></pre>
-<h2 id="시작이-같은지-검사하기--k로-시작하는지-검사"><a class="header" href="#시작이-같은지-검사하기--k로-시작하는지-검사">시작이 같은지 검사하기 : K로 시작하는지 검사</a></h2>
-<pre><code class="language-python">import re
-pic = "Korea.jpg"
-pattern = re.compile('^K')
-m = pattern.search(pic)
-</code></pre>
-<pre><code class="language-python">import re
-pic = "booK.jpg"
-pattern = re.compile('^K')
-m = pattern.search(pic)
-</code></pre>
-<h2 id="끝이-같은지-검사하기-jpg로-끝나는지-검사하기"><a class="header" href="#끝이-같은지-검사하기-jpg로-끝나는지-검사하기">끝이 같은지 검사하기: ’jpg’로 끝나는지 검사하기</a></h2>
-<pre><code class="language-python">import re
-
-pic = "booK.jpg"
-pattern = re.compile('jpg$')
-m = pattern.search(pic)
-</code></pre>
-<pre><code class="language-python">import re
-
-pic = "booK.jpg"
-pattern = re.compile('png$')
-m = pattern.search(pic)
-</code></pre>
 <h2 id="input-함수-사용"><a class="header" href="#input-함수-사용">input() 함수 사용</a></h2>
 <pre><code class="language-python">a = input()
 print(a)
@@ -580,91 +527,294 @@ file.write ("최길동,03-1111-3333\n")
 
 file.close()
 </code></pre>
-<h2 id="math"><a class="header" href="#math">math</a></h2>
-<pre><code class="language-python">import math
-
-# 올림. 주어진 수보다 큰 수중 가장 작은 정수
-a = math.ceil(3.1)
-
-# 내림. 주어진 수보다 작은 수중 가장 큰 정수
-b = math.floor(3.1)
-
-# 최대공약수
-c = math.gcd(12, 20, 40, 60)
-
-print(a, b, c)
+<hr />
+<h2 id="html-예제"><a class="header" href="#html-예제">HTML 예제</a></h2>
+<pre><code class="language-html">저는 &lt;b&gt;치즈&lt;/b&gt;를 좋아하는 &lt;b&gt;MIN&lt;/b&gt;입니다.
 </code></pre>
-<h2 id="random"><a class="header" href="#random">random</a></h2>
-<pre><code class="language-python">import random
-
-# 1~10 사이 아무 정수나 생성
-a = random.randint(1,10)
-
-# 0 &lt;= x &lt; 1 사이의 실수 생성
-b = random.random()
-
-print(a, b)
+<h2 id="hypertext"><a class="header" href="#hypertext">hypertext</a></h2>
+<pre><code class="language-html">저는 &lt;a&gt;치즈&lt;/a&gt;를 좋아하는 &lt;a&gt;MIN&lt;/a&gt;입니다.
 </code></pre>
-<h2 id="matplotlib"><a class="header" href="#matplotlib">matplotlib</a></h2>
-<pre><code class="language-python">import matplotlib.pyplot
-
-matplotlib.pyplot.plot([1, 5, 3, 3, 4])
-matplotlib.pyplot.show()
+<h2 id="hypertext-1"><a class="header" href="#hypertext-1">hypertext</a></h2>
+<pre><code class="language-html">저는 &lt;a href='https://www.lx.or.kr'&gt;치즈&lt;/a&gt;를 좋아하는 &lt;a&gt;MIN&lt;/a&gt;입니다.
 </code></pre>
-<h2 id="matplotlib-1"><a class="header" href="#matplotlib-1">matplotlib</a></h2>
-<pre><code class="language-python">import matplotlib.pyplot
-
-matplotlib.pyplot.plot([1, 5, 3, 3, 4], 'ro')
-matplotlib.pyplot.show()
+<h2 id="hypertext-2"><a class="header" href="#hypertext-2">hypertext</a></h2>
+<pre><code class="language-html">저는 &lt;a href='https://www.lx.or.kr' target='_blank'&gt;치즈&lt;/a&gt;를 좋아하는 &lt;a&gt;MIN&lt;/a&gt;입니다.
 </code></pre>
-<h2 id="pandas"><a class="header" href="#pandas">pandas</a></h2>
-<pre><code class="language-python">import pandas as pd
+<h2 id="html5-전반적인-구조"><a class="header" href="#html5-전반적인-구조">HTML5 전반적인 구조</a></h2>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta charset="UTF-8"&gt;
+        &lt;title&gt;Insert title here&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
 
-df = pd.DataFrame(columns = ['이름','키'])
-
-df['이름'] = ["홍길동", "박길동", "김길동"]
-df['키'] = [175, 183, 178]
-
-print(df)
+    &lt;/body&gt;
+&lt;/html&gt;
 </code></pre>
-<h2 id="pandas-엑셀-파일로-저장하기"><a class="header" href="#pandas-엑셀-파일로-저장하기">pandas 엑셀 파일로 저장하기</a></h2>
-<pre><code class="language-python">import pandas as pd
-
-df = pd.DataFrame(columns = ['이름','키'])
-
-df['이름'] = ["홍길동", "박길동", "김길동"]
-df['키'] = [175, 183, 178]
-
-print(df)
-df.to_excel('test.xlsx')
+<h2 id="list-태그"><a class="header" href="#list-태그">list 태그</a></h2>
+<pre><code class="language-html">&lt;ul&gt;
+  &lt;li&gt;한식&lt;/li&gt;
+  &lt;li&gt;
+    중식
+    &lt;ol&gt;
+      &lt;li&gt;짜장면&lt;/li&gt;
+      &lt;li&gt;짬뽕&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
 </code></pre>
-<h2 id="pandas-자료를-matplotlib-로-시각화"><a class="header" href="#pandas-자료를-matplotlib-로-시각화">pandas 자료를 matplotlib 로 시각화</a></h2>
-<pre><code class="language-python">import pandas as pd
-import matplotlib.pyplot as plt
-
-df = pd.DataFrame(columns = ['이름','키'])
-
-df['이름'] = ["홍길동", "박길동", "김길동"]
-df['키'] = [175, 183, 178]
-
-df.plot()
-plt.show()
+<h2 id="html로-표-만들기"><a class="header" href="#html로-표-만들기">HTML로 표 만들기</a></h2>
+<pre><code class="language-html">&lt;table&gt;
+  &lt;tr&gt;
+    &lt;td&gt;cell 1&lt;/td&gt;
+    &lt;td&gt;cell 2&lt;/td&gt;
+  &lt;/tr&gt;    
+  &lt;tr&gt;
+    &lt;td&gt;cell 3&lt;/td&gt;
+    &lt;td&gt;cell 4&lt;/td&gt;
+  &lt;/tr&gt;    
+&lt;/table&gt;
 </code></pre>
-<h2 id="moviepy"><a class="header" href="#moviepy">moviepy</a></h2>
-<pre><code class="language-python">from moviepy.editor import ImageSequenceClip
-
-# 이미지 파일이 저장된 폴더 경로
-image_folder = 'images'
-video_name = 'output.mp4'
-
-# 이미지 시퀀스 클립 생성 (fps: 초당 프레임 수)
-clip = ImageSequenceClip(image_folder, fps=1)
-
-# 비디오 저장
-clip.write_videofile(video_name)
+<h2 id="html로-표-만들기-1"><a class="header" href="#html로-표-만들기-1">HTML로 표 만들기</a></h2>
+<pre><code class="language-html">&lt;table border=1&gt;
+  &lt;tr&gt;
+    &lt;td&gt;cell 1&lt;/td&gt;
+    &lt;td&gt;cell 2&lt;/td&gt;
+  &lt;/tr&gt;    
+  &lt;tr&gt;
+    &lt;td&gt;cell 3&lt;/td&gt;
+    &lt;td&gt;cell 4&lt;/td&gt;
+  &lt;/tr&gt;    
+&lt;/table&gt;
 </code></pre>
-<p><strong>결과</strong>
-<img src="img/20240819171504.png" alt="" /></p>
+<h2 id="셀-합치기"><a class="header" href="#셀-합치기">셀 합치기</a></h2>
+<pre><code class="language-html">&lt;table border=1&gt;
+  &lt;tr&gt;
+    &lt;td colspan=2&gt;cell 1&lt;/td&gt;
+  &lt;/tr&gt;    
+  &lt;tr&gt;
+    &lt;td&gt;cell 3&lt;/td&gt;
+    &lt;td&gt;cell 4&lt;/td&gt;
+  &lt;/tr&gt;    
+&lt;/table&gt;
+</code></pre>
+<h2 id="셀-합치기-1"><a class="header" href="#셀-합치기-1">셀 합치기</a></h2>
+<pre><code class="language-html">&lt;table border=1&gt;
+  &lt;tr&gt;
+    &lt;td rowspan=2&gt;cell 1&lt;/td&gt;
+    &lt;td&gt;cell 2&lt;/td&gt;
+  &lt;/tr&gt;    
+  &lt;tr&gt;
+    &lt;td&gt;cell 4&lt;/td&gt;
+  &lt;/tr&gt;    
+&lt;/table&gt;
+</code></pre>
+<h2 id="테이블에-헤더-추가"><a class="header" href="#테이블에-헤더-추가">테이블에 헤더 추가</a></h2>
+<pre><code class="language-html">&lt;table border=1&gt;
+  &lt;tr&gt;
+    &lt;th&gt;cell 1&lt;/th&gt;
+    &lt;th&gt;cell 2&lt;/th&gt;
+  &lt;/tr&gt;    
+  &lt;tr&gt;
+    &lt;td&gt;cell 3&lt;/td&gt;
+    &lt;td&gt;cell 4&lt;/td&gt;
+  &lt;/tr&gt;    
+&lt;/table&gt;
+</code></pre>
+<h2 id="테이블을-색으로-꾸미기"><a class="header" href="#테이블을-색으로-꾸미기">테이블을 색으로 꾸미기</a></h2>
+<pre><code class="language-html">&lt;table border=1&gt;
+  &lt;tr&gt;
+    &lt;th&gt;cell 1&lt;/th&gt;
+    &lt;th&gt;cell 2&lt;/th&gt;
+  &lt;/tr&gt;    
+  &lt;tr style="background-color: yellow"&gt;
+    &lt;td&gt;cell 3&lt;/td&gt;
+    &lt;td&gt;cell 4&lt;/td&gt;
+  &lt;/tr&gt;    
+&lt;/table&gt;
+</code></pre>
+<h2 id="테이블을-색으로-꾸미기-1"><a class="header" href="#테이블을-색으로-꾸미기-1">테이블을 색으로 꾸미기</a></h2>
+<pre><code class="language-html">&lt;table border=1&gt;
+  &lt;tr&gt;
+    &lt;th&gt;cell 1&lt;/th&gt;
+    &lt;th&gt;cell 2&lt;/th&gt;
+  &lt;/tr&gt;    
+  &lt;tr&gt;
+    &lt;td style="background-color: red"&gt;cell 3&lt;/td&gt;
+    &lt;td&gt;cell 4&lt;/td&gt;
+  &lt;/tr&gt;    
+&lt;/table&gt;
+</code></pre>
+<h2 id="테이블을-색으로-꾸미기-2"><a class="header" href="#테이블을-색으로-꾸미기-2">테이블을 색으로 꾸미기</a></h2>
+<pre><code class="language-html">&lt;table border=1&gt;
+  &lt;tr style="background-color: #FF0000"&gt;
+    &lt;th&gt;cell 1&lt;/th&gt;
+    &lt;th&gt;cell 2&lt;/th&gt;
+  &lt;/tr&gt;    
+  &lt;tr&gt;
+    &lt;td&gt;cell 3&lt;/td&gt;
+    &lt;td&gt;cell 4&lt;/td&gt;
+  &lt;/tr&gt;    
+&lt;/table&gt;
+</code></pre>
+<hr />
+<h2 id="request를-이용한-통신"><a class="header" href="#request를-이용한-통신">request를 이용한 통신</a></h2>
+<pre><code class="language-py">import requests
+requests.get('https://www.lx.or.kr')
+</code></pre>
+<h2 id="request를-이용한-통신-1"><a class="header" href="#request를-이용한-통신-1">request를 이용한 통신</a></h2>
+<pre><code class="language-py">import requests
+requests.get('https://www.lx.or.kr/aaaaa.hwp')
+</code></pre>
+<h2 id="웹서버에서-가져온-html-파일indexhtml"><a class="header" href="#웹서버에서-가져온-html-파일indexhtml">웹서버에서 가져온 html 파일(index.html)</a></h2>
+<pre><code class="language-py">import requests
+response = requests.get('https://lxeduweb.web.app')
+response
+</code></pre>
+<h2 id="웹서버에서-가져온-html-파일-분석1html"><a class="header" href="#웹서버에서-가져온-html-파일-분석1html">웹서버에서 가져온 html 파일 분석(1.html)</a></h2>
+<pre><code class="language-py">import requests
+response = requests.get('https://lxeduweb.web.app/1.html')
+</code></pre>
+<h2 id="웹서버에서-가져온-html-파일-분석1html-1"><a class="header" href="#웹서버에서-가져온-html-파일-분석1html-1">웹서버에서 가져온 html 파일 분석(1.html)</a></h2>
+<pre><code class="language-py">import requests
+response = requests.get('https://lxeduweb.web.app/1.html')
+A = response.text.find('A전자')
+start = response.text.find('&lt;td&gt;', A + 3)
+end = response.text.find('&lt;/td&gt;', start + 1)
+price = response.text[start+4 : end]
+price
+</code></pre>
+<h2 id="웹서버에서-가져온-html-파일-분석-정보-표시"><a class="header" href="#웹서버에서-가져온-html-파일-분석-정보-표시">웹서버에서 가져온 html 파일 분석, 정보 표시</a></h2>
+<pre><code class="language-py">import requests
+response = requests.get('https://lxeduweb.web.app/1.html')
+A = response.text.find('A전자')
+start = response.text.find('&lt;td&gt;', A + 3)
+end = response.text.find('&lt;/td&gt;', start + 1)
+price = response.text[start+4 : end]
+print("A전자 현재가:", price)
+</code></pre>
+<h2 id="python에서-json-사용"><a class="header" href="#python에서-json-사용">python에서 JSON 사용</a></h2>
+<pre><code class="language-py">import json
+
+data = '{"name": "홍길동", "year": 1999, "phone": "010-1111-1111"}'
+value = json.loads(data)
+
+print(value["phone"])
+</code></pre>
+<h2 id="1초에-한-번씩-자동-실행"><a class="header" href="#1초에-한-번씩-자동-실행">1초에 한 번씩 자동 실행</a></h2>
+<pre><code class="language-py">import schedule
+import time
+
+# 실행할 함수 정의
+def task():
+    print("task 실행")
+
+#1초에 한 번씩 실행
+schedule.every(1).seconds.do(task)
+
+while True:
+    schedule.run_pending()
+    time.sleep(1)
+</code></pre>
+<h2 id="1분에-한-번씩-자동-실행"><a class="header" href="#1분에-한-번씩-자동-실행">1분에 한 번씩 자동 실행</a></h2>
+<pre><code class="language-py">import schedule
+import time
+
+# 실행할 함수 정의
+def task():
+    print("task 실행")
+
+#1분에 한 번씩 실행
+schedule.every(1).minutes.do(task)
+
+while True:
+    schedule.run_pending()
+    time.sleep(1)
+</code></pre>
+<h2 id="1시간에-한-번씩-자동-실행"><a class="header" href="#1시간에-한-번씩-자동-실행">1시간에 한 번씩 자동 실행</a></h2>
+<pre><code class="language-py">import schedule
+import time
+
+# 실행할 함수 정의
+def task():
+    print("task 실행")
+
+# 1시간에 한 번씩 실행
+schedule.every(1).hour.do(task)
+
+while True:
+    schedule.run_pending()
+    time.sleep(1)
+</code></pre>
+<h2 id="매일-0000에-자동-실행"><a class="header" href="#매일-0000에-자동-실행">매일 00:00에 자동 실행</a></h2>
+<pre><code class="language-py">import schedule
+import time
+
+# 실행할 함수 정의
+def task():
+    print("task 실행")
+
+# 매일 00:00에 실행
+schedule.every().day.at("00:00").do(task)
+
+while True:
+    schedule.run_pending()
+    time.sleep(1)
+</code></pre>
+<h2 id="openpyxl-기본-사용법쓰기"><a class="header" href="#openpyxl-기본-사용법쓰기">Openpyxl 기본 사용법(쓰기)</a></h2>
+<pre><code class="language-py">from openpyxl import Workbook
+wb = Workbook()
+
+# 워크북(엑셀)에서 활성화된 sheet을 ws라 부름. 
+ws = wb.active	
+
+# A1 셀에 자료 할당
+ws['A1'] = '공개값'
+ws['B2'] = 42   
+
+# 파일 저장
+wb.save("sample.xlsx") 
+</code></pre>
+<h2 id="openpyxl-기본-사용법셀-읽고-쓰기"><a class="header" href="#openpyxl-기본-사용법셀-읽고-쓰기">Openpyxl 기본 사용법(셀 읽고 쓰기)</a></h2>
+<pre><code class="language-py">from openpyxl import Workbook
+wb = Workbook()
+
+# 워크북(엑셀)에서 활성화된 sheet을 ws라 부름. 
+ws = wb.active	
+
+# A1 셀에 자료 할당
+ws['A1'] = '공개값'
+ws['B2'] = 42   
+
+c = ws['B2'].value
+ws['C3'] = c + 1
+
+# 파일 저장
+wb.save("sample2.xlsx") 
+</code></pre>
+<h2 id="openpyxl-기본-사용법파일-읽기"><a class="header" href="#openpyxl-기본-사용법파일-읽기">Openpyxl 기본 사용법(파일 읽기)</a></h2>
+<pre><code class="language-py">from openpyxl import load_workbook
+wb = load_workbook(filename = 'sample2.xlsx)
+
+# 워크북(엑셀)에서 활성화된 sheet을 ws라 부름. 
+ws = wb['Sheet']	
+v = ws['C3'].value
+print("v:", v)
+</code></pre>
+<h2 id="python-pptx-기본-사용법"><a class="header" href="#python-pptx-기본-사용법">python-pptx 기본 사용법</a></h2>
+<pre><code class="language-py">from pptx import Presentation
+
+prs = Presentation() 	# 파워포인트형으로 객체 생성
+slide_layout = prs.slide_layouts[1]  		# 레이아웃 설정
+slide = prs.slides.add_slide(slide_layout)	# 슬라이드 하나 추가
+
+slide.shapes.title.text = "제목"
+slide.shapes.placeholders[1].text_frame.text = '내용1'
+slide.shapes.placeholders[1].text_frame.add_paragraph().text = '내용2'
+
+prs.save('sample.pptx')				# 파일 저장
+</code></pre>
 
                     </main>
 

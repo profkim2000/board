@@ -6304,6 +6304,301 @@ app.listen(3000, () =&gt; {
 <li>cesium ion에서 제공하는 asset ID</li>
 </ol>
 <br>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="공간정보-db-기본"><a class="header" href="#공간정보-db-기본">공간정보 DB 기본</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="sql"><a class="header" href="#sql">sql</a></h1>
+<h2 id="도근점-테이블-생성"><a class="header" href="#도근점-테이블-생성">도근점 테이블 생성</a></h2>
+<pre><code class="language-sql">create table dogun
+(
+    x float8,
+    y float8,
+    coord int, 
+    name varchar(20),
+    memo varchar(100)
+);
+</code></pre>
+<h2 id="샘플-자료-입력"><a class="header" href="#샘플-자료-입력">샘플 자료 입력</a></h2>
+<pre><code class="language-sql">insert into dogun (x, y, coord, name, memo) values (10.5, 8.7, 15, '도근점 1', '');
+insert into dogun (x, y, coord, name, memo) values (8.415, 13.174, 15, '도근점 2', '');
+insert into dogun (x, y, coord, name, memo) values (5.514, 7.74, 15, '도근점 3', '연석 바로 밑에 있음');
+insert into dogun (x, y, coord, name, memo) values (19.1, 4.785, 15, '도근점 4', '');
+insert into dogun (x, y, coord, name, memo) values (16.554, 9.63, 15, '도근점 4', '연석 위에 있음');
+insert into dogun (x, y, coord, name, memo) values (15.212, 8.546, 15, '도근점 4', '');
+insert into dogun (x, y, coord, name, memo) values (10.105, 9.644, 15, '도근점 5', '잘 안보임');
+insert into dogun (x, y, coord, name, memo) values (5.157, 14.451, 15, '도근점 6', '철도근처');
+insert into dogun (x, y, coord, name, memo) values (12.11, 12.547, 15, '도근점 7', '수풀에 가려져 있음');
+insert into dogun (x, y, coord, name, memo) values (11.54, 10.557, 15, '도근점 8', '4차선 주변 연석 바로 뒤');
+insert into dogun (x, y, coord, name, memo) values (10.5154, 7.8815, 15, '도근점1', '연석 위에 있음');
+
+
+insert into dogun (x, coord, name, memo) values (14.14, 15, '', '');
+insert into dogun (x, y, coord) values (11.54, 7.21, 15);
+insert into dogun (x, y) values (12.532, 12.771);
+</code></pre>
+<h2 id="도근점-테이블-검색"><a class="header" href="#도근점-테이블-검색">도근점 테이블 검색</a></h2>
+<pre><code class="language-sql">select * from dogun;
+</code></pre>
+<p>결과</p>
+<pre><code>testdb=&gt; select * from dogun;
+    x    |   y    | coord |   name   |          memo
+---------+--------+-------+----------+-------------------------
+    10.5 |    8.7 |    15 | 도근점 1 |
+   8.415 | 13.174 |    15 | 도근점 2 |
+   5.514 |   7.74 |    15 | 도근점 3 | 연석 바로 밑에 있음
+    19.1 |  4.785 |    15 | 도근점 4 |
+  16.554 |   9.63 |    15 | 도근점 4 | 연석 위에 있음
+  15.212 |  8.546 |    15 | 도근점 4 |
+  10.105 |  9.644 |    15 | 도근점 5 | 잘 안보임
+   5.157 | 14.451 |    15 | 도근점 6 | 철도근처
+   12.11 | 12.547 |    15 | 도근점 7 | 수풀에 가려져 있음
+   11.54 | 10.557 |    15 | 도근점 8 | 4차선 주변 연석 바로 뒤
+   14.14 |        |    15 |          |
+   11.54 |   7.21 |    15 |          |
+  12.532 | 12.771 |       |          |
+ 10.5154 | 7.8815 |    15 | 도근점1  | 연석 위에 있음
+(14개 행)
+</code></pre>
+<p>**insert문으로 입력한 순서대로 나오는 것이 아닌, 걸리는대로 보여짐 **</p>
+<h2 id="새로운-도근점-테이블"><a class="header" href="#새로운-도근점-테이블">새로운 도근점 테이블</a></h2>
+<pre><code class="language-sql">drop table dogun;
+create table dogun
+(
+id int not null,
+x float8 not null,
+y float8 not null,
+coord int not null,
+name varchar(20) not null,
+memo varchar(100)
+);
+</code></pre>
+<h2 id="샘플-자료-입력-1"><a class="header" href="#샘플-자료-입력-1">샘플 자료 입력</a></h2>
+<pre><code class="language-sql">insert into dogun (id, x, y, coord, name, memo) values (1, 10.5, 8.7, 15, '도근점 1', '');
+insert into dogun (id, x, y, coord, name, memo) values (2, 8.415, 13.174, 15, '도근점 2', '');
+insert into dogun (id, x, y, coord, name, memo) values (3, 5.514, 7.74, 15, '도근점 3', '연석 바로 밑에 있음');
+insert into dogun (id, x, y, coord, name, memo) values (4, 19.1, 4.785, 15, '도근점 4', '');
+insert into dogun (id, x, y, coord, name, memo) values (5, 16.554, 9.63, 15, '도근점 4', '연석 위에 있음');
+insert into dogun (id, x, y, coord, name, memo) values (6, 15.212, 8.546, 15, '도근점 4', '');
+insert into dogun (id, x, y, coord, name, memo) values (7, 10.105, 9.644, 15, '도근점 5', '잘 안보임');
+insert into dogun (id, x, y, coord, name, memo) values (8, 5.157, 14.451, 15, '도근점 6', '철도근처');
+insert into dogun (id, x, y, coord, name, memo) values (9, 12.11, 12.547, 15, '도근점 7', '수풀에 가려져 있음');
+insert into dogun (id, x, y, coord, name, memo) values (10, 11.54, 10.557, 15, '도근점 8', '4차선 주변 연석 바로 뒤');
+insert into dogun (id, x, y, coord, name, memo) values (11, 10.5154, 7.8815, 15, '도근점1', '연석 위에 있음');
+</code></pre>
+<h2 id="자동증가-기능을-추가한-도근점-테이블"><a class="header" href="#자동증가-기능을-추가한-도근점-테이블">자동증가 기능을 추가한 도근점 테이블</a></h2>
+<pre><code class="language-sql">drop table dogun;
+create table dogun
+(
+id serial primary key,
+x float8 not null,
+y float8 not null,
+coord int not null,
+name varchar(20) not null,
+memo varchar(100)
+);
+</code></pre>
+<h2 id="샘플-자료-입력-2"><a class="header" href="#샘플-자료-입력-2">샘플 자료 입력</a></h2>
+<p>id가 자동증가되니 id는 따로 입력하지 않음.</p>
+<pre><code class="language-sql">insert into dogun (x, y, coord, name, memo) values (10.5, 8.7, 15, '도근점 1', '');
+insert into dogun (x, y, coord, name, memo) values (8.415, 13.174, 15, '도근점 2', '');
+insert into dogun (x, y, coord, name, memo) values (5.514, 7.74, 15, '도근점 3', '연석 바로 밑에 있음');
+insert into dogun (x, y, coord, name, memo) values (19.1, 4.785, 15, '도근점 4', '');
+insert into dogun (x, y, coord, name, memo) values (16.554, 9.63, 15, '도근점 4', '연석 위에 있음');
+insert into dogun (x, y, coord, name, memo) values (15.212, 8.546, 15, '도근점 4', '');
+insert into dogun (x, y, coord, name, memo) values (10.105, 9.644, 15, '도근점 5', '잘 안보임');
+insert into dogun (x, y, coord, name, memo) values (5.157, 14.451, 15, '도근점 6', '철도근처');
+insert into dogun (x, y, coord, name, memo) values (12.11, 12.547, 15, '도근점 7', '수풀에 가려져 있음');
+insert into dogun (x, y, coord, name, memo) values (11.54, 10.557, 15, '도근점 8', '4차선 주변 연석 바로 뒤');
+insert into dogun (x, y, coord, name, memo) values (10.5154, 7.8815, 15, '도근점1', '연석 위에 있음');
+</code></pre>
+<h2 id="측량사-정보-테이블-생성"><a class="header" href="#측량사-정보-테이블-생성">측량사 정보 테이블 생성</a></h2>
+<pre><code class="language-sql">create table surveyors
+(
+    name varchar(10) 
+);
+</code></pre>
+<h2 id="측량사-정보-입력"><a class="header" href="#측량사-정보-입력">측량사 정보 입력</a></h2>
+<pre><code class="language-sql">insert into surveyors (name) values ('홍길동');
+insert into surveyors (name) values ('박길동');
+insert into surveyors (name) values ('고길동');
+</code></pre>
+<h2 id="측량사-정보-테이블-생성-1"><a class="header" href="#측량사-정보-테이블-생성-1">측량사 정보 테이블 생성</a></h2>
+<pre><code class="language-sql">drop table surveyors;
+create table surveyors
+(
+    name varchar(10) UNIQUE
+);
+</code></pre>
+<h2 id="측량사-정보-테이블을-이용하도록-dogun-테이블-생성"><a class="header" href="#측량사-정보-테이블을-이용하도록-dogun-테이블-생성">측량사 정보 테이블을 이용하도록 dogun 테이블 생성</a></h2>
+<pre><code class="language-sql">drop table dogun;
+create table dogun
+(
+id serial primary key,
+x float8 not null,
+y float8 not null,
+coord int not null,
+name varchar(20) not null,
+memo varchar(100), 
+surveyor varchar(10),
+
+constraint FK_DOGUN_SURVEYOR
+foreign key (surveyor)
+references surveyors(name)
+);
+</code></pre>
+<h2 id="측량사-정보-테이블에-id-반영"><a class="header" href="#측량사-정보-테이블에-id-반영">측량사 정보 테이블에 ID 반영</a></h2>
+<pre><code class="language-sql">drop table surveyors;
+create table surveyors
+(
+    id int primary key,
+    name varchar(10)
+);
+</code></pre>
+<h2 id="측량사-정보-테이블의-id를-이용하도록-dogun-테이블-생성"><a class="header" href="#측량사-정보-테이블의-id를-이용하도록-dogun-테이블-생성">측량사 정보 테이블의 ID를 이용하도록 dogun 테이블 생성</a></h2>
+<pre><code class="language-sql">drop table dogun;
+create table dogun
+(
+id serial primary key,
+x float8 not null,
+y float8 not null,
+coord int not null,
+name varchar(20) not null,
+memo varchar(100), 
+surveyor int,
+
+constraint FK_DOGUN_SURVEYOR
+foreign key (surveyor)
+references surveyors(id)
+);
+</code></pre>
+<h2 id="측량사-정보-입력-1"><a class="header" href="#측량사-정보-입력-1">측량사 정보 입력</a></h2>
+<pre><code class="language-sql">insert into surveyors (id, name) values (1, '홍길동');
+insert into surveyors (id, name) values (2, '박길동');
+insert into surveyors (id, name) values (3, '구길동');
+insert into surveyors (id, name) values (4, '박길동');
+</code></pre>
+<h2 id="도근-정보-입력"><a class="header" href="#도근-정보-입력">도근 정보 입력</a></h2>
+<pre><code class="language-sql">insert into dogun (x, y, coord, name, memo, surveyor) values (10.5, 8.7, 15, '도근점 1', '', 1);
+insert into dogun (x, y, coord, name, memo, surveyor) values (8.415, 13.174, 15, '도근점 2', '', 3);
+insert into dogun (x, y, coord, name, memo, surveyor) values (5.514, 7.74, 15, '도근점 3', '연석 바로 밑에 있음', 3);
+insert into dogun (x, y, coord, name, memo, surveyor) values (19.1, 4.785, 15, '도근점 4', '', 1);
+insert into dogun (x, y, coord, name, memo, surveyor) values (16.554, 9.63, 15, '도근점 4', '연석 위에 있음', 4);
+insert into dogun (x, y, coord, name, memo, surveyor) values (15.212, 8.546, 15, '도근점 4', '', 4);
+insert into dogun (x, y, coord, name, memo, surveyor) values (10.105, 9.644, 15, '도근점 5', '잘 안보임', 2);
+insert into dogun (x, y, coord, name, memo, surveyor) values (5.157, 14.451, 15, '도근점 6', '철도근처', 3);
+insert into dogun (x, y, coord, name, memo, surveyor) values (12.11, 12.547, 15, '도근점 7', '수풀에 가려져 있음', 1);
+insert into dogun (x, y, coord, name, memo, surveyor) values (11.54, 10.557, 15, '도근점 8', '4차선 주변 연석 바로 뒤', 1);
+insert into dogun (x, y, coord, name, memo, surveyor) values (10.5154, 7.8815, 15, '도근점1', '연석 위에 있음', 2);
+</code></pre>
+<br/>
+<h3 id="실습--dogun-테이블과-surveyors-테이블을-join해-아래와-같이-보이도록"><a class="header" href="#실습--dogun-테이블과-surveyors-테이블을-join해-아래와-같이-보이도록">실습 : dogun 테이블과 surveyors 테이블을 join해 아래와 같이 보이도록</a></h3>
+<p><strong>[결과]</strong></p>
+<pre><code> 도근점 번호 | 도근점 이름 | 축량사
+-------------+-------------+--------
+           1 | 도근점 1    | 홍길동
+           3 | 도근점 3    | 구길동
+           4 | 도근점 4    | 홍길동
+           5 | 도근점 4    | 박길동
+           6 | 도근점 4    | 박길동
+           7 | 도근점 5    | 박길동
+           8 | 도근점 6    | 구길동
+           9 | 도근점 7    | 홍길동
+          10 | 도근점 8    | 홍길동
+          11 | 도근점1     | 박길동
+           2 | 도근점 2    | 구길동
+(11개 행)
+</code></pre>
+<p><strong>[sql]</strong></p>
+<pre><code class="language-sql">select 
+    dogun.id as "도근점 번호"
+    , dogun.name "도근점 이름"
+    , surveyors.name as "축량사" 
+from 
+    dogun
+    , surveyors 
+where
+    dogun.surveyor = surveyors.id;
+</code></pre>
+<br/>
+<h3 id="실습--dogun-테이블과-surveyors-테이블을-join하고-y좌표가-10-초과"><a class="header" href="#실습--dogun-테이블과-surveyors-테이블을-join하고-y좌표가-10-초과">실습 : dogun 테이블과 surveyors 테이블을 join하고 y좌표가 10 초과</a></h3>
+<p><strong>[결과]</strong></p>
+<pre><code>  도근점 번호 |   x   |   y    | 도근점 이름 | 측량사
+ -------------+-------+--------+-------------+--------
+            8 | 5.157 | 14.451 | 도근점 6    | 구길동
+            9 | 12.11 | 12.547 | 도근점 7    | 홍길동
+           10 | 11.54 | 10.557 | 도근점 8    | 홍길동
+            2 | 8.415 | 13.174 | 도근점 2    | 구길동
+ (4개 행)
+</code></pre>
+<p><strong>[sql]</strong></p>
+<pre><code class="language-sql">select 
+    dogun.id as "도근점 번호"
+    , dogun.name "도근점 이름"
+    , surveyors.name as "축량사" 
+from 
+    dogun
+    , surveyors 
+where 
+    dogun.surveyor = surveyors.id 
+    and 10.0 &lt; y;
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="sql-실습"><a class="header" href="#sql-실습">sql 실습</a></h1>
+<h3 id="foods-테이블-생성"><a class="header" href="#foods-테이블-생성">foods 테이블 생성</a></h3>
+<pre><code class="language-sql">create table foods
+(
+	ID serial primary key,
+	name varchar (100) UNIQUE
+);
+</code></pre>
+<h3 id="cars-테이블-생성"><a class="header" href="#cars-테이블-생성">cars 테이블 생성</a></h3>
+<pre><code class="language-sql">create table cars
+(
+	ID serial primary key,
+	name varchar (100) UNIQUE
+);
+</code></pre>
+<h3 id="address-테이블-생성"><a class="header" href="#address-테이블-생성">address 테이블 생성</a></h3>
+<pre><code class="language-sql">create table address
+(
+	ID serial primary key,
+	name varchar(20) NOT NULL,
+	birthday date,
+	hphone varchar(13) NOT NULL,
+	memo varchar(100),
+	food int,
+	car int,
+
+	CONSTRAINT fk_address_food
+		FOREIGN KEY(food)
+		REFERENCES foods(ID)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE,
+
+	CONSTRAINT fk_address_car
+		FOREIGN KEY(car)
+		REFERENCES cars(ID)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE
+);
+</code></pre>
+<pre><code class="language-sql">insert into foods (name) values ('짜장면');
+insert into foods (name) values ('짬뽕');
+insert into foods (name) values ('새우튀김');
+insert into foods (name) values ('고기완자');
+
+insert into cars (name) values ('sonata');
+insert into cars (name) values ('benz');
+insert into cars (name) values ('bmw');
+insert into cars (name) values ('audi');
+insert into cars (name) values ('tico');
+
+
+insert into address (name, birthday, hphone, memo, food, car) values ('홍길동', '1987-01-05', '010-1111-1111', '절친', 1, 3);
+insert into address (name, birthday, hphone, memo, food, car) values ('박길동', '2010-03-07', '010-1123-0515', '', 1, 1);
+insert into address (name, birthday, hphone, memo, food, car) values ('최길동', '2000-01-01', '010-5515-4574', '절친', 3, 2);
+insert into address (name, birthday, hphone, memo, food, car) values ('나길동', '1988-03-14', '010-7743-5743', '돈 빌림', 3, 3);
+insert into address (name, birthday, hphone, memo, food, car) values ('윤지원', '1996-04-22', '010-7457-6475', '', 4, 3);
+insert into address (name, birthday, hphone, memo, food, car) values ('고길동', '2007-09-09', '010-3511-5858', '', 4, NULL);
+insert into address (name, birthday, hphone, memo, food) values ('박길동', '1997-05-05', '010-4874-7871', '절친 아님', 2);
+</code></pre>
 
                     </main>
 

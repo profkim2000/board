@@ -1,0 +1,339 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>1. 프로젝트 세팅 - Eugene&#x27;s Board</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../custom.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Eugene&#x27;s Board</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h2 id="vite---react-프로젝트-생성"><a class="header" href="#vite---react-프로젝트-생성">vite - react 프로젝트 생성</a></h2>
+<p>프로젝트를 생성하기 위해 <code>d:\test\html5</code> 폴더에서 power shell을 실행한다.</p>
+<p><img src="img/20250611152055.png" alt="" /></p>
+<p>탐색기 <code>D:\test\html5i</code> 폴더에서 빈 부분을 shift 키를 누른 채로 마우스 오른쪽 클릭하고 [여기에 Power shell 창 열기] 메뉴 선택</p>
+<pre><code class="language-ps">PS D:\test\html5&gt; npm create vite
+
+&gt; npx
+&gt; create-vite
+
+|
+o  Project name:
+|  didi
+|
+o  Select a framework:
+|  React
+|
+o  Select a variant:
+|  JavaScript
+|
+o  Scaffolding project in D:\test\html5\didi...
+|
+—  Done. Now run:
+
+  cd didi
+  npm install
+  npm run dev
+
+PS D:\test\html5&gt;
+</code></pre>
+<p>power shell에서 위와 같이 <strong>npm create vite</strong> 를 실행해 vite - react 프로젝트를 생성하면서 다음과 같이 옵션을 정해준다.</p>
+<ul>
+<li>project name: <strong>didi</strong></li>
+<li>Select a framework: <strong>React</strong></li>
+<li>Select a variant: <strong>JavaScript</strong></li>
+</ul>
+<p>프로젝트 생성이 완료되면 다음과 같이 프로젝트를 실행한다.</p>
+<pre><code class="language-ps">PS D:\test\html5&gt; cd didi
+PS D:\test\html5\didi&gt; npm install
+</code></pre>
+<p><strong>결과</strong></p>
+<pre><code class="language-ps">added 198 packages, and audited 199 packages in 21s
+
+33 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+PS D:\test\html5\didi&gt;
+</code></pre>
+<h2 id="vscode-실행하면서-didi-프로젝트-읽어들이기"><a class="header" href="#vscode-실행하면서-didi-프로젝트-읽어들이기">vscode 실행하면서 didi 프로젝트 읽어들이기</a></h2>
+<p>탐색기에서 <code>d:\test\html5\didi</code> 폴더로 이동한다.</p>
+<p><img src="img/20250611153222.png" alt="" /></p>
+<p>탐색기의 빈 곳에서 오른쪽 클릭한다.<br />
+팝업 메뉴에서 [code(으)로 열기] 를 선택한다.</p>
+<p>그럼 아래와 같이 vscode가 실행된다.</p>
+<p><img src="img/20250611153300.png" alt="" /></p>
+<p>이 폴더를 만든 사람을 믿느냐는 질문이 나오는데 이거 만든 사람 나니까 그냥 파란색의 [Yes I trust the authors] 버튼을 클릭한다.</p>
+<h2 id="vscode에서-프로젝트-실행하기"><a class="header" href="#vscode에서-프로젝트-실행하기">vscode에서 프로젝트 실행하기</a></h2>
+<p><code>ctrl</code> 키를 누른 상태에서 ` 키를 누르면 vscode의 아래쪽에 power shell 같은 창이 열린다.</p>
+<p>` 키는 [tab]키 위, [ESC]키 아래 쪽에 있는 키이다.</p>
+<p><img src="img/20250611154822.png" alt="" /></p>
+<p>여기에 <code>npm run dev</code> 라고 입력한다.</p>
+<pre><code class="language-ps">npm run dev
+</code></pre>
+<p><img src="img/20250611155613.png" alt="" /></p>
+<p>그럼 다음과 같이 프로젝트가 실행된다.</p>
+<p>vscode는 이렇게 프로그램 개발에 필요한 기능들이 매우 많이 포함되어 있어 편하게 개발할 수 있도록 도와준다.</p>
+<p>만약 이런 기능이 없다면 power shell과 vscode를 왔다갔다 하며 개발해야 하는데 vscode에 power shell이 내장되어 있어 하나의 프로그램 안에서 편하게 개발할 수 있다.</p>
+<p>power shell에는 내가 만든 프로그램이 실행되면서 발생하는 상황이 나타난다. 이게 흔히 log 라고 부르는 것들이다.</p>
+<p><img src="img/20250611155044.png" alt="" /></p>
+<pre><code class="language-ps">PS D:\test\html5\didi&gt; npm run dev
+
+&gt; didi@0.0.0 dev
+&gt; vite
+
+
+  VITE v6.3.5  ready in 288 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
+  ➜  press h + enter to show help
+</code></pre>
+<p><img src="img/20250611155314.png" alt="" /></p>
+<p><code>http://localhost:5173/</code> 부분을 ctrl 키를 누른 채로 클릭하면 웹브라우저가 실행되면서 저 주소까지 자동으로 이동한다.</p>
+<p><img src="img/20250611155447.png" alt="" /></p>
+<p>이렇게 vite + react 프로젝트를 생성하면 자동으로 생성되는 앱의 모습을 볼 수 있다.</p>
+<p>이렇게 기본으로 제공되는 기능은 우리에게는 필요없기 때문에 아래에서 모두 지울거다.</p>
+<h2 id="vscode를-이용한-코드-수정"><a class="header" href="#vscode를-이용한-코드-수정">vscode를 이용한 코드 수정</a></h2>
+<p><img src="img/20250611164049.png" alt="" /></p>
+<p>먼저 <code>src/App.jsx</code> 파일을 수정하려 하면 vscode에서 위와 같이 파일을 클릭하면 된다. 그럼 오른쪽에 그 파일의 내용이 나타난다.</p>
+<h2 id="vscode를-이용한-github-관리"><a class="header" href="#vscode를-이용한-github-관리">vscode를 이용한 github 관리</a></h2>
+<p>이 프로젝트는 지금 github로 부터 복제한 html5 repository 내에 생성했다. 그래서 이 프로젝트도 github로 관리할 수 있다. github는 사실 프로그램을 수정할 때마다 그 버전을 관리하기 위한 프로그램이다.</p>
+<p><img src="img/20250611162637.png" alt="" /></p>
+<p>위 순서대로 클릭하면,</p>
+<p><img src="img/20250611162755.png" alt="" /></p>
+<p>vscode가 우리의 html5 레포지토리를 찾아내서 보여준다.</p>
+<p>여기서 <code>html5</code> 를 클릭하면 이제부터 우리는 vscode를 이용해 github의 버전관리 기능을 이용할 수 있다.</p>
+<p>프로젝트가 생성된 직후의 코드, 그러니까 아래에서 불필요한 부분을 다 삭제하기 전의 모습을 하나의 버전으로 기록하고 싶다면</p>
+<p><img src="img/20250611163304.png" alt="" /></p>
+<p>위와 같이 [1] 부분에 이번 버전에 대한 설명을 적고, [2]와 같이 [Commit] 버튼을 눌러 commit 한다. 여기서 commit 하면 github desktop에서도 commit 한 것과 똑같이 적용된다. (github desktop에서도 commit한 이후의 모습이 나타난다.)</p>
+<p>commit을 여러 번 한 다음, 서버에 보내는 push main은 나중에 한꺼번에 해도 된다.</p>
+<h2 id="프로젝트에서-불필요한-부분-모두-정리하기"><a class="header" href="#프로젝트에서-불필요한-부분-모두-정리하기">프로젝트에서 불필요한 부분 모두 정리하기</a></h2>
+<p>다음을 따라 프로젝트에서 불필요한 부분을 모두 삭제하자.</p>
+<h3 id="appjsx에서-불필요한-부분-모두-삭제하기"><a class="header" href="#appjsx에서-불필요한-부분-모두-삭제하기">App.jsx에서 불필요한 부분 모두 삭제하기</a></h3>
+<p><img src="img/20250611164049.png" alt="" /></p>
+<pre><code class="language-jsx">function App() {
+  return (
+    &lt;&gt;
+    &lt;/&gt;
+  )
+}
+
+export default App
+</code></pre>
+<p>App.jsx 파일이 꽤 긴데 위와 같은 코드만 남기고 전부 다 지우자.</p>
+<p>여기까지 작업하고 저장하면, 웹브라우저에 이 작업 내용이 자동으로 반영된다. (refresh를 하지 않아도 자동으로 반영된다)</p>
+<p><img src="img/20250611163909.png" alt="" /></p>
+<h3 id="appcss-파일-삭제"><a class="header" href="#appcss-파일-삭제">App.css 파일 삭제</a></h3>
+<p>우리는 쓸 일이 없으니 <code>App.css</code> 파일을 지운다.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../webprog_2025/project01.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../webprog_2025/project01-02.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../webprog_2025/project01.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../webprog_2025/project01-02.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

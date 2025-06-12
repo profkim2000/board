@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>1. 프로젝트 세팅 - Eugene&#x27;s Board</title>
+        <title>1. 프로젝트 생성 &amp; 세팅 - Eugene&#x27;s Board</title>
 
 
         <!-- Custom HTML head -->
@@ -167,10 +167,11 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2 id="vite---react-프로젝트-생성"><a class="header" href="#vite---react-프로젝트-생성">vite - react 프로젝트 생성</a></h2>
+                        <h1 id="프로젝트-생성--세팅"><a class="header" href="#프로젝트-생성--세팅">프로젝트 생성 &amp; 세팅</a></h1>
 <p>프로젝트를 생성하기 위해 <code>d:\test\html5</code> 폴더에서 power shell을 실행한다.</p>
 <p><img src="img/20250611152055.png" alt="" /></p>
 <p>탐색기 <code>D:\test\html5</code> 폴더에서 빈 부분을 shift 키를 누른 채로 마우스 오른쪽 클릭하고 [여기에 PowerShell 창 열기] 메뉴 선택</p>
+<p><img src="img/20250612091020.png" alt="" /></p>
 <pre><code class="language-ps">PS D:\test\html5&gt; npm create vite
 
 &gt; npx
@@ -178,7 +179,7 @@
 
 |
 o  Project name:
-|  didi
+|  humortube
 |
 o  Select a framework:
 |  React
@@ -186,76 +187,65 @@ o  Select a framework:
 o  Select a variant:
 |  JavaScript
 |
-o  Scaffolding project in D:\test\html5\didi...
+o  Scaffolding project in D:\test\html5\humortube...
 |
 —  Done. Now run:
-
-  cd didi
-  npm install
-  npm run dev
-
-PS D:\test\html5&gt;
 </code></pre>
 <p>power shell에서 위와 같이 <strong>npm create vite</strong> 를 실행해 vite - react 프로젝트를 생성하면서 다음과 같이 옵션을 정해준다.</p>
 <ul>
-<li>project name: <strong>didi</strong></li>
+<li>project name: <strong>humortube</strong></li>
 <li>Select a framework: <strong>React</strong></li>
 <li>Select a variant: <strong>JavaScript</strong></li>
 </ul>
 <p>프로젝트 생성이 완료되면 다음과 같이 프로젝트를 실행한다.</p>
-<pre><code class="language-ps">PS D:\test\html5&gt; cd didi
-PS D:\test\html5\didi&gt; npm install
+<pre><code class="language-ps">PS D:\test\html5&gt; cd humortube
+PS D:\test\html5\humortube&gt; npm install
 </code></pre>
 <p><strong>결과</strong></p>
-<pre><code class="language-ps">added 198 packages, and audited 199 packages in 21s
+<pre><code class="language-ps">added 199 packages, and audited 200 packages in 19s
 
 33 packages are looking for funding
   run `npm fund` for details
 
 found 0 vulnerabilities
-PS D:\test\html5\didi&gt;
 </code></pre>
-<h2 id="vscode-실행하면서-didi-프로젝트-읽어들이기"><a class="header" href="#vscode-실행하면서-didi-프로젝트-읽어들이기">vscode 실행하면서 didi 프로젝트 읽어들이기</a></h2>
-<p>탐색기에서 <code>d:\test\html5\didi</code> 폴더로 이동한다.</p>
-<p><img src="img/20250611153222.png" alt="" /></p>
-<p>탐색기의 빈 곳에서 오른쪽 클릭한다.<br />
-팝업 메뉴에서 [code(으)로 열기] 를 선택한다.</p>
-<p>그럼 아래와 같이 vscode가 실행된다.</p>
-<p><img src="img/20250611153300.png" alt="" /></p>
-<p>이 폴더를 만든 사람을 믿느냐는 질문이 나오는데 이거 만든 사람 나니까 그냥 파란색의 [Yes I trust the authors] 버튼을 클릭한다.</p>
+<p>vite - react 관련 패키지가 모두 설치되었다.<br />
+= vite - react 관련 필요 프로그램이 모두 설치되었다.</p>
+<pre><code class="language-ps">PS D:\test\html5\humortube&gt; code .
+</code></pre>
+<p><code>code .</code>을 하면 vscode가 실행되고 현재 폴더를 읽어들인다.</p>
+<p><img src="img/20250612091220.png" alt="" /></p>
+<p>이 폴더의 저자를 믿겠냐는 메시지. 나니까 믿고 파란색 [Yes, I trust the authors]를 눌러주자.</p>
 <h2 id="vscode에서-프로젝트-실행하기"><a class="header" href="#vscode에서-프로젝트-실행하기">vscode에서 프로젝트 실행하기</a></h2>
 <p><code>ctrl</code> 키를 누른 상태에서 ` 키를 누르면 vscode의 아래쪽에 power shell 같은 창이 열린다.</p>
 <p>` 키는 [tab]키 위, [ESC]키 아래 쪽에 있는 키이다.</p>
-<p><img src="img/20250611154822.png" alt="" /></p>
+<p><img src="img/20250612092320.png" alt="" /></p>
 <p>여기에 <code>npm run dev</code> 라고 입력한다.</p>
 <pre><code class="language-ps">npm run dev
 </code></pre>
-<p><img src="img/20250611155613.png" alt="" /></p>
+<p><img src="img/20250612092425.png" alt="" /></p>
 <p>그럼 다음과 같이 프로젝트가 실행된다.</p>
+<p><img src="img/20250612092559.png" alt="" /></p>
 <p>vscode에는 이렇게 프로그램 개발에 필요한 기능들이 매우 많이 포함되어 있어 편하게 개발할 수 있도록 도와준다.</p>
 <p>만약 이런 기능이 없다면 power shell과 vscode를 왔다갔다 하며 개발해야 하는데 vscode에 power shell이 내장되어 있어 하나의 프로그램 안에서 편하게 개발할 수 있다.</p>
-<p>power shell에는 내가 만든 프로그램이 실행되면서 발생하는 상황이 나타난다. 이게 흔히 log 라고 부르는 것들이다.</p>
-<p><img src="img/20250611155044.png" alt="" /></p>
-<pre><code class="language-ps">PS D:\test\html5\didi&gt; npm run dev
+<p>powerShell에는 내가 만든 프로그램이 실행되면서 발생하는 상황들이 나타난다. 이게 흔히 log 라고 부르는 것들이다.</p>
+<pre><code class="language-ps">PS D:\test\html5\humortube&gt; npm run dev
 
-&gt; didi@0.0.0 dev
+&gt; humortube@0.0.0 dev
 &gt; vite
 
 
-  VITE v6.3.5  ready in 288 ms
+  VITE v6.3.5  ready in 325 ms
 
   ➜  Local:   http://localhost:5173/
   ➜  Network: use --host to expose
   ➜  press h + enter to show help
 </code></pre>
-<p><img src="img/20250611155314.png" alt="" /></p>
+<p><img src="img/20250612092846.png" alt="" /></p>
 <p><code>http://localhost:5173/</code> 부분을 ctrl 키를 누른 채로 클릭하면 웹브라우저가 실행되면서 저 주소까지 자동으로 이동한다.</p>
 <p><img src="img/20250611155447.png" alt="" /></p>
-<p>이렇게 vite + react 프로젝트를 생성하면 자동으로 생성되는 앱의 모습을 볼 수 있다.</p>
+<p>이렇게 vite + react 프로젝트를 생성하면 기본으로 만들어지는 앱의 모습을 볼 수 있다.</p>
 <p>이렇게 기본으로 제공되는 기능은 우리에게는 필요없기 때문에 아래에서 모두 지울거다.</p>
-<h2 id="vscode를-이용한-코드-수정"><a class="header" href="#vscode를-이용한-코드-수정">vscode를 이용한 코드 수정</a></h2>
-<p><img src="img/20250611164049.png" alt="" /></p>
-<p>먼저 <code>src/App.jsx</code> 파일을 수정하려 하면 vscode에서 위와 같이 파일을 클릭하면 된다. 그럼 오른쪽에 그 파일의 내용이 나타난다.</p>
 <h2 id="vscode를-이용한-github-관리"><a class="header" href="#vscode를-이용한-github-관리">vscode를 이용한 github 관리</a></h2>
 <p>이 프로젝트는 지금 github로 부터 복제한 html5 repository 내에 생성했다. 그래서 이 프로젝트도 github로 관리할 수 있다. github는 사실 프로그램을 수정할 때마다 그 버전을 관리하기 위한 프로그램이다.</p>
 <p><img src="img/20250611162637.png" alt="" /></p>
@@ -267,11 +257,15 @@ PS D:\test\html5\didi&gt;
 <p><img src="img/20250611163304.png" alt="" /></p>
 <p>위와 같이 [1] 부분에 이번 버전에 대한 설명을 적고, [2]와 같이 [Commit] 버튼을 눌러 commit 한다. 여기서 commit 하면 github desktop에서도 commit 한 것과 똑같이 적용된다. (github desktop에서도 commit한 이후의 모습이 나타난다.)</p>
 <p>commit을 여러 번 한 다음, 서버에 보내는 push main은 나중에 한꺼번에 해도 된다.</p>
+<h2 id="vscode를-이용한-코드-수정"><a class="header" href="#vscode를-이용한-코드-수정">vscode를 이용한 코드 수정</a></h2>
+<p><img src="img/20250612093249.png" alt="" /></p>
+<p><code>src/App.jsx</code> 파일을 수정하려 하면 vscode에서 위와 같이 파일을 클릭하면 된다. 그럼 오른쪽에 그 파일의 내용이 나타난다.</p>
 <h2 id="프로젝트에서-불필요한-부분-모두-정리하기"><a class="header" href="#프로젝트에서-불필요한-부분-모두-정리하기">프로젝트에서 불필요한 부분 모두 정리하기</a></h2>
 <p>다음을 따라 프로젝트에서 불필요한 부분을 모두 삭제하자.</p>
 <h3 id="appjsx에서-불필요한-부분-모두-삭제하기"><a class="header" href="#appjsx에서-불필요한-부분-모두-삭제하기">App.jsx에서 불필요한 부분 모두 삭제하기</a></h3>
-<p><img src="img/20250611164049.png" alt="" /></p>
+<p><img src="img/20250612093249.png" alt="" /></p>
 <pre><code class="language-jsx">function App() {
+
   return (
     &lt;&gt;
     &lt;/&gt;
@@ -290,11 +284,11 @@ export default App
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../webprog_2025/project01.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../webprog_2025/humortube.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../webprog_2025/project01-02.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../webprog_2025/humortube-02.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -304,11 +298,11 @@ export default App
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../webprog_2025/project01.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../webprog_2025/humortube.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../webprog_2025/project01-02.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../webprog_2025/humortube-02.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

@@ -6611,7 +6611,350 @@ insert into address (name, birthday, hphone, memo, food, car) values ('고길동
 insert into address (name, birthday, hphone, memo, food) values ('박길동', '1997-05-05', '010-4874-7871', '절친 아님', 2);
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="웹프로그래밍-기본"><a class="header" href="#웹프로그래밍-기본">웹프로그래밍 기본</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="실습-1---나-그거-했던가"><a class="header" href="#실습-1---나-그거-했던가">실습 1 - 나 그거 했던가?</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="실습-유머튜브"><a class="header" href="#실습-유머튜브">[실습] 유머튜브</a></h1>
+<p>힘들 때 보는 나만의 웃긴 영상 모음집</p>
+<p><img src="webprog_2025/img/20250612221017.png" alt="" /></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="프로젝트-생성--세팅"><a class="header" href="#프로젝트-생성--세팅">프로젝트 생성 &amp; 세팅</a></h1>
+<p>프로젝트를 생성하기 위해 <code>d:\test\html5</code> 폴더에서 power shell을 실행한다.</p>
+<p><img src="webprog_2025/img/20250611152055.png" alt="" /></p>
+<p>탐색기 <code>D:\test\html5</code> 폴더에서 빈 부분을 shift 키를 누른 채로 마우스 오른쪽 클릭하고 [여기에 PowerShell 창 열기] 메뉴 선택</p>
+<p><img src="webprog_2025/img/20250612091020.png" alt="" /></p>
+<pre><code class="language-ps">PS D:\test\html5&gt; npm create vite
+
+&gt; npx
+&gt; create-vite
+
+|
+o  Project name:
+|  humortube
+|
+o  Select a framework:
+|  React
+|
+o  Select a variant:
+|  JavaScript
+|
+o  Scaffolding project in D:\test\html5\humortube...
+|
+—  Done. Now run:
+</code></pre>
+<p>power shell에서 위와 같이 <strong>npm create vite</strong> 를 실행해 vite - react 프로젝트를 생성하면서 다음과 같이 옵션을 정해준다.</p>
+<ul>
+<li>project name: <strong>humortube</strong></li>
+<li>Select a framework: <strong>React</strong></li>
+<li>Select a variant: <strong>JavaScript</strong></li>
+</ul>
+<p>프로젝트 생성이 완료되면 다음과 같이 프로젝트를 실행한다.</p>
+<pre><code class="language-ps">PS D:\test\html5&gt; cd humortube
+PS D:\test\html5\humortube&gt; npm install
+</code></pre>
+<p><strong>결과</strong></p>
+<pre><code class="language-ps">added 199 packages, and audited 200 packages in 19s
+
+33 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+</code></pre>
+<p>vite - react 관련 패키지가 모두 설치되었다.<br />
+= vite - react 관련 필요 프로그램이 모두 설치되었다.</p>
+<pre><code class="language-ps">PS D:\test\html5\humortube&gt; code .
+</code></pre>
+<p><code>code .</code>을 하면 vscode가 실행되고 현재 폴더를 읽어들인다.</p>
+<p><img src="webprog_2025/img/20250612091220.png" alt="" /></p>
+<p>이 폴더의 저자를 믿겠냐는 메시지. 나니까 믿고 파란색 [Yes, I trust the authors]를 눌러주자.</p>
+<h2 id="vscode에서-프로젝트-실행하기"><a class="header" href="#vscode에서-프로젝트-실행하기">vscode에서 프로젝트 실행하기</a></h2>
+<p><code>ctrl</code> 키를 누른 상태에서 ` 키를 누르면 vscode의 아래쪽에 power shell 같은 창이 열린다.</p>
+<p>` 키는 [tab]키 위, [ESC]키 아래 쪽에 있는 키이다.</p>
+<p><img src="webprog_2025/img/20250612092320.png" alt="" /></p>
+<p>여기에 <code>npm run dev</code> 라고 입력한다.</p>
+<pre><code class="language-ps">npm run dev
+</code></pre>
+<p><img src="webprog_2025/img/20250612092425.png" alt="" /></p>
+<p>그럼 다음과 같이 프로젝트가 실행된다.</p>
+<p><img src="webprog_2025/img/20250612092559.png" alt="" /></p>
+<p>vscode에는 이렇게 프로그램 개발에 필요한 기능들이 매우 많이 포함되어 있어 편하게 개발할 수 있도록 도와준다.</p>
+<p>만약 이런 기능이 없다면 power shell과 vscode를 왔다갔다 하며 개발해야 하는데 vscode에 power shell이 내장되어 있어 하나의 프로그램 안에서 편하게 개발할 수 있다.</p>
+<p>powerShell에는 내가 만든 프로그램이 실행되면서 발생하는 상황들이 나타난다. 이게 흔히 log 라고 부르는 것들이다.</p>
+<pre><code class="language-ps">PS D:\test\html5\humortube&gt; npm run dev
+
+&gt; humortube@0.0.0 dev
+&gt; vite
+
+
+  VITE v6.3.5  ready in 325 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
+  ➜  press h + enter to show help
+</code></pre>
+<p><img src="webprog_2025/img/20250612092846.png" alt="" /></p>
+<p><code>http://localhost:5173/</code> 부분을 ctrl 키를 누른 채로 클릭하면 웹브라우저가 실행되면서 저 주소까지 자동으로 이동한다.</p>
+<p><img src="webprog_2025/img/20250611155447.png" alt="" /></p>
+<p>이렇게 vite + react 프로젝트를 생성하면 기본으로 만들어지는 앱의 모습을 볼 수 있다.</p>
+<p>이렇게 기본으로 제공되는 기능은 우리에게는 필요없기 때문에 아래에서 모두 지울거다.</p>
+<h2 id="vscode를-이용한-github-관리"><a class="header" href="#vscode를-이용한-github-관리">vscode를 이용한 github 관리</a></h2>
+<p>이 프로젝트는 지금 github로 부터 복제한 html5 repository 내에 생성했다. 그래서 이 프로젝트도 github로 관리할 수 있다. github는 사실 프로그램을 수정할 때마다 그 버전을 관리하기 위한 프로그램이다.</p>
+<p><img src="webprog_2025/img/20250611162637.png" alt="" /></p>
+<p>위 순서대로 클릭하면,</p>
+<p><img src="webprog_2025/img/20250611162755.png" alt="" /></p>
+<p>vscode가 우리의 html5 레포지토리를 찾아내서 보여준다.</p>
+<p>여기서 <code>html5</code> 를 클릭하면 이제부터 우리는 vscode를 이용해 github의 버전관리 기능을 이용할 수 있다.</p>
+<p>프로젝트가 생성된 직후의 코드, 그러니까 아래에서 불필요한 부분을 다 삭제하기 전의 모습을 하나의 버전으로 기록하고 싶다면</p>
+<p><img src="webprog_2025/img/20250611163304.png" alt="" /></p>
+<p>위와 같이 [1] 부분에 이번 버전에 대한 설명을 적고, [2]와 같이 [Commit] 버튼을 눌러 commit 한다. 여기서 commit 하면 github desktop에서도 commit 한 것과 똑같이 적용된다. (github desktop에서도 commit한 이후의 모습이 나타난다.)</p>
+<p>commit을 여러 번 한 다음, 서버에 보내는 push main은 나중에 한꺼번에 해도 된다.</p>
+<h2 id="vscode를-이용한-코드-수정"><a class="header" href="#vscode를-이용한-코드-수정">vscode를 이용한 코드 수정</a></h2>
+<p><img src="webprog_2025/img/20250612093249.png" alt="" /></p>
+<p><code>src/App.jsx</code> 파일을 수정하려 하면 vscode에서 위와 같이 파일을 클릭하면 된다. 그럼 오른쪽에 그 파일의 내용이 나타난다.</p>
+<h2 id="프로젝트에서-불필요한-부분-모두-정리하기"><a class="header" href="#프로젝트에서-불필요한-부분-모두-정리하기">프로젝트에서 불필요한 부분 모두 정리하기</a></h2>
+<p>다음을 따라 프로젝트에서 불필요한 부분을 모두 삭제하자.</p>
+<h3 id="appjsx에서-불필요한-부분-모두-삭제하기"><a class="header" href="#appjsx에서-불필요한-부분-모두-삭제하기">App.jsx에서 불필요한 부분 모두 삭제하기</a></h3>
+<p><img src="webprog_2025/img/20250612093249.png" alt="" /></p>
+<pre><code class="language-jsx">function App() {
+
+  return (
+    &lt;&gt;
+    &lt;/&gt;
+  )
+}
+
+export default App
+</code></pre>
+<p>App.jsx 파일이 꽤 긴데 위와 같은 코드만 남기고 전부 다 지우자.</p>
+<p>여기까지 작업하고 저장하면, 웹브라우저에 이 작업 내용이 자동으로 반영된다. (refresh를 하지 않아도 자동으로 반영된다)</p>
+<p><img src="webprog_2025/img/20250611163909.png" alt="" /></p>
+<h3 id="appcss-파일-삭제"><a class="header" href="#appcss-파일-삭제">App.css 파일 삭제</a></h3>
+<p>우리는 쓸 일이 없으니 <code>App.css</code> 파일을 지운다.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="원하는-문구-넣어보기"><a class="header" href="#원하는-문구-넣어보기">원하는 문구 넣어보기</a></h1>
+<p>App.jsx 파일을 수정해 원하는 문구가 내 앱에 나타나게 해보자.</p>
+<pre><code class="language-jsx">// src\App.jsx
+function App() {
+
+  return (
+    &lt;&gt;
+      &lt;h1&gt;웃긴 유튜브 영상 모음&lt;/h1&gt;
+    &lt;/&gt;
+  )
+}
+
+export default App
+</code></pre>
+<p>App.jsx파일에 아래 한줄 추가했다.</p>
+<pre><code class="language-jsp">&lt;h1&gt;웃긴 유튜브 영상 모음&lt;/h1&gt;
+</code></pre>
+<p><img src="webprog_2025/img/20250612095835.png" alt="" /></p>
+<p>이제 이 아래에 유튜브 영상을 추가해 보자.</p>
+<pre><code class="language-jsx">// src/App.jsx
+
+function App() {
+
+  return (
+    &lt;&gt;
+      &lt;h1&gt;웃긴 유튜브 영상 모음&lt;/h1&gt;
+
+      &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/5ru4shNLokA?si=3tzsQHuDBipu0-o-&amp;start=412" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen&gt;&lt;/iframe&gt;
+    &lt;/&gt;
+  )
+}
+
+export default App
+</code></pre>
+<p><img src="webprog_2025/img/20250612100102.png" alt="" /></p>
+<p>이렇게 유튜브 영상이 나타난다.</p>
+<h3 id="유튜브-영상-가져오는-법"><a class="header" href="#유튜브-영상-가져오는-법">유튜브 영상 가져오는 법</a></h3>
+<p>유튜브를 보다가 재밌는 장면이 나오면 멈춘다.</p>
+<p><img src="webprog_2025/img/20250612100436.png" alt="" /></p>
+<p>[공유] 버튼을 누른다.</p>
+<p><img src="webprog_2025/img/20250612100802.png" alt="" /></p>
+<p>[1] 시작 시간을 체크한다.<br />
+[2] 퍼가기 버튼을 누른다.</p>
+<p><img src="webprog_2025/img/20250612101001.png" alt="" /></p>
+<p>[복사] 버튼을 누른다.</p>
+<p>App.jsx 파일에 붙여 넣는다.</p>
+<p><img src="webprog_2025/img/20250612101240.png" alt="" /></p>
+<p>만약 웹브라우저에서 클릭했을 때 시작위치가 맞지 않으면,</p>
+<p><img src="webprog_2025/img/20250612101320.png" alt="" /></p>
+<p>저 부분이 시작위치를 초로 나타내는 부분이니, 1-2초 단위로 조정하며 맞춰준다.</p>
+<p>몇 개 더 추가해 보자.</p>
+<pre><code class="language-jsx">// src\App.jsx
+function App() {
+
+  return (
+    &lt;&gt;
+      &lt;h1&gt;웃긴 유튜브 영상 모음&lt;/h1&gt;
+
+      &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/5ru4shNLokA?si=3tzsQHuDBipu0-o-&amp;amp;start=412" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen&gt;&lt;/iframe&gt;
+      &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/CVfksjKuaPQ?si=4NnG8NyNJzZf58Ot&amp;amp;start=126" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen&gt;&lt;/iframe&gt;
+      &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/_6hSZhy_6DI?si=e2sM3ET_D4gCXtEK&amp;amp;start=126" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen&gt;&lt;/iframe&gt;
+    &lt;/&gt;
+  )
+}
+
+export default App
+</code></pre>
+<p><img src="webprog_2025/img/20250612134031.png" alt="" /></p>
+<p>음악 등 다른 분야의 영상도 추가해 보자.</p>
+<p><img src="webprog_2025/img/20250612134149.png" alt="" /></p>
+<p><img src="webprog_2025/img/20250612134404.png" alt="" /></p>
+<h2 id="가운데-정렬"><a class="header" href="#가운데-정렬">가운데 정렬</a></h2>
+<p>왼쪽에 치우쳐 있으니 가운데 정렬을 하자. 가운데 정렬은 css의 도움을 받는다.</p>
+<p>우선 이 영상을 가운데로 정렬할 영역을 잡자. 영역은 div 태그를 이용한다.</p>
+<p>여기서는 “웃긴 유튜브 영상 모음”, “음악” 같은 제목부터 유튜브 영상까지 모두 한 번에 가운데 정렬이 되어야 하기 때문에 한 번에 div를 이용해 영역으로 잡아준다.</p>
+<h3 id="appjsx-파일-수정"><a class="header" href="#appjsx-파일-수정">App.jsx 파일 수정</a></h3>
+<p><img src="webprog_2025/img/20250612135431.png" alt="" /></p>
+<pre><code class="language-jsx">
+function App() {
+
+  return (
+    &lt;&gt;
+      &lt;div&gt;
+        &lt;h1&gt;웃긴 유튜브 영상 모음&lt;/h1&gt;
+
+        &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/5ru4shNLokA?si=3tzsQHuDBipu0-o-&amp;amp;start=412" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen&gt;&lt;/iframe&gt;
+        &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/CVfksjKuaPQ?si=4NnG8NyNJzZf58Ot&amp;amp;start=126" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen&gt;&lt;/iframe&gt;
+        &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/_6hSZhy_6DI?si=e2sM3ET_D4gCXtEK&amp;amp;start=126" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen&gt;&lt;/iframe&gt;
+
+        &lt;h1&gt;음악&lt;/h1&gt;
+        &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/Wl_GTYOid2o?si=BffPzSWFULhXAuP9" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen&gt;&lt;/iframe&gt;
+        &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/Fh8dU0SPYyg?si=rYUZaTWEGpT8yed0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen&gt;&lt;/iframe&gt;
+        &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/sJK2l7g5Yl8?si=pPk87U8r8Stgm3Mh" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen&gt;&lt;/iframe&gt;
+      &lt;/div&gt;
+    &lt;/&gt;
+  )
+}
+
+export default App
+</code></pre>
+<h3 id="css-클래스-생성"><a class="header" href="#css-클래스-생성">css 클래스 생성</a></h3>
+<p>이제 가운데로 보내주는 css 클래스를 만들어 이 div에 적용해 주자.</p>
+<p>index.css 파일의 맨 밑에 다음을 추가하자.</p>
+<pre><code class="language-css">// src\index.css
+
+.center_div
+{
+  text-align: center;
+}
+</code></pre>
+<p>이 클래스를 전체 영역으로 잡은 영역 div에 적용하자.</p>
+<pre><code class="language-jsx">// src\App.jsx
+
+&lt;div className="center_div"&gt;
+</code></pre>
+<p><img src="webprog_2025/img/20250612140106.png" alt="" /></p>
+<p>그러면 아래와 같이 전체 영역이 다 가운데 정렬이 된다.</p>
+<p><img src="webprog_2025/img/20250612140132.png" alt="" /></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="vite---react-프로젝트-빌드하고-서버에-올리기"><a class="header" href="#vite---react-프로젝트-빌드하고-서버에-올리기">vite - react 프로젝트 빌드하고 서버에 올리기</a></h1>
+<h2 id="powershell-여러-개-실행시키기"><a class="header" href="#powershell-여러-개-실행시키기">PowerShell 여러 개 실행시키기</a></h2>
+<p>vscode는 PowerShell 기능을 내장하고 있다. 우리는 지금 PowerShell 기능을 이용해 프로젝트를 실행하고 있다.</p>
+<p>그리고 PowerShell에서 보여주는 메시지를 참조하며 개발하고 있다 .</p>
+<p><img src="webprog_2025/img/20250612141220.png" alt="" /></p>
+<p>현재 프로젝트를 실행시키며 로그를 보여주고 있는 PowerShell.</p>
+<p>PowerShell이 하나 밖에 없는 상황에서는 PowerShell을 이용해 뭔가 다른 걸 시키려면 현재 PowerShell이 하고 있는 일을 멈춰야 한다.</p>
+<p>PowerShell 영역을 한 번 클릭하고</p>
+<p><code>ctrl + c</code> 키를 누르면 PowerShell이 멈춘다.</p>
+<p><img src="webprog_2025/img/20250612142220.png" alt="" /></p>
+<p>그런데 이렇게 되면 우리의 웹브라우저도 먹통이 된다.</p>
+<p><img src="webprog_2025/img/20250612142128.png" alt="" /></p>
+<p><code>npm run dev</code> 를 실행시켜 다시 프로젝트를 실행시켜 놓자.</p>
+<p><img src="webprog_2025/img/20250612142323.png" alt="" /></p>
+<p>그런데 다행히도 vscode에는 이런 일이 벌어지지 않도록 여러 개의 PowerShell을 실행시킬 수 있다.</p>
+<p>그러니까 지금 프로젝트를 실행시키고 있는 PowerShell은 그냥 놔두고 새로운 PowerShell을 실행시킬 수 있는 거다.</p>
+<p><img src="webprog_2025/img/20250612141335.png" alt="" /></p>
+<p>저 버튼을 클릭하면 창이 반으로 나눠지고, 오른쪽에 PowerShell 이 나타난다.</p>
+<p><img src="webprog_2025/img/20250612141516.png" alt="" /></p>
+<p>PowerShell이 반으로 나뉘며 오른쪽에 새로운 PowerShell이 나타났다.</p>
+<p>그러니까 프로젝트 실행은 멈추지 않으면서 새로운 기능을 수행하고 싶을 때 이렇게 PowerShell을 하나 더 띄운다.</p>
+<h2 id="프로젝트-build"><a class="header" href="#프로젝트-build">프로젝트 build</a></h2>
+<p>여태까지는 테스트용으로 웹브라우저에서 그 결과를 봤다. 테스트용은 말 그대로 테스트에 관련된 많은 정보를 담고 있다. 실제 서비스할 때는 필요없는 정보들까지 포함되기 때문에 용량도 크고 속도도 느리다.</p>
+<p>실제 서비스하기 위한 버전을 만드는 것을 build라 한다.</p>
+<p>실제 서비스하기 위한 버전은 훨씬 작고 속도도 빠르다. 서비스에 꼭 필요한 정보 외에 것들은 모두 빼버리기 때문이다.</p>
+<p><img src="webprog_2025/img/20250612143108.png" alt="" /></p>
+<p>새로 만들어진 오른쪽 PowerShell 창에서 <code>npm run buld</code>를 해준다.</p>
+<pre><code class="language-ps">npm run build
+</code></pre>
+<p><img src="webprog_2025/img/20250612143221.png" alt="" /></p>
+<p>맨 마지막처럼</p>
+<p><code>built in OOOms</code></p>
+<p>같은 문구가 보이면 서비스용 버전으로 만드는 것, build에 성공한거다.</p>
+<p>테스트할 때는 아무 문제 없는 것처럼 보이다가 build 할 때 엄청 많은 에러를 내기도 하기 때문에 한 번에 성공했다면 꽤 행운이다.</p>
+<p>이렇게 build 된 서비스용 버전은 dist 폴더에 저장된다. dist는 distribute(배포)의 약자이다.</p>
+<p>우리의 <code>dist</code> 폴더인 <code>D:\test\html5\humortube\dist</code> 폴더로 가보자.</p>
+<p><img src="webprog_2025/img/20250612143554.png" alt="" /></p>
+<p>이렇게 파일 몇 개만 단촐하게 있는 걸 볼 수 있다.</p>
+<h2 id="build-결과물-웹호스팅"><a class="header" href="#build-결과물-웹호스팅">build 결과물 웹호스팅</a></h2>
+<p>이제 이 파일을 이용해 웹호스팅을 받아보자.</p>
+<p>우리는 github에 html5 라는 이름의 레포지토리를 만들었고 <code>D:\test\html5</code>에 복제해 사용하고 있다.</p>
+<p>그리고 <code>docs</code> 폴더에 html 파일들을 놓아두면 그게 웹호스팅이 되어 전세계 어디에서나 접속할 수 있다.</p>
+<h3 id="전송할-준비"><a class="header" href="#전송할-준비">전송할 준비</a></h3>
+<p>방금 만든 dist 폴더도 <code>docs</code> 폴더 안에 놓아 웹호스팅을 받도록 하자.</p>
+<p><img src="webprog_2025/img/20250612144243.png" alt="" /></p>
+<p><code>D:\test\html5\dist</code> 폴더를 오른쪽 클릭하고 ’복사’를 선택한다.</p>
+<p><img src="webprog_2025/img/20250612144450.png" alt="" /></p>
+<p><code>D:\test\html5\docs</code> 폴더로 이동한 후 탐색기 안의 빈 공간을 오른쪽 클릭하고 ’붙여넣기’를 선택한다.</p>
+<p><img src="webprog_2025/img/20250612144628.png" alt="" /></p>
+<p><code>F2</code>키를 눌러 이름바꾸기 모드로 들어간 다음,</p>
+<p><img src="webprog_2025/img/20250612144834.png" alt="" /></p>
+<p>’humortube’로 이름을 바꾼다.</p>
+<h3 id="github-desktop을-이용해-서버로-업로드"><a class="header" href="#github-desktop을-이용해-서버로-업로드">github desktop을 이용해 서버로 업로드</a></h3>
+<p>이제 github desktop을 이용해 서버로 업로드하자.</p>
+<p><img src="webprog_2025/img/20250612145149.png" alt="" /></p>
+<p>[1] 부분에 이번 저장의 묶음에 대한 설명을 달자. 예를 들면, ’humortube 업로드’와 같은 식이다.</p>
+<p>[2] 파란색의 [Commit OO files to main] 버튼을 누른다. 위 사진에서는 6 files라고 나오지만 이걸 따라하는 여러분은 훨씬 많은 file을 commit 할 거다. (글쓴이는 중간에 계속 commit하며 만들었기 때문에 숫자가 다름)</p>
+<p><img src="webprog_2025/img/20250612145439.png" alt="" /></p>
+<p>commit 이 되면 파란색 [push origin] 버튼이 나타난다. 이 버튼을 눌러 서버로 전송하자. (commit은 내 컴퓨터에만 변화가 저장되는 것임)</p>
+<p>이제 2-3분 후에 우리의 github.io page로 가보자.</p>
+<p>우리가 접속해야 할 주소는 github.io가 알려준 주소 뒤에 <code>/humortube</code>를 덧붙여야 한다 .</p>
+<p>github.io가 알려준 주소 안에 humortube라는 폴더를 만들고 그 안에 build 한 자료를 넣었기 때문이다.</p>
+<p><img src="webprog_2025/img/20250612150620.png" alt="" /></p>
+<p>강사의 경우, <code>https://studentkim2000.github.io/html5/humortube</code> 가 방금 올린 humortube의 주소이다.</p>
+<p><img src="webprog_2025/img/20250612151552.png" alt="" /></p>
+<p>그런데 어렵게 찾아가도 막상 가 보면 아래와 같이 빈 칸으로 보일 거다.</p>
+<p><img src="webprog_2025/img/20250612151706.png" alt="" /></p>
+<p>이유는 우리가 docs 안에 폴더로 저장했기 때문인데, (= /humortuber 가 붙게 만들었기 때문) 쉽게 해결할 수 있다.</p>
+<p>humortue 폴더 밑에 vite.config.js 파일을 수정하면 된다.</p>
+<pre><code class="language-js">import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+
+// https://vite.dev/config/
+export default defineConfig({
+  base: '/html5/humortube/',
+  plugins: [react()],
+})
+</code></pre>
+<pre><code>base: '/html5/humortube/',
+</code></pre>
+<p>기존 코드에서 base: 부분을 추가했다.</p>
+<p>다시 build 하고, commit, push 하고 잠깐 후에 다시 refresh 하면,</p>
+<p><img src="webprog_2025/img/20250612155257.png" alt="" /></p>
+<p>내가 만든 앱이 전세계 어디에서나 접속할 수 있는 상태가 되었다. 물론 핸드폰에서도 볼 수 있다.</p>
+<h3 id="viteconfigjs-파일을-수정하는-이유"><a class="header" href="#viteconfigjs-파일을-수정하는-이유">vite.config.js 파일을 수정하는 이유</a></h3>
+<p><img src="webprog_2025/img/20250612165812.png" alt="" /></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="기타-정리"><a class="header" href="#기타-정리">기타, 정리</a></h1>
+<h2 id="웹브라우저의-제목-바꾸기"><a class="header" href="#웹브라우저의-제목-바꾸기">웹브라우저의 제목 바꾸기</a></h2>
+<p><img src="webprog_2025/img/20250612220616.png" alt="" /></p>
+<p>이제 어느 정도 기능이 되니 저 부분이 눈에 들어온다.</p>
+<p>웹브라우저의 제목은 프로젝트 폴더의 <code>index.html</code> 파일을 수정해 바꿀 수 있다.</p>
+<p><img src="webprog_2025/img/20250612220754.png" alt="" /></p>
+<p>저 title 태그 부분을 바꾸면 된다.</p>
+<pre><code class="language-html">// index.html
+
+&lt;!doctype html&gt;
+&lt;html lang="en"&gt;
+  &lt;head&gt;
+    &lt;meta charset="UTF-8" /&gt;
+    &lt;link rel="icon" type="image/svg+xml" href="/vite.svg" /&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;
+    &lt;title&gt;유머튜브&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;div id="root"&gt;&lt;/div&gt;
+    &lt;script type="module" src="/src/main.jsx"&gt;&lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p><img src="webprog_2025/img/20250612220952.png" alt="" /></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="실습-나-그거-했던가"><a class="header" href="#실습-나-그거-했던가">[실습] 나 그거 했던가?</a></h1>
 <p>내가 오늘 출근 체크를 했던가?<br />
 내가 오늘 퇴근 체크를 했던가?<br />
 내가 오늘 차 문을 잠궜던가?</p>
@@ -6622,7 +6965,7 @@ insert into address (name, birthday, hphone, memo, food) values ('박길동', '1
 <div style="break-before: page; page-break-before: always;"></div><h2 id="vite---react-프로젝트-생성"><a class="header" href="#vite---react-프로젝트-생성">vite - react 프로젝트 생성</a></h2>
 <p>프로젝트를 생성하기 위해 <code>d:\test\html5</code> 폴더에서 power shell을 실행한다.</p>
 <p><img src="webprog_2025/img/20250611152055.png" alt="" /></p>
-<p>탐색기 <code>D:\test\html5i</code> 폴더에서 빈 부분을 shift 키를 누른 채로 마우스 오른쪽 클릭하고 [여기에 Power shell 창 열기] 메뉴 선택</p>
+<p>탐색기 <code>D:\test\html5</code> 폴더에서 빈 부분을 shift 키를 누른 채로 마우스 오른쪽 클릭하고 [여기에 PowerShell 창 열기] 메뉴 선택</p>
 <pre><code class="language-ps">PS D:\test\html5&gt; npm create vite
 
 &gt; npx
@@ -6675,7 +7018,7 @@ PS D:\test\html5\didi&gt;
 <p>그럼 아래와 같이 vscode가 실행된다.</p>
 <p><img src="webprog_2025/img/20250611153300.png" alt="" /></p>
 <p>이 폴더를 만든 사람을 믿느냐는 질문이 나오는데 이거 만든 사람 나니까 그냥 파란색의 [Yes I trust the authors] 버튼을 클릭한다.</p>
-<h2 id="vscode에서-프로젝트-실행하기"><a class="header" href="#vscode에서-프로젝트-실행하기">vscode에서 프로젝트 실행하기</a></h2>
+<h2 id="vscode에서-프로젝트-실행하기-1"><a class="header" href="#vscode에서-프로젝트-실행하기-1">vscode에서 프로젝트 실행하기</a></h2>
 <p><code>ctrl</code> 키를 누른 상태에서 ` 키를 누르면 vscode의 아래쪽에 power shell 같은 창이 열린다.</p>
 <p>` 키는 [tab]키 위, [ESC]키 아래 쪽에 있는 키이다.</p>
 <p><img src="webprog_2025/img/20250611154822.png" alt="" /></p>
@@ -6684,7 +7027,7 @@ PS D:\test\html5\didi&gt;
 </code></pre>
 <p><img src="webprog_2025/img/20250611155613.png" alt="" /></p>
 <p>그럼 다음과 같이 프로젝트가 실행된다.</p>
-<p>vscode는 이렇게 프로그램 개발에 필요한 기능들이 매우 많이 포함되어 있어 편하게 개발할 수 있도록 도와준다.</p>
+<p>vscode에는 이렇게 프로그램 개발에 필요한 기능들이 매우 많이 포함되어 있어 편하게 개발할 수 있도록 도와준다.</p>
 <p>만약 이런 기능이 없다면 power shell과 vscode를 왔다갔다 하며 개발해야 하는데 vscode에 power shell이 내장되어 있어 하나의 프로그램 안에서 편하게 개발할 수 있다.</p>
 <p>power shell에는 내가 만든 프로그램이 실행되면서 발생하는 상황이 나타난다. 이게 흔히 log 라고 부르는 것들이다.</p>
 <p><img src="webprog_2025/img/20250611155044.png" alt="" /></p>
@@ -6705,10 +7048,10 @@ PS D:\test\html5\didi&gt;
 <p><img src="webprog_2025/img/20250611155447.png" alt="" /></p>
 <p>이렇게 vite + react 프로젝트를 생성하면 자동으로 생성되는 앱의 모습을 볼 수 있다.</p>
 <p>이렇게 기본으로 제공되는 기능은 우리에게는 필요없기 때문에 아래에서 모두 지울거다.</p>
-<h2 id="vscode를-이용한-코드-수정"><a class="header" href="#vscode를-이용한-코드-수정">vscode를 이용한 코드 수정</a></h2>
+<h2 id="vscode를-이용한-코드-수정-1"><a class="header" href="#vscode를-이용한-코드-수정-1">vscode를 이용한 코드 수정</a></h2>
 <p><img src="webprog_2025/img/20250611164049.png" alt="" /></p>
 <p>먼저 <code>src/App.jsx</code> 파일을 수정하려 하면 vscode에서 위와 같이 파일을 클릭하면 된다. 그럼 오른쪽에 그 파일의 내용이 나타난다.</p>
-<h2 id="vscode를-이용한-github-관리"><a class="header" href="#vscode를-이용한-github-관리">vscode를 이용한 github 관리</a></h2>
+<h2 id="vscode를-이용한-github-관리-1"><a class="header" href="#vscode를-이용한-github-관리-1">vscode를 이용한 github 관리</a></h2>
 <p>이 프로젝트는 지금 github로 부터 복제한 html5 repository 내에 생성했다. 그래서 이 프로젝트도 github로 관리할 수 있다. github는 사실 프로그램을 수정할 때마다 그 버전을 관리하기 위한 프로그램이다.</p>
 <p><img src="webprog_2025/img/20250611162637.png" alt="" /></p>
 <p>위 순서대로 클릭하면,</p>
@@ -6719,9 +7062,9 @@ PS D:\test\html5\didi&gt;
 <p><img src="webprog_2025/img/20250611163304.png" alt="" /></p>
 <p>위와 같이 [1] 부분에 이번 버전에 대한 설명을 적고, [2]와 같이 [Commit] 버튼을 눌러 commit 한다. 여기서 commit 하면 github desktop에서도 commit 한 것과 똑같이 적용된다. (github desktop에서도 commit한 이후의 모습이 나타난다.)</p>
 <p>commit을 여러 번 한 다음, 서버에 보내는 push main은 나중에 한꺼번에 해도 된다.</p>
-<h2 id="프로젝트에서-불필요한-부분-모두-정리하기"><a class="header" href="#프로젝트에서-불필요한-부분-모두-정리하기">프로젝트에서 불필요한 부분 모두 정리하기</a></h2>
+<h2 id="프로젝트에서-불필요한-부분-모두-정리하기-1"><a class="header" href="#프로젝트에서-불필요한-부분-모두-정리하기-1">프로젝트에서 불필요한 부분 모두 정리하기</a></h2>
 <p>다음을 따라 프로젝트에서 불필요한 부분을 모두 삭제하자.</p>
-<h3 id="appjsx에서-불필요한-부분-모두-삭제하기"><a class="header" href="#appjsx에서-불필요한-부분-모두-삭제하기">App.jsx에서 불필요한 부분 모두 삭제하기</a></h3>
+<h3 id="appjsx에서-불필요한-부분-모두-삭제하기-1"><a class="header" href="#appjsx에서-불필요한-부분-모두-삭제하기-1">App.jsx에서 불필요한 부분 모두 삭제하기</a></h3>
 <p><img src="webprog_2025/img/20250611164049.png" alt="" /></p>
 <pre><code class="language-jsx">function App() {
   return (
@@ -6735,7 +7078,7 @@ export default App
 <p>App.jsx 파일이 꽤 긴데 위와 같은 코드만 남기고 전부 다 지우자.</p>
 <p>여기까지 작업하고 저장하면, 웹브라우저에 이 작업 내용이 자동으로 반영된다. (refresh를 하지 않아도 자동으로 반영된다)</p>
 <p><img src="webprog_2025/img/20250611163909.png" alt="" /></p>
-<h3 id="appcss-파일-삭제"><a class="header" href="#appcss-파일-삭제">App.css 파일 삭제</a></h3>
+<h3 id="appcss-파일-삭제-1"><a class="header" href="#appcss-파일-삭제-1">App.css 파일 삭제</a></h3>
 <p>우리는 쓸 일이 없으니 <code>App.css</code> 파일을 지운다.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="버튼-누르면-시간-기록"><a class="header" href="#버튼-누르면-시간-기록">버튼 누르면 시간 기록</a></h1>
 <p>이 앱은 버튼을 누를 때마다 현재 시각을 기록하는 앱이다. 그래서 가장 중요한 기능인 현재 시각을 가져오는 함수부터 만들어 본다.</p>
@@ -7179,8 +7522,8 @@ function DidTime( {title }) {
 export default DidTime
 </code></pre>
 <p><img src="webprog_2025/img/20250611224818.png" alt="" /></p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="4-기타-정리"><a class="header" href="#4-기타-정리">4. 기타, 정리</a></h1>
-<h2 id="웹브라우저의-제목-바꾸기"><a class="header" href="#웹브라우저의-제목-바꾸기">웹브라우저의 제목 바꾸기</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="기타-정리-1"><a class="header" href="#기타-정리-1">기타, 정리</a></h1>
+<h2 id="웹브라우저의-제목-바꾸기-1"><a class="header" href="#웹브라우저의-제목-바꾸기-1">웹브라우저의 제목 바꾸기</a></h2>
 <p><img src="webprog_2025/img/20250611224920.png" alt="" /></p>
 <p>이제 어느 정도 기능이 되니 저 부분이 눈에 들어온다.</p>
 <p>웹브라우저의 제목은 프로젝트 폴더의 <code>index.html</code> 파일을 수정해 바꿀 수 있다.</p>

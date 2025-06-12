@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>1. 프로젝트 세팅 - Eugene&#x27;s Board</title>
+        <title>3. 빌드하고 서버에 올리기 - Eugene&#x27;s Board</title>
 
 
         <!-- Custom HTML head -->
@@ -167,134 +167,102 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2 id="vite---react-프로젝트-생성"><a class="header" href="#vite---react-프로젝트-생성">vite - react 프로젝트 생성</a></h2>
-<p>프로젝트를 생성하기 위해 <code>d:\test\html5</code> 폴더에서 power shell을 실행한다.</p>
-<p><img src="img/20250611152055.png" alt="" /></p>
-<p>탐색기 <code>D:\test\html5</code> 폴더에서 빈 부분을 shift 키를 누른 채로 마우스 오른쪽 클릭하고 [여기에 PowerShell 창 열기] 메뉴 선택</p>
-<pre><code class="language-ps">PS D:\test\html5&gt; npm create vite
-
-&gt; npx
-&gt; create-vite
-
-|
-o  Project name:
-|  didi
-|
-o  Select a framework:
-|  React
-|
-o  Select a variant:
-|  JavaScript
-|
-o  Scaffolding project in D:\test\html5\didi...
-|
-—  Done. Now run:
-
-  cd didi
-  npm install
-  npm run dev
-
-PS D:\test\html5&gt;
+                        <h1 id="vite---react-프로젝트-빌드하고-서버에-올리기"><a class="header" href="#vite---react-프로젝트-빌드하고-서버에-올리기">vite - react 프로젝트 빌드하고 서버에 올리기</a></h1>
+<h2 id="powershell-여러-개-실행시키기"><a class="header" href="#powershell-여러-개-실행시키기">PowerShell 여러 개 실행시키기</a></h2>
+<p>vscode는 PowerShell 기능을 내장하고 있다. 우리는 지금 PowerShell 기능을 이용해 프로젝트를 실행하고 있다.</p>
+<p>그리고 PowerShell에서 보여주는 메시지를 참조하며 개발하고 있다 .</p>
+<p><img src="img/20250612141220.png" alt="" /></p>
+<p>현재 프로젝트를 실행시키며 로그를 보여주고 있는 PowerShell.</p>
+<p>PowerShell이 하나 밖에 없는 상황에서는 PowerShell을 이용해 뭔가 다른 걸 시키려면 현재 PowerShell이 하고 있는 일을 멈춰야 한다.</p>
+<p>PowerShell 영역을 한 번 클릭하고</p>
+<p><code>ctrl + c</code> 키를 누르면 PowerShell이 멈춘다.</p>
+<p><img src="img/20250612142220.png" alt="" /></p>
+<p>그런데 이렇게 되면 우리의 웹브라우저도 먹통이 된다.</p>
+<p><img src="img/20250612142128.png" alt="" /></p>
+<p><code>npm run dev</code> 를 실행시켜 다시 프로젝트를 실행시켜 놓자.</p>
+<p><img src="img/20250612142323.png" alt="" /></p>
+<p>그런데 다행히도 vscode에는 이런 일이 벌어지지 않도록 여러 개의 PowerShell을 실행시킬 수 있다.</p>
+<p>그러니까 지금 프로젝트를 실행시키고 있는 PowerShell은 그냥 놔두고 새로운 PowerShell을 실행시킬 수 있는 거다.</p>
+<p><img src="img/20250612141335.png" alt="" /></p>
+<p>저 버튼을 클릭하면 창이 반으로 나눠지고, 오른쪽에 PowerShell 이 나타난다.</p>
+<p><img src="img/20250612141516.png" alt="" /></p>
+<p>PowerShell이 반으로 나뉘며 오른쪽에 새로운 PowerShell이 나타났다.</p>
+<p>그러니까 프로젝트 실행은 멈추지 않으면서 새로운 기능을 수행하고 싶을 때 이렇게 PowerShell을 하나 더 띄운다.</p>
+<h2 id="프로젝트-build"><a class="header" href="#프로젝트-build">프로젝트 build</a></h2>
+<p>여태까지는 테스트용으로 웹브라우저에서 그 결과를 봤다. 테스트용은 말 그대로 테스트에 관련된 많은 정보를 담고 있다. 실제 서비스할 때는 필요없는 정보들까지 포함되기 때문에 용량도 크고 속도도 느리다.</p>
+<p>실제 서비스하기 위한 버전을 만드는 것을 build라 한다.</p>
+<p>실제 서비스하기 위한 버전은 훨씬 작고 속도도 빠르다. 서비스에 꼭 필요한 정보 외에 것들은 모두 빼버리기 때문이다.</p>
+<p><img src="img/20250612143108.png" alt="" /></p>
+<p>새로 만들어진 오른쪽 PowerShell 창에서 <code>npm run buld</code>를 해준다.</p>
+<pre><code class="language-ps">npm run build
 </code></pre>
-<p>power shell에서 위와 같이 <strong>npm create vite</strong> 를 실행해 vite - react 프로젝트를 생성하면서 다음과 같이 옵션을 정해준다.</p>
-<ul>
-<li>project name: <strong>didi</strong></li>
-<li>Select a framework: <strong>React</strong></li>
-<li>Select a variant: <strong>JavaScript</strong></li>
-</ul>
-<p>프로젝트 생성이 완료되면 다음과 같이 프로젝트를 실행한다.</p>
-<pre><code class="language-ps">PS D:\test\html5&gt; cd didi
-PS D:\test\html5\didi&gt; npm install
+<p><img src="img/20250612143221.png" alt="" /></p>
+<p>맨 마지막처럼</p>
+<p><code>built in OOOms</code></p>
+<p>같은 문구가 보이면 서비스용 버전으로 만드는 것, build에 성공한거다.</p>
+<p>테스트할 때는 아무 문제 없는 것처럼 보이다가 build 할 때 엄청 많은 에러를 내기도 하기 때문에 한 번에 성공했다면 꽤 행운이다.</p>
+<p>이렇게 build 된 서비스용 버전은 dist 폴더에 저장된다. dist는 distribute(배포)의 약자이다.</p>
+<p>우리의 <code>dist</code> 폴더인 <code>D:\test\html5\humortube\dist</code> 폴더로 가보자.</p>
+<p><img src="img/20250612143554.png" alt="" /></p>
+<p>이렇게 파일 몇 개만 단촐하게 있는 걸 볼 수 있다.</p>
+<h2 id="build-결과물-웹호스팅"><a class="header" href="#build-결과물-웹호스팅">build 결과물 웹호스팅</a></h2>
+<p>이제 이 파일을 이용해 웹호스팅을 받아보자.</p>
+<p>우리는 github에 html5 라는 이름의 레포지토리를 만들었고 <code>D:\test\html5</code>에 복제해 사용하고 있다.</p>
+<p>그리고 <code>docs</code> 폴더에 html 파일들을 놓아두면 그게 웹호스팅이 되어 전세계 어디에서나 접속할 수 있다.</p>
+<h3 id="전송할-준비"><a class="header" href="#전송할-준비">전송할 준비</a></h3>
+<p>방금 만든 dist 폴더도 <code>docs</code> 폴더 안에 놓아 웹호스팅을 받도록 하자.</p>
+<p><img src="img/20250612144243.png" alt="" /></p>
+<p><code>D:\test\html5\dist</code> 폴더를 오른쪽 클릭하고 ’복사’를 선택한다.</p>
+<p><img src="img/20250612144450.png" alt="" /></p>
+<p><code>D:\test\html5\docs</code> 폴더로 이동한 후 탐색기 안의 빈 공간을 오른쪽 클릭하고 ’붙여넣기’를 선택한다.</p>
+<p><img src="img/20250612144628.png" alt="" /></p>
+<p><code>F2</code>키를 눌러 이름바꾸기 모드로 들어간 다음,</p>
+<p><img src="img/20250612144834.png" alt="" /></p>
+<p>’humortube’로 이름을 바꾼다.</p>
+<h3 id="github-desktop을-이용해-서버로-업로드"><a class="header" href="#github-desktop을-이용해-서버로-업로드">github desktop을 이용해 서버로 업로드</a></h3>
+<p>이제 github desktop을 이용해 서버로 업로드하자.</p>
+<p><img src="img/20250612145149.png" alt="" /></p>
+<p>[1] 부분에 이번 저장의 묶음에 대한 설명을 달자. 예를 들면, ’humortube 업로드’와 같은 식이다.</p>
+<p>[2] 파란색의 [Commit OO files to main] 버튼을 누른다. 위 사진에서는 6 files라고 나오지만 이걸 따라하는 여러분은 훨씬 많은 file을 commit 할 거다. (글쓴이는 중간에 계속 commit하며 만들었기 때문에 숫자가 다름)</p>
+<p><img src="img/20250612145439.png" alt="" /></p>
+<p>commit 이 되면 파란색 [push origin] 버튼이 나타난다. 이 버튼을 눌러 서버로 전송하자. (commit은 내 컴퓨터에만 변화가 저장되는 것임)</p>
+<p>이제 2-3분 후에 우리의 github.io page로 가보자.</p>
+<p>우리가 접속해야 할 주소는 github.io가 알려준 주소 뒤에 <code>/humortube</code>를 덧붙여야 한다 .</p>
+<p>github.io가 알려준 주소 안에 humortube라는 폴더를 만들고 그 안에 build 한 자료를 넣었기 때문이다.</p>
+<p><img src="img/20250612150620.png" alt="" /></p>
+<p>강사의 경우, <code>https://studentkim2000.github.io/html5/humortube</code> 가 방금 올린 humortube의 주소이다.</p>
+<p><img src="img/20250612151552.png" alt="" /></p>
+<p>그런데 어렵게 찾아가도 막상 가 보면 아래와 같이 빈 칸으로 보일 거다.</p>
+<p><img src="img/20250612151706.png" alt="" /></p>
+<p>이유는 우리가 docs 안에 폴더로 저장했기 때문인데, (= /humortuber 가 붙게 만들었기 때문) 쉽게 해결할 수 있다.</p>
+<p>humortue 폴더 밑에 vite.config.js 파일을 수정하면 된다.</p>
+<pre><code class="language-js">import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+
+// https://vite.dev/config/
+export default defineConfig({
+  base: '/html5/humortube/',
+  plugins: [react()],
+})
 </code></pre>
-<p><strong>결과</strong></p>
-<pre><code class="language-ps">added 198 packages, and audited 199 packages in 21s
-
-33 packages are looking for funding
-  run `npm fund` for details
-
-found 0 vulnerabilities
-PS D:\test\html5\didi&gt;
+<pre><code>base: '/html5/humortube/',
 </code></pre>
-<h2 id="vscode-실행하면서-didi-프로젝트-읽어들이기"><a class="header" href="#vscode-실행하면서-didi-프로젝트-읽어들이기">vscode 실행하면서 didi 프로젝트 읽어들이기</a></h2>
-<p>탐색기에서 <code>d:\test\html5\didi</code> 폴더로 이동한다.</p>
-<p><img src="img/20250611153222.png" alt="" /></p>
-<p>탐색기의 빈 곳에서 오른쪽 클릭한다.<br />
-팝업 메뉴에서 [code(으)로 열기] 를 선택한다.</p>
-<p>그럼 아래와 같이 vscode가 실행된다.</p>
-<p><img src="img/20250611153300.png" alt="" /></p>
-<p>이 폴더를 만든 사람을 믿느냐는 질문이 나오는데 이거 만든 사람 나니까 그냥 파란색의 [Yes I trust the authors] 버튼을 클릭한다.</p>
-<h2 id="vscode에서-프로젝트-실행하기"><a class="header" href="#vscode에서-프로젝트-실행하기">vscode에서 프로젝트 실행하기</a></h2>
-<p><code>ctrl</code> 키를 누른 상태에서 ` 키를 누르면 vscode의 아래쪽에 power shell 같은 창이 열린다.</p>
-<p>` 키는 [tab]키 위, [ESC]키 아래 쪽에 있는 키이다.</p>
-<p><img src="img/20250611154822.png" alt="" /></p>
-<p>여기에 <code>npm run dev</code> 라고 입력한다.</p>
-<pre><code class="language-ps">npm run dev
-</code></pre>
-<p><img src="img/20250611155613.png" alt="" /></p>
-<p>그럼 다음과 같이 프로젝트가 실행된다.</p>
-<p>vscode에는 이렇게 프로그램 개발에 필요한 기능들이 매우 많이 포함되어 있어 편하게 개발할 수 있도록 도와준다.</p>
-<p>만약 이런 기능이 없다면 power shell과 vscode를 왔다갔다 하며 개발해야 하는데 vscode에 power shell이 내장되어 있어 하나의 프로그램 안에서 편하게 개발할 수 있다.</p>
-<p>power shell에는 내가 만든 프로그램이 실행되면서 발생하는 상황이 나타난다. 이게 흔히 log 라고 부르는 것들이다.</p>
-<p><img src="img/20250611155044.png" alt="" /></p>
-<pre><code class="language-ps">PS D:\test\html5\didi&gt; npm run dev
-
-&gt; didi@0.0.0 dev
-&gt; vite
-
-
-  VITE v6.3.5  ready in 288 ms
-
-  ➜  Local:   http://localhost:5173/
-  ➜  Network: use --host to expose
-  ➜  press h + enter to show help
-</code></pre>
-<p><img src="img/20250611155314.png" alt="" /></p>
-<p><code>http://localhost:5173/</code> 부분을 ctrl 키를 누른 채로 클릭하면 웹브라우저가 실행되면서 저 주소까지 자동으로 이동한다.</p>
-<p><img src="img/20250611155447.png" alt="" /></p>
-<p>이렇게 vite + react 프로젝트를 생성하면 자동으로 생성되는 앱의 모습을 볼 수 있다.</p>
-<p>이렇게 기본으로 제공되는 기능은 우리에게는 필요없기 때문에 아래에서 모두 지울거다.</p>
-<h2 id="vscode를-이용한-코드-수정"><a class="header" href="#vscode를-이용한-코드-수정">vscode를 이용한 코드 수정</a></h2>
-<p><img src="img/20250611164049.png" alt="" /></p>
-<p>먼저 <code>src/App.jsx</code> 파일을 수정하려 하면 vscode에서 위와 같이 파일을 클릭하면 된다. 그럼 오른쪽에 그 파일의 내용이 나타난다.</p>
-<h2 id="vscode를-이용한-github-관리"><a class="header" href="#vscode를-이용한-github-관리">vscode를 이용한 github 관리</a></h2>
-<p>이 프로젝트는 지금 github로 부터 복제한 html5 repository 내에 생성했다. 그래서 이 프로젝트도 github로 관리할 수 있다. github는 사실 프로그램을 수정할 때마다 그 버전을 관리하기 위한 프로그램이다.</p>
-<p><img src="img/20250611162637.png" alt="" /></p>
-<p>위 순서대로 클릭하면,</p>
-<p><img src="img/20250611162755.png" alt="" /></p>
-<p>vscode가 우리의 html5 레포지토리를 찾아내서 보여준다.</p>
-<p>여기서 <code>html5</code> 를 클릭하면 이제부터 우리는 vscode를 이용해 github의 버전관리 기능을 이용할 수 있다.</p>
-<p>프로젝트가 생성된 직후의 코드, 그러니까 아래에서 불필요한 부분을 다 삭제하기 전의 모습을 하나의 버전으로 기록하고 싶다면</p>
-<p><img src="img/20250611163304.png" alt="" /></p>
-<p>위와 같이 [1] 부분에 이번 버전에 대한 설명을 적고, [2]와 같이 [Commit] 버튼을 눌러 commit 한다. 여기서 commit 하면 github desktop에서도 commit 한 것과 똑같이 적용된다. (github desktop에서도 commit한 이후의 모습이 나타난다.)</p>
-<p>commit을 여러 번 한 다음, 서버에 보내는 push main은 나중에 한꺼번에 해도 된다.</p>
-<h2 id="프로젝트에서-불필요한-부분-모두-정리하기"><a class="header" href="#프로젝트에서-불필요한-부분-모두-정리하기">프로젝트에서 불필요한 부분 모두 정리하기</a></h2>
-<p>다음을 따라 프로젝트에서 불필요한 부분을 모두 삭제하자.</p>
-<h3 id="appjsx에서-불필요한-부분-모두-삭제하기"><a class="header" href="#appjsx에서-불필요한-부분-모두-삭제하기">App.jsx에서 불필요한 부분 모두 삭제하기</a></h3>
-<p><img src="img/20250611164049.png" alt="" /></p>
-<pre><code class="language-jsx">function App() {
-  return (
-    &lt;&gt;
-    &lt;/&gt;
-  )
-}
-
-export default App
-</code></pre>
-<p>App.jsx 파일이 꽤 긴데 위와 같은 코드만 남기고 전부 다 지우자.</p>
-<p>여기까지 작업하고 저장하면, 웹브라우저에 이 작업 내용이 자동으로 반영된다. (refresh를 하지 않아도 자동으로 반영된다)</p>
-<p><img src="img/20250611163909.png" alt="" /></p>
-<h3 id="appcss-파일-삭제"><a class="header" href="#appcss-파일-삭제">App.css 파일 삭제</a></h3>
-<p>우리는 쓸 일이 없으니 <code>App.css</code> 파일을 지운다.</p>
+<p>기존 코드에서 base: 부분을 추가했다.</p>
+<p>다시 build 하고, commit, push 하고 잠깐 후에 다시 refresh 하면,</p>
+<p><img src="img/20250612155257.png" alt="" /></p>
+<p>내가 만든 앱이 전세계 어디에서나 접속할 수 있는 상태가 되었다. 물론 핸드폰에서도 볼 수 있다.</p>
+<h3 id="viteconfigjs-파일을-수정하는-이유"><a class="header" href="#viteconfigjs-파일을-수정하는-이유">vite.config.js 파일을 수정하는 이유</a></h3>
+<p><img src="img/20250612165812.png" alt="" /></p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../webprog_2025/project01.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../webprog_2025/humortube-02.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../webprog_2025/project01-02.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../webprog_2025/humortube-04.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -304,11 +272,11 @@ export default App
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../webprog_2025/project01.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../webprog_2025/humortube-02.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../webprog_2025/project01-02.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../webprog_2025/humortube-04.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>1. 프로젝트 세팅 - Eugene&#x27;s Board</title>
+        <title>2. 유튜브 재생 - Eugene&#x27;s Board</title>
 
 
         <!-- Custom HTML head -->
@@ -167,134 +167,134 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2 id="vite---react-프로젝트-생성"><a class="header" href="#vite---react-프로젝트-생성">vite - react 프로젝트 생성</a></h2>
-<p>프로젝트를 생성하기 위해 <code>d:\test\html5</code> 폴더에서 power shell을 실행한다.</p>
-<p><img src="img/20250611152055.png" alt="" /></p>
-<p>탐색기 <code>D:\test\html5</code> 폴더에서 빈 부분을 shift 키를 누른 채로 마우스 오른쪽 클릭하고 [여기에 PowerShell 창 열기] 메뉴 선택</p>
-<pre><code class="language-ps">PS D:\test\html5&gt; npm create vite
+                        <h1 id="원하는-문구-넣어보기"><a class="header" href="#원하는-문구-넣어보기">원하는 문구 넣어보기</a></h1>
+<p>App.jsx 파일을 수정해 원하는 문구가 내 앱에 나타나게 해보자.</p>
+<pre><code class="language-jsx">// src\App.jsx
+function App() {
 
-&gt; npx
-&gt; create-vite
-
-|
-o  Project name:
-|  didi
-|
-o  Select a framework:
-|  React
-|
-o  Select a variant:
-|  JavaScript
-|
-o  Scaffolding project in D:\test\html5\didi...
-|
-—  Done. Now run:
-
-  cd didi
-  npm install
-  npm run dev
-
-PS D:\test\html5&gt;
-</code></pre>
-<p>power shell에서 위와 같이 <strong>npm create vite</strong> 를 실행해 vite - react 프로젝트를 생성하면서 다음과 같이 옵션을 정해준다.</p>
-<ul>
-<li>project name: <strong>didi</strong></li>
-<li>Select a framework: <strong>React</strong></li>
-<li>Select a variant: <strong>JavaScript</strong></li>
-</ul>
-<p>프로젝트 생성이 완료되면 다음과 같이 프로젝트를 실행한다.</p>
-<pre><code class="language-ps">PS D:\test\html5&gt; cd didi
-PS D:\test\html5\didi&gt; npm install
-</code></pre>
-<p><strong>결과</strong></p>
-<pre><code class="language-ps">added 198 packages, and audited 199 packages in 21s
-
-33 packages are looking for funding
-  run `npm fund` for details
-
-found 0 vulnerabilities
-PS D:\test\html5\didi&gt;
-</code></pre>
-<h2 id="vscode-실행하면서-didi-프로젝트-읽어들이기"><a class="header" href="#vscode-실행하면서-didi-프로젝트-읽어들이기">vscode 실행하면서 didi 프로젝트 읽어들이기</a></h2>
-<p>탐색기에서 <code>d:\test\html5\didi</code> 폴더로 이동한다.</p>
-<p><img src="img/20250611153222.png" alt="" /></p>
-<p>탐색기의 빈 곳에서 오른쪽 클릭한다.<br />
-팝업 메뉴에서 [code(으)로 열기] 를 선택한다.</p>
-<p>그럼 아래와 같이 vscode가 실행된다.</p>
-<p><img src="img/20250611153300.png" alt="" /></p>
-<p>이 폴더를 만든 사람을 믿느냐는 질문이 나오는데 이거 만든 사람 나니까 그냥 파란색의 [Yes I trust the authors] 버튼을 클릭한다.</p>
-<h2 id="vscode에서-프로젝트-실행하기"><a class="header" href="#vscode에서-프로젝트-실행하기">vscode에서 프로젝트 실행하기</a></h2>
-<p><code>ctrl</code> 키를 누른 상태에서 ` 키를 누르면 vscode의 아래쪽에 power shell 같은 창이 열린다.</p>
-<p>` 키는 [tab]키 위, [ESC]키 아래 쪽에 있는 키이다.</p>
-<p><img src="img/20250611154822.png" alt="" /></p>
-<p>여기에 <code>npm run dev</code> 라고 입력한다.</p>
-<pre><code class="language-ps">npm run dev
-</code></pre>
-<p><img src="img/20250611155613.png" alt="" /></p>
-<p>그럼 다음과 같이 프로젝트가 실행된다.</p>
-<p>vscode에는 이렇게 프로그램 개발에 필요한 기능들이 매우 많이 포함되어 있어 편하게 개발할 수 있도록 도와준다.</p>
-<p>만약 이런 기능이 없다면 power shell과 vscode를 왔다갔다 하며 개발해야 하는데 vscode에 power shell이 내장되어 있어 하나의 프로그램 안에서 편하게 개발할 수 있다.</p>
-<p>power shell에는 내가 만든 프로그램이 실행되면서 발생하는 상황이 나타난다. 이게 흔히 log 라고 부르는 것들이다.</p>
-<p><img src="img/20250611155044.png" alt="" /></p>
-<pre><code class="language-ps">PS D:\test\html5\didi&gt; npm run dev
-
-&gt; didi@0.0.0 dev
-&gt; vite
-
-
-  VITE v6.3.5  ready in 288 ms
-
-  ➜  Local:   http://localhost:5173/
-  ➜  Network: use --host to expose
-  ➜  press h + enter to show help
-</code></pre>
-<p><img src="img/20250611155314.png" alt="" /></p>
-<p><code>http://localhost:5173/</code> 부분을 ctrl 키를 누른 채로 클릭하면 웹브라우저가 실행되면서 저 주소까지 자동으로 이동한다.</p>
-<p><img src="img/20250611155447.png" alt="" /></p>
-<p>이렇게 vite + react 프로젝트를 생성하면 자동으로 생성되는 앱의 모습을 볼 수 있다.</p>
-<p>이렇게 기본으로 제공되는 기능은 우리에게는 필요없기 때문에 아래에서 모두 지울거다.</p>
-<h2 id="vscode를-이용한-코드-수정"><a class="header" href="#vscode를-이용한-코드-수정">vscode를 이용한 코드 수정</a></h2>
-<p><img src="img/20250611164049.png" alt="" /></p>
-<p>먼저 <code>src/App.jsx</code> 파일을 수정하려 하면 vscode에서 위와 같이 파일을 클릭하면 된다. 그럼 오른쪽에 그 파일의 내용이 나타난다.</p>
-<h2 id="vscode를-이용한-github-관리"><a class="header" href="#vscode를-이용한-github-관리">vscode를 이용한 github 관리</a></h2>
-<p>이 프로젝트는 지금 github로 부터 복제한 html5 repository 내에 생성했다. 그래서 이 프로젝트도 github로 관리할 수 있다. github는 사실 프로그램을 수정할 때마다 그 버전을 관리하기 위한 프로그램이다.</p>
-<p><img src="img/20250611162637.png" alt="" /></p>
-<p>위 순서대로 클릭하면,</p>
-<p><img src="img/20250611162755.png" alt="" /></p>
-<p>vscode가 우리의 html5 레포지토리를 찾아내서 보여준다.</p>
-<p>여기서 <code>html5</code> 를 클릭하면 이제부터 우리는 vscode를 이용해 github의 버전관리 기능을 이용할 수 있다.</p>
-<p>프로젝트가 생성된 직후의 코드, 그러니까 아래에서 불필요한 부분을 다 삭제하기 전의 모습을 하나의 버전으로 기록하고 싶다면</p>
-<p><img src="img/20250611163304.png" alt="" /></p>
-<p>위와 같이 [1] 부분에 이번 버전에 대한 설명을 적고, [2]와 같이 [Commit] 버튼을 눌러 commit 한다. 여기서 commit 하면 github desktop에서도 commit 한 것과 똑같이 적용된다. (github desktop에서도 commit한 이후의 모습이 나타난다.)</p>
-<p>commit을 여러 번 한 다음, 서버에 보내는 push main은 나중에 한꺼번에 해도 된다.</p>
-<h2 id="프로젝트에서-불필요한-부분-모두-정리하기"><a class="header" href="#프로젝트에서-불필요한-부분-모두-정리하기">프로젝트에서 불필요한 부분 모두 정리하기</a></h2>
-<p>다음을 따라 프로젝트에서 불필요한 부분을 모두 삭제하자.</p>
-<h3 id="appjsx에서-불필요한-부분-모두-삭제하기"><a class="header" href="#appjsx에서-불필요한-부분-모두-삭제하기">App.jsx에서 불필요한 부분 모두 삭제하기</a></h3>
-<p><img src="img/20250611164049.png" alt="" /></p>
-<pre><code class="language-jsx">function App() {
   return (
     &lt;&gt;
+      &lt;h1&gt;웃긴 유튜브 영상 모음&lt;/h1&gt;
     &lt;/&gt;
   )
 }
 
 export default App
 </code></pre>
-<p>App.jsx 파일이 꽤 긴데 위와 같은 코드만 남기고 전부 다 지우자.</p>
-<p>여기까지 작업하고 저장하면, 웹브라우저에 이 작업 내용이 자동으로 반영된다. (refresh를 하지 않아도 자동으로 반영된다)</p>
-<p><img src="img/20250611163909.png" alt="" /></p>
-<h3 id="appcss-파일-삭제"><a class="header" href="#appcss-파일-삭제">App.css 파일 삭제</a></h3>
-<p>우리는 쓸 일이 없으니 <code>App.css</code> 파일을 지운다.</p>
+<p>App.jsx파일에 아래 한줄 추가했다.</p>
+<pre><code class="language-jsp">&lt;h1&gt;웃긴 유튜브 영상 모음&lt;/h1&gt;
+</code></pre>
+<p><img src="img/20250612095835.png" alt="" /></p>
+<p>이제 이 아래에 유튜브 영상을 추가해 보자.</p>
+<pre><code class="language-jsx">// src/App.jsx
+
+function App() {
+
+  return (
+    &lt;&gt;
+      &lt;h1&gt;웃긴 유튜브 영상 모음&lt;/h1&gt;
+
+      &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/5ru4shNLokA?si=3tzsQHuDBipu0-o-&amp;start=412" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen&gt;&lt;/iframe&gt;
+    &lt;/&gt;
+  )
+}
+
+export default App
+</code></pre>
+<p><img src="img/20250612100102.png" alt="" /></p>
+<p>이렇게 유튜브 영상이 나타난다.</p>
+<h3 id="유튜브-영상-가져오는-법"><a class="header" href="#유튜브-영상-가져오는-법">유튜브 영상 가져오는 법</a></h3>
+<p>유튜브를 보다가 재밌는 장면이 나오면 멈춘다.</p>
+<p><img src="img/20250612100436.png" alt="" /></p>
+<p>[공유] 버튼을 누른다.</p>
+<p><img src="img/20250612100802.png" alt="" /></p>
+<p>[1] 시작 시간을 체크한다.<br />
+[2] 퍼가기 버튼을 누른다.</p>
+<p><img src="img/20250612101001.png" alt="" /></p>
+<p>[복사] 버튼을 누른다.</p>
+<p>App.jsx 파일에 붙여 넣는다.</p>
+<p><img src="img/20250612101240.png" alt="" /></p>
+<p>만약 웹브라우저에서 클릭했을 때 시작위치가 맞지 않으면,</p>
+<p><img src="img/20250612101320.png" alt="" /></p>
+<p>저 부분이 시작위치를 초로 나타내는 부분이니, 1-2초 단위로 조정하며 맞춰준다.</p>
+<p>몇 개 더 추가해 보자.</p>
+<pre><code class="language-jsx">// src\App.jsx
+function App() {
+
+  return (
+    &lt;&gt;
+      &lt;h1&gt;웃긴 유튜브 영상 모음&lt;/h1&gt;
+
+      &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/5ru4shNLokA?si=3tzsQHuDBipu0-o-&amp;amp;start=412" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen&gt;&lt;/iframe&gt;
+      &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/CVfksjKuaPQ?si=4NnG8NyNJzZf58Ot&amp;amp;start=126" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen&gt;&lt;/iframe&gt;
+      &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/_6hSZhy_6DI?si=e2sM3ET_D4gCXtEK&amp;amp;start=126" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen&gt;&lt;/iframe&gt;
+    &lt;/&gt;
+  )
+}
+
+export default App
+</code></pre>
+<p><img src="img/20250612134031.png" alt="" /></p>
+<p>음악 등 다른 분야의 영상도 추가해 보자.</p>
+<p><img src="img/20250612134149.png" alt="" /></p>
+<p><img src="img/20250612134404.png" alt="" /></p>
+<h2 id="가운데-정렬"><a class="header" href="#가운데-정렬">가운데 정렬</a></h2>
+<p>왼쪽에 치우쳐 있으니 가운데 정렬을 하자. 가운데 정렬은 css의 도움을 받는다.</p>
+<p>우선 이 영상을 가운데로 정렬할 영역을 잡자. 영역은 div 태그를 이용한다.</p>
+<p>여기서는 “웃긴 유튜브 영상 모음”, “음악” 같은 제목부터 유튜브 영상까지 모두 한 번에 가운데 정렬이 되어야 하기 때문에 한 번에 div를 이용해 영역으로 잡아준다.</p>
+<h3 id="appjsx-파일-수정"><a class="header" href="#appjsx-파일-수정">App.jsx 파일 수정</a></h3>
+<p><img src="img/20250612135431.png" alt="" /></p>
+<pre><code class="language-jsx">
+function App() {
+
+  return (
+    &lt;&gt;
+      &lt;div&gt;
+        &lt;h1&gt;웃긴 유튜브 영상 모음&lt;/h1&gt;
+
+        &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/5ru4shNLokA?si=3tzsQHuDBipu0-o-&amp;amp;start=412" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen&gt;&lt;/iframe&gt;
+        &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/CVfksjKuaPQ?si=4NnG8NyNJzZf58Ot&amp;amp;start=126" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen&gt;&lt;/iframe&gt;
+        &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/_6hSZhy_6DI?si=e2sM3ET_D4gCXtEK&amp;amp;start=126" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen&gt;&lt;/iframe&gt;
+
+        &lt;h1&gt;음악&lt;/h1&gt;
+        &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/Wl_GTYOid2o?si=BffPzSWFULhXAuP9" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen&gt;&lt;/iframe&gt;
+        &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/Fh8dU0SPYyg?si=rYUZaTWEGpT8yed0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen&gt;&lt;/iframe&gt;
+        &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/sJK2l7g5Yl8?si=pPk87U8r8Stgm3Mh" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen&gt;&lt;/iframe&gt;
+      &lt;/div&gt;
+    &lt;/&gt;
+  )
+}
+
+export default App
+</code></pre>
+<h3 id="css-클래스-생성"><a class="header" href="#css-클래스-생성">css 클래스 생성</a></h3>
+<p>이제 가운데로 보내주는 css 클래스를 만들어 이 div에 적용해 주자.</p>
+<p>index.css 파일의 맨 밑에 다음을 추가하자.</p>
+<pre><code class="language-css">// src\index.css
+
+.center_div
+{
+  text-align: center;
+}
+</code></pre>
+<p>이 클래스를 전체 영역으로 잡은 영역 div에 적용하자.</p>
+<pre><code class="language-jsx">// src\App.jsx
+
+&lt;div className="center_div"&gt;
+</code></pre>
+<p><img src="img/20250612140106.png" alt="" /></p>
+<p>그러면 아래와 같이 전체 영역이 다 가운데 정렬이 된다.</p>
+<p><img src="img/20250612140132.png" alt="" /></p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../webprog_2025/project01.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../webprog_2025/humortube-01.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../webprog_2025/project01-02.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../webprog_2025/humortube-03.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -304,11 +304,11 @@ export default App
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../webprog_2025/project01.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../webprog_2025/humortube-01.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../webprog_2025/project01-02.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../webprog_2025/humortube-03.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

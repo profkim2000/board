@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>실습 3 - 나 그거 했던가? - Eugene&#x27;s Board</title>
+        <title>2. 버튼 누르면 1더하기 - Eugene&#x27;s Board</title>
 
 
         <!-- Custom HTML head -->
@@ -167,24 +167,71 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="실습-나-그거-했던가"><a class="header" href="#실습-나-그거-했던가">[실습] 나 그거 했던가?</a></h1>
-<p>내가 오늘 출근 체크를 했던가?<br />
-내가 오늘 퇴근 체크를 했던가?<br />
-내가 오늘 차 문을 잠궜던가?</p>
-<p>이런 것들은 정확히 기억나지 않으면 매우 괴롭다.</p>
-<p><img src="img/20250611231405.png" alt="" /></p>
-<p>이 앱은 출근 체크를 하면서 동시에 스마트폰 앱을 띄우고 그 안에 버튼을 누르면 그 시간이 기록되도록 하는 앱이다.</p>
-<p>나중에 궁금해질 때 이 앱을 실행하면 “아~ 오늘 08:37:15에 출근 체크 했었구나~” 하고 바로 알 수 있다.</p>
+                        <h1 id="2-버튼-누르면-1-더하기"><a class="header" href="#2-버튼-누르면-1-더하기">2. 버튼 누르면 1 더하기</a></h1>
+<h2 id="자바스크립트의-값-사용하기"><a class="header" href="#자바스크립트의-값-사용하기">자바스크립트의 값 사용하기</a></h2>
+<pre><code class="language-jsx">function App() {
+
+  let a = 1
+
+  return (
+    &lt;&gt;
+    {a}
+    &lt;/&gt;
+  )
+}
+
+export default App
+</code></pre>
+<p><img src="img/20250807205512.png" alt="" /></p>
+<h2 id="usestate를-이용해-상태-관리하기"><a class="header" href="#usestate를-이용해-상태-관리하기">useState를 이용해 상태 관리하기</a></h2>
+<pre><code class="language-jsx">import { useState } from "react"
+
+function App() {
+
+  const [a, set_a] = useState(0)
+
+  return (
+    &lt;&gt;
+    &lt;button&gt;1 더하기 : {a}&lt;/button&gt;
+    &lt;/&gt;
+  )
+}
+
+export default App
+</code></pre>
+<p><img src="img/20250807210054.png" alt="" /></p>
+<h2 id="버튼-클릭하면-1-더하기"><a class="header" href="#버튼-클릭하면-1-더하기">버튼 클릭하면 1 더하기</a></h2>
+<pre><code class="language-jsx">import { useState } from "react"
+
+function App() {
+
+  const [a, set_a] = useState(0)
+
+  function plus1()
+  {
+    set_a(a+1)
+  }
+
+  return (
+    &lt;&gt;
+    &lt;button onClick={plus1}&gt;1 더하기 : {a}&lt;/button&gt;
+    &lt;/&gt;
+  )
+}
+
+export default App
+</code></pre>
+<p><img src="img/20250807210121.png" alt="" /></p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../webprog_2025/project02-02.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../webprog_2025/project02-01.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../webprog_2025/project01-01.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../webprog_2025/project01.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -194,11 +241,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../webprog_2025/project02-02.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../webprog_2025/project02-01.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../webprog_2025/project01-01.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../webprog_2025/project01.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

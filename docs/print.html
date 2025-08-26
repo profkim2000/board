@@ -7964,7 +7964,50 @@ export default DidTime
 <h4 id="공간교차cross"><a class="header" href="#공간교차cross">공간교차(cross)</a></h4>
 <p>위에서 선택한 feature가 아래에 선택한 feature를 가로지를 때 선택됨. line string과 polygon간에 성립하며, polygon:polygon이나 point:point 간에는 성립하지 않음.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="3d-그래픽-기본"><a class="header" href="#3d-그래픽-기본">3D 그래픽 기본</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="따라하기"><a class="header" href="#따라하기">따라하기</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="평면도-모델링"><a class="header" href="#평면도-모델링">평면도 모델링</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="복습문제-10"><a class="header" href="#복습문제-10">복습문제</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="복습문제-11"><a class="header" href="#복습문제-11">복습문제</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="ai를-이용한-드론-운용"><a class="header" href="#ai를-이용한-드론-운용">AI를 이용한 드론 운용</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="자료-1"><a class="header" href="#자료-1">자료</a></h1>
+<h2 id="lm-studio와-엑셀의-연동"><a class="header" href="#lm-studio와-엑셀의-연동">LM Studio와 엑셀의 연동</a></h2>
+<p><img src="droneai/sample/img/20250826214640.png" alt="" /></p>
+<h3 id="사용법"><a class="header" href="#사용법">사용법</a></h3>
+<ol>
+<li>
+<p>파일 다운로드: <a href="droneai/sample/./ai_excel.xlsm">엑셀 파일</a></p>
+</li>
+<li>
+<p>파일 열리는 데 한참 걸림(1분. 열릴 때까지 기다리지)</p>
+</li>
+<li>
+<p>ALT + F11을 눌러 VBA 모드로 들어간다.</p>
+</li>
+<li>
+<p>도구 &gt; 참조 메뉴로 들어간다.</p>
+</li>
+<li>
+<p>Microsoft Scripting Runtime을 체크한다.<br />
+<img src="droneai/sample/img/20250826214816.png" alt="" /></p>
+</li>
+<li>
+<p>VBA-JSON을 설치한다.</p>
+</li>
+</ol>
+<ul>
+<li>
+<p><a href="https://github.com/VBA-tools/VBA-JSON?tab=readme-ov-file" title="" target="_blank">https://github.com/VBA-tools/VBA-JSON?tab=readme-ov-file</a> 에 접속</p>
+</li>
+<li>
+<p>latest release를 다운로드 받아 압출을 푼다</p>
+</li>
+<li>
+<p>파일 &gt; 파일 가져오기를 이용해 ‘JsonConverter.bas’ 파일을 가져온다.</p>
+</li>
+</ul>
+<ol start="7">
+<li>엑셀 파일에서 AI에 질의한다. 예) =toAI(A1 &amp; “ 의 뜻 번역해줘“)</li>
+</ol>
 
                     </main>
 

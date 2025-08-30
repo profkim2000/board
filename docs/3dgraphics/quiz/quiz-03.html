@@ -1,0 +1,299 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>blender 실습 2 - Eugene&#x27;s Board</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../../custom.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Eugene&#x27;s Board</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="blendr-실습-2"><a class="header" href="#blendr-실습-2">blendr 실습 2</a></h1>
+<h3 id="1-평면도-모델링을-위해-blender에-평면도를-올려놓는-메뉴는"><a class="header" href="#1-평면도-모델링을-위해-blender에-평면도를-올려놓는-메뉴는">1. 평면도 모델링을 위해 blender에 평면도를 올려놓는 메뉴는?</a></h3>
+<ol>
+<li>Add &gt; Image &gt; panel</li>
+<li>Add &gt; Image &gt; Reference +++</li>
+<li>Add &gt; Image &gt; Back</li>
+<li>Add &gt; Reference &gt; Image</li>
+</ol>
+<h3 id="2-평면도-모델링을-위해-벽을-세울-때-사용하는-기술은"><a class="header" href="#2-평면도-모델링을-위해-벽을-세울-때-사용하는-기술은">2. 평면도 모델링을 위해 벽을 세울 때 사용하는 기술은?</a></h3>
+<ol>
+<li>loop cut</li>
+<li>extrude +++</li>
+<li>array</li>
+<li>boolean</li>
+</ol>
+<h3 id="3-extrude할-때-영향받는-방향을-x축-방향으로-고정하기-위해-사용하는-방법으로-옳은-것은"><a class="header" href="#3-extrude할-때-영향받는-방향을-x축-방향으로-고정하기-위해-사용하는-방법으로-옳은-것은">3. extrude할 때 영향받는 방향을 x축 방향으로 고정하기 위해 사용하는 방법으로 옳은 것은?</a></h3>
+<ol>
+<li>e 키를 눌러 extrude를 시작하고 x 키를 누른다. +++</li>
+<li>x 키를 눌러 extrude를 시작하고 x 키를 누른다.</li>
+<li>e 키를 눌러 extrude를 시작하고 ctrl + x 키를 누른다.</li>
+<li>x 키를 눌러 extrude를 시작하고 ctrl + x 키를 누른다.</li>
+</ol>
+<h3 id="4-blender에서-벽에-창문-구멍을-내기-위해-사용하는-기술은"><a class="header" href="#4-blender에서-벽에-창문-구멍을-내기-위해-사용하는-기술은">4. blender에서 벽에 창문 구멍을 내기 위해 사용하는 기술은?</a></h3>
+<ol>
+<li>loop cut</li>
+<li>select</li>
+<li>array</li>
+<li>boolean +++</li>
+</ol>
+<h3 id="5-디즈니에서-처음-상업화해-사용한-기술로-재질을-시각화하기-위해-물리적인-속성을-이용하는-통일된-표현법은"><a class="header" href="#5-디즈니에서-처음-상업화해-사용한-기술로-재질을-시각화하기-위해-물리적인-속성을-이용하는-통일된-표현법은">5. 디즈니에서 처음 상업화해 사용한 기술로, 재질을 시각화하기 위해 물리적인 속성을 이용하는 통일된 표현법은?</a></h3>
+<ol>
+<li>material</li>
+<li>PBR +++</li>
+<li>metalic</li>
+<li>physical</li>
+</ol>
+<h3 id="6-다음-중-pbr의-속성에-대한-설명-중-틀린-것은"><a class="header" href="#6-다음-중-pbr의-속성에-대한-설명-중-틀린-것은">6. 다음 중 PBR의 속성에 대한 설명 중 틀린 것은?</a></h3>
+<ol>
+<li>base color: 물체 고유색 표현</li>
+<li>roughness: 표면의 거친 정도</li>
+<li>metalic: 금속의 느낌인 정도</li>
+<li>round: 표면의 둥근 정도 +++</li>
+</ol>
+<h3 id="7-model의-겉면에-붙이는-이미지를-무엇이라-부르나"><a class="header" href="#7-model의-겉면에-붙이는-이미지를-무엇이라-부르나">7. model의 겉면에 붙이는 이미지를 무엇이라 부르나?</a></h3>
+<ol>
+<li>texture +++</li>
+<li>picture</li>
+<li>outer</li>
+<li>uv</li>
+</ol>
+<h3 id="8-육면체-모델의-경우-각-면을-하나씩-전개도처럼-펴서-각각의-면에-이미지를-그린-후-다시-입히는-기법은"><a class="header" href="#8-육면체-모델의-경우-각-면을-하나씩-전개도처럼-펴서-각각의-면에-이미지를-그린-후-다시-입히는-기법은">8. 육면체 모델의 경우, 각 면을 하나씩 전개도처럼 펴서 각각의 면에 이미지를 그린 후 다시 입히는 기법은?</a></h3>
+<ol>
+<li>texture</li>
+<li>picture</li>
+<li>outer</li>
+<li>uv +++</li>
+</ol>
+<h3 id="9-모델의-겉면에-자잘한-상처나-결이-있는-경우-이걸-모델에-전부-다-반영하면-처리-속도가-너무-느려져-이를-막고자-그런-자잘한-상처나-결을-그림자로-표현해-입체감을-주는-방법으로-실사-느낌을-주는-효과적인-기법은"><a class="header" href="#9-모델의-겉면에-자잘한-상처나-결이-있는-경우-이걸-모델에-전부-다-반영하면-처리-속도가-너무-느려져-이를-막고자-그런-자잘한-상처나-결을-그림자로-표현해-입체감을-주는-방법으로-실사-느낌을-주는-효과적인-기법은">9. 모델의 겉면에 자잘한 상처나 결이 있는 경우, 이걸 모델에 전부 다 반영하면 처리 속도가 너무 느려져, 이를 막고자 그런 자잘한 상처나 결을 그림자로 표현해 입체감을 주는 방법으로 실사 느낌을 주는 효과적인 기법은?</a></h3>
+<ol>
+<li>roughness</li>
+<li>material</li>
+<li>normal map +++</li>
+<li>uv</li>
+</ol>
+<h3 id="10-light-중-전구와-같은-효과의-조명이며-있는-곳에서-멀어질수록-점점-어두워지는-조명은"><a class="header" href="#10-light-중-전구와-같은-효과의-조명이며-있는-곳에서-멀어질수록-점점-어두워지는-조명은">10. light 중 전구와 같은 효과의 조명이며, 있는 곳에서 멀어질수록 점점 어두워지는 조명은?</a></h3>
+<ol>
+<li>point +++</li>
+<li>sun</li>
+<li>spot</li>
+<li>area</li>
+</ol>
+<h3 id="11-light-중-공연장의-스포트라이트-느낌을-주는-조명은"><a class="header" href="#11-light-중-공연장의-스포트라이트-느낌을-주는-조명은">11. light 중 공연장의 스포트라이트 느낌을 주는 조명은?</a></h3>
+<ol>
+<li>point</li>
+<li>sun</li>
+<li>spot +++</li>
+<li>area</li>
+</ol>
+<h3 id="12-light-중-멀리-있는-태양과-같이-위치는-전혀-상관없고-각도만-중요하며-화면-전체에-일정한-밝기를-제공하는-조명은"><a class="header" href="#12-light-중-멀리-있는-태양과-같이-위치는-전혀-상관없고-각도만-중요하며-화면-전체에-일정한-밝기를-제공하는-조명은">12. light 중 멀리 있는 태양과 같이 위치는 전혀 상관없고 각도만 중요하며 화면 전체에 일정한 밝기를 제공하는 조명은?</a></h3>
+<ol>
+<li>point</li>
+<li>sun +++</li>
+<li>spot</li>
+<li>area</li>
+</ol>
+<h3 id="13-light-중-창문을-통해-빛이-들어오거나-tv나-모니터에서-퍼져나오는-빛을-표현할-때-사용하는-조명은"><a class="header" href="#13-light-중-창문을-통해-빛이-들어오거나-tv나-모니터에서-퍼져나오는-빛을-표현할-때-사용하는-조명은">13. light 중 창문을 통해 빛이 들어오거나 TV나 모니터에서 퍼져나오는 빛을 표현할 때 사용하는 조명은?</a></h3>
+<ol>
+<li>point</li>
+<li>sun</li>
+<li>spot</li>
+<li>area +++</li>
+</ol>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../3dgraphics/quiz/quiz-02.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../../3dgraphics/quiz/quiz-04.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../3dgraphics/quiz/quiz-02.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../../3dgraphics/quiz/quiz-04.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

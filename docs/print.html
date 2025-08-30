@@ -25,41 +25,29 @@
         <link rel="stylesheet" href="fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" id="highlight-css" href="highlight.css">
-        <link rel="stylesheet" id="tomorrow-night-css" href="tomorrow-night.css">
-        <link rel="stylesheet" id="ayu-highlight-css" href="ayu-highlight.css">
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
         <link rel="stylesheet" href="custom.css">
 
 
-        <!-- Provide site root and default themes to javascript -->
+        <!-- Provide site root to javascript -->
         <script>
-            const path_to_root = "";
-            const default_light_theme = "light";
-            const default_dark_theme = "navy";
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc.js"></script>
     </head>
     <body>
-    <div id="mdbook-help-container">
-        <div id="mdbook-help-popup">
-            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
-            <div>
-                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
-                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
-                <p>Press <kbd>?</kbd> to show this help</p>
-                <p>Press <kbd>Esc</kbd> to hide this help</p>
-            </div>
-        </div>
-    </div>
     <div id="body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
             try {
-                let theme = localStorage.getItem('mdbook-theme');
-                let sidebar = localStorage.getItem('mdbook-sidebar');
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
 
                 if (theme.startsWith('"') && theme.endsWith('"')) {
                     localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
@@ -73,8 +61,7 @@
 
         <!-- Set the theme before any content is loaded, prevents flash -->
         <script>
-            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
-            let theme;
+            var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
             const html = document.documentElement;
@@ -87,8 +74,8 @@
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            let sidebar = null;
-            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
@@ -124,14 +111,13 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
                         </ul>
-                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
                             <i class="fa fa-search"></i>
                         </button>
                     </div>
@@ -7965,9 +7951,483 @@ export default DidTime
 <p>위에서 선택한 feature가 아래에 선택한 feature를 가로지를 때 선택됨. line string과 polygon간에 성립하며, polygon:polygon이나 point:point 간에는 성립하지 않음.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="3d-그래픽-기본"><a class="header" href="#3d-그래픽-기본">3D 그래픽 기본</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="따라하기"><a class="header" href="#따라하기">따라하기</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="평면도-모델링"><a class="header" href="#평면도-모델링">평면도 모델링</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="건물-모델링"><a class="header" href="#건물-모델링">건물 모델링</a></h1>
+<iframe width="800" height="450" src="https://www.youtube.com/embed/WbtI131sD4g?si=3J9TDTFogEQNmu3d" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><div style="break-before: page; page-break-before: always;"></div><h1 id="책상만들기-1"><a class="header" href="#책상만들기-1">책상만들기 1</a></h1>
+<iframe width="800" height="450" src="https://www.youtube.com/embed/Gv_PMvUfV_Q?si=rESZNU0yVX3DfYek" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><div style="break-before: page; page-break-before: always;"></div><h1 id="책상만들기-2"><a class="header" href="#책상만들기-2">책상만들기 2</a></h1>
+<iframe width="800" height="450" src="https://www.youtube.com/embed/8u0vaEIxSME?si=BNidFrcGzOb1dHlg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<h3 id="loop-cut-1"><a class="header" href="#loop-cut-1">loop cut</a></h3>
+<p>면을 나눌 때 사용. 단축키: <code>ctrl + R</code></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="책상만들기-3"><a class="header" href="#책상만들기-3">책상만들기 3</a></h1>
+<iframe width="800" height="450" src="https://www.youtube.com/embed/R_PQLPoEcQQ?si=qRF5_ZCnBmBDzCJR" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><div style="break-before: page; page-break-before: always;"></div><h1 id="평면도-모델링"><a class="header" href="#평면도-모델링">평면도 모델링</a></h1>
+<h2 id="평면도-샘플-1"><a class="header" href="#평면도-샘플-1">평면도 샘플</a></h2>
+<p><img src="3dgraphics/tutorials/./img/flat3.png" alt="" /><br />
+<img src="3dgraphics/tutorials/./img/flat3-withoutgrid.png" alt="" /></p>
+<h2 id="평면도-제작-실습"><a class="header" href="#평면도-제작-실습">평면도 제작 실습</a></h2>
+<h3 id="12"><a class="header" href="#12">1/2</a></h3>
+<iframe width="800" height="450" src="https://www.youtube.com/embed/Awzspx63zPE?si=zP8corbcBNOResQi" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<h3 id="22"><a class="header" href="#22">2/2</a></h3>
+<iframe width="800" height="450" src="https://www.youtube.com/embed/NPmQ2zQyrpM?si=yNj201fWrXz2iVm7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><div style="break-before: page; page-break-before: always;"></div><h1 id="재질"><a class="header" href="#재질">재질</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="라이트"><a class="header" href="#라이트">라이트</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="렌더"><a class="header" href="#렌더">렌더</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="복습문제-10"><a class="header" href="#복습문제-10">복습문제</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="복습문제-11"><a class="header" href="#복습문제-11">복습문제</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="1-3d-그래픽-기본"><a class="header" href="#1-3d-그래픽-기본">1. 3D 그래픽 기본</a></h1>
+<h3 id="1-blender에-대한-설명으로-틀린-것은-1"><a class="header" href="#1-blender에-대한-설명으로-틀린-것은-1"><strong>1. blender에 대한 설명으로 틀린 것은?</strong></a></h3>
+<ol>
+<li>공사 규모에서는 유료로 구입해야 한다.</li>
+<li>오픈소스로 개발되고 있다.</li>
+<li>직관적인 UI로 큰 인기를 모으고 있다.</li>
+<li>다양한 시스템들과 co-work하고 있다.</li>
+</ol>
+<br>
+<h3 id="2-blender에-대한-설명으로-맞는-것은-1"><a class="header" href="#2-blender에-대한-설명으로-맞는-것은-1"><strong>2. blender에 대한 설명으로 맞는 것은?</strong></a></h3>
+<ol>
+<li>사진과 같은 품질을 제작할 수 있다.</li>
+<li>동영상은 만들 수 없다.</li>
+<li>플러그인을 사용할 수 없어 활용도가 낮다.</li>
+<li>유료 구입하면 특수 기능을 사용할 수 있다.</li>
+</ol>
+<br>
+<h3 id="3-x-y-z라고-축의-이름이-붙어-있지-않은-경우라도-어떤-축이-각각-x-y-z-축임을-알-수-있는-방법은-1"><a class="header" href="#3-x-y-z라고-축의-이름이-붙어-있지-않은-경우라도-어떤-축이-각각-x-y-z-축임을-알-수-있는-방법은-1"><strong>3. x, y, z라고 축의 이름이 붙어 있지 않은 경우라도 어떤 축이 각각 x, y, z 축임을 알 수 있는 방법은?</strong></a></h3>
+<ol>
+<li>ABC</li>
+<li>GOD</li>
+<li>YOU</li>
+<li>RGB</li>
+</ol>
+<br>
+<h3 id="4-빨간색-축은-x-y-z-중-어떤-축인가-1"><a class="header" href="#4-빨간색-축은-x-y-z-중-어떤-축인가-1"><strong>4. 빨간색 축은 x, y, z 중 어떤 축인가?</strong></a></h3>
+<ol>
+<li>X</li>
+<li>Y</li>
+<li>Z</li>
+<li>아무런 축도 나타내지 않는다.</li>
+</ol>
+<br>
+<h3 id="5-파란색-축은-x-y-z-중-어떤-축인가-1"><a class="header" href="#5-파란색-축은-x-y-z-중-어떤-축인가-1"><strong>5. 파란색 축은 x, y, z, 중 어떤 축인가?</strong></a></h3>
+<ol>
+<li>X</li>
+<li>Y</li>
+<li>Z</li>
+<li>아무런 축도 나타내지 않는다.</li>
+</ol>
+<br>
+<h3 id="6-2d에-비해-3d의-특징은-1"><a class="header" href="#6-2d에-비해-3d의-특징은-1"><strong>6. 2D에 비해 3D의 특징은?</strong></a></h3>
+<ol>
+<li>더 많은 색을 표현할 수 있다.</li>
+<li>더 촘촘하게 간격을 구분할 수 있다.</li>
+<li>높이 개념이 있다.</li>
+<li>데이터의 양이 더 적다.</li>
+</ol>
+<br>
+<h3 id="7-다음-그림에서-빨간-점의-좌표값은-1"><a class="header" href="#7-다음-그림에서-빨간-점의-좌표값은-1"><strong>7. 다음 그림에서 빨간 점의 좌표값은?</strong></a></h3>
+<p><img src="3dgraphics/quiz/img/3dquiz.png" alt="alt text" /></p>
+<ol>
+<li>(5, 4, 0)</li>
+<li>(0, 4, 5)</li>
+<li>(5, 0, 4)</li>
+<li>(4, 5, 0)</li>
+</ol>
+<br>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="blender-실습-1"><a class="header" href="#blender-실습-1">blender 실습 1</a></h1>
+<h3 id="1-lmb는-무엇의-약자인가-1"><a class="header" href="#1-lmb는-무엇의-약자인가-1"><strong>1. LMB는 무엇의 약자인가?</strong></a></h3>
+<ol>
+<li>Large Mouse Button</li>
+<li>Left Mouse Button</li>
+<li>Left Move Button</li>
+<li>Light Move Button</li>
+</ol>
+<br>
+<h3 id="2-mmb를-누르라고-적혀-있으면-마우스의-어떤-부분을-눌러야-하나-1"><a class="header" href="#2-mmb를-누르라고-적혀-있으면-마우스의-어떤-부분을-눌러야-하나-1"><strong>2. MMB를 누르라고 적혀 있으면 마우스의 어떤 부분을 눌러야 하나?</strong></a></h3>
+<ol>
+<li>왼쪽 버튼</li>
+<li>왼쪽 버튼과 오른쪽 버튼을 동시에</li>
+<li>마우스 휠</li>
+<li>오른쪽 버튼</li>
+</ol>
+<br>
+<h3 id="3-cube가-하나-있는-경우-이-큐브를-확인하기-위해-궤도식-회전orbit을-하려-한다-가장-좋은-방법은-1"><a class="header" href="#3-cube가-하나-있는-경우-이-큐브를-확인하기-위해-궤도식-회전orbit을-하려-한다-가장-좋은-방법은-1"><strong>3. cube가 하나 있는 경우 이 큐브를 확인하기 위해 궤도식 회전(orbit)을 하려 한다. 가장 좋은 방법은?</strong></a></h3>
+<ol>
+<li>왼쪽 버튼으로 화면을 눌러 돌린다.</li>
+<li>shift + 왼쪽 버튼으로 화면을 눌러 돌린다.</li>
+<li>오른쪽 버튼으로 화면을 눌러 돌린다.</li>
+<li>마우스 휠로 화면을 눌러 돌린다.</li>
+</ol>
+<br>
+<h3 id="4-궤도식-회전orbit을-하면-어느-한-점을-중심으로-카메라가-일정거리를-두고-회전하게-된다-이-때-회전-중점을-바꾸고-싶다면-어떻게-해야-하나-1"><a class="header" href="#4-궤도식-회전orbit을-하면-어느-한-점을-중심으로-카메라가-일정거리를-두고-회전하게-된다-이-때-회전-중점을-바꾸고-싶다면-어떻게-해야-하나-1"><strong>4. 궤도식 회전(orbit)을 하면 어느 한 점을 중심으로 카메라가 일정거리를 두고 회전하게 된다. 이 때 회전 중점을 바꾸고 싶다면 어떻게 해야 하나?</strong></a></h3>
+<ol>
+<li>원하는 중점에 마우스를 위치하고 MMB를 누른다.</li>
+<li>원하는 중점에 마우스를 위치하고 Alt + MMB를 누른다.</li>
+<li>원하는 중점에 마우스를 위치하고 LMB를 누른다.</li>
+<li>원하는 중점에 마우스를 위치하고 Alt + LMB를 누른다.</li>
+</ol>
+<br>
+<h3 id="5-현재-화면에서-오른쪽에-반만-보이는-object를-화면-가운데에-보이도록-하고-싶으면-panning을-해야-한다-패닝하는-방법은-1"><a class="header" href="#5-현재-화면에서-오른쪽에-반만-보이는-object를-화면-가운데에-보이도록-하고-싶으면-panning을-해야-한다-패닝하는-방법은-1"><strong>5. 현재 화면에서 오른쪽에 반만 보이는 object를 화면 가운데에 보이도록 하고 싶으면 panning을 해야 한다. 패닝하는 방법은?</strong></a></h3>
+<p><img src="3dgraphics/quiz/img/20241116202703.png" alt="" /></p>
+<ol>
+<li>MMB를 누른 채로 마우스를 움직인다.</li>
+<li>LMB를 누른 채로 마우스를 움직인다.</li>
+<li>Shift를 누른 상태에서 MMB를 꾹 누르고 (떼지않고) 마우스를 움직인다.</li>
+<li>Shift를 누른 상태에서 LMB를 꾹 누르고 (떼지않고) 마우스를 움직인다.</li>
+</ol>
+<br>
+<h3 id="6-zoom-in--zoom-out-하는-방법으로-틀린-것은-1"><a class="header" href="#6-zoom-in--zoom-out-하는-방법으로-틀린-것은-1"><strong>6. zoom in / zoom out 하는 방법으로 틀린 것은?</strong></a></h3>
+<ol>
+<li>마우스 휠을 돌린다.</li>
+<li>숫자 키패드에서 + 키나 - 키를 누른다.</li>
+<li>마우스 휠을 누르고 움직인다.</li>
+<li>Ctrl + MMB를 하고 마우스를 위아래로 움직인다.</li>
+</ol>
+<br>
+<h3 id="7-작업하다-보니-많은-수의-mesh들을-만들게-되었다-이-mesh들과-카메라-조명까지-모두-한-화면에-표시되도록-zoom-out-하는-가장-빠르고-쉬운-방법은-1"><a class="header" href="#7-작업하다-보니-많은-수의-mesh들을-만들게-되었다-이-mesh들과-카메라-조명까지-모두-한-화면에-표시되도록-zoom-out-하는-가장-빠르고-쉬운-방법은-1"><strong>7. 작업하다 보니 많은 수의 mesh들을 만들게 되었다. 이 mesh들과 카메라, 조명까지 모두 한 화면에 표시되도록 zoom out 하는 가장 빠르고 쉬운 방법은?</strong></a></h3>
+<ol>
+<li><code>/</code> 키를 누른다.</li>
+<li><code>.</code> 키를 누른다.</li>
+<li><code>*</code> 키를 누른다.</li>
+<li><code>home</code> 키를 누른다.</li>
+</ol>
+<br>
+<h3 id="8-작업하면서-zoom-in--out-을-여러-번-하다보니-어느-순간부터-zoom-in-이-제대로-안되었다-이-문제를-가장-빠르게-해결하는-방법은--1"><a class="header" href="#8-작업하면서-zoom-in--out-을-여러-번-하다보니-어느-순간부터-zoom-in-이-제대로-안되었다-이-문제를-가장-빠르게-해결하는-방법은--1"><strong>8. 작업하면서 zoom in / out 을 여러 번 하다보니 어느 순간부터 zoom in 이 제대로 안되었다. 이 문제를 가장 빠르게 해결하는 방법은 ?</strong></a></h3>
+<ol>
+<li>zoom in하고 싶은 mesh를 선택하고 <code>/</code> 키를 누른다.</li>
+<li>zoom in하고 싶은 mesh를 선택하고 <code>.</code> 키를 누른다.</li>
+<li>zoom in하고 싶은 mesh를 선택하고 <code>*</code> 키를 누른다.</li>
+<li>zoom in하고 싶은 mesh를 선택하고 <code>home</code> 키를 누른다.</li>
+</ol>
+<br>
+<h3 id="9-viewpoint를-설정하는-방법으로-틀린-것은--1"><a class="header" href="#9-viewpoint를-설정하는-방법으로-틀린-것은--1"><strong>9. viewpoint를 설정하는 방법으로 틀린 것은 ?</strong></a></h3>
+<ol>
+<li>Top view: 숫자키패드 7</li>
+<li>Front view: 숫자키패드 5</li>
+<li>Right view: 숫자키패드 3</li>
+<li>Bottom view: Ctrl + 숫자키패드 7</li>
+</ol>
+<br>
+<h3 id="10-top-view로-보고-있다가-반대쪽인-bottom-view로-바꾸고-싶거나-left-view로-보고-있다가-반대쪽인-right-view로-바꾸고-싶거나-front-view로-보고-있다가-back-view로-바꾸고-싶을-때-모든-경우에-한-번에-바꾸는-방법은--1"><a class="header" href="#10-top-view로-보고-있다가-반대쪽인-bottom-view로-바꾸고-싶거나-left-view로-보고-있다가-반대쪽인-right-view로-바꾸고-싶거나-front-view로-보고-있다가-back-view로-바꾸고-싶을-때-모든-경우에-한-번에-바꾸는-방법은--1"><strong>10. Top view로 보고 있다가 반대쪽인 bottom view로 바꾸고 싶거나, Left view로 보고 있다가 반대쪽인 right view로 바꾸고 싶거나, Front view로 보고 있다가 back view로 바꾸고 싶을 때 모든 경우에 한 번에 바꾸는 방법은 ?</strong></a></h3>
+<ol>
+<li><code>숫자키패드 5</code>를 누른다.</li>
+<li><code>숫자키패드 9</code>를 누른다.</li>
+<li><code>숫자키패드 .</code>을 누른다.</li>
+<li><code>숫자키패드 -</code>를 누른다.</li>
+</ol>
+<br>
+<h3 id="11-다음과-같이-quad-view로-전환하는-방법은--1"><a class="header" href="#11-다음과-같이-quad-view로-전환하는-방법은--1"><strong>11. 다음과 같이 quad view로 전환하는 방법은 ?</strong></a></h3>
+<p><img src="3dgraphics/quiz/img/20241116233736.png" alt="" /></p>
+<ol>
+<li><code>ctrl</code> + <code>alt</code> + <code>q</code>를 누른다.</li>
+<li><code>ctrl</code> + <code>alt</code> + <code>v</code>를 누른다.</li>
+<li><code>ctrl</code> + <code>alt</code> + <code>4</code>를 누른다.</li>
+<li><code>ctrl</code> + <code>alt</code> + <code>/</code>를 누른다.</li>
+</ol>
+<br>
+<h3 id="12-다음-줄-틀린-말은-"><a class="header" href="#12-다음-줄-틀린-말은-"><strong>12. 다음 줄 틀린 말은 ?</strong></a></h3>
+<ol>
+<li>perspective: 입체적인 표현을 한다.</li>
+<li>orthographic: 직교투영으로 표현한다.</li>
+<li>perspective: top view, front view, right view에서 사용한다.</li>
+<li>orthographic: 거리와 상관없이 물체의 크기를 똑같이 보여준다.</li>
+</ol>
+<br>
+<h3 id="13-오브젝트를-이동할-때-사용하는-키는-"><a class="header" href="#13-오브젝트를-이동할-때-사용하는-키는-"><strong>13. 오브젝트를 이동할 때 사용하는 키는 ?</strong></a></h3>
+<ol>
+<li><code>G</code>키</li>
+<li><code>R</code>키</li>
+<li><code>A</code>키</li>
+<li><code>S</code>키</li>
+</ol>
+<br>
+<h3 id="14-오브젝트를-이동할-때-y축으로만-이동하려-한다-이-경우-눌러야-하는-키는-"><a class="header" href="#14-오브젝트를-이동할-때-y축으로만-이동하려-한다-이-경우-눌러야-하는-키는-"><strong>14. 오브젝트를 이동할 때 y축으로만 이동하려 한다. 이 경우 눌러야 하는 키는 ?</strong></a></h3>
+<ol>
+<li><code>G</code>키</li>
+<li><code>X</code>키</li>
+<li><code>Y</code>키</li>
+<li><code>Z</code>키</li>
+</ol>
+<br>
+<h3 id="15-오브젝트를-이동할-때-x-y축으로만-이동하고-z축으로의-이동은-제한하려-한다-이-경우-눌러야-하는-키는-"><a class="header" href="#15-오브젝트를-이동할-때-x-y축으로만-이동하고-z축으로의-이동은-제한하려-한다-이-경우-눌러야-하는-키는-"><strong>15. 오브젝트를 이동할 때 x, y축으로만 이동하고 z축으로의 이동은 제한하려 한다. 이 경우 눌러야 하는 키는 ?</strong></a></h3>
+<ol>
+<li><code>Ctrl</code> + <code>Z</code>키</li>
+<li><code>Z</code>키</li>
+<li><code>Alt</code> + <code>Z</code>키</li>
+<li><code>Shift</code> + <code>Z</code>키</li>
+</ol>
+<br>
+<h3 id="16-아래-그림과-같이-cube가-회전되어-있을-때-바닥과-평형을-이루도록-하는-방법은-"><a class="header" href="#16-아래-그림과-같이-cube가-회전되어-있을-때-바닥과-평형을-이루도록-하는-방법은-"><strong>16. 아래 그림과 같이 cube가 회전되어 있을 때 바닥과 평형을 이루도록 하는 방법은 ?</strong></a></h3>
+<p><img src="3dgraphics/quiz/img/20241117000006.png" alt="" /></p>
+<ol>
+<li><code>G</code>키를 눌러 회전시킨다.</li>
+<li><code>R</code>키를 눌러 회전시킨다.</li>
+<li><code>B</code>키를 눌러 회전시킨다.</li>
+<li><code>A</code>키를 눌러 회전시킨다.</li>
+</ol>
+<br>
+<h3 id="17-위-문제의-답과-같이-회전시켰더니-오히려-더-이상한-방향으로-회전되었다-바닥과-평형을-이루도록-회전시키는-방법은-"><a class="header" href="#17-위-문제의-답과-같이-회전시켰더니-오히려-더-이상한-방향으로-회전되었다-바닥과-평형을-이루도록-회전시키는-방법은-"><strong>17. 위 문제의 답과 같이 회전시켰더니 오히려 더 이상한 방향으로 회전되었다. 바닥과 평형을 이루도록 회전시키는 방법은 ?</strong></a></h3>
+<p><img src="3dgraphics/quiz/img/20241117000306.png" alt="" /></p>
+<ol>
+<li><code>X</code>키를 눌러 X축을 기준으로 회전시킨다.</li>
+<li><code>Y</code>키를 눌러 Y축을 기준으로 회전시킨다.</li>
+<li><code>Z</code>키를 눌러 Z축을 기준으로 회전시킨다.</li>
+<li>blender는 무료 프로그램이라 이런 문제는 해결할 수 없다.</li>
+</ol>
+<br>
+<h3 id="18-아래와-같이-눈사람을-만들었는데-아래에-있는-sphere구를-좀-더-크게-해주고-싶을-때-사용할-수-있는-방법은-"><a class="header" href="#18-아래와-같이-눈사람을-만들었는데-아래에-있는-sphere구를-좀-더-크게-해주고-싶을-때-사용할-수-있는-방법은-"><strong>18. 아래와 같이 눈사람을 만들었는데 아래에 있는 sphere(구)를 좀 더 크게 해주고 싶을 때 사용할 수 있는 방법은 ?</strong></a></h3>
+<p><img src="3dgraphics/quiz/img/20241117000819.png" alt="" /></p>
+<ol>
+<li>아래에 있는 sphere를 선택하고 <code>G</code>키를 눌러 약간 키워준다.</li>
+<li>아래에 있는 sphere를 선택하고 <code>R</code>키를 눌러 약간 키워준다.</li>
+<li>아래에 있는 sphere를 선택하고 <code>S</code>키를 눌러 약간 키워준다.</li>
+<li>아래에 있는 sphere를 선택하고 <code>A</code>키를 눌러 약간 키워준다.</li>
+</ol>
+<br>
+<h3 id="19-아래와-같이-어느-한-점의-위치를-변경하려-할-때-제일-처음-할-일은-"><a class="header" href="#19-아래와-같이-어느-한-점의-위치를-변경하려-할-때-제일-처음-할-일은-"><strong>19. 아래와 같이 어느 한 점의 위치를 변경하려 할 때 제일 처음 할 일은 ?</strong></a></h3>
+<p><img src="3dgraphics/quiz/img/20241117113800.png" alt="" /></p>
+<ol>
+<li><code>e</code>키를 눌러 edit 모드로 들어간다.</li>
+<li><code>ctrl</code>키를 눌러 edit 모드로 들어간다.</li>
+<li><code>m</code>키를 눌러 edit 모드로 들어간다.</li>
+<li><code>tab</code>키를 눌러 edit 모드로 들어간다.</li>
+</ol>
+<br>
+<h3 id="20-edit-모드-진입-후-아래와-같이-어느-한-점vertex의-위치를-변경하려-할-때-할-일은-"><a class="header" href="#20-edit-모드-진입-후-아래와-같이-어느-한-점vertex의-위치를-변경하려-할-때-할-일은-"><strong>20. edit 모드 진입 후 아래와 같이 어느 한 점(vertex)의 위치를 변경하려 할 때 할 일은 ?</strong></a></h3>
+<p><img src="3dgraphics/quiz/img/20241117113800.png" alt="" /></p>
+<ol>
+<li><code>p</code>키를 눌러 점편집 모드로 변경한다.</li>
+<li><code>1</code>키를 눌러 edit 모드로 변경한다.</li>
+<li><code>2</code>키를 눌러 edit 모드로 변경한다.</li>
+<li><code>3</code>키를 눌러 edit 모드로 변경한다.</li>
+</ol>
+<br>
+<h3 id="21-edit-모드-진입-후-아래와-같이-어느-한-선edge의-위치를-변경하려-할-때-할-일은-"><a class="header" href="#21-edit-모드-진입-후-아래와-같이-어느-한-선edge의-위치를-변경하려-할-때-할-일은-"><strong>21. edit 모드 진입 후 아래와 같이 어느 한 선(edge)의 위치를 변경하려 할 때 할 일은 ?</strong></a></h3>
+<p><img src="3dgraphics/quiz/img/20241117115312.png" alt="" /></p>
+<ol>
+<li><code>L</code>키를 눌러 선편집 모드로 변경한다.</li>
+<li><code>1</code>키를 눌러 선편집 모드로 변경한다.</li>
+<li><code>2</code>키를 눌러 선편집 모드로 변경한다.</li>
+<li><code>3</code>키를 눌러 선편집 모드로 변경한다.</li>
+</ol>
+<br>
+<h3 id="22-edit-모드-진입-후-아래와-같이-어느-한-면face의-크기를-변경하려-할-때-할-일은-"><a class="header" href="#22-edit-모드-진입-후-아래와-같이-어느-한-면face의-크기를-변경하려-할-때-할-일은-"><strong>22. edit 모드 진입 후 아래와 같이 어느 한 면(face)의 크기를 변경하려 할 때 할 일은 ?</strong></a></h3>
+<p><img src="3dgraphics/quiz/img/20241117115727.png" alt="" /></p>
+<ol>
+<li><code>f</code>키를 눌러 면편집 모드로 변경한다.</li>
+<li><code>1</code>키를 눌러 면편집 모드로 변경한다.</li>
+<li><code>2</code>키를 눌러 면편집 모드로 변경한다.</li>
+<li><code>3</code>키를 눌러 면편집 모드로 변경한다.</li>
+</ol>
+<br>
+<h3 id="23-다음과-같이-작업했을-때-결과물은-"><a class="header" href="#23-다음과-같이-작업했을-때-결과물은-"><strong>23. 다음과 같이 작업했을 때 결과물은 ?</strong></a></h3>
+<pre><code>1. cube를 선택한다.
+2. tab 키를 눌러 edit 모드로 들어간다.
+3. 1키를 누른다.
+4. 어느 한 점을 선택한다.
+5. G키를 누른다.
+6. X키를 누른다.
+7. 마우스를 움직인다.
+</code></pre>
+<ol>
+<li></li>
+</ol>
+<p><img src="3dgraphics/quiz/img/20241117120604.png" alt="" /></p>
+<ol start="2">
+<li></li>
+</ol>
+<p><img src="3dgraphics/quiz/img/20241117120710.png" alt="" /></p>
+<ol start="3">
+<li></li>
+</ol>
+<p><img src="3dgraphics/quiz/img/20241117120922.png" alt="" /></p>
+<ol start="4">
+<li></li>
+</ol>
+<p><img src="3dgraphics/quiz/img/20241117121027.png" alt="" /></p>
+<br>
+<h3 id="24-다음과-같은-작업결과물을-만드는-작업을-순서대로-기술했다-이-중-틀린-것은-"><a class="header" href="#24-다음과-같은-작업결과물을-만드는-작업을-순서대로-기술했다-이-중-틀린-것은-"><strong>24. 다음과 같은 작업결과물을 만드는 작업을 순서대로 기술했다. 이 중 틀린 것은 ?</strong></a></h3>
+<p><img src="3dgraphics/quiz/img/20241117121422.png" alt="" /></p>
+<ul>
+<li>
+<p>cube를 선택한다.</p>
+</li>
+<li>
+<p><code>tab</code>키를 눌러 편집 모드로 들어간다.</p>
+</li>
+</ul>
+<ol>
+<li>
+<p><code>3</code>키를 눌러 면편집 모드로 변경한다.</p>
+</li>
+<li>
+<p><code>r</code>키를 눌러 회전 기능을 활성화한다.</p>
+</li>
+<li>
+<p><code>ctrl + z</code>키를 눌러 z축 회전으로 설정한다.</p>
+</li>
+<li>
+<p>마우스를 움직여 선택된 면을 회전한다.</p>
+</li>
+</ol>
+<br>
+<h3 id="25-다음-그림과-같은-편집과-방법을-올바르게-짝지은-것은"><a class="header" href="#25-다음-그림과-같은-편집과-방법을-올바르게-짝지은-것은">25. 다음 그림과 같은 편집과 방법을 올바르게 짝지은 것은?</a></h3>
+<p><img src="3dgraphics/quiz/img/20241117122503.png" alt="" /></p>
+<ol>
+<li>모따기, <code>ctrl + v</code>키</li>
+<li>모깎기, <code>ctrl + v</code>키</li>
+<li>모따기, <code>ctrl + b</code>키</li>
+<li>모깎기, <code>ctrl + b</code>키</li>
+</ol>
+<br>
+<h3 id="26-다음-그림과-같은-편집과-방법을-올바르게-짝지은-것은"><a class="header" href="#26-다음-그림과-같은-편집과-방법을-올바르게-짝지은-것은">26. 다음 그림과 같은 편집과 방법을 올바르게 짝지은 것은?</a></h3>
+<p><img src="3dgraphics/quiz/img/20241117122649.png" alt="" /></p>
+<ol>
+<li>모따기, 모깎기 후 마우스 휠</li>
+<li>모깎기, 모따기 후 마우스 휠</li>
+<li>모따기, 모깎기 후 마우스 휠</li>
+<li>모깎기, 모따기 후 마우스 휠</li>
+</ol>
+<br>
+<h3 id="27-다음-그림과-같이-면을-도출extrude할-떄-사용하는-키는"><a class="header" href="#27-다음-그림과-같이-면을-도출extrude할-떄-사용하는-키는">27. 다음 그림과 같이 면을 도출(extrude)할 떄 사용하는 키는?</a></h3>
+<p><img src="3dgraphics/quiz/img/20241117123521.png" alt="" /></p>
+<ol>
+<li><code>e</code>키</li>
+<li><code>x</code>키</li>
+<li><code>t</code>키</li>
+<li><code>r</code>키</li>
+</ol>
+<br>
+<h3 id="28-면을-도출extrude시킨-직후-이-작업을-취소하려면-ctrl--z-키를-누른다-그런데-이-때-ctrl--z-키를-2번-이상-눌러-그-면을-선택한-것까지-취소해야-한다-그-이유는답-2개"><a class="header" href="#28-면을-도출extrude시킨-직후-이-작업을-취소하려면-ctrl--z-키를-누른다-그런데-이-때-ctrl--z-키를-2번-이상-눌러-그-면을-선택한-것까지-취소해야-한다-그-이유는답-2개">28. 면을 도출(extrude)시킨 직후 이 작업을 취소하려면 ctrl + z 키를 누른다. 그런데 이 때, ctrl + z 키를 2번 이상 눌러 그 면을 선택한 것까지 취소해야 한다. 그 이유는(답 2개)?</a></h3>
+<ol>
+<li>extrude는 메모리를 많이 차지하는 연산이므로</li>
+<li>extrude는 CPU를 많이 차지하는 연산이라 정확하게 제거하지 않으면 앞으로 CPU를 더 많이 사용하기 때문</li>
+<li>extrude는 면을 하나 더 생성하는 거라 나중에 이 면이 반드시 문제가 되기 때문에 완벽하게 제거하려고.</li>
+<li>extrude하면 바로 그 자리에 똑같은 면이 하나 더 생성되기 때문에 면이 하나 더 있는지 알아보기 어렵기 때문</li>
+</ol>
+<br>
+<h3 id="29-fbx는-무엇의-약자인가"><a class="header" href="#29-fbx는-무엇의-약자인가">29. fbx는 무엇의 약자인가?</a></h3>
+<ol>
+<li>약자가 아니다.</li>
+<li><strong>F</strong>ace<strong>B</strong>ook e<strong>X</strong>tension</li>
+<li><strong>F</strong>ilm<strong>B</strong>ook e<strong>X</strong>tension</li>
+<li><strong>F</strong>ilm<strong>B</strong>o<strong>X</strong></li>
+</ol>
+<br><div style="break-before: page; page-break-before: always;"></div><h1 id="blendr-실습-2"><a class="header" href="#blendr-실습-2">blendr 실습 2</a></h1>
+<h3 id="1-평면도-모델링을-위해-blender에-평면도를-올려놓는-메뉴는"><a class="header" href="#1-평면도-모델링을-위해-blender에-평면도를-올려놓는-메뉴는">1. 평면도 모델링을 위해 blender에 평면도를 올려놓는 메뉴는?</a></h3>
+<ol>
+<li>Add &gt; Image &gt; panel</li>
+<li>Add &gt; Image &gt; Reference +++</li>
+<li>Add &gt; Image &gt; Back</li>
+<li>Add &gt; Reference &gt; Image</li>
+</ol>
+<h3 id="2-평면도-모델링을-위해-벽을-세울-때-사용하는-기술은"><a class="header" href="#2-평면도-모델링을-위해-벽을-세울-때-사용하는-기술은">2. 평면도 모델링을 위해 벽을 세울 때 사용하는 기술은?</a></h3>
+<ol>
+<li>loop cut</li>
+<li>extrude +++</li>
+<li>array</li>
+<li>boolean</li>
+</ol>
+<h3 id="3-extrude할-때-영향받는-방향을-x축-방향으로-고정하기-위해-사용하는-방법으로-옳은-것은"><a class="header" href="#3-extrude할-때-영향받는-방향을-x축-방향으로-고정하기-위해-사용하는-방법으로-옳은-것은">3. extrude할 때 영향받는 방향을 x축 방향으로 고정하기 위해 사용하는 방법으로 옳은 것은?</a></h3>
+<ol>
+<li>e 키를 눌러 extrude를 시작하고 x 키를 누른다. +++</li>
+<li>x 키를 눌러 extrude를 시작하고 x 키를 누른다.</li>
+<li>e 키를 눌러 extrude를 시작하고 ctrl + x 키를 누른다.</li>
+<li>x 키를 눌러 extrude를 시작하고 ctrl + x 키를 누른다.</li>
+</ol>
+<h3 id="4-blender에서-벽에-창문-구멍을-내기-위해-사용하는-기술은"><a class="header" href="#4-blender에서-벽에-창문-구멍을-내기-위해-사용하는-기술은">4. blender에서 벽에 창문 구멍을 내기 위해 사용하는 기술은?</a></h3>
+<ol>
+<li>loop cut</li>
+<li>select</li>
+<li>array</li>
+<li>boolean +++</li>
+</ol>
+<h3 id="5-디즈니에서-처음-상업화해-사용한-기술로-재질을-시각화하기-위해-물리적인-속성을-이용하는-통일된-표현법은"><a class="header" href="#5-디즈니에서-처음-상업화해-사용한-기술로-재질을-시각화하기-위해-물리적인-속성을-이용하는-통일된-표현법은">5. 디즈니에서 처음 상업화해 사용한 기술로, 재질을 시각화하기 위해 물리적인 속성을 이용하는 통일된 표현법은?</a></h3>
+<ol>
+<li>material</li>
+<li>PBR +++</li>
+<li>metalic</li>
+<li>physical</li>
+</ol>
+<h3 id="6-다음-중-pbr의-속성에-대한-설명-중-틀린-것은"><a class="header" href="#6-다음-중-pbr의-속성에-대한-설명-중-틀린-것은">6. 다음 중 PBR의 속성에 대한 설명 중 틀린 것은?</a></h3>
+<ol>
+<li>base color: 물체 고유색 표현</li>
+<li>roughness: 표면의 거친 정도</li>
+<li>metalic: 금속의 느낌인 정도</li>
+<li>round: 표면의 둥근 정도 +++</li>
+</ol>
+<h3 id="7-model의-겉면에-붙이는-이미지를-무엇이라-부르나"><a class="header" href="#7-model의-겉면에-붙이는-이미지를-무엇이라-부르나">7. model의 겉면에 붙이는 이미지를 무엇이라 부르나?</a></h3>
+<ol>
+<li>texture +++</li>
+<li>picture</li>
+<li>outer</li>
+<li>uv</li>
+</ol>
+<h3 id="8-육면체-모델의-경우-각-면을-하나씩-전개도처럼-펴서-각각의-면에-이미지를-그린-후-다시-입히는-기법은"><a class="header" href="#8-육면체-모델의-경우-각-면을-하나씩-전개도처럼-펴서-각각의-면에-이미지를-그린-후-다시-입히는-기법은">8. 육면체 모델의 경우, 각 면을 하나씩 전개도처럼 펴서 각각의 면에 이미지를 그린 후 다시 입히는 기법은?</a></h3>
+<ol>
+<li>texture</li>
+<li>picture</li>
+<li>outer</li>
+<li>uv +++</li>
+</ol>
+<h3 id="9-모델의-겉면에-자잘한-상처나-결이-있는-경우-이걸-모델에-전부-다-반영하면-처리-속도가-너무-느려져-이를-막고자-그런-자잘한-상처나-결을-그림자로-표현해-입체감을-주는-방법으로-실사-느낌을-주는-효과적인-기법은"><a class="header" href="#9-모델의-겉면에-자잘한-상처나-결이-있는-경우-이걸-모델에-전부-다-반영하면-처리-속도가-너무-느려져-이를-막고자-그런-자잘한-상처나-결을-그림자로-표현해-입체감을-주는-방법으로-실사-느낌을-주는-효과적인-기법은">9. 모델의 겉면에 자잘한 상처나 결이 있는 경우, 이걸 모델에 전부 다 반영하면 처리 속도가 너무 느려져, 이를 막고자 그런 자잘한 상처나 결을 그림자로 표현해 입체감을 주는 방법으로 실사 느낌을 주는 효과적인 기법은?</a></h3>
+<ol>
+<li>roughness</li>
+<li>material</li>
+<li>normal map +++</li>
+<li>uv</li>
+</ol>
+<h3 id="10-light-중-전구와-같은-효과의-조명이며-있는-곳에서-멀어질수록-점점-어두워지는-조명은"><a class="header" href="#10-light-중-전구와-같은-효과의-조명이며-있는-곳에서-멀어질수록-점점-어두워지는-조명은">10. light 중 전구와 같은 효과의 조명이며, 있는 곳에서 멀어질수록 점점 어두워지는 조명은?</a></h3>
+<ol>
+<li>point +++</li>
+<li>sun</li>
+<li>spot</li>
+<li>area</li>
+</ol>
+<h3 id="11-light-중-공연장의-스포트라이트-느낌을-주는-조명은"><a class="header" href="#11-light-중-공연장의-스포트라이트-느낌을-주는-조명은">11. light 중 공연장의 스포트라이트 느낌을 주는 조명은?</a></h3>
+<ol>
+<li>point</li>
+<li>sun</li>
+<li>spot +++</li>
+<li>area</li>
+</ol>
+<h3 id="12-light-중-멀리-있는-태양과-같이-위치는-전혀-상관없고-각도만-중요하며-화면-전체에-일정한-밝기를-제공하는-조명은"><a class="header" href="#12-light-중-멀리-있는-태양과-같이-위치는-전혀-상관없고-각도만-중요하며-화면-전체에-일정한-밝기를-제공하는-조명은">12. light 중 멀리 있는 태양과 같이 위치는 전혀 상관없고 각도만 중요하며 화면 전체에 일정한 밝기를 제공하는 조명은?</a></h3>
+<ol>
+<li>point</li>
+<li>sun +++</li>
+<li>spot</li>
+<li>area</li>
+</ol>
+<h3 id="13-light-중-창문을-통해-빛이-들어오거나-tv나-모니터에서-퍼져나오는-빛을-표현할-때-사용하는-조명은"><a class="header" href="#13-light-중-창문을-통해-빛이-들어오거나-tv나-모니터에서-퍼져나오는-빛을-표현할-때-사용하는-조명은">13. light 중 창문을 통해 빛이 들어오거나 TV나 모니터에서 퍼져나오는 빛을 표현할 때 사용하는 조명은?</a></h3>
+<ol>
+<li>point</li>
+<li>sun</li>
+<li>spot</li>
+<li>area +++</li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="blender-실습-3"><a class="header" href="#blender-실습-3">blender 실습 3</a></h1>
+<h3 id="1-3d-그래픽에서-모델링-후-실제와-똑같이-텍스처를-입혀도-실사와-동떨어진-3d-그래픽이라는-느낌이-드는데-그-이유는-겉표면이-아주-매끈하고-흠집-결-등이-없기-때문이다-실제-모델에-흠집-결-등을-추가하지-않아도-흠집-결-등으로부터-생기는-사소한-그림자를-만들어-작은-요철-흠집-결-등을-표현해-실사같은-느낌을-주는-기술은"><a class="header" href="#1-3d-그래픽에서-모델링-후-실제와-똑같이-텍스처를-입혀도-실사와-동떨어진-3d-그래픽이라는-느낌이-드는데-그-이유는-겉표면이-아주-매끈하고-흠집-결-등이-없기-때문이다-실제-모델에-흠집-결-등을-추가하지-않아도-흠집-결-등으로부터-생기는-사소한-그림자를-만들어-작은-요철-흠집-결-등을-표현해-실사같은-느낌을-주는-기술은">1. 3D 그래픽에서 모델링 후 실제와 똑같이 텍스처를 입혀도 실사와 동떨어진 3D 그래픽이라는 느낌이 드는데 그 이유는 겉표면이 아주 매끈하고 흠집, 결 등이 없기 때문이다. 실제 모델에 흠집, 결 등을 추가하지 않아도, 흠집, 결 등으로부터 생기는 사소한 그림자를 만들어 작은 요철, 흠집, 결 등을 표현해 실사같은 느낌을 주는 기술은?</a></h3>
+<ol>
+<li>render</li>
+<li>material</li>
+<li>spot</li>
+<li>normal map +++</li>
+</ol>
+<h3 id="2-blender-에서-제공하는-렌더링-엔진-중-반사-그림자-처리-등에-실제-물리와-비슷한-처리를-하기보다는-최대한-빨리-최대한-비슷하게-처리하는데-중점을-둔-렌더-엔진은"><a class="header" href="#2-blender-에서-제공하는-렌더링-엔진-중-반사-그림자-처리-등에-실제-물리와-비슷한-처리를-하기보다는-최대한-빨리-최대한-비슷하게-처리하는데-중점을-둔-렌더-엔진은">2. blender 에서 제공하는 렌더링 엔진 중 반사, 그림자 처리 등에 실제 물리와 비슷한 처리를 하기보다는 최대한 빨리 최대한 비슷하게 처리하는데 중점을 둔 렌더 엔진은?</a></h3>
+<ol>
+<li>defalut 엔진</li>
+<li>eevee +++</li>
+<li>cycles</li>
+<li>v-ray</li>
+</ol>
+<h3 id="3-blender-에서-기본-제공하는-렌더링-엔진-중-반사-그림자-처리-등에-실제-물리와-비슷한-처리를-해-시간은-매우-오래-걸리지만-실사와-비슷한-결과물을-만들어-주는-렌더-엔진은"><a class="header" href="#3-blender-에서-기본-제공하는-렌더링-엔진-중-반사-그림자-처리-등에-실제-물리와-비슷한-처리를-해-시간은-매우-오래-걸리지만-실사와-비슷한-결과물을-만들어-주는-렌더-엔진은">3. blender 에서 기본 제공하는 렌더링 엔진 중 반사, 그림자 처리 등에 실제 물리와 비슷한 처리를 해 시간은 매우 오래 걸리지만 실사와 비슷한 결과물을 만들어 주는 렌더 엔진은?</a></h3>
+<ol>
+<li>defalut 엔진</li>
+<li>eevee</li>
+<li>cycles +++</li>
+<li>v-ray</li>
+</ol>
+<h3 id="4-blender에서-특정-영역에-안개같은-입자들이-차-있는-느낌을-주고-싶을-때-사용하는-기술은"><a class="header" href="#4-blender에서-특정-영역에-안개같은-입자들이-차-있는-느낌을-주고-싶을-때-사용하는-기술은">4. blender에서 특정 영역에 안개같은 입자들이 차 있는 느낌을 주고 싶을 때 사용하는 기술은?</a></h3>
+<ol>
+<li>area</li>
+<li>space</li>
+<li>fog</li>
+<li>volume +++</li>
+</ol>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="ai를-이용한-드론-운용"><a class="header" href="#ai를-이용한-드론-운용">AI를 이용한 드론 운용</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="자료-1"><a class="header" href="#자료-1">자료</a></h1>
 <h2 id="lm-studio와-엑셀의-연동"><a class="header" href="#lm-studio와-엑셀의-연동">LM Studio와 엑셀의 연동</a></h2>
@@ -7975,10 +8435,10 @@ export default DidTime
 <h3 id="사용법"><a class="header" href="#사용법">사용법</a></h3>
 <ol>
 <li>
-<p>파일 다운로드: <a href="droneai/sample/./ai_excel.xlsm">엑셀 파일</a></p>
+<p>파일 다운로드: <a href="droneai/sample/./ai_excel.zip">엑셀 파일</a></p>
 </li>
 <li>
-<p>파일 열리는 데 한참 걸림(1분. 열릴 때까지 기다리지)</p>
+<p>압축풀고 <code>ai_excel.xlsm</code> 파일을 실행한다. 파일 열리는 데 한참 걸림(1분. 열릴 때까지 기다리지)</p>
 </li>
 <li>
 <p>ALT + F11을 눌러 VBA 모드로 들어간다.</p>

@@ -24,29 +24,41 @@
         <link rel="stylesheet" href="../../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="../../highlight.css">
-        <link rel="stylesheet" href="../../tomorrow-night.css">
-        <link rel="stylesheet" href="../../ayu-highlight.css">
+        <link rel="stylesheet" id="highlight-css" href="../../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
         <link rel="stylesheet" href="../../custom.css">
 
 
-        <!-- Provide site root to javascript -->
+        <!-- Provide site root and default themes to javascript -->
         <script>
-            var path_to_root = "../../";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+            const path_to_root = "../../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../../toc.js"></script>
     </head>
     <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
     <div id="body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
             try {
-                var theme = localStorage.getItem('mdbook-theme');
-                var sidebar = localStorage.getItem('mdbook-sidebar');
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
 
                 if (theme.startsWith('"') && theme.endsWith('"')) {
                     localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
@@ -60,7 +72,8 @@
 
         <!-- Set the theme before any content is loaded, prevents flash -->
         <script>
-            var theme;
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
             const html = document.documentElement;
@@ -73,8 +86,8 @@
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var sidebar = null;
-            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
@@ -110,13 +123,14 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
                         </ul>
-                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
                             <i class="fa fa-search"></i>
                         </button>
                     </div>
@@ -157,20 +171,20 @@
 <h3 id="1-평면도-모델링을-위해-blender에-평면도를-올려놓는-메뉴는"><a class="header" href="#1-평면도-모델링을-위해-blender에-평면도를-올려놓는-메뉴는">1. 평면도 모델링을 위해 blender에 평면도를 올려놓는 메뉴는?</a></h3>
 <ol>
 <li>Add &gt; Image &gt; panel</li>
-<li>Add &gt; Image &gt; Reference +++</li>
+<li>Add &gt; Image &gt; Reference</li>
 <li>Add &gt; Image &gt; Back</li>
 <li>Add &gt; Reference &gt; Image</li>
 </ol>
 <h3 id="2-평면도-모델링을-위해-벽을-세울-때-사용하는-기술은"><a class="header" href="#2-평면도-모델링을-위해-벽을-세울-때-사용하는-기술은">2. 평면도 모델링을 위해 벽을 세울 때 사용하는 기술은?</a></h3>
 <ol>
 <li>loop cut</li>
-<li>extrude +++</li>
+<li>extrude</li>
 <li>array</li>
 <li>boolean</li>
 </ol>
 <h3 id="3-extrude할-때-영향받는-방향을-x축-방향으로-고정하기-위해-사용하는-방법으로-옳은-것은"><a class="header" href="#3-extrude할-때-영향받는-방향을-x축-방향으로-고정하기-위해-사용하는-방법으로-옳은-것은">3. extrude할 때 영향받는 방향을 x축 방향으로 고정하기 위해 사용하는 방법으로 옳은 것은?</a></h3>
 <ol>
-<li>e 키를 눌러 extrude를 시작하고 x 키를 누른다. +++</li>
+<li>e 키를 눌러 extrude를 시작하고 x 키를 누른다.</li>
 <li>x 키를 눌러 extrude를 시작하고 x 키를 누른다.</li>
 <li>e 키를 눌러 extrude를 시작하고 ctrl + x 키를 누른다.</li>
 <li>x 키를 눌러 extrude를 시작하고 ctrl + x 키를 누른다.</li>
@@ -180,12 +194,12 @@
 <li>loop cut</li>
 <li>select</li>
 <li>array</li>
-<li>boolean +++</li>
+<li>boolean</li>
 </ol>
 <h3 id="5-디즈니에서-처음-상업화해-사용한-기술로-재질을-시각화하기-위해-물리적인-속성을-이용하는-통일된-표현법은"><a class="header" href="#5-디즈니에서-처음-상업화해-사용한-기술로-재질을-시각화하기-위해-물리적인-속성을-이용하는-통일된-표현법은">5. 디즈니에서 처음 상업화해 사용한 기술로, 재질을 시각화하기 위해 물리적인 속성을 이용하는 통일된 표현법은?</a></h3>
 <ol>
 <li>material</li>
-<li>PBR +++</li>
+<li>PBR</li>
 <li>metalic</li>
 <li>physical</li>
 </ol>
@@ -194,11 +208,11 @@
 <li>base color: 물체 고유색 표현</li>
 <li>roughness: 표면의 거친 정도</li>
 <li>metalic: 금속의 느낌인 정도</li>
-<li>round: 표면의 둥근 정도 +++</li>
+<li>round: 표면의 둥근 정도</li>
 </ol>
 <h3 id="7-model의-겉면에-붙이는-이미지를-무엇이라-부르나"><a class="header" href="#7-model의-겉면에-붙이는-이미지를-무엇이라-부르나">7. model의 겉면에 붙이는 이미지를 무엇이라 부르나?</a></h3>
 <ol>
-<li>texture +++</li>
+<li>texture</li>
 <li>picture</li>
 <li>outer</li>
 <li>uv</li>
@@ -208,18 +222,18 @@
 <li>texture</li>
 <li>picture</li>
 <li>outer</li>
-<li>uv +++</li>
+<li>uv</li>
 </ol>
 <h3 id="9-모델의-겉면에-자잘한-상처나-결이-있는-경우-이걸-모델에-전부-다-반영하면-처리-속도가-너무-느려져-이를-막고자-그런-자잘한-상처나-결을-그림자로-표현해-입체감을-주는-방법으로-실사-느낌을-주는-효과적인-기법은"><a class="header" href="#9-모델의-겉면에-자잘한-상처나-결이-있는-경우-이걸-모델에-전부-다-반영하면-처리-속도가-너무-느려져-이를-막고자-그런-자잘한-상처나-결을-그림자로-표현해-입체감을-주는-방법으로-실사-느낌을-주는-효과적인-기법은">9. 모델의 겉면에 자잘한 상처나 결이 있는 경우, 이걸 모델에 전부 다 반영하면 처리 속도가 너무 느려져, 이를 막고자 그런 자잘한 상처나 결을 그림자로 표현해 입체감을 주는 방법으로 실사 느낌을 주는 효과적인 기법은?</a></h3>
 <ol>
 <li>roughness</li>
 <li>material</li>
-<li>normal map +++</li>
+<li>normal map</li>
 <li>uv</li>
 </ol>
 <h3 id="10-light-중-전구와-같은-효과의-조명이며-있는-곳에서-멀어질수록-점점-어두워지는-조명은"><a class="header" href="#10-light-중-전구와-같은-효과의-조명이며-있는-곳에서-멀어질수록-점점-어두워지는-조명은">10. light 중 전구와 같은 효과의 조명이며, 있는 곳에서 멀어질수록 점점 어두워지는 조명은?</a></h3>
 <ol>
-<li>point +++</li>
+<li>point</li>
 <li>sun</li>
 <li>spot</li>
 <li>area</li>
@@ -228,13 +242,13 @@
 <ol>
 <li>point</li>
 <li>sun</li>
-<li>spot +++</li>
+<li>spot</li>
 <li>area</li>
 </ol>
 <h3 id="12-light-중-멀리-있는-태양과-같이-위치는-전혀-상관없고-각도만-중요하며-화면-전체에-일정한-밝기를-제공하는-조명은"><a class="header" href="#12-light-중-멀리-있는-태양과-같이-위치는-전혀-상관없고-각도만-중요하며-화면-전체에-일정한-밝기를-제공하는-조명은">12. light 중 멀리 있는 태양과 같이 위치는 전혀 상관없고 각도만 중요하며 화면 전체에 일정한 밝기를 제공하는 조명은?</a></h3>
 <ol>
 <li>point</li>
-<li>sun +++</li>
+<li>sun</li>
 <li>spot</li>
 <li>area</li>
 </ol>
@@ -243,12 +257,12 @@
 <li>point</li>
 <li>sun</li>
 <li>spot</li>
-<li>area +++</li>
+<li>area</li>
 </ol>
 <h3 id="14-blender에서-light를-모두-없애면-완전히-검은색으로만-렌더링된다"><a class="header" href="#14-blender에서-light를-모두-없애면-완전히-검은색으로만-렌더링된다">14. blender에서 light를 모두 없애면 완전히 검은색으로만 렌더링된다?</a></h3>
 <ol>
 <li>O</li>
-<li>X +++</li>
+<li>X</li>
 </ol>
 
                     </main>

@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>1. 파이썬의 자료형 - Eugene&#x27;s Board</title>
+        <title>애니메이션 - Eugene&#x27;s Board</title>
 
 
         <!-- Custom HTML head -->
@@ -167,167 +167,20 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="연습문제---파이썬-자료형"><a class="header" href="#연습문제---파이썬-자료형">연습문제 - 파이썬 자료형</a></h1>
-<h3 id="1-apple-문자열의-길이를-구하는-코드를-작성하시오"><a class="header" href="#1-apple-문자열의-길이를-구하는-코드를-작성하시오"><strong>1. “apple” 문자열의 길이를 구하는 코드를 작성하시오.</strong></a></h3>
-<details>
-<summary>답(안) 1</summary>
-<pre><code class="language-python">a = "apple"
-b = len(a)
-print(b)
-</code></pre>
-</details>
-<details>
-<summary>답(안) 2</summary>
-<pre><code class="language-python">a = "apple"
-print(len(a))
-</code></pre>
-</details>
-<details>
-<summary>답(안) 3</summary>
-<pre><code class="language-python">print(len("apple"))
-</code></pre>
-</details>
-<br>
-<h3 id="2-오늘-기온은-30도와-같이-보여지는-코드를-작성하시오-단-30은-숫자형임"><a class="header" href="#2-오늘-기온은-30도와-같이-보여지는-코드를-작성하시오-단-30은-숫자형임"><strong>2. “오늘 기온은 30도“와 같이 보여지는 코드를 작성하시오. 단 30은 숫자형임.</strong></a></h3>
-<details>
-<summary>답(안) 1</summary>
-<pre><code class="language-python">a = "오늘 기온은 "
-b = 30
-c = a + str(b) + "도"
-print(c)
-</code></pre>
-</details>
-<details>
-<summary>답(안) 2</summary>
-<pre><code class="language-python">a = "오늘 기온은 {0}도".format(30)
-print(a)
-</code></pre>
-</details>
-<br>
-<h3 id="3-오늘-기온은-30도-습도는-65와-같이-보여지는-코드를-작성하시오-단-30-65는-숫자형임"><a class="header" href="#3-오늘-기온은-30도-습도는-65와-같이-보여지는-코드를-작성하시오-단-30-65는-숫자형임"><strong>3. “오늘 기온은 30도, 습도는 65%“와 같이 보여지는 코드를 작성하시오. 단 30, 65는 숫자형임.</strong></a></h3>
-<details>
-<summary>답(안) 1</summary>
-<pre><code class="language-python">a = "오늘 기온은 "
-b = 30
-c = "도, "
-d = "습도는 "
-e = 65
-f = "%"
-
-g = a + str(b) + c + d + str(e) + f
-
-print(g)
-</code></pre>
-</details>
-<details>
-<summary>답(안) 2</summary>
-<pre><code class="language-python">a = "오늘 기온은 {0}도, 습도는 {1}%".format(30, 65)
-print(a)
-</code></pre>
-</details>
-<br>
-<h3 id="4-a와-같은-리스트를-b와-같은-리스트로-바꾸는-코드를-작성하시오"><a class="header" href="#4-a와-같은-리스트를-b와-같은-리스트로-바꾸는-코드를-작성하시오"><strong>4. a와 같은 리스트를 b와 같은 리스트로 바꾸는 코드를 작성하시오.</strong></a></h3>
-<pre><code class="language-python">a = ["국어", "영어", "수학", "과학"]
-b = ["국어", "불어", "수학", "과학"]
-</code></pre>
-<details>
-<summary>답(안)</summary>
-<pre><code class="language-python">a = ["국어", "영어", "수학", "과학"]
-a[1] = "불어"
-print(a)
-</code></pre>
-</details>
-<br>
-<h3 id="5-a와-같은-리스트를-b와-같은-리스트로-바꾸는-코드를-작성하시오"><a class="header" href="#5-a와-같은-리스트를-b와-같은-리스트로-바꾸는-코드를-작성하시오"><strong>5. a와 같은 리스트를 b와 같은 리스트로 바꾸는 코드를 작성하시오.</strong></a></h3>
-<pre><code class="language-python">a = ["국어", "영어", "수학", "과학"]
-b = ["국어", "영어", "수학", "과학", "체육"]
-</code></pre>
-<details>
-<summary>답(안) </summary>
-<pre><code class="language-python">a = ["국어", "영어", "수학", "과학"]
-a.append("체육")
-print(a)
-</code></pre>
-</details>
-<br>
-<h3 id="6-a와-같은-리스트를-b와-같은-리스트로-바꾸는-코드를-작성하시오"><a class="header" href="#6-a와-같은-리스트를-b와-같은-리스트로-바꾸는-코드를-작성하시오"><strong>6. a와 같은 리스트를 b와 같은 리스트로 바꾸는 코드를 작성하시오.</strong></a></h3>
-<pre><code class="language-python">a = ["국어", "영어", "수학", "과학"]
-b = ["국어", "음악", "영어", "수학", "과학"]
-</code></pre>
-<details>
-<summary>답(안) </summary>
-<pre><code class="language-python">a = ["국어", "영어", "수학", "과학"]
-a.insert(1, "음악")
-print(a)
-</code></pre>
-</details>
-<br>
-<h3 id="7-a와-같은-리스트를-b와-같은-리스트로-바꾸는-코드를-작성하시오"><a class="header" href="#7-a와-같은-리스트를-b와-같은-리스트로-바꾸는-코드를-작성하시오"><strong>7. a와 같은 리스트를 b와 같은 리스트로 바꾸는 코드를 작성하시오.</strong></a></h3>
-<pre><code class="language-python">a = ["국어", "영어", "수학", "과학"]
-b = ["국어", "음악", "영어", "과학"]
-</code></pre>
-<details>
-<summary>답(안) 1</summary>
-<pre><code class="language-python">a = ["국어", "영어", "수학", "과학"]
-a.insert(1, "음악")
-del a[3]
-print(a)
-</code></pre>
-</details>
-<details>
-<summary>답(안) 2</summary>
-<pre><code class="language-python">a = ["국어", "영어", "수학", "과학"]
-del a[2]
-a.insert(1, "음악")
-print(a)
-</code></pre>
-</details>
-<br>
-<h3 id="8-a와-같은-리스트를-정렬하여-b와-같은-리스트로-만드는-코드를-작성하시오"><a class="header" href="#8-a와-같은-리스트를-정렬하여-b와-같은-리스트로-만드는-코드를-작성하시오"><strong>8. a와 같은 리스트를 정렬하여 b와 같은 리스트로 만드는 코드를 작성하시오.</strong></a></h3>
-<pre><code class="language-python">a = ["국어", "영어", "수학", "과학"]
-b = ['과학', '국어', '수학', '영어']
-</code></pre>
-<details>
-<summary>답(안)</summary>
-<pre><code class="language-python">a = ["국어", "영어", "수학", "과학"]
-a.sort()
-print(a)
-</code></pre>
-</details>
-<br>
-<h3 id="9-a와-같은-리스트를-역순으로-바꿔서정렬아님-b와-같은-리스트로-만드는-코드를-작성하시오"><a class="header" href="#9-a와-같은-리스트를-역순으로-바꿔서정렬아님-b와-같은-리스트로-만드는-코드를-작성하시오"><strong>9. a와 같은 리스트를 역순으로 바꿔서(정렬아님) b와 같은 리스트로 만드는 코드를 작성하시오.</strong></a></h3>
-<pre><code class="language-python">a = ["국어", "영어", "수학", "과학"]
-b = ['과학', '수학', '영어', '국어']
-</code></pre>
-<details>
-<summary>답(안)</summary>
-<pre><code class="language-python">a = ["국어", "영어", "수학", "과학"]
-a.sort()
-print(a)
-</code></pre>
-</details>
-<br>
-<h3 id="10-a와-같은-리스트를-역순으로-정렬해서-b와-같은-리스트로-만드는-코드를-작성하시오"><a class="header" href="#10-a와-같은-리스트를-역순으로-정렬해서-b와-같은-리스트로-만드는-코드를-작성하시오"><strong>10. a와 같은 리스트를 역순으로 정렬해서 b와 같은 리스트로 만드는 코드를 작성하시오.</strong></a></h3>
-<pre><code class="language-python">a = ["국어", "영어", "수학", "과학"]
-b = ['영어', '수학', '국어', '과학']
-</code></pre>
-<details>
-<summary>답(안)</summary>
-<pre><code class="language-python">a = ["국어", "영어", "수학", "과학"]
-a.sort()
-a.reverse()
-print(a)
-</code></pre>
-</details>
+                        <h1 id="애니메이션"><a class="header" href="#애니메이션">애니메이션</a></h1>
+<h2 id="주사위-굴리기"><a class="header" href="#주사위-굴리기">주사위 굴리기</a></h2>
+<iframe width="800" height="450" src="https://www.youtube.com/embed/LW9EVQzRYMM?si=dw2jhaafF5RmMtTi" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<h2 id="주사위-굴리기-결과-동영상"><a class="header" href="#주사위-굴리기-결과-동영상">주사위 굴리기 결과 동영상</a></h2>
+<iframe width="800" height="450" src="https://www.youtube.com/embed/4YTQkijOcKA?si=aqMiBSrTJ3R92sId" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../../python_2024/practice/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../3dgraphics/tutorials/tutorial-08.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../../python_2024/practice/python-02.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../../3dgraphics/quiz/quiz.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -337,11 +190,11 @@ print(a)
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../../python_2024/practice/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../3dgraphics/tutorials/tutorial-08.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../../python_2024/practice/python-02.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../../3dgraphics/quiz/quiz.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

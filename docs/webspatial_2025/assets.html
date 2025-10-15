@@ -183,6 +183,59 @@
 <ul>
 <li>pgAdmin 공식 홈페이지: <a href="https://www.pgadmin.org" title="" target="_blank">https://www.pgadmin.org</a></li>
 </ul>
+<br>
+<h2 id="qgis에서-점-표시한-shp-파일-만들기"><a class="header" href="#qgis에서-점-표시한-shp-파일-만들기">QGIS에서 점 표시한 shp 파일 만들기</a></h2>
+<h3 id="qgis-마우스-기본-사용법"><a class="header" href="#qgis-마우스-기본-사용법">QGIS 마우스 기본 사용법</a></h3>
+<ul>
+<li><strong>화면 이동</strong> : 마우스 휠 누르고 움직이기</li>
+</ul>
+<br>
+<h3 id="qgis-점point-표시한-shp-파일-만들기"><a class="header" href="#qgis-점point-표시한-shp-파일-만들기">QGIS 점(point) 표시한 shp 파일 만들기</a></h3>
+<p>다음 순서대로 진행한다.</p>
+<h4 id="1-새-프로젝트-만들기"><a class="header" href="#1-새-프로젝트-만들기">1. 새 프로젝트 만들기</a></h4>
+<p><img src="img/20251015170113.png" alt="" /></p>
+<p>[새 프로젝트] 아이콘을 클릭해 새 프로젝트를 만든다.</p>
+<br>
+<h4 id="2-openstreemap-밑에-깔기"><a class="header" href="#2-openstreemap-밑에-깔기">2. OpenStreeMap 밑에 깔기</a></h4>
+<p><img src="img/20251015170334.png" alt="" /></p>
+<p>XYZ Tiles &gt; OpenStreetMap 을 더블클릭한다.</p>
+<br>
+<h4 id="3-shp-파일을-생성하고-그걸-이용하는-레이어-추가"><a class="header" href="#3-shp-파일을-생성하고-그걸-이용하는-레이어-추가">3. shp 파일을 생성하고, 그걸 이용하는 레이어 추가</a></h4>
+<p><img src="img/20251015170537.png" alt="" /></p>
+<p>[새 세이프파일 레이어] 툴바를 클릭한다.</p>
+<p><img src="img/20251015170756.png" alt="" /></p>
+<p>[…] 버튼을 클릭한다.</p>
+<p><img src="img/20251015170838.png" alt="" /></p>
+<p>shp 파일명을 정해준다.</p>
+<p><img src="img/20251015170940.png" alt="" /></p>
+<p>위 그림 부분을 다음과 같이 세팅한다.</p>
+<ul>
+<li>파일 인코딩: UTF-8</li>
+<li>도형 유형: 포인트</li>
+<li>추가 차원: 없음</li>
+<li>좌표계: EPSG:4326 - WGS 84</li>
+</ul>
+<p><img src="img/20251015171211.png" alt="" /></p>
+<p>다음의 방법으로 필드를 추가한다.</p>
+<ul>
+<li>이름: name</li>
+</ul>
+<p>이렇게 추가한 필드가 각 점의 정보를 저장하는데 사용된다.</p>
+<p>점을 하나 추가할 때마다, 필드 목록에 있는 id와 name을 입력해야 한다.</p>
+<br>
+<h4 id="4-레이어-편집-모드로-변경"><a class="header" href="#4-레이어-편집-모드로-변경">4. 레이어 편집 모드로 변경</a></h4>
+<p><img src="img/20251015171451.png" alt="" /></p>
+<br>
+<h4 id="5-점-추가"><a class="header" href="#5-점-추가">5. 점 추가</a></h4>
+<p><img src="img/20251015171820.png" alt="" /></p>
+<p>점 추가 버튼을 누른 다음,</p>
+<p>원하는 위치에 점을 추가할 수 있다.</p>
+<p><img src="img/20251015171609.png" alt="" /></p>
+<ul>
+<li>[1] 클릭한 위치에 점이 추가되고</li>
+<li>[2] 점이 추가되자마자 위와 같은 속성 창이 나타나서 자료를 입력할 수 있다. id값은 점을 찍을 때마다 중복된 값이 입력되지 않도록 1, 2, 3, 4, 5, … 으로 알아서 점마다 다른 값을입력해야 한다.<br />
+name 항목은 조금 전에 추가한 그 항목이다.</li>
+</ul>
 
                     </main>
 

@@ -3456,70 +3456,175 @@ console.log(c)
 <br>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="연습문제-답안"><a class="header" href="#연습문제-답안">연습문제 답안</a></h1>
 <h3 id="1"><a class="header" href="#1">1.</a></h3>
-<pre><code class="language-js">a = 10
-b = 20
-c = a + b
-console.log(c)
+<pre><code class="language-js">A = 10
+B = 20
+C = A + B
+console.log(C)
 </code></pre>
 <br>
 <h3 id="2"><a class="header" href="#2">2.</a></h3>
-<pre><code class="language-js">
+<pre><code class="language-js">A = 15
+B = 6
+C = A % B
+console.log(C)
 </code></pre>
 <br>
 <h3 id="3"><a class="header" href="#3">3.</a></h3>
-<pre><code class="language-js">
+<pre><code class="language-js">A = true
+B = false
+console.log("A = " + A)
+console.log("B = " + B)
 </code></pre>
 <br>
 <h3 id="4"><a class="header" href="#4">4.</a></h3>
-<pre><code class="language-js">
+<pre><code class="language-js">A = 3 &lt; 5
+B = 3 &gt; 5
+console.log("A = " + A)
+console.log("B = " + B)
 </code></pre>
 <br>
 <h3 id="5"><a class="header" href="#5">5.</a></h3>
-<pre><code class="language-js">
+<pre><code class="language-js">A = "apple"
+B = "2025"
+console.log("A = " + A)
+console.log("B = " + B)
 </code></pre>
 <br>
 <h3 id="6"><a class="header" href="#6">6.</a></h3>
-<pre><code class="language-js">
+<pre><code class="language-js">A = "apple"
+B = "2025"
+C = A + B
+console.log("C = " + C)
 </code></pre>
 <br>
 <h3 id="7"><a class="header" href="#7">7.</a></h3>
-<pre><code class="language-js">
+<pre><code class="language-js">A = "apple"
+B = "2025"
+C = A == B
+console.log("C = " + C)
 </code></pre>
 <br>
 <h3 id="8"><a class="header" href="#8">8.</a></h3>
-<pre><code class="language-js">
+<pre><code class="language-js">function func(A, B)
+{
+  C = A * B
+  return C
+}
+
+ret = func(3, 5)
+console.log("ret = " + ret)
 </code></pre>
 <br>
 <h3 id="9"><a class="header" href="#9">9.</a></h3>
-<pre><code class="language-js">
+<pre><code class="language-js">function func(A, B, C)
+{
+  D = A + B + C
+  return D
+}
+
+ret = func(3, 5, 4)
+console.log("ret = " + ret)
 </code></pre>
 <br>
 <h3 id="10"><a class="header" href="#10">10.</a></h3>
-<pre><code class="language-js">
+<pre><code class="language-js">function func(A, B)
+{
+  if (A &lt; B)
+    return A
+  else
+    return B
+}
+
+ret = func(3, 5)
+console.log("ret = " + ret)
 </code></pre>
 <br>
 <h3 id="11"><a class="header" href="#11">11.</a></h3>
-<pre><code class="language-js">
+<pre><code class="language-js">function func(A, B)
+{
+  if (A &lt; B)
+    return B
+  else
+    return A
+}
+
+ret = func(3, 5)
+console.log("ret = " + ret)
 </code></pre>
 <br>
 <h3 id="12"><a class="header" href="#12">12.</a></h3>
-<pre><code class="language-js">
+<pre><code class="language-js">function func(A, B, C)
+{
+  if (A &lt; B)
+    if (B &lt; C)
+      return C
+    else
+      return B
+  else
+      return A
+
+}
+
+ret = func(3, 5, 6)
+console.log("ret = " + ret)
 </code></pre>
 <br>
 <h3 id="13"><a class="header" href="#13">13.</a></h3>
-<pre><code class="language-js">
+<pre><code class="language-js">function func(A, B, C)
+{
+  if (B &lt; C)
+    if (A &lt; B)
+      return A
+    else
+      return B
+  else
+      return C
+
+}
+
+ret = func(3, 5, 6)
+console.log("ret = " + ret)
 </code></pre>
 <br>
 <h3 id="14"><a class="header" href="#14">14.</a></h3>
-<pre><code class="language-js">
+<pre><code class="language-js">&lt;script&gt;
+function func()
+{
+  console.log("clock")
+}
+&lt;/script&gt;
+
+&lt;button onclick="func()"&gt;시계&lt;/button&gt;
 </code></pre>
 <br>
 <h3 id="15"><a class="header" href="#15">15.</a></h3>
-<pre><code class="language-js">
+<pre><code class="language-js">&lt;script&gt;
+function func1()
+{
+  console.log("clock")
+}
+
+function func2()
+{
+  console.log("book")
+}
+&lt;/script&gt;
+
+&lt;button onclick="func1()"&gt;시계&lt;/button&gt;
+&lt;button onclick="func2()"&gt;책&lt;/button&gt;
 </code></pre>
 <br>
 <h3 id="16"><a class="header" href="#16">16.</a></h3>
-<pre><code class="language-js">
+<pre><code class="language-js">&lt;script&gt;
+function func()
+{
+  alert(form.txt.value)
+}
+&lt;/script&gt;
+
+&lt;form name="form"&gt;
+  &lt;input type="text" name="txt"&gt;&lt;button type='button' onclick="func()"&gt;확인&lt;/button&gt;
+&lt;/form&gt;
 </code></pre>
 <br>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="국토정보프로그래밍python"><a class="header" href="#국토정보프로그래밍python">국토정보프로그래밍(python)</a></h1>

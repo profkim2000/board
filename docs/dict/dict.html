@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>로컬에서 동영상 만들기 - Wan 2.1 - Eugene&#x27;s Board</title>
+        <title>dictionary - Eugene&#x27;s Board</title>
 
 
         <!-- Custom HTML head -->
@@ -176,81 +176,17 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="comfyui---wan-21-텍스트-to-비디오-워크플로"><a class="header" href="#comfyui---wan-21-텍스트-to-비디오-워크플로">ComfyUI - Wan 2.1 텍스트 to 비디오 워크플로</a></h1>
-<h2 id="wan-21-텍스트-to--비디오-워크플로-기본"><a class="header" href="#wan-21-텍스트-to--비디오-워크플로-기본">Wan 2.1 텍스트 to  비디오 워크플로 기본</a></h2>
-<p>텍스트로 동영상을 만들어 준다.</p>
-<p><img src="attachments/20251116161222.png" alt="" /></p>
-<p>이 워크플로에서는 크게 4가지를 설정해 줘야 한다.</p>
-<p><img src="attachments/20251116161348.png" alt="" /></p>
-<ol>
-<li>너비: 동영상 한 프레임의 폭. 클수록 처리 시간이 오래 걸린다.</li>
-<li>높이: 동영상 한 프레임의 높이. 클수록 처리 시간이 오래 걸린다.</li>
-<li>길이: 동영상의 시간 길이를 프레임단위로 설정할 수 있다. 이 워크플로의 기본값은 1초에 16프레임을 보여주도록 설정되어 있다. 그래서 32라 적으면 2초, 160 이라 적으면 10초 짜리 영상이 만들어진다. 길수록 처리 시간이 오래 걸린다.</li>
-<li>prompt: 영상의 내용. 영어로 적는다.</li>
-</ol>
-<br />
-<h2 id="워크플로-실행-1---기본값-그대로"><a class="header" href="#워크플로-실행-1---기본값-그대로">워크플로 실행 1 - 기본값 그대로</a></h2>
-<ol>
-<li>너비: 기본값 832를 그대로 둔다.</li>
-<li>높이: 기본값 480을 그대로 둔다.</li>
-<li>길이: 33을 그대로 둔다. 약 2초 짜리 영상이 만들어진다.</li>
-<li>prompt: 기본값 그대로 둔다.</li>
-</ol>
-<h2 id="실행-결과"><a class="header" href="#실행-결과">실행 결과</a></h2>
-<video controls src="./attachments/ComfyUI_00001_.mp4">
-  <!-- 브라우저가 audio 태그를 지원하지 않을 경우 표시될 텍스트 -->
-  Your browser does not support the video element.
-</video>
-<p>2초 영상. 약 8분 걸림</p>
-<h2 id="워크플로-실행-2---내가-원하는-prompt로"><a class="header" href="#워크플로-실행-2---내가-원하는-prompt로">워크플로 실행 2 - 내가 원하는 prompt로</a></h2>
-<ol>
-<li>너비: 기본값 832를 그대로 둔다.</li>
-<li>높이: 기본값 480을 그대로 둔다.</li>
-<li>길이: 33을 그대로 둔다. 약 2초 짜리 영상이 만들어진다.</li>
-<li>prompt: a penguin is walking on the white land, and camera is tracking his back. (펭귄이 하얀 땅위를 걷고 있고, 카메라가 그 뒤를 따른다.)</li>
-</ol>
-<h2 id="실행-결과-1"><a class="header" href="#실행-결과-1">실행 결과</a></h2>
-<video controls src="./attachments/ComfyUI_00002_.mp4">
-  <!-- 브라우저가 audio 태그를 지원하지 않을 경우 표시될 텍스트 -->
-  Your browser does not support the video element.
-</video>
-<p>2초 영상. 약 3분 걸림</p>
-<h2 id="워크플로-실행-3---내가-원하는-prompt로"><a class="header" href="#워크플로-실행-3---내가-원하는-prompt로">워크플로 실행 3 - 내가 원하는 prompt로</a></h2>
-<ol>
-<li>너비: 기본값 832를 그대로 둔다.</li>
-<li>높이: 기본값 480을 그대로 둔다.</li>
-<li>길이: 33을 그대로 둔다. 약 2초 짜리 영상이 만들어진다.</li>
-<li>prompt: penguins diving in a line from a snow-covered ground about 3 meters high into the sea 3 meters below.(펭귄들이 줄지어 약 3미터 높이의 눈덮인 땅 위에서 3미터 아래의 바다로 다이빙하는 영상)</li>
-</ol>
-<h2 id="실행-결과-2"><a class="header" href="#실행-결과-2">실행 결과</a></h2>
-<video controls src="./attachments/ComfyUI_00003_.mp4">
-  <!-- 브라우저가 audio 태그를 지원하지 않을 경우 표시될 텍스트 -->
-  Your browser does not support the video element.
-</video>
-<p>2초 영상. 약 3분 걸림</p>
-<h2 id="워크플로-실행-4---내가-원하는-prompt로"><a class="header" href="#워크플로-실행-4---내가-원하는-prompt로">워크플로 실행 4 - 내가 원하는 prompt로</a></h2>
-<ol>
-<li>너비: 기본값 832를 그대로 둔다.</li>
-<li>높이: 기본값 480을 그대로 둔다.</li>
-<li>길이: 33을 그대로 둔다. 약 2초 짜리 영상이 만들어진다.</li>
-<li>prompt: A puppy jumps into the pool water and plays happily(강아지가 수영장에서 즐겁게 노는 영상)</li>
-</ol>
-<h2 id="실행-결과-3"><a class="header" href="#실행-결과-3">실행 결과</a></h2>
-<video controls src="./attachments/ComfyUI_00004_.mp4">
-  <!-- 브라우저가 audio 태그를 지원하지 않을 경우 표시될 텍스트 -->
-  Your browser does not support the video element.
-</video>
-<p>10초 영상. 약 6시간 걸림(아마도 물을 처리하느라)</p>
+                        <h1 id="dictionary"><a class="header" href="#dictionary">dictionary</a></h1>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../ai2025/comfyui-004.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../ai2025/comfyui-005.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../dict/dict.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../dict/alphachannel.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -260,11 +196,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../ai2025/comfyui-004.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../ai2025/comfyui-005.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../dict/dict.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../dict/alphachannel.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

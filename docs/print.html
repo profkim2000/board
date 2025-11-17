@@ -38,6 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc.js"></script>
@@ -94,10 +95,13 @@
                 sidebar = sidebar || 'visible';
             } else {
                 sidebar = 'hidden';
+                sidebar_toggle.checked = false;
             }
-            sidebar_toggle.checked = sidebar === 'visible';
-            html.classList.remove('sidebar-visible');
-            html.classList.add("sidebar-" + sidebar);
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
@@ -148,7 +152,12 @@
 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <div class="search-wrapper">
+                            <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <i class="fa fa-spinner fa-spin"></i>
+                            </div>
+                        </div>
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -10269,19 +10278,453 @@ L. 비공간 데이터 정제<br />
 <br>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="인공지능-실용기술-이해와-활용-실습"><a class="header" href="#인공지능-실용기술-이해와-활용-실습">인공지능 실용기술 이해와 활용 실습</a></h1>
 <p><font color='white'>이 과목에서 실습할 내용에 대해 다음과 같이 계획했었음.</font></p>
-<h2 id="1-podman-ai-lab-실습"><a class="header" href="#1-podman-ai-lab-실습"><a href="ai2025/./podman_ailab.html">1. podman AI Lab 실습</a></a></h2>
+<h2 id="1-podman-ai-lab-실습"><a class="header" href="#1-podman-ai-lab-실습">1. podman AI Lab 실습</a></h2>
 <ul>
-<li>로컬에서 음성파일을 텍스트로 만들기(STT: Speech To Text)</li>
+<li><a href="ai2025/./podman_ailab.html">로컬에서 음성파일을 텍스트로 만들기(STT: Speech To Text)</a></li>
 </ul>
-<h2 id="2-comfyui-실습"><a class="header" href="#2-comfyui-실습"><a href="ai2025/./comfyui.html">2. ComfyUI 실습</a></a></h2>
+<h2 id="2-comfyui-실습"><a class="header" href="#2-comfyui-실습">2. <a href="ai2025/./comfyui.html">ComfyUI</a> 실습</a></h2>
 <ul>
-<li>로컬에서 이미지 만들기</li>
-<li>로컬에서 이미지 편집하기</li>
-<li>로컬에서 동영상 만들기</li>
+<li><a href="ai2025/./comfyui-001.html">로컬에서 이미지 만들기 - NetaYume Lumina</a></li>
+<li><a href="ai2025/./comfyui-002.html">로컬에서 이미지 편집하기 - Flux</a></li>
+<li><a href="ai2025/./comfyui-003.html">로컬에서 음악만들기 - Stable Audio</a></li>
+<li><a href="ai2025/./comfyui-004.html">로컬에서 가사있는 음악만들기 - Ace Step v1</a></li>
+<li><a href="ai2025/./comfyui-005.html">로컬에서 동영상 만들기 - Wan 2.1</a></li>
 </ul>
 <p><font color='white'>하지만 계획과 달리 실제로는 위와 같은 내용을 다루지 않는다. 준비하다 실패했기 때문이라 함. 실제 수업 시간에 배우는 것은 AI가 아니고 알파고의 각 버전별 차이, 그리고 이세돌 9단과 커제 9단과의 대결 이후에는 크게 이슈화되지 않았던 테스트 결과들과 해체 과정이다.</font></p>
+<h2 id="관련지식"><a class="header" href="#관련지식">관련지식</a></h2>
+<ul>
+<li><a href="ai2025/./alphachannel.html">알파채널</a></li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="podman-ai-lab-실습"><a class="header" href="#podman-ai-lab-실습">podman AI Lab 실습</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="comfyui-실습"><a class="header" href="#comfyui-실습">ComfyUI 실습</a></h1>
+<h2 id="podman-ai-lab-extension-설치"><a class="header" href="#podman-ai-lab-extension-설치">podman AI Lab Extension 설치</a></h2>
+<p><img src="ai2025/attachments/20251112185954.png" alt="" /></p>
+<p>podman AI Lab extension을 다운로드 받아 설치한다.</p>
+<p><img src="ai2025/attachments/20251112202045.png" alt="" /></p>
+<p>AI의 빠른 처리를 위해 GPU 사용을 활성화한다.</p>
+<br/>
+<h2 id="audio-to-textwhisper-다운로드"><a class="header" href="#audio-to-textwhisper-다운로드">Audio To Text(whisper) 다운로드</a></h2>
+<p><img src="ai2025/attachments/20251112202426.png" alt="" /></p>
+<p><code>Audio To Text</code>에서 whisper를 다운로드 받는다.</p>
+<p><img src="ai2025/attachments/20251112203335.png" alt="" /></p>
+<p>whisper를 정상적으로 다운로드 받으면 위와 같이 표시된다.</p>
+<h2 id="whisper-서비스-시작"><a class="header" href="#whisper-서비스-시작">whisper 서비스 시작</a></h2>
+<p><img src="ai2025/attachments/20251112204601.png" alt="" /></p>
+<p>‘more details’ 버튼을 누른다.</p>
+<p><img src="ai2025/attachments/20251112204639.png" alt="" /></p>
+<p>‘start’ 버튼을 누른다.</p>
+<p><img src="ai2025/attachments/20251112211538.png" alt="" /></p>
+<p>‘Start Audio To Text recipe’ 버튼을 누른다.</p>
+<p><img src="ai2025/attachments/20251112212101.png" alt="" /></p>
+<p>자동으로 모델을 다운로드 받는다.</p>
+<p><img src="ai2025/attachments/20251112212702.png" alt="" /></p>
+<p>모델을 사용할 준비가 다 되었다.</p>
+<h2 id="whisper-서비스-활용"><a class="header" href="#whisper-서비스-활용">whisper 서비스 활용</a></h2>
+<p><img src="ai2025/attachments/20251112213518.png" alt="" /></p>
+<p>Running 섹션을 선택한 후, whisper.cpp 모델을 확인하고, ’Open AI App’을 클릭한다.</p>
+<p><img src="ai2025/attachments/20251112213655.png" alt="" /></p>
+<p>웹브라우저가 열리고 음성 인식 앱이 실행된다.</p>
+<p><img src="ai2025/attachments/20251112214126.png" alt="" /></p>
+<p>‘Browse Files’ 버튼을 눌러 mp3 파일이나 mp4 파일 등을 선택한다. 이 음성 파일의 내용을 텍스트로 변환하는 거다.</p>
+<p><img src="ai2025/attachments/20251113101852.png" alt="" /></p>
+<p>표시한 부분의 이미지가 바뀌며 음성을 텍스트로 바꾸는 작업 중임을 표시한다.</p>
+<p><img src="ai2025/attachments/20251113102036.png" alt="" /></p>
+<p>이렇게 하면 한글 음성 파일을 줬는데도 영어로 번역해서 화면에 결과를 표시해 준다. 영어로 번역하는게 기본값이기 때문이다.</p>
+<h2 id="번역없이-한글-그대로-출력하도록-수정"><a class="header" href="#번역없이-한글-그대로-출력하도록-수정">번역없이 한글 그대로 출력하도록 수정</a></h2>
+<p>다음과 같이 번역하지 않고 한글 그대로 보여주도록 수정해 준다.</p>
+<p><img src="ai2025/attachments/20251117100144.png" alt="" /></p>
+<ol>
+<li>AI Lab을 선택한다(계속 선택되어 있는 상태)</li>
+<li>“Running“을 선택한다.</li>
+<li>Actions의 … 을 선택한다.</li>
+<li>“Open Recipe“를 선택한다.</li>
+</ol>
+<p><img src="ai2025/attachments/20251117100516.png" alt="" /></p>
+<p>“Open In VSCode“를 선택한다.</p>
+<p><img src="ai2025/attachments/20251117100637.png" alt="" /></p>
+<p><img src="ai2025/attachments/20251117100710.png" alt="" /></p>
+<p>이렇게 2번 정도 경고가 나오는데 모두 “예“를 선택한다.</p>
+<p><img src="ai2025/attachments/20251117100829.png" alt="" /></p>
+<p>vscode가 실행되고 whisper_client.py 라는 파일이 열린다. 좀전의 웹페이지를 만드는 파이썬 코드인데, 이 코드를 다 지우고 다음의 코드로 완전히 대체한다.</p>
+<pre><code class="language-python">import streamlit as st
+import requests
+import os
+import ffmpeg
+
+st.set_page_config(page_title="Whisper Speech Recognition!", page_icon=":studio_microphone:")
+st.title(":studio_microphone: Speech Recognition 한글")
+st.markdown("Upload an audio file you wish to have translated!")
+endpoint = os.getenv("MODEL_ENDPOINT", default="http://0.0.0.0:8001")
+endpoint = f"{endpoint}/inference"
+endpoint_bearer = os.getenv("MODEL_ENDPOINT_BEARER")
+request_kwargs = {}
+if endpoint_bearer is not None:
+    request_kwargs["headers"] = {"Authorization": f"Bearer {endpoint_bearer}"}
+audio = st.file_uploader("", type=["wav","mp3","mp4","flac"], accept_multiple_files=False)
+# read audio file
+if audio:
+    audio_bytes = audio.read()
+    st.audio(audio_bytes, format='audio/wav', start_time=0)
+    request_kwargs["files"] = {'file': audio_bytes}
+    request_kwargs["data"] = {'language': 'ko', 'translate': 'false'}    
+    response = requests.post(endpoint, **request_kwargs)
+    response_json = response.json()
+    st.subheader(f"Translated Text")
+    st.text_area(label="", value=response_json['text'], height=300)
+else:
+    st.write("Input not provided")
+</code></pre>
+<p>코드는 한 두줄 수정되었는데, 한국어를 사용하고, 번역은 하지 말라는 코드를 추가했다.</p>
+<pre><code class="language-python">request_kwargs["data"] = {'language': 'ko', 'translate': 'false'}
+</code></pre>
+<p>이 부분이 핵심이다.</p>
+<p>이제 이 서비스를 다시 시작해야 한다. 웹페이지에서 “새로 고침“하는 것으로는 안 된다.</p>
+<p><img src="ai2025/attachments/20251117101217.png" alt="" /></p>
+<p>“Restart AI App“을 실행한다.</p>
+<p><img src="ai2025/attachments/20251117101456.png" alt="" /></p>
+<p><img src="ai2025/attachments/20251117101519.png" alt="" /></p>
+<p>2번 정도 확인하는데 다시 실행하기 위해 “Confirm”, “Continue” 등의 긍정적인 답을 해준다.</p>
+<p><img src="ai2025/attachments/20251117101704.png" alt="" /></p>
+<p>이 화면이 계속 나온다. 서비스가 다시 시작되기까지 약 2-3분 정도 걸린다.</p>
+<p>서비스가 다시 시작되면</p>
+<p><img src="ai2025/attachments/20251117103130.png" alt="" /></p>
+<p>“Open AI App” 버튼을 누른다.</p>
+<p><img src="ai2025/attachments/20251117103423.png" alt="" /></p>
+<p>이제 한글 음성이 영어로 번역되지 않고 한글로 잘 나온다.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="음성인식-샘플"><a class="header" href="#음성인식-샘플">음성인식 샘플</a></h1>
+<ul>
+<li><a href="ai2025/./attachments/kor_73s.mp3">음성인식 샘플 - 교육원 입교 안내</a></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="comfyui-기본-사용법"><a class="header" href="#comfyui-기본-사용법">ComfyUI 기본 사용법</a></h1>
+<h2 id="기본-사용법"><a class="header" href="#기본-사용법">기본 사용법</a></h2>
+<h3 id="화면-이동패닝"><a class="header" href="#화면-이동패닝">화면 이동(패닝)</a></h3>
+<p>마우스 가운데 휠을 누르고 마우스 움직이기</p>
+<h3 id="화면-확대-축소줌-인--줌-아웃"><a class="header" href="#화면-확대-축소줌-인--줌-아웃">화면 확대 축소(줌 인 / 줌 아웃)</a></h3>
+<p>마우스 가운데 휠 돌리기</p>
+<br />
+<h2 id="템플릿-열기"><a class="header" href="#템플릿-열기">템플릿 열기</a></h2>
+<p><img src="ai2025/attachments/20251115193250.png" alt="" /></p>
+<p>comfyUI 실행하면 바로 위와 같은 템플릿이 나온다. 이 템플릿을 다시 보는 방법은 2가지가 있다.</p>
+<ol>
+<li>
+<p>메뉴에서 “템플릿 탐색” 실행<br />
+<img src="ai2025/attachments/20251115193437.png" alt="" /></p>
+</li>
+<li>
+<p>툴바에서 Templates 선택<br />
+<img src="ai2025/attachments/20251115193657.png" alt="" /></p>
+</li>
+</ol>
+<br />
+<h2 id="결과-이미지로-워크플로-다시-로드하기"><a class="header" href="#결과-이미지로-워크플로-다시-로드하기">결과 이미지로 워크플로 다시 로드하기</a></h2>
+<p>comfyUI로 만든 이미지에는 그 이미지를 만들 때의 워크플로가 저장되어 있어, 그 이미지만으로도 나중에 다시 워크플로를 로드할 수 있다.</p>
+<ol>
+<li>
+<p>comfyui로 만든 이미지를 내 PC에 저장한다.</p>
+</li>
+<li>
+<p>새 워크플로를 연다.<br />
+<img src="ai2025/attachments/20251116002054.png" alt="" /></p>
+</li>
+<li>
+<p>저장했던 이미지를 워크플로에 드래그 &amp; 드롭한다.</p>
+</li>
+<li>
+<p>그 이미지를 만들 때 사용했던 워크플로가 다시 나타난다.</p>
+</li>
+</ol>
+<br />
+<h2 id="유료-모델"><a class="header" href="#유료-모델">유료 모델</a></h2>
+<p><img src="ai2025/attachments/20251115220906.png" alt="" /></p>
+<p>유료 모델은 노드에 금액이 표시된다. 이 모델의 경우 한 번 실행할 때마다 $0.48를 지불해야 한다.</p>
+<p><img src="ai2025/attachments/20251115221009.png" alt="" /></p>
+<p>그래서 “실행” 버튼을 누르면 과금을 위한 로그인을 하라는 안내가 나온다.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="comfyui---netayume-lumina"><a class="header" href="#comfyui---netayume-lumina">ComfyUI - NetaYume Lumina</a></h1>
+<h2 id="netayume-lumina-모델-기본"><a class="header" href="#netayume-lumina-모델-기본">NetaYume Lumina 모델 기본</a></h2>
+<p><img src="ai2025/attachments/20251115193941.png" alt="" /></p>
+<p>이미지 관련 템플릿이 많지만 여기서 NetaYume Lumina 모델을 선택한다. 이 모델은 텍스트를 이미지로 바꿔준다.</p>
+<br />
+<h2 id="샘플값으로-실행해-보기"><a class="header" href="#샘플값으로-실행해-보기">샘플값으로 실행해 보기</a></h2>
+<p><img src="ai2025/attachments/20251115194335.png" alt="" /></p>
+<p>위와 같이 이 템플릿을 열자마자 바로 “실행” 버튼을 누른다. 샘플로 적혀 있는 내용으로 이미지가 만들어진다.</p>
+<p>샘플로 적혀 있는 내용은 다음과 같다.</p>
+<pre><code>You are an assistant designed to generate high quality anime images based on textual prompts. &lt;Prompt Start&gt; @comfyanonymous, "Warm and cheerful digital illustration of a girl standing in the middle of an orange grove, surrounded by lush green leaves and ripe, vibrant oranges hanging from the trees. She has chestnut-brown hair tied in a single loose braid draped over her shoulder, with soft bangs framing her bright, smiling face.
+ Her expression is full of joy and sunshine—eyes squinting slightly, mouth open in a wide, carefree smile, radiating pure happiness. She wears a crisp white blouse underneath a black jacket, slightly unbuttoned for a relaxed look. The sunlight filters through the leaves above, casting dappled golden light on her hair and shoulders, creating a warm, inviting atmosphere.
+
+A few oranges hang close to her head, and one or two lie on the ground around her feet. The background features soft-focus trees stretching into the distance, with sunlight breaking through the foliage. The art style is painterly and soft, emphasizing the natural setting and the girl's radiant, wholesome charm."
+</code></pre>
+<p>이미지 내용 서술은 영어로 한다.</p>
+<p>이미지 내용 서술은 2가지로 하는데, 하나는 이렇게 만들어 달라는 뜻의 <strong>Positive Prompt(긍정적 서술)</strong> 이고 다른 하나는 이렇게는 만들지 말아달라는 뜻의 <strong>Negative Prompt(부정적 서술)</strong> 이다.</p>
+<p>샘플로 적혀 있는 Negative Prompt는 다음과 같다.</p>
+<pre><code>You are an assistant designed to generate low-quality images based on textual prompts &lt;Prompt Start&gt; blurry, worst quality, low quality, jpeg artifacts, signature, watermark, username, error, deformed hands, bad anatomy, extra limbs, poorly drawn hands, poorly drawn face, mutation, deformed, extra eyes, extra arms, extra legs, malformed limbs, fused fingers, too many fingers, long neck, cross-eyed, bad proportions, missing arms, missing legs, extra digit, fewer digits, cropped
+</code></pre>
+<p>샘플로 적혀 있는 Negative Prompt가 충분히 훌륭하니 특별한 이유가 없다면 수정하지 않는 것이 좋겠다.</p>
+<br />
+<h2 id="prompt-입력해-이미지-만들기"><a class="header" href="#prompt-입력해-이미지-만들기">prompt 입력해 이미지 만들기</a></h2>
+<p>이제 Positive Prompt를 수정해 내가 원하는 이미지를 만들어 보자.</p>
+<p>prompt는 먼저 한글로 쓴 다음, 영어로 번역해 사용한다.</p>
+<p>구글 번역 사이트를 이용하면 편하다.</p>
+<p>구글 번역 사이트 url: <a href="https://translate.google.co.kr/?sl=ko&tl=en&op=translate" title="" target="_blank">https://translate.google.co.kr/?sl=ko&amp;tl=en&amp;op=translate</a></p>
+<p>다음과 같이 사용할 수 있다.</p>
+<p><img src="ai2025/attachments/20251115195633.png" alt="" /></p>
+<p>여기서 입력한 내용은 다음과 같다.</p>
+<pre><code>파란 하늘 아래 깨끗한 바다가 있고, 바다 위에 노란색 돛을 단 멋진 요트가 있고 그 배의 맨 앞에 하얀색 예쁜 고양이가 앞쪽을 바라보고 있는 이미지
+</code></pre>
+<p>번역된 내용은 다음과 같다.</p>
+<pre><code>An image of a clear sea under a blue sky, a beautiful yacht with yellow sails on the sea, and a pretty white cat at the very front of the ship looking forward.
+</code></pre>
+<p><img src="ai2025/attachments/20251115195839.png" alt="" /></p>
+<p>positive prompt 부분에 위와 같이 붙여 넣은 후 “실행” 버튼을 누른다.</p>
+<p><img src="ai2025/attachments/20251115200017.png" alt="" /></p>
+<p>왼쪽 툴바에서 “Queue” 버튼을 누르면 실행 대기열이 나오고, 여기에 여태 실행한 내역과 현재 실행 중인 내역이 나타난다.</p>
+<p><img src="ai2025/attachments/20251115200244.png" alt="" /></p>
+<p>약 1분 후 결과가 나타난다. 의도했던 바와는 약간 다르게 나타났지만.</p>
+<br />
+<h2 id="결과-저장"><a class="header" href="#결과-저장">결과 저장</a></h2>
+<p><img src="ai2025/attachments/20251115200334.png" alt="" /></p>
+<p>위와 같이 생성된 파일을 내 컴퓨터에 저장할 수 있다.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="comfyui---flux-인페인트-워크플로"><a class="header" href="#comfyui---flux-인페인트-워크플로">ComfyUI - Flux 인페인트 워크플로</a></h1>
+<h2 id="flux-인페인트-워크플로-기본"><a class="header" href="#flux-인페인트-워크플로-기본">Flux 인페인트 워크플로 기본</a></h2>
+<p><img src="ai2025/attachments/20251116004305.png" alt="" /></p>
+<p>이미지 편집. 예를 들면 토끼 이미지에 옷을 입힌다거나 하는 식.</p>
+<p><img src="ai2025/attachments/20251116101651.png" alt="" /></p>
+<p>이런 류의 모델을 사용하려면 <a href="ai2025/./alphachannel.html">알파채널</a>에 대해 이해해야 한다. 위 경우에서는 하얀 귀여운 크리처(creature)를 놓을 위치를 알파채널을 통해 AI 모델에게 알려줘야 하기 때문이다.</p>
+<br />
+<h2 id="실습-1-comfyui에서-생성한-이미지-사용"><a class="header" href="#실습-1-comfyui에서-생성한-이미지-사용">실습 1: comfyUI에서 생성한 이미지 사용</a></h2>
+<p><img src="ai2025/attachments/20251116103246.png" alt="" /></p>
+<h3 id="워크플로-실행"><a class="header" href="#워크플로-실행">워크플로 실행</a></h3>
+<ol>
+<li>
+<p>툴바에서 “Queue“를 선택한다.</p>
+</li>
+<li>
+<p>이미 만들었던 결과물 중 하나를 Upload Image 쪽으로 드래그 &amp; 드롭한다.<br />
+2.1. 다음의 방법으로 효과가 나타날 영역을 알파채널로 표시한다.<br />
+2.2. 이미지를 오른쪽 클릭하고 “Open in MaskEditor | Image Canvas” 메뉴를 선택한다.<br />
+<img src="ai2025/attachments/20251116103734.png" alt="" /><br />
+2.3. 마스크 에디터에서 AI가 편집해 줘야 하는 영역을 마우스 왼쪽 버튼을 누른 채로 문질러 표시하고 “완료” 버튼을 누른다.
+<img src="ai2025/attachments/20251116104109.png" alt="" /><br />
+2.4. 노드에 반영된 걸 확인한다.<br />
+<img src="ai2025/attachments/20251116104249.png" alt="" /></p>
+</li>
+<li>
+<p>프롬프트를 적는다. 여기서는 “A very cute white milky creature on her shoulder
+(어깨 위에 아주 귀여운 우윳빛깔 생물)” 라고 적었다.</p>
+</li>
+<li>
+<p>“실행” 버튼을 누른다.</p>
+</li>
+</ol>
+<br />
+<h3 id="실행-결과"><a class="header" href="#실행-결과">실행 결과</a></h3>
+<p><img src="ai2025/attachments/20251116104600.png" alt="" /></p>
+<h2 id="실습-2-다운로드받은-이미지-사용"><a class="header" href="#실습-2-다운로드받은-이미지-사용">실습 2: 다운로드받은 이미지 사용</a></h2>
+<h3 id="편집에-사용할-이미지-준비"><a class="header" href="#편집에-사용할-이미지-준비">편집에 사용할 이미지 준비</a></h3>
+<p><a href="https://pixabay.com/illustrations/cartoon-easter-bunny-cartoon-bunny-7011655" title="" target="_blank">https://pixabay.com/illustrations/cartoon-easter-bunny-cartoon-bunny-7011655</a></p>
+<p>위 url에서 이미지 다운로드 받아 사용</p>
+<p><img src="ai2025/attachments/20251116005111.png" alt="" /></p>
+<h3 id="워크플로-실행-1"><a class="header" href="#워크플로-실행-1">워크플로 실행</a></h3>
+<p><img src="ai2025/attachments/20251116005323.png" alt="" /></p>
+<ol>
+<li>
+<p>“업로드할 파일 선택” 버튼을 눌러 다운로드받은 토끼 이미지를 선택한다.<br />
+1.1. 위 실습 1의 2.1 부분의 방법으로 토끼의 몸통과 한 쪽 귀에 마스킹을 한다.<br />
+<img src="ai2025/attachments/20251116105453.png" alt="" /></p>
+</li>
+<li>
+<p>수정할 내용을 입력한다.<br />
+<img src="ai2025/attachments/20251116005608.png" alt="" /></p>
+<p><strong>한글</strong></p>
+<pre><code>토끼에게 파란색 코트를 입혀주고, 귀에 작은 빨간 모자를 씌워줘
+</code></pre>
+<p><strong>영문</strong></p>
+<pre><code>Dress the rabbit in a blue coat and put a little red hat
+</code></pre>
+</li>
+<li>
+<p>“실행” 버튼을 누른다.</p>
+</li>
+</ol>
+<p><br /><br /></p>
+<h3 id="실행-결과-1"><a class="header" href="#실행-결과-1">실행 결과</a></h3>
+<p><img src="ai2025/attachments/20251116112917.png" alt="" /></p>
+<p>의도한 바와 조금 다른 결과가 나왔다. 파란 코트는 잘 입혀줬는데 귀에 작은 빨간 모자를 씌워주지 않았다.</p>
+<p>한 번에 한 곳에만 마스킹을 하고 일을 시켜야 잘 해준다. 그래서 1의 방법을 이용해 추가로 작업한다.</p>
+<h3 id="실행-결과를-이용해-계속-작업"><a class="header" href="#실행-결과를-이용해-계속-작업">실행 결과를 이용해 계속 작업</a></h3>
+<p><img src="ai2025/attachments/20251116113242.png" alt="" /></p>
+<p>작업 결과물을 소스 이미지 영역에 드래그 &amp; 드롭 한다.</p>
+<p><img src="ai2025/attachments/20251116113422.png" alt="" /></p>
+<p>귀 부분만 마스킹한다. 그리고 내용도 수정한다.</p>
+<p><img src="ai2025/attachments/20251116115732.png" alt="" /></p>
+<pre><code>put a little red hat on rabbit's ear
+</code></pre>
+<p>그리고 마스킹을 귀에만 수정한 다음 실행 버튼을 눌러준다.</p>
+<p>결과는 다음과 같다.</p>
+<p><img src="ai2025/attachments/20251116124336.png" alt="" /></p>
+<h3 id="마스킹-수정"><a class="header" href="#마스킹-수정">마스킹 수정</a></h3>
+<p><img src="ai2025/attachments/20251116124532.png" alt="" /></p>
+<p>위 방법으로 마스킹을 수정하는데 마스킹하는 영역을 더 크게 해야 모자가 귀를 다 덮을 듯 하다.</p>
+<p><img src="ai2025/attachments/20251116124644.png" alt="" /></p>
+<p>위와 같이 마스킹을 수정하고 prompt도 아래와 같이 수정(little을 뺌)하고 다시 실행해 본다.</p>
+<pre><code>put a red hat on rabbit's ear
+</code></pre>
+<h3 id="수정된-실행-결과"><a class="header" href="#수정된-실행-결과">수정된 실행 결과</a></h3>
+<p><img src="ai2025/attachments/20251116125033.png" alt="" /></p>
+<p>이 결과도 마음에 들지 않아 문구를 다음과 같이 수정했다.</p>
+<pre><code>put a long red hat on rabbit's ear
+</code></pre>
+<p><img src="ai2025/attachments/20251116143354.png" alt="" /></p>
+<p><br /><br /></p>
+<h2 id="마스킹-삭제-방법"><a class="header" href="#마스킹-삭제-방법">마스킹 삭제 방법</a></h2>
+<p>만약 마스킹을 삭제 등 수정해야 한다면 다음과 같이 한다.</p>
+<p><img src="ai2025/attachments/20251116110124.png" alt="" /></p>
+<p>마스킹을 수정하기 위해 업로드한 이미지 부분을 오른쪽 클릭하고 “Open in MaskEditor | Image Canvas” 를 또 선택한다.</p>
+<p><img src="ai2025/attachments/20251116110452.png" alt="" /></p>
+<ol>
+<li>지우개를 누르고,</li>
+<li>코트를 위해 칠했던 부분을, 마우스 왼쪽을 누른 채로 마우스를 움직여 지워준다.</li>
+</ol>
+<p><img src="ai2025/attachments/20251116110621.png" alt="" /></p>
+<p>브러시 설정의 두께 값을 올려주면 브러시가 커져서 지우거나 색칠할 때 편하다.</p>
+<p><img src="ai2025/attachments/20251116110725.png" alt="" /></p>
+<p>위와 같이 귀만 남기고 코트 부분의 마스킹을 지워, 마스킹을 수정했다.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="comfyui---stable-audio-워크플로"><a class="header" href="#comfyui---stable-audio-워크플로">ComfyUI - Stable Audio 워크플로</a></h1>
+<h2 id="stable-audio-워크플로-기본"><a class="header" href="#stable-audio-워크플로-기본">Stable Audio 워크플로 기본</a></h2>
+<p><img src="ai2025/attachments/20251116143909.png" alt="" /></p>
+<p>음악을 만들어 준다.</p>
+<p>이 워크플로에서는 2가지를 설정해 줘야 한다.</p>
+<p><img src="ai2025/attachments/20251116144127.png" alt="" /></p>
+<ol>
+<li>길이: 기본값이 47.6초인데, 길면 길수록 시간이 오래 걸린다. 여기서는 10초로 설정한다.</li>
+<li>prompt: 음악의 내용</li>
+</ol>
+<br />
+<h2 id="워크플로-실행-2"><a class="header" href="#워크플로-실행-2">워크플로 실행</a></h2>
+<ol>
+<li>길이를 10초로 설정한다. 초의 숫자 부분을 클릭하면 숫자를 입력할 수 있는 창이 나타난다.
+<img src="ai2025/attachments/20251116144346.png" alt="" /></li>
+<li>prompt: calm piano solo for media opening</li>
+<li>“실행” 버튼을 누른다.</li>
+</ol>
+<h2 id="실행-결과-2"><a class="header" href="#실행-결과-2">실행 결과</a></h2>
+<audio controls src="./attachments/ComfyUI_00024_.mp3">
+  <!-- 브라우저가 audio 태그를 지원하지 않을 경우 표시될 텍스트 -->
+  Your browser does not support the audio element.
+</audio>
+<h2 id="결과-듣기"><a class="header" href="#결과-듣기">결과 듣기</a></h2>
+<p><img src="ai2025/attachments/20251116144845.png" alt="" /></p>
+<p>queue에서 play 버튼을 누르면 재생할 수 있다.</p>
+<h2 id="결과-mp3-파일-다운로드"><a class="header" href="#결과-mp3-파일-다운로드">결과 mp3 파일 다운로드</a></h2>
+<p><img src="ai2025/attachments/20251116144959.png" alt="" /></p>
+<p>… 버튼을 누른 다음,</p>
+<p><img src="ai2025/attachments/20251116145027.png" alt="" /></p>
+<p>다운로드 버튼을 누른다.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="comfyui---ace-step-v1-워크플로"><a class="header" href="#comfyui---ace-step-v1-워크플로">ComfyUI - ACE-Step v1 워크플로</a></h1>
+<h2 id="ace-step-v1-워크플로-기본"><a class="header" href="#ace-step-v1-워크플로-기본">ACE-Step v1 워크플로 기본</a></h2>
+<p><img src="ai2025/attachments/20251116151317.png" alt="" /></p>
+<p>가사를 불러주는 보컬이 있는 음악을 만들어 준다.</p>
+<p>이 워크플로에서는 크게 4가지를 설정해 줘야 한다.</p>
+<p><img src="ai2025/attachments/20251116151451.png" alt="" /></p>
+<ol>
+<li>길이: 길이가 길면 길수록 시간이 오래 걸린다.</li>
+<li>prompt: 음악의 내용.</li>
+<li>Verse: 곡의 도입부 가사. 영어로만 작성한다. 한글은 아직 안된다.</li>
+<li>Chorus: 우리말로 하면 하이라이트 부분 가사. 후렴부이다. 역시 영어로만 작성한다.</li>
+</ol>
+<br />
+<h2 id="워크플로-실행-3"><a class="header" href="#워크플로-실행-3">워크플로 실행</a></h2>
+<ol>
+<li>길이를 40초로 설정한다.</li>
+<li>prompt: kpop, piano, acoustic guitar, happy, synth</li>
+<li>Verse(도입부 가사): 샘플의 기본값 그대로 사용.</li>
+</ol>
+<pre><code>Neon rain on my screen,Dreams compile in silver sheen. No weight, just motion,I’m plugged into emotion.
+</code></pre>
+<ol start="4">
+<li>Chorus(후렴부 가사): 샘플의 기본값 그대로 사용</li>
+</ol>
+<pre><code>Comfy Cloud — breathing light, Code and color, spark and wire. Drift through data, feel alive,In your circuits, I arrive.
+</code></pre>
+<ol start="5">
+<li>“실행” 버튼을 누른다.</li>
+</ol>
+<h2 id="실행-결과-3"><a class="header" href="#실행-결과-3">실행 결과</a></h2>
+<audio controls src="./attachments/ComfyUI_00031_.mp3">
+  <!-- 브라우저가 audio 태그를 지원하지 않을 경우 표시될 텍스트 -->
+  Your browser does not support the audio element.
+</audio>
+<h2 id="결과-듣기-1"><a class="header" href="#결과-듣기-1">결과 듣기</a></h2>
+<p><img src="ai2025/attachments/20251116144845.png" alt="" /></p>
+<p>queue에서 play 버튼을 누르면 재생할 수 있다.</p>
+<h2 id="결과-mp3-파일-다운로드-1"><a class="header" href="#결과-mp3-파일-다운로드-1">결과 mp3 파일 다운로드</a></h2>
+<p><img src="ai2025/attachments/20251116144959.png" alt="" /></p>
+<p>… 버튼을 누른 다음,</p>
+<p><img src="ai2025/attachments/20251116145027.png" alt="" /></p>
+<p>다운로드 버튼을 누른다.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="comfyui---wan-21-텍스트-to-비디오-워크플로"><a class="header" href="#comfyui---wan-21-텍스트-to-비디오-워크플로">ComfyUI - Wan 2.1 텍스트 to 비디오 워크플로</a></h1>
+<h2 id="wan-21-텍스트-to--비디오-워크플로-기본"><a class="header" href="#wan-21-텍스트-to--비디오-워크플로-기본">Wan 2.1 텍스트 to  비디오 워크플로 기본</a></h2>
+<p>텍스트로 동영상을 만들어 준다.</p>
+<p><img src="ai2025/attachments/20251116161222.png" alt="" /></p>
+<p>이 워크플로에서는 크게 4가지를 설정해 줘야 한다.</p>
+<p><img src="ai2025/attachments/20251116161348.png" alt="" /></p>
+<ol>
+<li>너비: 동영상 한 프레임의 폭. 클수록 처리 시간이 오래 걸린다.</li>
+<li>높이: 동영상 한 프레임의 높이. 클수록 처리 시간이 오래 걸린다.</li>
+<li>길이: 동영상의 시간 길이를 프레임단위로 설정할 수 있다. 이 워크플로의 기본값은 1초에 16프레임을 보여주도록 설정되어 있다. 그래서 32라 적으면 2초, 160 이라 적으면 10초 짜리 영상이 만들어진다. 길수록 처리 시간이 오래 걸린다.</li>
+<li>prompt: 영상의 내용. 영어로 적는다.</li>
+</ol>
+<br />
+<h2 id="워크플로-실행-1---기본값-그대로"><a class="header" href="#워크플로-실행-1---기본값-그대로">워크플로 실행 1 - 기본값 그대로</a></h2>
+<ol>
+<li>너비: 기본값 832를 그대로 둔다.</li>
+<li>높이: 기본값 480을 그대로 둔다.</li>
+<li>길이: 33을 그대로 둔다. 약 2초 짜리 영상이 만들어진다.</li>
+<li>prompt: 기본값 그대로 둔다.</li>
+</ol>
+<h2 id="실행-결과-4"><a class="header" href="#실행-결과-4">실행 결과</a></h2>
+<video controls src="./attachments/ComfyUI_00001_.mp4">
+  <!-- 브라우저가 audio 태그를 지원하지 않을 경우 표시될 텍스트 -->
+  Your browser does not support the video element.
+</video>
+<p>2초 영상. 약 8분 걸림</p>
+<h2 id="워크플로-실행-2---내가-원하는-prompt로"><a class="header" href="#워크플로-실행-2---내가-원하는-prompt로">워크플로 실행 2 - 내가 원하는 prompt로</a></h2>
+<ol>
+<li>너비: 기본값 832를 그대로 둔다.</li>
+<li>높이: 기본값 480을 그대로 둔다.</li>
+<li>길이: 33을 그대로 둔다. 약 2초 짜리 영상이 만들어진다.</li>
+<li>prompt: a penguin is walking on the white land, and camera is tracking his back. (펭귄이 하얀 땅위를 걷고 있고, 카메라가 그 뒤를 따른다.)</li>
+</ol>
+<h2 id="실행-결과-5"><a class="header" href="#실행-결과-5">실행 결과</a></h2>
+<video controls src="./attachments/ComfyUI_00002_.mp4">
+  <!-- 브라우저가 audio 태그를 지원하지 않을 경우 표시될 텍스트 -->
+  Your browser does not support the video element.
+</video>
+<p>2초 영상. 약 3분 걸림</p>
+<h2 id="워크플로-실행-3---내가-원하는-prompt로"><a class="header" href="#워크플로-실행-3---내가-원하는-prompt로">워크플로 실행 3 - 내가 원하는 prompt로</a></h2>
+<ol>
+<li>너비: 기본값 832를 그대로 둔다.</li>
+<li>높이: 기본값 480을 그대로 둔다.</li>
+<li>길이: 33을 그대로 둔다. 약 2초 짜리 영상이 만들어진다.</li>
+<li>prompt: penguins diving in a line from a snow-covered ground about 3 meters high into the sea 3 meters below.(펭귄들이 줄지어 약 3미터 높이의 눈덮인 땅 위에서 3미터 아래의 바다로 다이빙하는 영상)</li>
+</ol>
+<h2 id="실행-결과-6"><a class="header" href="#실행-결과-6">실행 결과</a></h2>
+<video controls src="./attachments/ComfyUI_00003_.mp4">
+  <!-- 브라우저가 audio 태그를 지원하지 않을 경우 표시될 텍스트 -->
+  Your browser does not support the video element.
+</video>
+<p>2초 영상. 약 3분 걸림</p>
+<h2 id="워크플로-실행-4---내가-원하는-prompt로"><a class="header" href="#워크플로-실행-4---내가-원하는-prompt로">워크플로 실행 4 - 내가 원하는 prompt로</a></h2>
+<ol>
+<li>너비: 기본값 832를 그대로 둔다.</li>
+<li>높이: 기본값 480을 그대로 둔다.</li>
+<li>길이: 33을 그대로 둔다. 약 2초 짜리 영상이 만들어진다.</li>
+<li>prompt: A puppy jumps into the pool water and plays happily(강아지가 수영장에서 즐겁게 노는 영상)</li>
+</ol>
+<h2 id="실행-결과-7"><a class="header" href="#실행-결과-7">실행 결과</a></h2>
+<video controls src="./attachments/ComfyUI_00004_.mp4">
+  <!-- 브라우저가 audio 태그를 지원하지 않을 경우 표시될 텍스트 -->
+  Your browser does not support the video element.
+</video>
+<p>10초 영상. 약 6시간 걸림(아마도 물을 처리하느라)</p>
 
                     </main>
 
@@ -10323,6 +10766,7 @@ L. 비공간 데이터 정제<br />
             window.setTimeout(window.print, 100);
         });
         </script>
+
 
     </div>
     </body>

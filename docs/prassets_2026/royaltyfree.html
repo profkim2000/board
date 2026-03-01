@@ -1,0 +1,283 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>저작권 걱정없는 사이트들 - Eugene&#x27;s Board</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../custom.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Eugene&#x27;s Board</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="저작권-걱정없이-다운로드받아-사용할-수-있는-사이트들"><a class="header" href="#저작권-걱정없이-다운로드받아-사용할-수-있는-사이트들">저작권 걱정없이 다운로드받아 사용할 수 있는 사이트들</a></h1>
+<p><strong>주의사항: 모든 자료에 대해 반드시 건별로 라이선스 확인해야 함.</strong></p>
+<p>업데이트: 2026. 2. 28.</p>
+<br />
+<h3 id="관련-용어"><a class="header" href="#관련-용어">관련 용어</a></h3>
+<h4 id="public-domain"><a class="header" href="#public-domain"><a href="https://creativecommons.org/public-domain/">public domain</a></a></h4>
+<ul>
+<li>공적 사용 라이선스. 누구나 무료로 사용 가능함. 상업적 사용 가능 포함.</li>
+<li><a href="https://creativecommons.org/public-domain/">CC0</a>: public domain 표기법 중 하나.</li>
+<li>나무위키 설명: <a href="https://namu.wiki/w/%ED%8D%BC%EB%B8%94%EB%A6%AD%20%EB%8F%84%EB%A9%94%EC%9D%B8">링크</a></li>
+<li>라이선스 관련 사이트: <a href="https://creativecommons.org/share-your-work/cclicenses/">Creative Commons</a></li>
+<li>아래 사이트에서 CC0 라이선스로 공시한 걸 보고 다운로드 받아 사용했는데, 업로드한 사람이 다른 사람의 작품을 속여서 업로드한 거라면 소송에 휘말릴 수 있음
+<ul>
+<li>업로드한 이미지가 한 두개만 있는 사람이 올린 자료는 가급적 피한다.</li>
+<li>한 사람이 여러 개 올렸어도 화풍이 확연히 다른 이미지는 가급적 피한다.</li>
+</ul>
+</li>
+</ul>
+<h4 id="attribution"><a class="header" href="#attribution">attribution</a></h4>
+<ul>
+<li>원래는 속성, 원인, 책임 등의 뜻을 가지는데, 라이선스 분야에서는 "출처 표시" 라는 뜻으로 사용된다.</li>
+<li>예: without attribution = "출처 표시없이"</li>
+</ul>
+<h4 id="commercial-use"><a class="header" href="#commercial-use">commercial use</a></h4>
+<ul>
+<li>상업적 사용</li>
+<li>사용 예(<a href="https://iconmonstr.com/">iconmonstr</a>의 <a href="https://iconmonstr.com/about/#q&amp;a">Q&amp;A</a> 발췌):<br />
+<img src="attachments/20260301005707.png" alt="" /></li>
+</ul>
+<br />
+<h3 id="pixabay"><a class="header" href="#pixabay"><a href="https://pixabay.com/">pixabay</a></a></h3>
+<ul>
+<li>URL: <a href="https://pixabay.com/">https://pixabay.com</a></li>
+<li>사진, 그림, 비디오, 오디오, 음향효과 등 제공.</li>
+<li>자료 제공자가 처음부터 라이선스를 요청하지 않을 것(royalty free)에 동의하고 올리기 때문에 문제없이 사용할 수 있음</li>
+<li>사진 업로드 승인이 잘 나지 않음 = 고퀄리티 사진 제공</li>
+<li>검색어는 영어만 가능</li>
+</ul>
+<br />
+<h3 id="공유마당"><a class="header" href="#공유마당"><a href="https://gongu.copyright.or.kr/">공유마당</a></a></h3>
+<ul>
+<li>URL: <a href="https://gongu.copyright.or.kr/">https://gongu.copyright.or.kr</a></li>
+<li>사진, 비디오, 영상, 글꼴 등 제공</li>
+<li>저작권이 만료된 오래된 자료나 자료 제공자가 공공 사용을 전제로 하고 업로드 하는 경우가 대부분</li>
+<li>주의 사항: 자료 제공자가 다양한 라이선스 요청하고 있음.(예: 음악을 동영상 제작에 사용 시, 작곡자를 동영상에 몇 초 이상 표시할 것) 따라서 사용 전에 라이선스를 반드시 확인해야 함.</li>
+</ul>
+<br />
+<h3 id="퍼블릭-벡터"><a class="header" href="#퍼블릭-벡터"><a href="https://publicdomainvectors.org/">퍼블릭 벡터</a></a></h3>
+<ul>
+<li>URL: <a href="https://publicdomainvectors.org/">https://publicdomainvectors.org</a></li>
+<li><a href="https://creativecommons.org/public-domain/">CC0</a>의 벡터 이미지만 공유하는 사이트</li>
+<li>위 아래 광고</li>
+</ul>
+<br />
+<h3 id="아이콘몬스터"><a class="header" href="#아이콘몬스터"><a href="https://iconmonstr.com/">아이콘몬스터</a></a></h3>
+<ul>
+<li>URL: <a href="https://iconmonstr.com/">https://iconmonstr.com</a></li>
+<li>아이콘 다운로드 받아 사용</li>
+<li>변형없이 그대로 사용해야 한다는 라이선스</li>
+<li>단순 다운로드가 아니라 크기, 선색 등 변경 가능</li>
+</ul>
+<br />
+<h3 id="눈누"><a class="header" href="#눈누"><a href="https://noonnu.cc/">눈누</a></a></h3>
+<ul>
+<li>URL: <a href="https://noonnu.cc/">https://noonnu.cc</a></li>
+<li>글꼴을 모아 보여주고 체험할 수 있는 사이트</li>
+<li>이 사이트의 모든 글꼴이 다 무료는 아님</li>
+<li>무료였던 글꼴이 유료로 바뀌는 경우도 있으니 사용할 때마다 확인하고 라이선스 파일을 다운로드 받아 잘 저장해야 함</li>
+<li>글꼴은 <a href="https://hangeul.naver.com/font">네이버 글꼴</a>을 사용하는 것이 저작권상 안전하다</li>
+<li>한컴 오피스에서 제공하는 글꼴을 한컴 오피스 외 (예: 파워포인트)에서 사용은 가능하지만, 라이선스 위반임.</li>
+</ul>
+<br />
+<h3 id="유튜브-스튜디오"><a class="header" href="#유튜브-스튜디오">유튜브 스튜디오</a></h3>
+<ul>
+<li>주의사항: 음악, 효과음등 제공하지만 이 애셋들을 이용해 만든 영상은 유튜브에만 올려야 함. 유튜브 스튜디오에서 제공하는 애셋을 이용해 만든 영상을 유튜브 외에 올리면 라이선스 위반.</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../prassets_2026/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../prassets_2026/cloud.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../prassets_2026/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../prassets_2026/cloud.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

@@ -11573,6 +11573,121 @@ desktop_extensions:
 <p><img src="dt-01/ai/attachments/20260408134101.png" alt="" /></p>
 <div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><h1 id="디지털트윈-활용-실무"><a class="header" href="#디지털트윈-활용-실무">디지털트윈 활용 실무</a></h1>
 <h2 id="실습-1"><a class="header" href="#실습-1">실습 1</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="실습-1-godot-엔진을-이용한-digital-twin-개발"><a class="header" href="#실습-1-godot-엔진을-이용한-digital-twin-개발">실습 1. godot 엔진을 이용한 digital twin 개발</a></h1>
+<h2 id="godot-엔진-설치"><a class="header" href="#godot-엔진-설치">godot 엔진 설치</a></h2>
+<p>URL: <a href="https://godotengine.org/download/windows/">https://godotengine.org/download/windows</a></p>
+<p><img src="dt-01/04/attachments/20260411233757.png" alt="" /></p>
+<p>위와 같이 "Godot Engine"을 클릭해 설치파일을 다운로드받아 설치한다.</p>
+<br />
+<h2 id="godot-엔진-프로젝트-생성"><a class="header" href="#godot-엔진-프로젝트-생성">godot 엔진 프로젝트 생성</a></h2>
+<p>godot 엔진을 실행한다.</p>
+<p><img src="dt-01/04/attachments/20260411234455.png" alt="" /></p>
+<ol>
+<li>
+<p>"만들기" 버튼을 클릭한다.</p>
+</li>
+<li>
+<p>"새 프로젝트 만들기" 창에서 프로젝트 이름을 "digitaltwin"으로 한다.</p>
+</li>
+<li>
+<p>"찾아보기" 버튼을 눌러 프로젝트 경로를 설정한다.</p>
+</li>
+<li>
+<p>렌더러를 "Forward+"로 한다.</p>
+</li>
+<li>
+<p>"만들기" 버튼을 클릭한다.</p>
+</li>
+</ol>
+<br />
+<h2 id="godot-엔진에-fbx-파일-추가"><a class="header" href="#godot-엔진에-fbx-파일-추가">godot 엔진에 fbx 파일 추가</a></h2>
+<p><img src="dt-01/04/attachments/20260411235920.png" alt="" /></p>
+<p>탐색기의 building.fbx 파일을 끌어다 godot 엔진의 res 아래에 끌어 놓는다(Drag and Drop).</p>
+<br />
+<p><img src="dt-01/04/attachments/20260412000100.png" alt="" /></p>
+<ol>
+<li>
+<p>res:// 밑의 building.fbx를 오른쪽 3D 공간 안에 끌어다 놓는다(drag and drop).</p>
+</li>
+<li>
+<p>Node 3D 아래에 "Building"이 추가된 것을 확인한다. 3D 공간 안에 빌딩이 생긴다.</p>
+</li>
+</ol>
+<br />
+<h2 id="카메라-추가"><a class="header" href="#카메라-추가">카메라 추가</a></h2>
+<p><img src="dt-01/04/attachments/20260412000553.png" alt="" /></p>
+<ol>
+<li>
+<p>Node 3D를 오른쪽으로 클릭한다.</p>
+</li>
+<li>
+<p>"자식 노드 추가"를 누른다.</p>
+</li>
+</ol>
+<br />
+<p><img src="dt-01/04/attachments/20260412000935.png" alt="" /></p>
+<ol>
+<li>
+<p>"camera"를 검색한다.</p>
+</li>
+<li>
+<p>"Camera3D"를 선택한다.</p>
+</li>
+<li>
+<p>"만들기" 버튼을 클릭한다.</p>
+</li>
+</ol>
+<br />
+<p><img src="dt-01/04/attachments/20260412001206.png" alt="" /></p>
+<ol>
+<li>
+<p>"카메라"를 선택한다.</p>
+</li>
+<li>
+<p>카메라의 파란색 화살표를 마우스로 누른 채로 마우스를 아래로 내린다. 카메라가 뒤쪽으로 이동한다.</p>
+</li>
+<li>
+<p>카메라가 이동하는 정도를 확인한다. 더 많이 뒤로 이동해야 하면 마우스휠을 아래 방향으로 돌려 줌 아웃을 한 후에 이동시킨다.</p>
+</li>
+</ol>
+<br />
+<p><img src="dt-01/04/attachments/20260412001815.png" alt="" /></p>
+<p>카메라 모니터를 보며 충분히 카메라 안에 보이도록 이동시킨다.</p>
+<br />
+<p><img src="dt-01/04/attachments/20260412002305.png" alt="" /></p>
+<ol>
+<li>
+<p>카메라의 초록색 화살표를 잡고(누른 채로) 위로 올린다. 카메라가 위로 올라간다.</p>
+</li>
+<li>
+<p>카메라의 빨간색 원을 잡고(누른 채로) 위로 올린다. 카메라가 아래쪽으로 회전한다.</p>
+</li>
+</ol>
+<p>카메라 모니터를 보며 위에서 아래로 내려보는 느낌으로 설정한다.</p>
+<br />
+<h2 id="프로그램-실행하기"><a class="header" href="#프로그램-실행하기">프로그램 실행하기</a></h2>
+<p><img src="dt-01/04/attachments/20260412002708.png" alt="" /></p>
+<ol>
+<li>
+<p>실행 버튼을 누른다.</p>
+</li>
+<li>
+<p>메인 씬을 선택하라는 창이 나오면 "현재 선택" 버튼을 누른다.</p>
+</li>
+</ol>
+<br />
+<p><img src="dt-01/04/attachments/20260412002830.png" alt="" /></p>
+<ol>
+<li>
+<p>빌딩과 카메라를 추가한 현재 씬을 먼저 저장해야 한다. 파일명을 정해준다.</p>
+</li>
+<li>
+<p>"저장" 버튼을 누른다.</p>
+</li>
+</ol>
+<br />
+<p><img src="dt-01/04/attachments/20260412002943.png" alt="" /></p>
+<p>건물이 포함된 프로그램이 실행된다.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="dictionary"><a class="header" href="#dictionary">dictionary</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="알파채널"><a class="header" href="#알파채널">알파채널</a></h1>
 <p>이미지의 투명도를 정하는 채널. <strong>배경이 투명한 이미지</strong>를 만들려면 알차채널을 이용해야 한다.</p>

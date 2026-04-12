@@ -37,7 +37,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-589ec88c.js";
+            window.path_to_searchindex_js = "searchindex-fc15f44d.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-8db833c4.js"></script>
@@ -12083,7 +12083,30 @@ A: The most commonly used color for the building roofs in this image is blue.
 <p><img src="dt-01/ai/attachments/20260412141845.png" alt=""></p>
 <p>방금 내보낸 파일이 QGIS에 추가되고, geoTiff의 특성 상 그 지도의 해당 위치에 정확하게 붙는다.</p>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="3-1-화재여부-판단-ai-모델-학습-상세과정"><a href="#3-1-화재여부-판단-ai-모델-학습-상세과정" class="header">3-1. 화재여부 판단 AI 모델 학습 상세과정</a></h1>
+<h1 id="ai-모델-생성---센서값으로-화재-여부-판단하는-ai-학습"><a class="header" href="#ai-모델-생성---센서값으로-화재-여부-판단하는-ai-학습">AI 모델 생성 - 센서값으로 화재 여부 판단하는 AI 학습</a></h1>
+<h2 id="데이터-준비"><a class="header" href="#데이터-준비">데이터 준비</a></h2>
+<p>AI 모델 생성에 가장 중요한 것은 데이터!</p>
+<p><strong>인간의 데이터를 AI에게 학습시킨 결과물이 AI 모델</strong>이다.</p>
+<p>이렇게 학습된 AI 모델에게, 새로운 자료를 주면 기존 데이터를 기반으로 결과를 예측한다.</p>
+<p><img src="dt-01/ai/attachments/20260412194248.png" alt=""></p>
+<p>기존 데이터를 다시 열어 보며 잘못된 데이터가 있거나 누락된 데이터가 있으면 그 행은 삭제하거나 평균값으로 채워넣는다.</p>
+<br />
+<h2 id="ai-학습"><a class="header" href="#ai-학습">AI 학습</a></h2>
+<p>준비된 데이터를 AI 학습해 AI 모델로 만드는 것은 파이썬 프로그래밍에 의해 실행한다.</p>
+<p>파이썬 코드를 이용해 파일을 읽어들이고, 머신러닝 기법을 이용해 AI 학습한다. 이 결과로 나오는 것이 AI 모델이다.</p>
+<br />
+<h2 id="ai-사용"><a class="header" href="#ai-사용">AI 사용</a></h2>
+<p>이렇게 학습된 AI 모델은 하나의 파일로 저장할 수 있다.</p>
+<p>이 AI 모델 파일을 이용해 C/C++, 파이썬, 자바, 자바스크립트 등의 프로그래밍 언어에서 읽어들인후 새로운 센서값이 들어올 때마다 값을 넘겨 줘서 센서의 값들이 이런 상태라면 진짜로 불이 난건지 여부를 예측하게 할 수 있다.</p>
+<p>예를 들어, 센서로 부터</p>
+<ul>
+<li>flame: 1(불꽃 감지됨)</li>
+<li>dust: 79(미세먼지의 양)</li>
+<li>temp: 71(온도)</li>
+<li>co: 2007(일산화탄소)</li>
+</ul>
+<p>의 값이 감지되면 이 값을 학습된 AI 모델에게 넘겨줘 화재 여부를 판단하게 한다.</p>
+<p>이렇게 센서의 값을 AI 모델에게 넘겨주고 그 판단 결과를 받아오는 것에도 C/C++, 파이썬, 자바, 자바스크립트 등의 프로그래밍 언어가 사용된다.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="디지털트윈-활용-실무"><a class="header" href="#디지털트윈-활용-실무">디지털트윈 활용 실무</a></h1>
 <h2 id="실습-1"><a class="header" href="#실습-1">실습 1</a></h2>

@@ -37,10 +37,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-fc15f44d.js";
+            window.path_to_searchindex_js = "searchindex-13ee836c.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-8db833c4.js"></script>
+        <script src="toc-35e5af81.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -11455,6 +11455,9 @@ desktop_extensions:
 </ul>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="1-디지털트윈"><a class="header" href="#1-디지털트윈">1. 디지털트윈</a></h1>
+<ul>
+<li><a href="#3d-그래픽-실습">3D 그래픽 실습</a></li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="3d-그래픽-실습"><a class="header" href="#3d-그래픽-실습">3D 그래픽 실습</a></h1>
 <h2 id="건물-외형-만들기"><a class="header" href="#건물-외형-만들기">건물 외형 만들기</a></h2>
@@ -11560,8 +11563,55 @@ desktop_extensions:
 <p>“Export FBX” 버튼을 눌러 실제 FBX로 내보내기를 실행한다.</p>
 </li>
 </ol>
+<br />
+<h2 id="건물을-glb로-내보내기"><a class="header" href="#건물을-glb로-내보내기">건물을 glb로 내보내기</a></h2>
+<p><img src="dt-01/dt/attachments/20260412231449.png" alt=""></p>
+<ol>
+<li>
+<p>건물을 선택한다.</p>
+</li>
+<li>
+<p>파일 메뉴를 선택한다.</p>
+</li>
+<li>
+<p>Export 메뉴를 선택한다.</p>
+</li>
+<li>
+<p>glTF 2.0(.glb/.gltf 메뉴를 선택한다.)</p>
+</li>
+</ol>
+<br />
+<p><img src="dt-01/dt/attachments/20260412231758.png" alt=""></p>
+<ol>
+<li>
+<p>glb 파일이 저장될 위치를 설정한다.</p>
+</li>
+<li>
+<p>파일명을 설정한다.</p>
+</li>
+<li>
+<p>Include를 선택한다.</p>
+</li>
+<li>
+<p>Selected Objects를 체크한다. 선택한 빌딩 오브젝트만 내보내기 대상이 된다.</p>
+</li>
+<li>
+<p>“Export glTF 2.0” 버튼을 눌러 실제 glb로 내보내기를 실행한다.</p>
+</li>
+</ol>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="공간정보정책과-인공지능"><a class="header" href="#공간정보정책과-인공지능">공간정보정책과 인공지능</a></h1>
+<ul>
+<li>
+<p><a href="#실습-1-geogpt">실습 1: GeoGPT</a></p>
+</li>
+<li>
+<p><a href="#실습-2-국토의-변화상을-빠르게-수집">실습 2: 국토 변화상 파악</a></p>
+</li>
+<li>
+<p><a href="#실습-3-geoai">실습 3: GeoAI</a></p>
+</li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="실습-1-geogpt"><a class="header" href="#실습-1-geogpt">실습 1: GeoGPT</a></h1>
 <p><strong>url</strong>: <a href="https://geogpt-sg.zero2x.org/">https://geogpt-sg.zero2x.org</a></p>
@@ -12109,7 +12159,17 @@ A: The most commonly used color for the building roofs in this image is blue.
 <p>이렇게 센서의 값을 AI 모델에게 넘겨주고 그 판단 결과를 받아오는 것에도 C/C++, 파이썬, 자바, 자바스크립트 등의 프로그래밍 언어가 사용된다.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="디지털트윈-활용-실무"><a class="header" href="#디지털트윈-활용-실무">디지털트윈 활용 실무</a></h1>
-<h2 id="실습-1"><a class="header" href="#실습-1">실습 1</a></h2>
+<ul>
+<li>
+<p><a href="#실습-1-godot-엔진을-이용한-digital-twin-개발">실습 1. godot 엔진 사용</a></p>
+</li>
+<li>
+<p><a href="#실습-2-k-geop-이용">실습 2. K-GeoP 이용</a></p>
+</li>
+<li>
+<p><a href="#실습-3-v-world-이용">실습 3. V-World 이용</a></p>
+</li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="실습-1-godot-엔진을-이용한-digital-twin-개발"><a class="header" href="#실습-1-godot-엔진을-이용한-digital-twin-개발">실습 1. godot 엔진을 이용한 digital twin 개발</a></h1>
 <h2 id="godot-엔진-설치"><a class="header" href="#godot-엔진-설치">godot 엔진 설치</a></h2>
@@ -12226,6 +12286,343 @@ A: The most commonly used color for the building roofs in this image is blue.
 <br />
 <p><img src="dt-01/04/attachments/20260412002943.png" alt=""></p>
 <p>건물이 포함된 프로그램이 실행된다.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="실습-2-k-geop-이용"><a class="header" href="#실습-2-k-geop-이용">실습 2. K-GeoP 이용</a></h1>
+<h2 id="서비스-접속"><a class="header" href="#서비스-접속">서비스 접속</a></h2>
+<p><a href="https://kgeop.go.kr/">K-GeoP(https://kgeop.go.kr)</a> 서비스에 접속한다.
+<br /></p>
+<h2 id="항공사진으로-바꾸기"><a class="header" href="#항공사진으로-바꾸기">항공사진으로 바꾸기</a></h2>
+<p><img src="dt-01/04/attachments/20260412205126.png" alt=""></p>
+<ol>
+<li>
+<p>배경지도 아이콘을 클릭한다.</p>
+</li>
+<li>
+<p>원하는 지도(여기서는 항공사진)으로 변경한다.</p>
+</li>
+</ol>
+<br />
+<p><img src="dt-01/04/attachments/20260412205220.png" alt=""></p>
+<br />
+<h2 id="일필지-정보-보기"><a class="header" href="#일필지-정보-보기">일필지 정보 보기</a></h2>
+<p><img src="dt-01/04/attachments/20260412210239.png" alt=""></p>
+<ol>
+<li>
+<p>레이어 버튼을 누른다.</p>
+</li>
+<li>
+<p>연속지적도의 눈 아이콘을 눌러 연속지적도를 본다.</p>
+</li>
+<li>
+<p>연속지적도의 색을 선택한다.(빨간색, 주황색, 노란색, 초록색, 파란색 중 하나)</p>
+</li>
+<li>
+<p>레이어 닫기 버튼을 누른다.</p>
+</li>
+</ol>
+<br />
+<p><img src="dt-01/04/attachments/20260412210136.png" alt=""></p>
+<ol>
+<li>
+<p>“일필지정보” 버튼을 누른다.</p>
+</li>
+<li>
+<p>어느 한 필지를 선택한다.</p>
+</li>
+</ol>
+<br />  
+<p><strong>결과</strong></p>
+<p><img src="dt-01/04/attachments/20260412210057.png" alt=""></p>
+<br />
+<h2 id="국토이용분석"><a class="header" href="#국토이용분석">국토이용분석</a></h2>
+<p><img src="dt-01/04/attachments/20260412212406.png" alt=""></p>
+<ol>
+<li>
+<p>“국토이용분석” 버튼을 누른다.</p>
+</li>
+<li>
+<p>“다각형“을 선택한다.</p>
+</li>
+</ol>
+<br />
+<p><img src="dt-01/04/attachments/20260412212505.png" alt=""></p>
+<br />
+<p><img src="dt-01/04/attachments/20260412212532.png" alt=""></p>
+<p>관심있는 지역의 경계를 클릭하며 다각형(빨간색)을 그린 후, 마지막엔 더블클릭한다.</p>
+<br />
+<p><strong>결과</strong></p>
+<p><img src="dt-01/04/attachments/20260412212740.png" alt=""></p>
+<br />
+<h2 id="실거래가"><a class="header" href="#실거래가">실거래가</a></h2>
+<p><img src="dt-01/04/attachments/20260412212944.png" alt=""></p>
+<ol>
+<li>
+<p>“실거래가” 버튼을 누른다.</p>
+</li>
+<li>
+<p>아파트, 연립/다세대, 단독/다가구, 토지 중 하나를 선택한다.</p>
+</li>
+<li>
+<p>조건을 설정한다.</p>
+</li>
+<li>
+<p>“조회” 버튼을 누른다.</p>
+</li>
+</ol>
+<br />
+<h2 id="국토통계"><a class="header" href="#국토통계">국토통계</a></h2>
+<p><img src="dt-01/04/attachments/20260412213153.png" alt=""></p>
+<ol>
+<li>
+<p>“국토통계” 버튼을 누른다.</p>
+</li>
+<li>
+<p>부동산현황, 부동산거래, 부동산가격 중 하나를 선택한다.</p>
+</li>
+<li>
+<p>세부 메뉴를 선택한다.</p>
+</li>
+<li>
+<p>연도를 선택한다.</p>
+</li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="실습-3-v-world-이용"><a class="header" href="#실습-3-v-world-이용">실습 3. V-World 이용</a></h1>
+<h2 id="서비스-접속-1"><a class="header" href="#서비스-접속-1">서비스 접속</a></h2>
+<p><a href="https://www.vworld.kr/">V-World(https://www.vworld.kr)</a> 서비스에 접속한다.</p>
+<br />
+<ul>
+<li><a href="#v-world-주제도">주제도 보기</a></li>
+<li><a href="#v-world-분석-및-시뮬레이션">분석 및 시뮬레이션</a></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="v-world-주제도"><a class="header" href="#v-world-주제도">V-World 주제도</a></h1>
+<h2 id="주제도-보기"><a class="header" href="#주제도-보기">주제도 보기</a></h2>
+<p><img src="dt-01/04/attachments/20260412213425.png" alt=""></p>
+<ol>
+<li>“지도조회” 메뉴를 선택한다.</li>
+</ol>
+<br />
+<h3 id="3차원-입체모형lod2"><a class="header" href="#3차원-입체모형lod2">3차원 입체모형(LoD2)</a></h3>
+<p><img src="dt-01/04/attachments/20260412215757.png" alt=""></p>
+<ol>
+<li>
+<p>“3차원 입체모형(LoD2) 를 선택한다.</p>
+</li>
+<li>
+<p>구현된 지역으로 이동한다.</p>
+</li>
+</ol>
+<br />
+<h3 id="국립-새만금간척-박물관"><a class="header" href="#국립-새만금간척-박물관">국립 새만금간척 박물관</a></h3>
+<p><img src="dt-01/04/attachments/20260412220427.png" alt=""></p>
+<p>“국립 새만금간척 박물관“을 선택한다.</p>
+<br />
+<h3 id="관광안내소"><a class="header" href="#관광안내소">관광안내소</a></h3>
+<p><img src="dt-01/04/attachments/20260412220752.png" alt=""></p>
+<ol>
+<li>
+<p>문화/체육/관광 &gt; 관광 &gt; 관광안내소를 체크한다.</p>
+</li>
+<li>
+<p>지도에서 관광안내소가 나타나는 것을 확인한다.</p>
+</li>
+</ol>
+<br />
+<p><img src="dt-01/04/attachments/20260412220853.png" alt=""></p>
+<p>관광안내소를 클릭하면 해당 관광안내소가 나타난다.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="v-world-분석-및-시뮬레이션"><a class="header" href="#v-world-분석-및-시뮬레이션">V-World 분석 및 시뮬레이션</a></h1>
+<h2 id="고도-분석"><a class="header" href="#고도-분석">고도 분석</a></h2>
+<p><img src="dt-01/04/attachments/20260412224713.png" alt=""></p>
+<ol>
+<li>
+<p>“분석 및 시뮬레이션“을 선택한다.</p>
+</li>
+<li>
+<p>“고도분석“을 선택한다.</p>
+</li>
+</ol>
+<br />  
+<p><img src="dt-01/04/attachments/20260412224923.png" alt=""></p>
+<ol>
+<li>“경로그리기” 버튼을 클릭한다.</li>
+</ol>
+<br />  
+<p><img src="dt-01/04/attachments/20260412225021.png" alt=""></p>
+<ol>
+<li>
+<p>고도를 알고싶은 지역에 선을 그리고</p>
+</li>
+<li>
+<p>“분석 실행” 버튼을 누른다.</p>
+</li>
+</ol>
+<br />
+<p><img src="dt-01/04/attachments/20260412225054.png" alt=""></p>
+<p>그린 선을 단면으로 하는 고도 분석결과가 표시된다.</p>
+<br />
+<h2 id="경사도-분석"><a class="header" href="#경사도-분석">경사도 분석</a></h2>
+<p><img src="dt-01/04/attachments/20260412225346.png" alt=""></p>
+<p>“경사도 분석“을 선택한다.</p>
+<br />
+<p><img src="dt-01/04/attachments/20260412225502.png" alt=""></p>
+<p>“지점선택” 버튼을 누른다.</p>
+<br />
+<p><img src="dt-01/04/attachments/20260412225542.png" alt=""></p>
+<ol>
+<li>
+<p>지점을 선택한다.</p>
+</li>
+<li>
+<p>“분석” 버튼을 누른다.</p>
+</li>
+</ol>
+<p><strong>결과</strong></p>
+<p><img src="dt-01/04/attachments/20260412225632.png" alt=""></p>
+<p>화살표는 경사의 방향을 뜻하고, 빨간색은 경사가 급한 곳, 하얀색은 경사가 완만한 곳을 뜻한다.</p>
+<br />
+<h2 id="토공량-분석"><a class="header" href="#토공량-분석">토공량 분석</a></h2>
+<p><img src="dt-01/04/attachments/20260412225811.png" alt=""></p>
+<p>“토공량 분석“을 선택한다.</p>
+<br />
+<p><img src="dt-01/04/attachments/20260412225929.png" alt=""></p>
+<p>“영역그리기” 버튼을 누른다.</p>
+<br />
+<p><img src="dt-01/04/attachments/20260412230028.png" alt=""></p>
+<ol>
+<li>
+<p>토공을 원하는 영역을 점을 찍어 그린다.</p>
+</li>
+<li>
+<p>“그리기 완료” 버튼을 누른다.</p>
+</li>
+</ol>
+<br />
+<p><img src="dt-01/04/attachments/20260412230151.png" alt=""></p>
+<p>계획 높이의 값이 영역을 잡은 부분의 평균고도의 값으로 바뀌었다는 메시지. 확인 버튼을 누른다.</p>
+<br />
+<p><img src="dt-01/04/attachments/20260412230328.png" alt=""></p>
+<ol>
+<li>
+<p>평균높이를 확인한다.</p>
+</li>
+<li>
+<p>계획높이가 위 메시지처럼 평균높이로 바뀐 것을 확인한다.</p>
+</li>
+</ol>
+<br />
+<p><img src="dt-01/04/attachments/20260412230718.png" alt=""></p>
+<ol>
+<li>
+<p>계획높이를 평균높이보다는 낮은 높이로 바꾼다.(절토)</p>
+</li>
+<li>
+<p>“영역그리기” 버튼을 누른다.</p>
+</li>
+<li>
+<p>토공 시뮬레이션 결과를 확인한다.</p>
+</li>
+<li>
+<p>토공량 분석 결과를 확인한다.</p>
+</li>
+<li>
+<p>확인이 끝나면 “초기화” 버튼을 클릭해 시뮬레이션을 종료한다.</p>
+</li>
+</ol>
+<br />
+<h2 id="사용자-모델"><a class="header" href="#사용자-모델">사용자 모델</a></h2>
+<p><img src="dt-01/04/attachments/20260412230831.png" alt=""></p>
+<p>“사용자모델“을 클릭한다.</p>
+<br />
+<p><img src="dt-01/04/attachments/20260412232050.png" alt=""></p>
+<ol>
+<li>
+<p>“샘플다운로드” 를 누른다.</p>
+</li>
+<li>
+<p>“아파트 샘플을 다운로드 받는다.</p>
+</li>
+</ol>
+<br />
+<p><img src="dt-01/04/attachments/20260412232236.png" alt=""></p>
+<ol>
+<li>
+<p>“불러오기” 버튼을 누른다.</p>
+</li>
+<li>
+<p>“glb“를 누른다.</p>
+</li>
+<li>
+<p>다운로드받은 아파트 샘플 파일을 선택해 불러온다.</p>
+</li>
+<li>
+<p>“확인” 버튼을 누른다.</p>
+</li>
+</ol>
+<br />
+<p><img src="dt-01/04/attachments/20260412232413.png" alt=""></p>
+<ol>
+<li>
+<p>아파트 모델을 위치할 지점을 클릭한다.</p>
+</li>
+<li>
+<p>“지점선택완료” 버튼을 누른다.</p>
+</li>
+</ol>
+<br />
+<p><strong>결과</strong></p>
+<p><img src="dt-01/04/attachments/20260412232511.png" alt=""></p>
+<p>아파트 모델이 위치한 걸 확인한다.</p>
+<p><img src="dt-01/04/attachments/20260412232650.png" alt=""></p>
+<p>3D 그래픽을 이용해 만든 3D 건물 추가</p>
+<br />
+<h2 id="건물노후도-분석"><a class="header" href="#건물노후도-분석">건물노후도 분석</a></h2>
+<p><img src="dt-01/04/attachments/20260412234204.png" alt=""></p>
+<p>“건물노후도 분석“을 선택한다.</p>
+<br />
+<p><img src="dt-01/04/attachments/20260412234941.png" alt=""></p>
+<p>원하는 지역으로 이동한 후,</p>
+<ol>
+<li>
+<p>“영역선택” 버튼을 누른다.</p>
+</li>
+<li>
+<p>“영역그리기” 버튼을 누른다.</p>
+</li>
+</ol>
+<br />
+<p><img src="dt-01/04/attachments/20260412234859.png" alt=""></p>
+<ol>
+<li>
+<p>점을 찍는다</p>
+</li>
+<li>
+<p>점을 찍는다</p>
+</li>
+<li>
+<p>점을 찍는다</p>
+</li>
+<li>
+<p>점을 찍는다</p>
+</li>
+<li>
+<p>“영역그리기 종료” 버튼을 누른다.</p>
+</li>
+</ol>
+<br />
+<p><img src="dt-01/04/attachments/20260412235024.png" alt=""></p>
+<ol>
+<li>
+<p>“분석실행” 버튼을 누른다.</p>
+</li>
+<li>
+<p>영역의 분석결과 확인</p>
+</li>
+<li>
+<p>건물노후분석결과 표 확인</p>
+</li>
+</ol>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="dictionary"><a class="header" href="#dictionary">dictionary</a></h1>
 <div style="break-before: page; page-break-before: always;"></div>

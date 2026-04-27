@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>음성인식 샘플 - Eugene&#x27;s Board</title>
+        <title>로컬에서 이미지 만들기 - Z-Image turbo - Eugene&#x27;s Board</title>
 
 
         <!-- Custom HTML head -->
@@ -36,10 +36,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-1fb8d471.js";
+            window.path_to_searchindex_js = "../searchindex-c1a37b86.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-148ceb63.js"></script>
+        <script src="../toc-59c1f101.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -175,20 +175,74 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="음성인식-샘플"><a class="header" href="#음성인식-샘플">음성인식 샘플</a></h1>
-<ul>
-<li><a href="./attachments/kor_73s.mp3">음성인식 샘플 - 교육원 입교 안내</a></li>
-</ul>
+                        <h1 id="로컬에서-이미지-만들기---z-image-turbo"><a class="header" href="#로컬에서-이미지-만들기---z-image-turbo">로컬에서 이미지 만들기 - Z-Image turbo</a></h1>
+<h2 id="z-image-turbo-모델-기본"><a class="header" href="#z-image-turbo-모델-기본">Z-Image turbo 모델 기본</a></h2>
+<p>Z-Image turbo는 <a href="https://x.com/Ali_TongyiLab">알리바바</a>에서 만든 이미지 생성 AI 모델로, 사양이 좋지 않은 컴퓨터에서도 사용할 수 있는 경량형 모델이다.</p>
+<p><img src="attachments/20260427155247.png" alt=""></p>
+<h2 id="기본-샘플값으로-실행해-보기"><a class="header" href="#기본-샘플값으로-실행해-보기">기본 샘플값으로 실행해 보기</a></h2>
+<p><img src="attachments/20260427162441.png" alt=""></p>
+<ol>
+<li>
+<p>템플릿을 열자마자 바로 “실행” 버튼을 누른다.</p>
+</li>
+<li>
+<p>잠시 후 결과를 확인한다.</p>
+</li>
+</ol>
+<p>위와 같이 이 템플릿을 열자마자 바로 “실행” 버튼을 누른다. 샘플로 적혀 있는 내용으로 이미지가 만들어진다.</p>
+<p>샘플로 적혀 있는 내용은 다음과 같다.</p>
+<blockquote>
+<p>(원문)
+Latina female with thick wavy hair, harbor boats and pastel houses behind. Breezy seaside light, warm tones, cinematic close-up.</p>
+</blockquote>
+<blockquote>
+<p>(번역본)
+숱이 많고 웨이브진 머리를 한 라틴계 여성, 뒤로는 항구의 배들과 파스텔톤의 집들이 보인다. 산들바람이 부는 바닷가의 빛, 따뜻한 색감, 영화 같은 클로즈업.</p>
+</blockquote>
+<p>이미지 내용 서술은 영어로 한다.</p>
+<br />
+<h2 id="prompt-입력해-이미지-만들기"><a class="header" href="#prompt-입력해-이미지-만들기">prompt 입력해 이미지 만들기</a></h2>
+<p>이제 Prompt를 수정해 내가 원하는 이미지를 만들어 보자.</p>
+<p>prompt는 먼저 한글로 쓴 다음, 영어로 번역해 사용한다.</p>
+<p>구글 번역 사이트를 이용하면 편하다.</p>
+<p>구글 번역 사이트 url: <a href="https://translate.google.co.kr/?sl=ko&amp;tl=en&amp;op=translate">https://translate.google.co.kr/?sl=ko&amp;tl=en&amp;op=translate</a></p>
+<p><img src="attachments/20260427152326.png" alt=""></p>
+<p>구글 번역 사이트를 이용해 입력한 내용은 다음과 같다.</p>
+<blockquote>
+<p>(한글)
+파란 하늘 아래 깨끗한 바다가 있고, 바다 위에 노란색 돛을 단 멋진 요트가 있고 그 배의 맨 앞에 하얀색 예쁜 고양이가 앞쪽을 바라보고 있는 이미지</p>
+</blockquote>
+<br />
+<p>번역된 내용은 다음과 같다.</p>
+<blockquote>
+<p>(영문)
+An image of a clean sea under a blue sky, a magnificent yacht with yellow sails on the water, and a pretty white cat at the very front of the boat looking forward.</p>
+</blockquote>
+<p>“Text To Image” 부분에 위 영문 내용을 붙여 넣은 후 “실행” 버튼을 누른다.</p>
+<p><img src="attachments/20260427163605.png" alt=""></p>
+<ol>
+<li>
+<p>내용을 영어로 적는다.</p>
+</li>
+<li>
+<p>“실행” 버튼을 누른다.</p>
+</li>
+<li>
+<p>잠시 후 결과를 확인한다.</p>
+</li>
+</ol>
+<br />
+<p><img src="attachments/20260427163704.png" alt=""></p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../aiuu-01/whispercpp.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../aiuu-01/comfyui-001.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="../aiuu-01/comfyui.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../aiuu-01/comfyui-002.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -198,11 +252,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../aiuu-01/whispercpp.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../aiuu-01/comfyui-001.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="../aiuu-01/comfyui.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../aiuu-01/comfyui-002.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

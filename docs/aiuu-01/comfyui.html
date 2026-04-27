@@ -36,10 +36,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-1fb8d471.js";
+            window.path_to_searchindex_js = "../searchindex-c1a37b86.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-148ceb63.js"></script>
+        <script src="../toc-59c1f101.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -183,14 +183,34 @@
 <p>마우스 가운데 휠 돌리기</p>
 <br />
 <h2 id="템플릿-열기"><a class="header" href="#템플릿-열기">템플릿 열기</a></h2>
-<p><img src="attachments/20251115193250.png" alt=""></p>
+<p><img src="attachments/20260427133557.png" alt=""></p>
 <p>comfyUI 실행하면 바로 위와 같은 템플릿이 나온다. 이 템플릿을 다시 보는 방법은 2가지가 있다.</p>
 <ol>
 <li>
-<p>메뉴에서 “템플릿 탐색” 실행<br><img src="attachments/20251115193437.png" alt=""></p>
+<p>메뉴에서 “템플릿 탐색” 실행<br><img src="attachments/20260427133734.png" alt=""></p>
 </li>
 <li>
-<p>툴바에서 Templates 선택<br><img src="attachments/20251115193657.png" alt=""></p>
+<p>툴바에서 Templates 선택<br><img src="attachments/20260427133821.png" alt=""></p>
+</li>
+</ol>
+<br />
+<h2 id="ai-모델-로드하기"><a class="header" href="#ai-모델-로드하기">AI 모델 로드하기</a></h2>
+<p><img src="attachments/20260427141603.png" alt=""></p>
+<ol>
+<li>
+<p>템플릿을 선택하면, ComfyUI는 그 템플릿에서 사용하는 AI 모델이 내 컴퓨터에 저장되어 있는지 확인한 후, 내 컴퓨터에는 없는 모델들이 있으면 ’오류’라고 알려준다. 현재는 1개의 AI 모델이 내 컴퓨터에 없는 상태이다.</p>
+</li>
+<li>
+<p>“모두 보기” 버튼을 눌러 없는 모델이 어떤 것들이 있는지 확인한다.</p>
+</li>
+</ol>
+<p><img src="attachments/20260427142852.png" alt=""></p>
+<ol>
+<li>
+<p>“모두 다운로드” 버튼을 누른다. 만약 AI 모델이 여러 개 필요한 템플릿이라면 모든 AI 모델이 다 다운로드된다.</p>
+</li>
+<li>
+<p>“모델” 메뉴를 선택해 현재 다운로드 중인 AI 모델의 현황을 확인한다.</p>
 </li>
 </ol>
 <br />
@@ -201,7 +221,7 @@
 <p>comfyui로 만든 이미지를 내 PC에 저장한다.</p>
 </li>
 <li>
-<p>새 워크플로를 연다.<br><img src="attachments/20251116002054.png" alt=""></p>
+<p>새 워크플로를 연다.<br><img src="attachments/20260427141339.png" alt=""></p>
 </li>
 <li>
 <p>저장했던 이미지를 워크플로에 드래그 &amp; 드롭한다.</p>
@@ -213,34 +233,28 @@
 <br />
 <h2 id="한-번에-여러-개-실행하기"><a class="header" href="#한-번에-여러-개-실행하기">한 번에 여러 개 실행하기</a></h2>
 <p>compyUI를 이용해 모델에게 일을 시키면, 그 때마다 약간씩 다른 결과물을 보여준다. 문제는 결과가 나오기까지 한참 기다린 다음 실행 버튼 누르고 또 한참 기다려야 한다는 점이다.</p>
-<p>만약 10개를 한 번에 만들어 보고 싶으면</p>
-<p><img src="attachments/20251119173941.png" alt=""></p>
-<p>실행 버튼 옆의 위아래 화살표를 눌러 “1“이라 되어 있는 숫자를 “10“으로 바꿔주면 된다.</p>
+<p>만약 5개를 한 번에 만들어 보고 싶으면</p>
+<p><img src="attachments/20260427143111.png" alt=""></p>
+<p>실행 버튼 옆의 위아래 화살표를 눌러 “1“이라 되어 있는 숫자를 “5“로 바꿔주면 된다.</p>
 <p>이렇게 일괄 처리 해주는 것을 batch(배치) 라 한다.</p>
-<p>이렇게 10으로 바꾸고 실행하면,</p>
-<p><img src="attachments/20251119174243.png" alt=""></p>
-<p>queue에 10개의 칸이 생기고 맨 아래 하나만 Running(실행) 상태이고 나머지는 Pending(대기) 상태로 표시된다.</p>
+<p>이렇게 5로 바꾸고 실행하면,</p>
+<p><img src="attachments/20260427143404.png" alt=""></p>
+<p>맨 아래는 실행 중이고, 나머지 4개는 실행 대기 중임을 알 수 있다.</p>
 <br />
-<h2 id="queue에서-결과물-삭제"><a class="header" href="#queue에서-결과물-삭제">queue에서 결과물 삭제</a></h2>
-<p><img src="attachments/20251119174726.png" alt=""></p>
-<p>결과물 이미지, 동영상 등을 오른쪽 클릭한 후 “삭제” 버튼</p>
-<br />
-<h2 id="queue에-있는-결과물을-만들었던-워크플로-다시-읽어들이기"><a class="header" href="#queue에-있는-결과물을-만들었던-워크플로-다시-읽어들이기">queue에 있는 결과물을 만들었던 워크플로 다시 읽어들이기</a></h2>
-<p><img src="attachments/20251119175712.png" alt=""></p>
-<p>결과물 이미지, 동영상 등을 오른쪽 클릭한 후 “워크플로 로드” 버튼</p>
-<p>이걸 만들었던 워크플로를 다시 읽어들여 다시 사용했던 프롬프트 등을 확인할 수 있고, 다시 수정해서 다른 결과를 만드는데 사용할 수 있다.</p>
+<h2 id="실행-대기-중인-작업-삭제"><a class="header" href="#실행-대기-중인-작업-삭제">실행 대기 중인 작업 삭제</a></h2>
+<p><img src="attachments/20260427143546.png" alt=""></p>
+<p>작업 위에 마우스를 올려 놓으면 “X“가 표시된다. 이 X 표를 누르면 삭제된다.</p>
 <br />
 <h2 id="유료-모델"><a class="header" href="#유료-모델">유료 모델</a></h2>
-<p><img src="attachments/20251115220906.png" alt=""></p>
-<p>유료 모델은 노드에 금액이 표시된다. 이 모델의 경우 한 번 실행할 때마다 $0.48를 지불해야 한다.</p>
-<p><img src="attachments/20251115221009.png" alt=""></p>
-<p>그래서 “실행” 버튼을 누르면 과금을 위한 로그인을 하라는 안내가 나온다.</p>
+<p><img src="attachments/20260427144644.png" alt=""></p>
+<p>유료 모델은 노드에 금액이 표시된다. 이 모델의 경우 한 번 실행할 때마다 405.1 credit를 지불해야 한다.</p>
+<p>credit는 comfyUI에서 구입해 사용하는 것으로, AI 모델 별로(예를 들면, 나노바나나, 바이트 댄스 각각 따로) 구독하지 않고, comfyUI에서 credit 구입한 것으로 여러 AI 모델 사용에 이용할 수 있다는 큰 장점이 있다.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../aiuu-01/samples.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../aiuu-01/whispercpp.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
@@ -254,7 +268,7 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../aiuu-01/samples.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../aiuu-01/whispercpp.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 

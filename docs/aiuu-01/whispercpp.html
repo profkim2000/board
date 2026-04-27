@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>whisper.cpp 녹취록 생성 실습 - Eugene&#x27;s Board</title>
+        <title>whisper 모델 녹취록 생성 실습 - Eugene&#x27;s Board</title>
 
 
         <!-- Custom HTML head -->
@@ -36,10 +36,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-1fb8d471.js";
+            window.path_to_searchindex_js = "../searchindex-c1a37b86.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-148ceb63.js"></script>
+        <script src="../toc-59c1f101.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -175,7 +175,49 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="whispercpp-녹취록-생성-실습"><a class="header" href="#whispercpp-녹취록-생성-실습">whisper.cpp 녹취록 생성 실습</a></h1>
+                        <h1 id="whisper-녹취록-생성-실습"><a class="header" href="#whisper-녹취록-생성-실습">whisper 녹취록 생성 실습</a></h1>
+<h2 id="whisper-모델"><a class="header" href="#whisper-모델">whisper 모델</a></h2>
+<p>chatGPT를 만든 OpenAI에서 만든 STT(Speech To Text) 모델로, 회의 녹음 mp3 파일을 받아쓰기 한 것처럼 문자열로 바꿔준다.</p>
+<p>주로 회의 녹음 파일을 이용해 자동으로 녹취록을 만들 때나 동영상에서 자막 파일을 만들 때 사용한다.</p>
+<p>스마트폰의 chatGPT 앱에서 사용자의 음성을 알아듣고 문자열로 바꿔 chaGPT에게 넘겨줄 떄도 이 whisper 모델이 사용되고 있다.</p>
+<br />
+<p><img src="attachments/20260423131100.png" alt=""></p>
+<h2 id="1-녹취-프로그램-설치"><a class="header" href="#1-녹취-프로그램-설치">1. 녹취 프로그램 설치</a></h2>
+<h3 id="녹취-프로그램-다운로드"><a class="header" href="#녹취-프로그램-다운로드">녹취 프로그램 <a href="https://github.com/profkim2000/dicta/releases/tag/v0.1">다운로드</a></a></h3>
+<p><img src="attachments/20260423154830.png" alt=""></p>
+<p>위 파일을 다운로드받아 설치한다.</p>
+<br />
+<h2 id="2-샘플-파일-다운로드"><a class="header" href="#2-샘플-파일-다운로드">2. 샘플 파일 다운로드</a></h2>
+<ul>
+<li>
+<p><a href="/aiuu-01/jindalrae.mp3">김소월 진달래꽃(AI 성우)</a></p>
+</li>
+<li>
+<p><a href="./attachments/kor_73s.mp3">교육원 입교 안내(배경음악, AI 성우)</a></p>
+</li>
+<li>
+<p><a href="https://www.pa.go.kr/research/contents/speech/index.jsp">대통령 기록관 연설기록</a></p>
+</li>
+<li>
+<p><a href="https://commons.wikimedia.org/wiki/Category:Audio_files_of_speeches">위키미디어 커먼즈 연설 모음</a></p>
+</li>
+<li>
+<p><a href="https://archive.org/search?tab=all&amp;query=address&amp;and%5B%5D=mediatype%3A%22audio%22">archive.org 연설 모음</a></p>
+</li>
+<li>
+<p><a href="https://librivox.org/">librivox public domain</a></p>
+</li>
+</ul>
+<br />
+<h2 id="3-음성을-문자로-변환하는-stt-실습"><a class="header" href="#3-음성을-문자로-변환하는-stt-실습">3. 음성을 문자로 변환하는 STT 실습</a></h2>
+<p><img src="attachments/20260423220439.png" alt=""></p>
+<ol>
+<li>언어를 선택한다(기본값: 자동 인식)</li>
+<li>AI 모델 선택(기본값: Large-v3 turbo q8)</li>
+<li>음성인식 결과 저장 방식 선택(기본값: 텍스트 출력)</li>
+<li>“파일 찾기” 버튼을 눌러 mp3 파일을 선택한다.</li>
+<li>잠시 후 결과를 확인한다.</li>
+</ol>
 
                     </main>
 
@@ -185,7 +227,7 @@
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="../aiuu-01/samples.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../aiuu-01/comfyui.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -199,7 +241,7 @@
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="../aiuu-01/samples.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../aiuu-01/comfyui.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

@@ -36,10 +36,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-1fb8d471.js";
+            window.path_to_searchindex_js = "../searchindex-c1a37b86.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-148ceb63.js"></script>
+        <script src="../toc-59c1f101.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -177,48 +177,82 @@
                     <main>
                         <h1 id="comfyui---netayume-lumina"><a class="header" href="#comfyui---netayume-lumina">ComfyUI - NetaYume Lumina</a></h1>
 <h2 id="netayume-lumina-모델-기본"><a class="header" href="#netayume-lumina-모델-기본">NetaYume Lumina 모델 기본</a></h2>
-<p><img src="attachments/20251115193941.png" alt=""></p>
+<p><img src="attachments/20260427151554.png" alt=""></p>
+<ol>
+<li>
+<p>템플릿에서 “이미지“를 선택한다.</p>
+</li>
+<li>
+<p>“neta” 로 검색한다.</p>
+</li>
+<li>
+<p>“NetaYume Lumina” 모델을 선택한다.</p>
+</li>
+</ol>
 <p>이미지 관련 템플릿이 많지만 여기서 NetaYume Lumina 모델을 선택한다. 이 모델은 텍스트를 이미지로 바꿔준다.</p>
 <br />
-<h2 id="샘플값으로-실행해-보기"><a class="header" href="#샘플값으로-실행해-보기">샘플값으로 실행해 보기</a></h2>
-<p><img src="attachments/20251115194335.png" alt=""></p>
+<h2 id="기본-샘플값으로-실행해-보기"><a class="header" href="#기본-샘플값으로-실행해-보기">기본 샘플값으로 실행해 보기</a></h2>
+<p><img src="attachments/20260427151754.png" alt=""></p>
+<ol>
+<li>
+<p>템플릿을 열자마자 바로 “실행” 버튼을 누른다.</p>
+</li>
+<li>
+<p>잠시 후 결과를 확인한다.</p>
+</li>
+</ol>
 <p>위와 같이 이 템플릿을 열자마자 바로 “실행” 버튼을 누른다. 샘플로 적혀 있는 내용으로 이미지가 만들어진다.</p>
 <p>샘플로 적혀 있는 내용은 다음과 같다.</p>
-<pre><code>You are an assistant designed to generate high quality anime images based on textual prompts. &lt;Prompt Start&gt; @comfyanonymous, "Warm and cheerful digital illustration of a girl standing in the middle of an orange grove, surrounded by lush green leaves and ripe, vibrant oranges hanging from the trees. She has chestnut-brown hair tied in a single loose braid draped over her shoulder, with soft bangs framing her bright, smiling face.
- Her expression is full of joy and sunshine—eyes squinting slightly, mouth open in a wide, carefree smile, radiating pure happiness. She wears a crisp white blouse underneath a black jacket, slightly unbuttoned for a relaxed look. The sunlight filters through the leaves above, casting dappled golden light on her hair and shoulders, creating a warm, inviting atmosphere.
-
-A few oranges hang close to her head, and one or two lie on the ground around her feet. The background features soft-focus trees stretching into the distance, with sunlight breaking through the foliage. The art style is painterly and soft, emphasizing the natural setting and the girl's radiant, wholesome charm."
-</code></pre>
+<blockquote></blockquote>
+<p>@comfyanonymous, “Warm and cheerful digital illustration of a girl standing in the middle of an orange grove, surrounded by lush green leaves and ripe, vibrant oranges hanging from the trees. She has chestnut-brown hair tied in a single loose braid draped over her shoulder, with soft bangs framing her bright, smiling face.
+Her expression is full of joy and sunshine—eyes squinting slightly, mouth open in a wide, carefree smile, radiating pure happiness. She wears a crisp white blouse underneath a black jacket, slightly unbuttoned for a relaxed look. The sunlight filters through the leaves above, casting dappled golden light on her hair and shoulders, creating a warm, inviting atmosphere.
+A few oranges hang close to her head, and one or two lie on the ground around her feet. The background features soft-focus trees stretching into the distance, with sunlight breaking through the foliage. The art style is painterly and soft, emphasizing the natural setting and the girl’s radiant, wholesome charm.”</p>
+<blockquote></blockquote>
 <p>이미지 내용 서술은 영어로 한다.</p>
-<p>이미지 내용 서술은 2가지로 하는데, 하나는 이렇게 만들어 달라는 뜻의 <strong>Positive Prompt(긍정적 서술)</strong> 이고 다른 하나는 이렇게는 만들지 말아달라는 뜻의 <strong>Negative Prompt(부정적 서술)</strong> 이다.</p>
-<p>샘플로 적혀 있는 Negative Prompt는 다음과 같다.</p>
-<pre><code>You are an assistant designed to generate low-quality images based on textual prompts &lt;Prompt Start&gt; blurry, worst quality, low quality, jpeg artifacts, signature, watermark, username, error, deformed hands, bad anatomy, extra limbs, poorly drawn hands, poorly drawn face, mutation, deformed, extra eyes, extra arms, extra legs, malformed limbs, fused fingers, too many fingers, long neck, cross-eyed, bad proportions, missing arms, missing legs, extra digit, fewer digits, cropped
-</code></pre>
-<p>샘플로 적혀 있는 Negative Prompt가 충분히 훌륭하니 특별한 이유가 없다면 수정하지 않는 것이 좋겠다.</p>
 <br />
 <h2 id="prompt-입력해-이미지-만들기"><a class="header" href="#prompt-입력해-이미지-만들기">prompt 입력해 이미지 만들기</a></h2>
-<p>이제 Positive Prompt를 수정해 내가 원하는 이미지를 만들어 보자.</p>
+<p>이제 Prompt를 수정해 내가 원하는 이미지를 만들어 보자.</p>
 <p>prompt는 먼저 한글로 쓴 다음, 영어로 번역해 사용한다.</p>
 <p>구글 번역 사이트를 이용하면 편하다.</p>
 <p>구글 번역 사이트 url: <a href="https://translate.google.co.kr/?sl=ko&amp;tl=en&amp;op=translate">https://translate.google.co.kr/?sl=ko&amp;tl=en&amp;op=translate</a></p>
-<p>다음과 같이 사용할 수 있다.</p>
-<p><img src="attachments/20251115195633.png" alt=""></p>
-<p>여기서 입력한 내용은 다음과 같다.</p>
-<pre><code>파란 하늘 아래 깨끗한 바다가 있고, 바다 위에 노란색 돛을 단 멋진 요트가 있고 그 배의 맨 앞에 하얀색 예쁜 고양이가 앞쪽을 바라보고 있는 이미지
-</code></pre>
+<p><img src="attachments/20260427152326.png" alt=""></p>
+<p>구글 번역 사이트를 이용해 입력한 내용은 다음과 같다.</p>
+<blockquote></blockquote>
+<p>파란 하늘 아래 깨끗한 바다가 있고, 바다 위에 노란색 돛을 단 멋진 요트가 있고 그 배의 맨 앞에 하얀색 예쁜 고양이가 앞쪽을 바라보고 있는 이미지</p>
+<blockquote></blockquote>
+<br />
 <p>번역된 내용은 다음과 같다.</p>
-<pre><code>An image of a clear sea under a blue sky, a beautiful yacht with yellow sails on the sea, and a pretty white cat at the very front of the ship looking forward.
-</code></pre>
-<p><img src="attachments/20251115195839.png" alt=""></p>
-<p>positive prompt 부분에 위와 같이 붙여 넣은 후 “실행” 버튼을 누른다.</p>
-<p><img src="attachments/20251115200017.png" alt=""></p>
-<p>왼쪽 툴바에서 “Queue” 버튼을 누르면 실행 대기열이 나오고, 여기에 여태 실행한 내역과 현재 실행 중인 내역이 나타난다.</p>
-<p><img src="attachments/20251115200244.png" alt=""></p>
-<p>약 1분 후 결과가 나타난다. 의도했던 바와는 약간 다르게 나타났지만.</p>
+<blockquote></blockquote>
+<p>An image of a clean sea under a blue sky, a magnificent yacht with yellow sails on the water, and a pretty white cat at the very front of the boat looking forward.</p>
+<blockquote></blockquote>
+<p>“Text To Image” 부분에 위 영문 내용을 붙여 넣은 후 “실행” 버튼을 누른다.</p>
+<p><img src="attachments/20260424012519.png" alt=""></p>
+<ol>
+<li>
+<p>내용을 영어로 적는다.</p>
+</li>
+<li>
+<p>“실행” 버튼을 누른다.</p>
+</li>
+</ol>
+<br />
+<p><img src="attachments/20260424012414.png" alt=""></p>
+<p><img src="attachments/20260427155048.png" alt=""></p>
 <br />
 <h2 id="결과-저장"><a class="header" href="#결과-저장">결과 저장</a></h2>
-<p><img src="attachments/20251115200334.png" alt=""></p>
-<p>위와 같이 생성된 파일을 내 컴퓨터에 저장할 수 있다.</p>
+<p><img src="attachments/20260424013415.png" alt=""></p>
+<ol>
+<li>
+<p>결과 사진 위에서 마우스 오른쪽 클릭한다.</p>
+</li>
+<li>
+<p>“Save Image” 메뉴를 선택해 파일을 저장한다.</p>
+</li>
+</ol>
+<br />
+<h2 id="프롬프트-힌트-얻기"><a class="header" href="#프롬프트-힌트-얻기">프롬프트 힌트 얻기</a></h2>
+<p><img src="attachments/20260427153425.png" alt=""></p>
+<p><img src="attachments/20260427153503.png" alt=""></p>
 
                     </main>
 
@@ -228,7 +262,7 @@ A few oranges hang close to her head, and one or two lie on the ground around he
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="../aiuu-01/comfyui-002.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../aiuu-01/comfyui-006.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -242,7 +276,7 @@ A few oranges hang close to her head, and one or two lie on the ground around he
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="../aiuu-01/comfyui-002.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../aiuu-01/comfyui-006.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

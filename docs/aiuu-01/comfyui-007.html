@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>로컬에서 음악만들기 - Stable Audio - Eugene&#x27;s Board</title>
+        <title>로컬에서 이미지 편집하기 - Flux outpaint - Eugene&#x27;s Board</title>
 
 
         <!-- Custom HTML head -->
@@ -36,10 +36,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-1fb8d471.js";
+            window.path_to_searchindex_js = "../searchindex-c1a37b86.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-148ceb63.js"></script>
+        <script src="../toc-59c1f101.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -175,37 +175,34 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="comfyui---stable-audio-워크플로"><a class="header" href="#comfyui---stable-audio-워크플로">ComfyUI - Stable Audio 워크플로</a></h1>
-<h2 id="stable-audio-워크플로-기본"><a class="header" href="#stable-audio-워크플로-기본">Stable Audio 워크플로 기본</a></h2>
-<p><img src="attachments/20251116143909.png" alt=""></p>
-<p>음악을 만들어 준다.</p>
-<p>이 워크플로에서는 2가지를 설정해 줘야 한다.</p>
-<p><img src="attachments/20251116144127.png" alt=""></p>
+                        <h1 id="로컬에서-이미지-편집하기---flux-outpaint"><a class="header" href="#로컬에서-이미지-편집하기---flux-outpaint">로컬에서 이미지 편집하기 - Flux outpaint</a></h1>
+<h1 id="comfyui---flux-아웃페인트"><a class="header" href="#comfyui---flux-아웃페인트">ComfyUI - Flux 아웃페인트</a></h1>
+<h2 id="flux-아웃페인트-워크플로-기본"><a class="header" href="#flux-아웃페인트-워크플로-기본">Flux 아웃페인트 워크플로 기본</a></h2>
+<p><img src="attachments/20260428013303.png" alt=""></p>
+<p>이미지 편집, 예를 들면 이미지를 더 큰 이미지로 만들기 위해, 옆에 없는 부분을 생성해 주는 식의 편집을 가능하게 하는 AI 모델</p>
+<p><img src="attachments/20260428013857.png" alt=""></p>
+<br />
+<h2 id="실습-comfyui에서-생성한-이미지-사용"><a class="header" href="#실습-comfyui에서-생성한-이미지-사용">실습: comfyUI에서 생성한 이미지 사용</a></h2>
+<p><img src="attachments/20260428013959.png" alt=""></p>
+<h3 id="워크플로-실행"><a class="header" href="#워크플로-실행">워크플로 실행</a></h3>
+<p><img src="attachments/20260428014249.png" alt=""></p>
 <ol>
-<li>길이: 기본값이 47.6초인데, 길면 길수록 시간이 오래 걸린다. 여기서는 10초로 설정한다.</li>
-<li>prompt: 음악의 내용</li>
+<li>
+<p>툴바에서 “에셋“을 선택한다.</p>
+</li>
+<li>
+<p>이미 만들었던 결과물 중 하나를 Upload Image 쪽으로 드래그 &amp; 드롭한다.</p>
+</li>
+<li>
+<p>이미지의 안 보이는 부분으로 넓힐 왼쪽, 위, 오른쪽, 아래의 값을 설정한다.</p>
+</li>
+<li>
+<p>“실행” 버튼을 누른다.</p>
+</li>
 </ol>
 <br />
-<h2 id="워크플로-실행"><a class="header" href="#워크플로-실행">워크플로 실행</a></h2>
-<ol>
-<li>길이를 10초로 설정한다. 초의 숫자 부분을 클릭하면 숫자를 입력할 수 있는 창이 나타난다.
-<img src="attachments/20251116144346.png" alt=""></li>
-<li>prompt: calm piano solo for media opening</li>
-<li>“실행” 버튼을 누른다.</li>
-</ol>
-<h2 id="실행-결과"><a class="header" href="#실행-결과">실행 결과</a></h2>
-<audio controls="" src="./attachments/ComfyUI_00024_.mp3">
-  <!-- 브라우저가 audio 태그를 지원하지 않을 경우 표시될 텍스트 -->
-  Your browser does not support the audio element.
-</audio>
-<h2 id="결과-듣기"><a class="header" href="#결과-듣기">결과 듣기</a></h2>
-<p><img src="attachments/20251116144845.png" alt=""></p>
-<p>queue에서 play 버튼을 누르면 재생할 수 있다.</p>
-<h2 id="결과-mp3-파일-다운로드"><a class="header" href="#결과-mp3-파일-다운로드">결과 mp3 파일 다운로드</a></h2>
-<p><img src="attachments/20251116144959.png" alt=""></p>
-<p>… 버튼을 누른 다음,</p>
-<p><img src="attachments/20251116145027.png" alt=""></p>
-<p>다운로드 버튼을 누른다.</p>
+<h3 id="실행-결과"><a class="header" href="#실행-결과">실행 결과</a></h3>
+<p><img src="attachments/20260428014441.png" alt=""></p>
 
                     </main>
 

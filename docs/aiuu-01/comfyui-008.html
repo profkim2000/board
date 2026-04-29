@@ -36,10 +36,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-5b0cc600.js";
+            window.path_to_searchindex_js = "../searchindex-53e32cd1.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-45033908.js"></script>
+        <script src="../toc-f84ea98b.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -180,7 +180,7 @@
 <p>내 이미지를 기반으로 동영상을 만들어 준다. 예를 들면, 아이 사진으로 하늘을 날아다니는 동영상을 만들 수 있다.</p>
 <p><img src="attachments/20260428100532.png" alt=""></p>
 <p>이 워크플로에서는 크게 5가지를 설정해 줘야 한다.</p>
-<p><img src="attachments/20260428095350.png" alt=""></p>
+<p><img src="attachments/20260429014940.png" alt=""></p>
 <ol>
 <li>이미지: 이 영상에서 사용할 이미지를 설정</li>
 <li>prompt: 영상의 내용. 영어로 적는다.</li>
@@ -189,74 +189,44 @@
 <li>duration: 길이. 동영상의 재생 시간을 초단위로 설정할 수 있다. 길수록 처리 시간이 오래 걸린다.</li>
 </ol>
 <br />
-<h2 id="워크플로-실행-1"><a class="header" href="#워크플로-실행-1">워크플로 실행 1</a></h2>
+<h2 id="워크플로-실행"><a class="header" href="#워크플로-실행">워크플로 실행</a></h2>
+<p><img src="attachments/20260429015356.png" alt=""></p>
 <ol>
 <li>이미지: 애셋에서 끌어다 놓거나 파일 선택 버튼을 눌러 내 컴퓨터의 이미지 파일 하나를 선택한다.</li>
 <li>prompt: 기본값 그대로 둔다.</li>
 <li>width: 기본값 640 그대로 둔다.</li>
 <li>height: 기본값 640 그대로 둔다.</li>
 <li>duration: 5.0초 그대로 둔다.</li>
+<li>실행 버튼을 누른다.</li>
 </ol>
 <blockquote>
-<p>(영문)
-Beautiful young European woman with honey blonde hair gracefully turning her head back over shoulder, gentle smile, bright eyes looking at camera. Hair flowing in slow motion as she turns. Soft natural lighting, clean background, cinematic slow-motion portrait.</p>
+<p>(한글)
+강아지가 뒤돌았는데 갑자기 요트 위로 물고기가 튀어 올라 그 물고기를 잡는다</p>
 </blockquote>
 <blockquote>
-<p>(번역본)
-아름다운 젊은 유럽 여성이 꿀빛 금발 머리를 우아하게 어깨 너머로 돌리며 부드러운 미소를 짓고, 밝은 눈으로 카메라를 바라보고 있다. 그녀가 돌아서는 순간 머리카락이 슬로우 모션처럼 흩날린다. 부드러운 자연광과 깔끔한 ​​배경이 어우러져 마치 영화 속 슬로우 모션 같은 인물 사진이다.</p>
+<p>(영문)
+The puppy turns around and suddenly a fish jumps onto the yacht and catches it.</p>
 </blockquote>
 <h2 id="실행-결과"><a class="header" href="#실행-결과">실행 결과</a></h2>
-<video controls="" src="./attachments/ComfyUI_00001_.mp4">
+<video controls="" src="./attachments/Wan2.2_i2v_00001_.mp4">
   <!-- 브라우저가 audio 태그를 지원하지 않을 경우 표시될 텍스트 -->
   Your browser does not support the video element.
 </video>
 <br />
-<p><strong>(예전 WAN 2.1 버전 결과물)</strong></p>
-<video controls="" src="./attachments/ComfyUI_00001_.mp4">
-  <!-- 브라우저가 audio 태그를 지원하지 않을 경우 표시될 텍스트 -->
-  Your browser does not support the video element.
-</video>
-<p>2초 영상. 약 8분 걸림</p>
-<h2 id="워크플로-실행-2---내가-원하는-prompt로"><a class="header" href="#워크플로-실행-2---내가-원하는-prompt로">워크플로 실행 2 - 내가 원하는 prompt로</a></h2>
-<ol>
-<li>너비: 기본값 832를 그대로 둔다.</li>
-<li>높이: 기본값 480을 그대로 둔다.</li>
-<li>길이: 33을 그대로 둔다. 약 2초 짜리 영상이 만들어진다.</li>
-<li>prompt: a penguin is walking on the white land, and camera is tracking his back. (펭귄이 하얀 땅위를 걷고 있고, 카메라가 그 뒤를 따른다.)</li>
-</ol>
+<h2 id="재시도"><a class="header" href="#재시도">재시도</a></h2>
+<blockquote>
+<p>(한글)
+강아지가 뒤돌았는데 그 순간 갑자기 요트 위로 작은 물고기가 튀어 올랐고, 강아지가 그 물고기를 쫓아 입으로 문다</p>
+</blockquote>
+<blockquote>
+<p>(영문)
+The puppy turned around, and at that moment, a small fish suddenly jumped onto the yacht, and the puppy chased the fish and caught it with its mouth.</p>
+</blockquote>
 <h2 id="실행-결과-1"><a class="header" href="#실행-결과-1">실행 결과</a></h2>
-<video controls="" src="./attachments/ComfyUI_00002_.mp4">
+<video controls="" src="./attachments/Wan2.2_i2v_00001_.mp4">
   <!-- 브라우저가 audio 태그를 지원하지 않을 경우 표시될 텍스트 -->
   Your browser does not support the video element.
 </video>
-<p>2초 영상. 약 3분 걸림</p>
-<h2 id="워크플로-실행-3---내가-원하는-prompt로"><a class="header" href="#워크플로-실행-3---내가-원하는-prompt로">워크플로 실행 3 - 내가 원하는 prompt로</a></h2>
-<ol>
-<li>너비: 기본값 832를 그대로 둔다.</li>
-<li>높이: 기본값 480을 그대로 둔다.</li>
-<li>길이: 33을 그대로 둔다. 약 2초 짜리 영상이 만들어진다.</li>
-<li>prompt: penguins diving in a line from a snow-covered ground about 3 meters high into the sea 3 meters below.(펭귄들이 줄지어 약 3미터 높이의 눈덮인 땅 위에서 3미터 아래의 바다로 다이빙하는 영상)</li>
-</ol>
-<h2 id="실행-결과-2"><a class="header" href="#실행-결과-2">실행 결과</a></h2>
-<video controls="" src="./attachments/ComfyUI_00003_.mp4">
-  <!-- 브라우저가 audio 태그를 지원하지 않을 경우 표시될 텍스트 -->
-  Your browser does not support the video element.
-</video>
-<p>2초 영상. 약 3분 걸림</p>
-<h2 id="워크플로-실행-4---내가-원하는-prompt로"><a class="header" href="#워크플로-실행-4---내가-원하는-prompt로">워크플로 실행 4 - 내가 원하는 prompt로</a></h2>
-<ol>
-<li>너비: 기본값 832를 그대로 둔다.</li>
-<li>높이: 기본값 480을 그대로 둔다.</li>
-<li>길이: 33을 그대로 둔다. 약 2초 짜리 영상이 만들어진다.</li>
-<li>prompt: A puppy jumps into the pool water and plays happily(강아지가 수영장에서 즐겁게 노는 영상)</li>
-</ol>
-<h2 id="실행-결과-3"><a class="header" href="#실행-결과-3">실행 결과</a></h2>
-<video controls="" src="./attachments/ComfyUI_00004_.mp4">
-  <!-- 브라우저가 audio 태그를 지원하지 않을 경우 표시될 텍스트 -->
-  Your browser does not support the video element.
-</video>
-<p>10초 영상. 약 6시간 걸림(아마도 물을 처리하느라)</p>
-
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">

@@ -37,10 +37,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-6f207055.js";
+            window.path_to_searchindex_js = "searchindex-46827b8d.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-1a6081ba.js"></script>
+        <script src="toc-ae1ccfff.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -498,7 +498,249 @@
 <h2 id="1-샘플사진에서-사진을-몇-장-다운로드-받는다"><a class="header" href="#1-샘플사진에서-사진을-몇-장-다운로드-받는다">1. <a href="#지오태깅된-사진-샘플">샘플사진</a>에서 사진을 몇 장 다운로드 받는다.</a></h2>
 <p><strong>지오태그 확인 방법</strong></p>
 <p>다운로드받은 사진을 오른쪽 클릭한 다음, 속성 메뉴를 선택한다.</p>
-<p>GPS에 위도, 경도의 지오태그 정보가 있는 것을 확인한다.</p>
+<p><img src="webgis-01/attachments/20260528143048.png" alt=""></p>
+<p>자세히 탭에서 GPS 그룹에 위도, 경도의 지오태그 정보가 있는 것을 확인한다.</p>
+<br />
+<h2 id="2-qgis에서-배경지도osm-레이어-추가"><a class="header" href="#2-qgis에서-배경지도osm-레이어-추가">2. QGIS에서 배경지도(<a href="https://www.openstreetmap.org/">OSM</a>) 레이어 추가</a></h2>
+<p><img src="webgis-01/attachments/20260527145354.png" alt=""></p>
+<ol>
+<li>
+<p>XYZ Tiles 선택</p>
+</li>
+<li>
+<p>“Open Street Map” 선택</p>
+</li>
+<li>
+<p>레이어에 “OpenStreetMap” 추가된 것 확인</p>
+</li>
+<li>
+<p>배경지도가 추가된 것 확인</p>
+</li>
+</ol>
+<br />
+<h2 id="3-qgis에서-지오태그된-사진-읽어들이기"><a class="header" href="#3-qgis에서-지오태그된-사진-읽어들이기">3. QGIS에서 지오태그된 사진 읽어들이기</a></h2>
+<h3 id="31-qgis에서-플러그인-추가"><a class="header" href="#31-qgis에서-플러그인-추가">3.1. QGIS에서 플러그인 추가</a></h3>
+<p><img src="webgis-01/attachments/20260528144013.png" alt=""></p>
+<p>QGIS 메뉴 중 플러그인 &gt; 플러그인 관리 및 설치… 메뉴를 선택한다.</p>
+<br />
+<p><img src="webgis-01/attachments/20260528144248.png" alt=""></p>
+<ol>
+<li>
+<p>“설치되지 않음” 선택</p>
+</li>
+<li>
+<p>검색창에 “<strong>import photos</strong>” 입력</p>
+</li>
+<li>
+<p>“ImportPhotos” 선택</p>
+</li>
+<li>
+<p>“플러그인 설치” 버튼 클릭. 잠깐 설치 창이 나타남.</p>
+</li>
+<li>
+<p>“닫기” 버튼 클릭.</p>
+</li>
+</ol>
+<br />
+<h3 id="32-import-photos-플러그인에서-사진-읽어들이기"><a class="header" href="#32-import-photos-플러그인에서-사진-읽어들이기">3.2. Import Photos 플러그인에서 사진 읽어들이기</a></h3>
+<p>이 플러그인은 폴더 안의 모든 사진을 가져와서 처리한다. 그래서 지오태깅된 사진이 있는 폴더를 설정해 주어야 한다.</p>
+<p>이 폴더는 각자 사진을 다운로드 받은 곳으로 선택한다.</p>
+<p><img src="webgis-01/attachments/20260528144846.png" alt=""></p>
+<ol>
+<li>
+<p>ImportPhotos 플러그인의 “Import Photos” 버튼을 클릭한다.</p>
+</li>
+<li>
+<p>“Browse…” 버튼을 눌러 지오태깅된 사진이 있는 폴더를 선택한다.</p>
+</li>
+</ol>
+<br />
+<p><img src="webgis-01/attachments/20260528150253.png" alt=""></p>
+<p>지오태깅된 사진을 가져오는 처리를 한 결과를 저장할 곳을 정해준다.</p>
+<ol>
+<li>
+<p>Output File Location의 “Browse…” 버튼을 클릭한다.</p>
+</li>
+<li>
+<p>저장할 폴더로 “D:\qgis\proj3” 폴더를 선택한다.(없으면 만들어 사용)</p>
+</li>
+<li>
+<p>파일 이름으로 “<strong>geotag</strong>“를 입력한다.</p>
+</li>
+<li>
+<p>“저장” 버튼을 클릭한다.</p>
+</li>
+</ol>
+<br />
+<p><img src="webgis-01/attachments/20260528150342.png" alt=""></p>
+<p>OK 버튼을 클릭해 사진을 읽어들인다.</p>
+<br />
+<p><img src="webgis-01/attachments/20260528150439.png" alt=""></p>
+<p>사진을 읽어들인 결과가 표시된다.</p>
+<br />
+<p><img src="webgis-01/attachments/20260528150557.png" alt=""></p>
+<br />
+<h3 id="33-위치에-따른-사진-확인하기"><a class="header" href="#33-위치에-따른-사진-확인하기">3.3. 위치에 따른 사진 확인하기</a></h3>
+<p>QGIS의 지도에 사진 아이콘이 표시된다. 그 사진 아이콘이 있는 곳으로 이동하고 줌 인/아웃 해 아래와 같이 사진 아이콘이 잘 배치되어 보여지도록 하자.</p>
+<p><img src="webgis-01/attachments/20260528151017.png" alt=""></p>
+<p>사진 아이콘을 클릭하면 그 위치의 사진이 보여진다.</p>
+<p><img src="webgis-01/attachments/20260528151200.png" alt=""></p>
+<ol>
+<li>
+<p>사진 아이콘을 클릭한다.</p>
+</li>
+<li>
+<p>그 위치에서의 사진이 팝업창으로 보여진다.</p>
+</li>
+</ol>
+<p><img src="webgis-01/attachments/20260528151553.png" alt=""></p>
+<br />
+<h3 id="34-importphotos-플러그인이-만든-geotag-레이어의-속성-정보"><a class="header" href="#34-importphotos-플러그인이-만든-geotag-레이어의-속성-정보">3.4. importPhotos 플러그인이 만든 geotag 레이어의 속성 정보</a></h3>
+<p><img src="webgis-01/attachments/20260528152913.png" alt=""></p>
+<ol>
+<li>
+<p>geotag 레이어(importPhotos 플러그인이 만들어 준 레이어)를 선택하고 오른쪽 클릭한다.</p>
+</li>
+<li>
+<p>“속성 테이블 열기” 메뉴를 클릭한다.</p>
+</li>
+<li>
+<p>아래쪽에 속성 정보가 보여진다. 위도, 경도, 파일 위치 등의 정보를 저장하고 있다는 걸 알 수 있다. 이 정보들이 그대로 geoServer에 전달된다.</p>
+</li>
+</ol>
+<br />
+<h2 id="4-geoserver-실행"><a class="header" href="#4-geoserver-실행">4. GeoServer 실행</a></h2>
+<p><img src="webgis-01/attachments/20260527170127.png" alt=""></p>
+<ol>
+<li>
+<p>시작 버튼을 누른다.</p>
+</li>
+<li>
+<p>시작 메뉴에서 GeoServer 아래의 “Start GeoServer” 를 선택한다.</p>
+</li>
+<li>
+<p>시작 메뉴에서 GeoServer 아래의 “GeoServer Web Portal” 메뉴를 선택한다.</p>
+</li>
+</ol>
+<br />
+<h2 id="5-로그인"><a class="header" href="#5-로그인">5. 로그인</a></h2>
+<p><img src="webgis-01/attachments/20260527171422.png" alt=""></p>
+<ol>
+<li>
+<p>“로그인” 버튼을 누른다.</p>
+</li>
+<li>
+<p>username과 비밀번호를 입력한다. 우리의 경우엔 기본값인 admin / geoserver 를 입력한다.</p>
+</li>
+<li>
+<p>“로그인” 버튼을 누른다.</p>
+</li>
+</ol>
+<br />
+<h2 id="6-작업공간-생성"><a class="header" href="#6-작업공간-생성">6. 작업공간 생성</a></h2>
+<p><img src="webgis-01/attachments/20260527171623.png" alt=""></p>
+<ol>
+<li>
+<p>GeoServer의 왼쪽 메뉴에서 “작업공간” 을 선택한다.</p>
+</li>
+<li>
+<p>“새로운 작업공간 추가하기” 을 선택한다.</p>
+</li>
+</ol>
+<br />
+<h2 id="5-작업공간-정보-입력-1"><a class="header" href="#5-작업공간-정보-입력-1">5. 작업공간 정보 입력</a></h2>
+<p><img src="webgis-01/attachments/20260527171746.png" alt=""></p>
+<ol>
+<li>
+<p>작업공간의 이름을 입력한다. 여기서는 “test01” 로 입력한다.</p>
+</li>
+<li>
+<p>네임스페이스 URI를 입력한다. 단순히 구분이 되기만 하면 되지만, URI의 특성상 앞에 “http://“를 추가해서, “http://test01“로 입력한다.</p>
+</li>
+<li>
+<p>“저장” 버튼을 누른다.</p>
+</li>
+</ol>
+<br />
+<h2 id="6-작업공간-추가-확인-1"><a class="header" href="#6-작업공간-추가-확인-1">6. 작업공간 추가 확인</a></h2>
+<p><img src="webgis-01/attachments/20260527171951.png" alt=""></p>
+<p>작업공간 test01이 추가된 것을 확인한다.</p>
+<br />
+<h2 id="7-작업공간에-저장소-추가-1"><a class="header" href="#7-작업공간에-저장소-추가-1">7. 작업공간에 저장소 추가</a></h2>
+<p><img src="webgis-01/attachments/20260527172046.png" alt=""></p>
+<ol>
+<li>
+<p>왼쪽 메뉴에서 “저장소” 메뉴를 선택한다.</p>
+</li>
+<li>
+<p>“새로운 저장소 생성하기” 를 선택한다.</p>
+</li>
+</ol>
+<br />
+<h2 id="8-저장소-유형을-shapefile로-선택한다-1"><a class="header" href="#8-저장소-유형을-shapefile로-선택한다-1">8. 저장소 유형을 “ShapeFile“로 선택한다.</a></h2>
+<p><img src="webgis-01/attachments/20260527172136.png" alt=""></p>
+<br />
+<h2 id="9-저장소-정보-입력-1-1"><a class="header" href="#9-저장소-정보-입력-1-1">9. 저장소 정보 입력 1</a></h2>
+<p><img src="webgis-01/attachments/20260527180410.png" alt=""></p>
+<ol>
+<li>
+<p>작업공간을 선택한다. 좀전에 생성한 “test01” 작업공간을 선택한다.</p>
+</li>
+<li>
+<p>저장소 이름을 정해준다. 여기서는 구분을 쉽게 하기 위해 작업공간 이름도 포함해 “test01-yommy“로 설정한다.</p>
+</li>
+<li>
+<p>이 저장소의 설명을 입력한다.</p>
+</li>
+<li>
+<p>shape 파일의 위치를 정해주기 위해 “탐색…” 버튼을 누른다.</p>
+</li>
+</ol>
+<br />
+<h2 id="10-shape-파일의-위치-찾아가-선택하기-1"><a class="header" href="#10-shape-파일의-위치-찾아가-선택하기-1">10. shape 파일의 위치 찾아가 선택하기</a></h2>
+<p><img src="webgis-01/attachments/20260527172804.png" alt=""></p>
+<p>shape 파일이 있는 드라이브 이름으로 바꿔준다.</p>
+<p><img src="webgis-01/attachments/20260527172941.png" alt=""></p>
+<p>파일이 있는 폴더로 찾아간다.</p>
+<p><img src="webgis-01/attachments/20260527175211.png" alt=""></p>
+<p>파일을 선택한다. 여기서는 “yommy.shp” 파일을 선택했다.</p>
+<br />
+<h2 id="11-저장소-정보-입력-2-1"><a class="header" href="#11-저장소-정보-입력-2-1">11. 저장소 정보 입력 2</a></h2>
+<p><img src="webgis-01/attachments/20260527180541.png" alt=""></p>
+<ol>
+<li>
+<p>문자셋을 “UTF-8“로 맞춰준다.</p>
+</li>
+<li>
+<p>“저장” 버튼을 누른다.</p>
+</li>
+</ol>
+<br />
+<h2 id="12-레이어-발행-1"><a class="header" href="#12-레이어-발행-1">12. 레이어 발행</a></h2>
+<p><img src="webgis-01/attachments/20260527175634.png" alt=""></p>
+<p>새로 만든 레이어가 표시되고, “발행하기” 메뉴가 나오는데, 이걸 클릭한다.</p>
+<br />
+<h2 id="13-레이어-편집-1"><a class="header" href="#13-레이어-편집-1">13. 레이어 편집</a></h2>
+<p><img src="webgis-01/attachments/20260527180806.png" alt=""></p>
+<ol>
+<li>
+<p>레이어 최소경계 영역에서, 원본 데이터 최소경계 영역을 자동으로 계산하기 위해 “데이터로부터 계산하기” 버튼을 클릭한다.</p>
+</li>
+<li>
+<p>위/경도 영역도 자동으로 계산하기 위해 “원본 영역으로부터 계산하기” 버튼을 누른다.</p>
+</li>
+<li>
+<p>“저장” 버튼을 누른다.</p>
+</li>
+</ol>
+<br />
+<h2 id="14-레이어-추가-확인-1"><a class="header" href="#14-레이어-추가-확인-1">14. 레이어 추가 확인</a></h2>
+<p><img src="webgis-01/attachments/20260527195845.png" alt=""></p>
+<br />
+<h2 id="15-레이어의-데이터-확인-1"><a class="header" href="#15-레이어의-데이터-확인-1">15. 레이어의 데이터 확인</a></h2>
+<p><img src="webgis-01/attachments/20260527200546.png" alt=""></p>
+<p>QGIS로 부터 넘어온 데이터를 확인한다.</p>
+<p><img src="webgis-01/attachments/20260527200639.png" alt=""></p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="지오태깅된-사진-샘플"><a class="header" href="#지오태깅된-사진-샘플">지오태깅된 사진 샘플</a></h1>
 <p>아래 사진들은 모두 <a href="https://www.lx.or.kr">LX</a> 본사 주변의 <a href="https://namu.wiki/w/%EA%B8%B0%EC%A7%80%EC%A0%9C%EC%88%98%EB%B3%80%EA%B3%B5%EC%9B%90">기지재</a> 에서 촬영한 사진으로,<br><a href="https://ko.wikipedia.org/wiki/%EC%A7%80%EC%98%A4%ED%83%9C%EA%B9%85">지오태깅</a>(geotagging, 사진에 촬영한 장소의 위도와 경도 정보 등록) 되어 있는,<br>강사가 촬영한 저작권 free 사진들입니다.</p>
@@ -518,8 +760,400 @@
 </div>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="실습-4---qgis--geoserver--openlayers"><a class="header" href="#실습-4---qgis--geoserver--openlayers">실습 4 - QGIS + GeoServer + OpenLayers</a></h1>
+<h2 id="환경"><a class="header" href="#환경">환경</a></h2>
+<ul>
+<li>QGIS 3.44 LTS</li>
+<li>폴더: D:\qgis\proj4</li>
+</ul>
+<h2 id="실습-순서"><a class="header" href="#실습-순서">실습 순서</a></h2>
+<p><a href="webgis-01/webgis-01/prac11-01.html">1. <strong>QGIS</strong>에서 여행가고싶은 곳 표시</a></p>
+<p><a href="webgis-01/webgis-01/prac11-02.html">2. <strong>GeoServer</strong> 작업</a></p>
+<p><a href="webgis-01/webgis-01/prac11-03.html">3. <strong>OpenLayers</strong> 작업</a></p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="qgis에서-여행가고싶은-곳-표시"><a class="header" href="#qgis에서-여행가고싶은-곳-표시">QGIS에서 여행가고싶은 곳 표시</a></h1>
+<h2 id="1-qgis에서-배경지도osm-레이어-추가-1"><a class="header" href="#1-qgis에서-배경지도osm-레이어-추가-1">1. QGIS에서 배경지도(<a href="https://www.openstreetmap.org/">OSM</a>) 레이어 추가</a></h2>
+<p><img src="webgis-01/attachments/20260527145354.png" alt=""></p>
+<ol>
+<li>
+<p>XYZ Tiles 선택</p>
+</li>
+<li>
+<p>“Open Street Map” 선택</p>
+</li>
+<li>
+<p>레이어에 “OpenStreetMap” 추가된 것 확인</p>
+</li>
+<li>
+<p>배경지도가 추가된 것 확인</p>
+</li>
+</ol>
+<br />
+<h2 id="2-shape-파일-레이어-추가-1"><a class="header" href="#2-shape-파일-레이어-추가-1">2. shape 파일 레이어 추가</a></h2>
+<p><img src="webgis-01/attachments/20260528105409.png" alt=""></p>
+<ol>
+<li>
+<p>“새 셰이프파일 레이어” 버튼 클릭(Shape File Layer)</p>
+</li>
+<li>
+<p>“…’ 버튼을 눌러 저장 위치를 정해주는 창을 띄운다.</p>
+</li>
+<li>
+<p>“레이어를 다른 이름으로 저장” 창이 나오면 <strong>D:\qgis\proj4</strong> 폴더로 이동한다.(없으면 생성한다)</p>
+</li>
+<li>
+<p>파일명을 <strong>“trip”</strong> 로 준다. (이렇게 되면 <strong>D:\qgis\proj4\trip.shp</strong> 파일이 생성된다.)</p>
+</li>
+<li>
+<p>“저장” 버튼을 누른다.</p>
+</li>
+</ol>
+<br />
+<h2 id="3-shape-파일-레이어-정보-입력---위치-정보-1"><a class="header" href="#3-shape-파일-레이어-정보-입력---위치-정보-1">3. shape 파일 레이어 정보 입력 - 위치 정보</a></h2>
+<p><img src="webgis-01/attachments/20260528110706.png" alt=""></p>
+<ol>
+<li>
+<p>좀 전의 창에서 정해준 파일이름 확인</p>
+</li>
+<li>
+<p>파일 인코딩은 “UTF-8“로 설정한다.</p>
+</li>
+<li>
+<p>도형유형: 포인트</p>
+</li>
+<li>
+<p>추가차원은 “없음”, 좌표계인 EPSG값은 “EPSG:3857“으로 설정.<br>만약 EPSG:3857 이 없으면 오른쪽의 “좌표계 선택” 버튼을 눌러 설정한다.<br><img src="webgis-01/attachments/20260527151440.png" alt=""></p>
+<ol>
+<li>
+<p>“좌표계 선택 버튼을 누른다.</p>
+</li>
+<li>
+<p>필터에서 “3857“을 선택한다.</p>
+</li>
+<li>
+<p>아래 사전 정의된 좌표계에서 “WGS 84 / Pseudo_Mercator  EPSG:3857“을 선택한다(배경지도의 좌표계가 ESPG:3857이기 때문).</p>
+</li>
+<li>
+<p>“확인 버튼을 누른다.”</p>
+</li>
+</ol>
+</li>
+</ol>
+<br />
+<h2 id="4-shape-파일-레이어-정보-입력---속성-정보-1"><a class="header" href="#4-shape-파일-레이어-정보-입력---속성-정보-1">4. shape 파일 레이어 정보 입력 - 속성 정보</a></h2>
+<h3 id="name-속성-추가"><a class="header" href="#name-속성-추가">name 속성 추가</a></h3>
+<p>가고 싶은 여행지의 이름을 입력하기 위해 name 속성을 추가한다.</p>
+<p><img src="webgis-01/attachments/20260528110921.png" alt=""></p>
+<ol>
+<li>
+<p>속성 정보에서 사용할 항목(필드)의 이름을 “name“으로 설정한다.</p>
+</li>
+<li>
+<p>유형은 “텍스트(문자열)” 로 설정한다.</p>
+</li>
+<li>
+<p>“필드 목록 추가” 버튼을 누른다.</p>
+</li>
+<li>
+<p>“name” 이라는 이름의 항목이 하나 추가된 것을 확인한다.</p>
+</li>
+</ol>
+<h3 id="rate-속성-추가"><a class="header" href="#rate-속성-추가">rate 속성 추가</a></h3>
+<p>얼마나 가고 싶은 여행지인지를 표시하기 위해 rate 속성을 추가한다. 1~5로 표시하고, 5가 별 5개로 가장 가고 싶은 곳이다.</p>
+<p><img src="webgis-01/attachments/20260528111215.png" alt=""></p>
+<ol>
+<li>
+<p>속성 정보에서 사용할 항목(필드)의 이름을 “rate“로 설정한다.</p>
+</li>
+<li>
+<p>유형은 “정수(32비트)” 로 설정한다.</p>
+</li>
+<li>
+<p>“필드 목록 추가” 버튼을 누른다.</p>
+</li>
+<li>
+<p>“rate” 라는 이름의 항목이 하나 추가된 것을 확인한다.</p>
+</li>
+</ol>
+<h3 id="foreign-속성-추가"><a class="header" href="#foreign-속성-추가">foreign 속성 추가</a></h3>
+<p>해외인지 표시하기 위해 참 거짓 형태의 foreign 속성을 추가한다. 이 값이 “참(true)“이면 해외 여행지이고, “거짓(false)이면 국내 여행지이다.</p>
+<p><img src="webgis-01/attachments/20260528111727.png" alt=""></p>
+<ol>
+<li>
+<p>속성 정보에서 사용할 항목(필드)의 이름을 “foreign“으로 설정한다.</p>
+</li>
+<li>
+<p>유형은 “불(Boolean)” 로 설정한다. boolean이 참/거짓 형태이다.</p>
+</li>
+<li>
+<p>“필드 목록 추가” 버튼을 누른다.</p>
+</li>
+<li>
+<p>“foreign” 이라는 이름의 항목이 하나 추가된 것을 확인한다.</p>
+</li>
+<li>
+<p>“확인” 버튼을 눌러 위치 정보와 속성 정보 관련 설정을 저장한다.</p>
+</li>
+</ol>
+<br />
+<h2 id="5-trip-레이어-추가-확인"><a class="header" href="#5-trip-레이어-추가-확인">5. “trip” 레이어 추가 확인</a></h2>
+<p><img src="webgis-01/attachments/20260528112107.png" alt=""></p>
+<br />
+<h2 id="6-원하는-위치-찾기"><a class="header" href="#6-원하는-위치-찾기">6. 원하는 위치 찾기</a></h2>
+<h3 id="지도에서-원하는-위치로-이동하기"><a class="header" href="#지도에서-원하는-위치로-이동하기">지도에서 원하는 위치로 이동하기</a></h3>
+<ul>
+<li>
+<p>확대/축소: 마우스 휠 돌리기</p>
+</li>
+<li>
+<p>지도 위치 이동: 마우스 휠 꾹 누르고 움직이기</p>
+</li>
+</ul>
+<h3 id="원하는-위치-검색하기"><a class="header" href="#원하는-위치-검색하기">원하는 위치 검색하기</a></h3>
+<p><img src="webgis-01/attachments/20260528112502.png" alt=""></p>
+<ol>
+<li>
+<p>화면 맨 왼쪽 아래 “위치를 찾으려면 입력하십시오“라고 적힌 부분에 “&gt; 무령왕릉” 을 입력한다. “&gt;” 와 “무령왕릉” 사이에 반드시 빈 칸이 하나 있어야 한다.</p>
+</li>
+<li>
+<p>검색되어 나온 주소를 더블클릭한다. 지도가 그 지역으로 이동한다. 너무 줌인(확대)되어 있을 수 있으니 마우스 휠을 돌려 적절히 줌아웃(축소) 한다.</p>
+</li>
+</ol>
+<br />
+<h2 id="7-여행-가고-싶은-곳에-점을-찍고-정보-입력"><a class="header" href="#7-여행-가고-싶은-곳에-점을-찍고-정보-입력">7. 여행 가고 싶은 곳에 점을 찍고 정보 입력</a></h2>
+<p><img src="webgis-01/attachments/20260528113248.png" alt=""></p>
+<ol>
+<li>
+<p>“편집 모드 켜고 끄기” 버튼을 눌러 편집 모드를 켠다.</p>
+</li>
+<li>
+<p>“포인트 피처 추가” 버튼을 누른다.</p>
+</li>
+<li>
+<p>가고 싶은 여행지를 클릭해 점을 찍는다.</p>
+</li>
+<li>
+<p>속성 입력 창이 나오면, id에 “1“을 입력한다. (다음 점을 찍을 때는 2, 3, 4, 하나씩 증가하면서 입력)</p>
+</li>
+<li>
+<p>“name” 항목에 “무령왕릉” 등으로 그 위치에 대한 설명을 입력한다.</p>
+</li>
+<li>
+<p>“rate” 항목에 “4“를 입력한다. 별 1~5개중 별 4개짜리, 많이 가고 싶은 곳이라는 뜻이다.</p>
+</li>
+<li>
+<p>“확인” 버튼을 누른다.</p>
+</li>
+</ol>
+<br />
+<p><strong>2 ~ 7의 과정을 반복하며 가고 싶은 여행지를 총 3곳 이상 입력</strong>한다. 여기서는 공산성, 공주대학교, 쇼팽 박물관 을 검색해 추가해 총 4곳을 입력했다.</p>
+<p><img src="webgis-01/attachments/20260528134101.png" alt=""></p>
+<p><img src="webgis-01/attachments/20260528134202.png" alt=""></p>
+<p><img src="webgis-01/attachments/20260528134349.png" alt=""></p>
+<br />
+<h2 id="8-편집모드-끄기-1"><a class="header" href="#8-편집모드-끄기-1">8. 편집모드 끄기</a></h2>
+<p><img src="webgis-01/attachments/20260528113557.png" alt=""></p>
+<ol>
+<li>
+<p>다시 “편집모드 켜고 끄기” 버튼을 눌러 편집모드를 끈다. 눌려 있던 버튼이 평평해진 느낌이 들어야 한다.</p>
+</li>
+<li>
+<p>저장하겠냐고 물으면 “저장” 버튼을 누른다.</p>
+</li>
+</ol>
+<br />
+<h2 id="9-shape-파일-확인-1"><a class="header" href="#9-shape-파일-확인-1">9. shape 파일 확인</a></h2>
+<p><img src="webgis-01/attachments/20260528131840.png" alt=""></p>
+<ol>
+<li>
+<p>shape 파일 레이어 추가할 때 정해준 폴더(D:\qgis\proj4)로 이동</p>
+</li>
+<li>
+<p>총 5개의 파일이 생성되어 있는 것 확인</p>
+</li>
+</ol>
+<ul>
+<li>
+<p>.cpg 파일: .dbf 파일의 문자 인코딩을 저장(UTF-8, EUC-KR 등)</p>
+</li>
+<li>
+<p>.dbf 파일: 속성정보 저장(dbase 파일)</p>
+</li>
+<li>
+<p>.prj 파일: 좌표계, 투영 정보 저장(WKT 파일)</p>
+</li>
+<li>
+<p>.shp 파일: 공간 데이터 자체(점, 선, 면)</p>
+</li>
+<li>
+<p>.shx 파일: .shp 파일의 인덱스 파일. 점, 선, 면의 위치를 빠르게 찾아내기 위해 필요</p>
+</li>
+</ul>
+<br />
+<h2 id="10-프로젝트-저장"><a class="header" href="#10-프로젝트-저장">10. 프로젝트 저장</a></h2>
+<p><img src="webgis-01/attachments/20260528132147.png" alt=""></p>
+<ol>
+<li>
+<p>프로젝트 메뉴를 선택한다.</p>
+</li>
+<li>
+<p>“저장” 버튼을 눌러 “D:\qgis\proj4\<strong>proj4</strong>.qgz“로 저장한다.</p>
+</li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="2-geoserver-작업"><a class="header" href="#2-geoserver-작업">2. GeoServer 작업</a></h1>
+<h2 id="1-geoserver-실행"><a class="header" href="#1-geoserver-실행">1. GeoServer 실행</a></h2>
+<p><img src="webgis-01/attachments/20260527170127.png" alt=""></p>
+<ol>
+<li>
+<p>시작 버튼을 누른다.</p>
+</li>
+<li>
+<p>시작 메뉴에서 GeoServer 아래의 “Start GeoServer” 를 선택한다.</p>
+</li>
+<li>
+<p>시작 메뉴에서 GeoServer 아래의 “GeoServer Web Portal” 메뉴를 선택한다.</p>
+</li>
+</ol>
+<br />
+<h2 id="2-로그인"><a class="header" href="#2-로그인">2. 로그인</a></h2>
+<p><img src="webgis-01/attachments/20260527171422.png" alt=""></p>
+<ol>
+<li>
+<p>“로그인” 버튼을 누른다.</p>
+</li>
+<li>
+<p>username과 비밀번호를 입력한다. 우리의 경우엔 기본값인 <strong>admin</strong> / <strong>geoserver</strong> 를 입력한다.</p>
+</li>
+<li>
+<p>“로그인” 버튼을 누른다.</p>
+</li>
+</ol>
+<br />
+<h2 id="3-작업공간-생성"><a class="header" href="#3-작업공간-생성">3. 작업공간 생성</a></h2>
+<p><img src="webgis-01/attachments/20260527171623.png" alt=""></p>
+<ol>
+<li>
+<p>GeoServer의 왼쪽 메뉴에서 “작업공간” 을 선택한다.</p>
+</li>
+<li>
+<p>“새로운 작업공간 추가하기” 을 선택한다.</p>
+</li>
+</ol>
+<br />
+<h2 id="4-작업공간-정보-입력"><a class="header" href="#4-작업공간-정보-입력">4. 작업공간 정보 입력</a></h2>
+<p><img src="webgis-01/attachments/20260528132819.png" alt=""></p>
+<ol>
+<li>
+<p>작업공간의 이름을 입력한다. 여기서는 “<strong>proj4</strong>” 로 입력한다.</p>
+</li>
+<li>
+<p>네임스페이스 URI를 입력한다. 단순히 구분이 되기만 하면 되지만, URI의 특성상 앞에 “http://“를 추가해서, “<strong>http://proj4</strong>“로 입력한다.</p>
+</li>
+<li>
+<p>“저장” 버튼을 누른다.</p>
+</li>
+</ol>
+<br />
+<h2 id="5-작업공간-추가-확인"><a class="header" href="#5-작업공간-추가-확인">5. 작업공간 추가 확인</a></h2>
+<p><img src="webgis-01/attachments/20260528133413.png" alt=""></p>
+<p>작업공간 proj4가 추가된 것을 확인한다.</p>
+<br />
+<h2 id="6-작업공간에-저장소-추가"><a class="header" href="#6-작업공간에-저장소-추가">6. 작업공간에 저장소 추가</a></h2>
+<p><img src="webgis-01/attachments/20260527172046.png" alt=""></p>
+<ol>
+<li>
+<p>왼쪽 메뉴에서 “저장소” 메뉴를 선택한다.</p>
+</li>
+<li>
+<p>“새로운 저장소 생성하기” 를 선택한다.</p>
+</li>
+</ol>
+<br />
+<h2 id="7-저장소-유형을-shapefile로-선택한다"><a class="header" href="#7-저장소-유형을-shapefile로-선택한다">7. 저장소 유형을 “ShapeFile“로 선택한다.</a></h2>
+<p><img src="webgis-01/attachments/20260527172136.png" alt=""></p>
+<br />
+<h2 id="8-저장소-정보-입력-1"><a class="header" href="#8-저장소-정보-입력-1">8. 저장소 정보 입력 1</a></h2>
+<p><img src="webgis-01/attachments/20260528134701.png" alt=""></p>
+<ol>
+<li>
+<p>작업공간을 선택한다. 좀전에 생성한 “<strong>proj4</strong>” 작업공간을 선택한다.</p>
+</li>
+<li>
+<p>저장소 이름을 정해준다. 여기서는 “<strong>proj4-trip</strong>” 으로 설정한다.</p>
+</li>
+<li>
+<p>이 저장소의 설명을 입력한다.</p>
+</li>
+<li>
+<p>shape 파일의 위치를 정해주기 위해 “탐색…” 버튼을 누른다.</p>
+</li>
+</ol>
+<br />
+<h2 id="9-shape-파일의-위치-찾아가-선택하기"><a class="header" href="#9-shape-파일의-위치-찾아가-선택하기">9. shape 파일의 위치 찾아가 선택하기</a></h2>
+<p><img src="webgis-01/attachments/20260527172804.png" alt=""></p>
+<p>shape 파일이 있는 드라이브 이름으로 바꿔준다.</p>
+<p><img src="webgis-01/attachments/20260527172941.png" alt=""></p>
+<p><img src="webgis-01/attachments/20260528135008.png" alt=""></p>
+<p>파일이 있는 폴더로 찾아간다.</p>
+<p><img src="webgis-01/attachments/20260528135040.png" alt=""></p>
+<p>파일을 선택한다. 여기서는 “<strong>trip.shp</strong>” 파일을 선택했다.</p>
+<br />
+<h2 id="10-저장소-정보-입력-2"><a class="header" href="#10-저장소-정보-입력-2">10. 저장소 정보 입력 2</a></h2>
+<p><img src="webgis-01/attachments/20260528135410.png" alt=""></p>
+<ol>
+<li>
+<p>문자셋을 “UTF-8“로 맞춰준다.</p>
+</li>
+<li>
+<p>“저장” 버튼을 누른다.</p>
+</li>
+</ol>
+<br />
+<h2 id="11-레이어-발행"><a class="header" href="#11-레이어-발행">11. 레이어 발행</a></h2>
+<p><img src="webgis-01/attachments/20260528135459.png" alt=""></p>
+<p>새로 만든 레이어가 표시되고, “발행하기” 메뉴가 나오는데, 이걸 클릭한다.</p>
+<br />
+<h2 id="12-레이어-편집"><a class="header" href="#12-레이어-편집">12. 레이어 편집</a></h2>
+<p><img src="webgis-01/attachments/20260528135631.png" alt=""></p>
+<ol>
+<li>
+<p>레이어 최소경계 영역에서, 원본 데이터 최소경계 영역을 자동으로 계산하기 위해 “데이터로부터 계산하기” 버튼을 클릭한다.</p>
+</li>
+<li>
+<p>위/경도 영역도 자동으로 계산하기 위해 “원본 영역으로부터 계산하기” 버튼을 누른다.</p>
+</li>
+<li>
+<p>“저장” 버튼을 누른다.</p>
+</li>
+</ol>
+<br />
+<h2 id="13-레이어-추가-확인"><a class="header" href="#13-레이어-추가-확인">13. 레이어 추가 확인</a></h2>
+<p><img src="webgis-01/attachments/20260528135726.png" alt=""></p>
+<br />
+<h2 id="14-레이어의-데이터-확인"><a class="header" href="#14-레이어의-데이터-확인">14. 레이어의 데이터 확인</a></h2>
+<p><img src="webgis-01/attachments/20260528135908.png" alt=""></p>
+<p>QGIS로 부터 넘어온 데이터를 확인한다.</p>
+<p><img src="webgis-01/attachments/20260528140000.png" alt=""></p>
+<p>점이 2개 있는 것으로 보이지만, 실제로는 폴란드에 1개(쇼팽 박물관), 한국에 3개 있는 것이고, 한국의 점 3개가 하나로 합쳐 보여 점이 2개로만 보이고 있다.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="3-openlayers-작업"><a class="header" href="#3-openlayers-작업">3. OpenLayers 작업</a></h1>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="실습-5---다운로드-파일--geoserver--openlayers"><a class="header" href="#실습-5---다운로드-파일--geoserver--openlayers">실습 5 - 다운로드 파일 + GeoServer + OpenLayers</a></h1>
+<h2 id="환경-1"><a class="header" href="#환경-1">환경</a></h2>
+<ul>
+<li>QGIS 3.44 LTS</li>
+<li>폴더: D:\qgis\proj5</li>
+</ul>
+<h2 id="실습-순서-1"><a class="header" href="#실습-순서-1">실습 순서</a></h2>
+<p><a href="webgis-01/webgis-01/prac12-01.html">1. 공간정보포털에서 자료 다운로드</a></p>
+<p><a href="webgis-01/webgis-01/prac12-02.html">2. GeoServer 작업</a></p>
+<p><a href="webgis-01/webgis-01/prac12-03.html">3. OpenLayers 작업</a></p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="1-공간정보포털에서-자료-다운롣"><a class="header" href="#1-공간정보포털에서-자료-다운롣">1. 공간정보포털에서 자료 다운롣,</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="2-geoserver-작업-1"><a class="header" href="#2-geoserver-작업-1">2. GeoServer 작업</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="3-openlayers-작업-1"><a class="header" href="#3-openlayers-작업-1">3. OpenLayers 작업</a></h1>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="인공지능-이해와-활용-실습"><a class="header" href="#인공지능-이해와-활용-실습">인공지능 이해와 활용 실습</a></h1>
 <p><font color="white">이 과목에서 실습할 내용에 대해 다음과 같이 계획했었음.</font></p>

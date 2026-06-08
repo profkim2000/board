@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-46827b8d.js";
+            window.path_to_searchindex_js = "../searchindex-7b61a928.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-ae1ccfff.js"></script>
@@ -176,6 +176,139 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="2-geoserver-작업"><a class="header" href="#2-geoserver-작업">2. GeoServer 작업</a></h1>
+<h2 id="1-geoserver-실행"><a class="header" href="#1-geoserver-실행">1. GeoServer 실행</a></h2>
+<p><img src="attachments/20260527170127.png" alt=""></p>
+<ol>
+<li>
+<p>시작 버튼을 누른다.</p>
+</li>
+<li>
+<p>시작 메뉴에서 GeoServer 아래의 “Start GeoServer” 를 선택한다.</p>
+</li>
+<li>
+<p>시작 메뉴에서 GeoServer 아래의 “GeoServer Web Portal” 메뉴를 선택한다.</p>
+</li>
+</ol>
+<br />
+<h2 id="2-로그인"><a class="header" href="#2-로그인">2. 로그인</a></h2>
+<p><img src="attachments/20260527171422.png" alt=""></p>
+<ol>
+<li>
+<p>“로그인” 버튼을 누른다.</p>
+</li>
+<li>
+<p>username과 비밀번호를 입력한다. 우리의 경우엔 기본값인 <strong>admin</strong> / <strong>geoserver</strong> 를 입력한다.</p>
+</li>
+<li>
+<p>“로그인” 버튼을 누른다.</p>
+</li>
+</ol>
+<br />
+<h2 id="3-작업공간-생성"><a class="header" href="#3-작업공간-생성">3. 작업공간 생성</a></h2>
+<p><img src="attachments/20260527171623.png" alt=""></p>
+<ol>
+<li>
+<p>GeoServer의 왼쪽 메뉴에서 “작업공간” 을 선택한다.</p>
+</li>
+<li>
+<p>“새로운 작업공간 추가하기” 을 선택한다.</p>
+</li>
+</ol>
+<br />
+<h2 id="4-작업공간-정보-입력"><a class="header" href="#4-작업공간-정보-입력">4. 작업공간 정보 입력</a></h2>
+<p><img src="attachments/20260608145535.png" alt=""></p>
+<ol>
+<li>
+<p>작업공간의 이름을 입력한다. 여기서는 “<strong>proj5</strong>” 로 입력한다.</p>
+</li>
+<li>
+<p>네임스페이스 URI를 입력한다. 단순히 구분이 되기만 하면 되지만, URI의 특성상 앞에 “http://“를 추가해서, “<strong>http://proj5</strong>“로 입력한다.</p>
+</li>
+<li>
+<p>“저장” 버튼을 누른다.</p>
+</li>
+</ol>
+<br />
+<h2 id="5-작업공간-추가-확인"><a class="header" href="#5-작업공간-추가-확인">5. 작업공간 추가 확인</a></h2>
+<p><img src="attachments/20260608145627.png" alt=""></p>
+<p>작업공간 proj4가 추가된 것을 확인한다.</p>
+<br />
+<h2 id="6-작업공간에-저장소-추가"><a class="header" href="#6-작업공간에-저장소-추가">6. 작업공간에 저장소 추가</a></h2>
+<p><img src="attachments/20260527172046.png" alt=""></p>
+<ol>
+<li>
+<p>왼쪽 메뉴에서 “저장소” 메뉴를 선택한다.</p>
+</li>
+<li>
+<p>“새로운 저장소 생성하기” 를 선택한다.</p>
+</li>
+</ol>
+<br />
+<h2 id="7-저장소-유형을-shapefile로-선택한다"><a class="header" href="#7-저장소-유형을-shapefile로-선택한다">7. 저장소 유형을 “ShapeFile“로 선택한다.</a></h2>
+<p><img src="attachments/20260527172136.png" alt=""></p>
+<br />
+<h2 id="8-저장소-정보-입력-1"><a class="header" href="#8-저장소-정보-입력-1">8. 저장소 정보 입력 1</a></h2>
+<p><img src="attachments/20260608145825.png" alt=""></p>
+<ol>
+<li>
+<p>작업공간을 선택한다. 좀전에 생성한 “<strong>proj5</strong>” 작업공간을 선택한다.</p>
+</li>
+<li>
+<p>저장소 이름을 정해준다. 여기서는 “<strong>proj5-oil</strong>” 으로 설정한다.</p>
+</li>
+<li>
+<p>이 저장소의 설명을 입력한다.</p>
+</li>
+<li>
+<p>shape 파일의 위치를 정해주기 위해 “탐색…” 버튼을 누른다.</p>
+</li>
+</ol>
+<br />
+<h2 id="9-shape-파일의-위치-찾아가-선택하기"><a class="header" href="#9-shape-파일의-위치-찾아가-선택하기">9. shape 파일의 위치 찾아가 선택하기</a></h2>
+<p><img src="attachments/20260527172804.png" alt=""></p>
+<p>shape 파일이 있는 드라이브 이름으로 바꿔준다.</p>
+<p><img src="attachments/20260527172941.png" alt=""></p>
+<p><img src="attachments/20260608150158.png" alt=""></p>
+<p>파일이 있는 폴더로 찾아간다.</p>
+<p><img src="attachments/20260608150243.png" alt=""></p>
+<p>파일을 선택한다. 여기서는 “<strong>oil.shp</strong>” 파일을 선택했다.</p>
+<br />
+<h2 id="10-저장소-정보-입력-2"><a class="header" href="#10-저장소-정보-입력-2">10. 저장소 정보 입력 2</a></h2>
+<p><img src="attachments/20260608150405.png" alt=""></p>
+<ol>
+<li>
+<p>문자셋을 “UTF-8“로 맞춰준다.</p>
+</li>
+<li>
+<p>“저장” 버튼을 누른다.</p>
+</li>
+</ol>
+<br />
+<h2 id="11-레이어-발행"><a class="header" href="#11-레이어-발행">11. 레이어 발행</a></h2>
+<p><img src="attachments/20260608150510.png" alt=""></p>
+<p>새로 만든 레이어가 표시되고, “발행하기” 메뉴가 나오는데, 이걸 클릭한다.</p>
+<br />
+<h2 id="12-레이어-편집"><a class="header" href="#12-레이어-편집">12. 레이어 편집</a></h2>
+<p><img src="attachments/20260608151334.png" alt=""></p>
+<ol>
+<li>
+<p>레이어 최소경계 영역에서, 원본 데이터 최소경계 영역을 자동으로 계산하기 위해 “데이터로부터 계산하기” 버튼을 클릭한다.</p>
+</li>
+<li>
+<p>위/경도 영역도 자동으로 계산하기 위해 “원본 영역으로부터 계산하기” 버튼을 누른다.</p>
+</li>
+<li>
+<p>“저장” 버튼을 누른다.</p>
+</li>
+</ol>
+<br />
+<h2 id="13-레이어-추가-확인"><a class="header" href="#13-레이어-추가-확인">13. 레이어 추가 확인</a></h2>
+<p><img src="attachments/20260608151429.png" alt=""></p>
+<br />
+<h2 id="14-레이어의-데이터-확인"><a class="header" href="#14-레이어의-데이터-확인">14. 레이어의 데이터 확인</a></h2>
+<p><img src="attachments/20260608151525.png" alt=""></p>
+<p>QGIS로 부터 넘어온 데이터를 확인한다.</p>
+<p><img src="attachments/20260608151606.png" alt=""></p>
 
                     </main>
 

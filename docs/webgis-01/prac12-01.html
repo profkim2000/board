@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-46827b8d.js";
+            window.path_to_searchindex_js = "../searchindex-7b61a928.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-ae1ccfff.js"></script>
@@ -175,7 +175,203 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="1-공간정보포털에서-자료-다운롣"><a class="header" href="#1-공간정보포털에서-자료-다운롣">1. 공간정보포털에서 자료 다운롣,</a></h1>
+                        <h1 id="1-공간정보포털에서-자료-다운로드"><a class="header" href="#1-공간정보포털에서-자료-다운로드">1. 공간정보포털에서 자료 다운로드</a></h1>
+<h2 id="1-공공데이터-포털datagokr-접속-검색"><a class="header" href="#1-공공데이터-포털datagokr-접속-검색">1. 공공데이터 포털(<a href="https://data.go.kr/">data.go.kr</a>) 접속, 검색</a></h2>
+<p><img src="attachments/20260608112412.png" alt=""></p>
+<p>주유소 위치 정보를 알기 위해 “주유소 위도“와 같이 검색</p>
+<p>“위도“를 넣지 않으면 GPS 위치 정보가 없는 정보들도 같이 검색된다.</p>
+<p>지도를 만들 때는 위도, 경도 정보가 있는 자료가 필요하다.</p>
+<p>(주소만 있는 정보를 다운로드 받으면 주소를 GPS 좌표로 변환하는 과정이 필요하다.)</p>
+<br />
+<h2 id="2-주유소-정보-확인"><a class="header" href="#2-주유소-정보-확인">2. 주유소 정보 확인</a></h2>
+<p><img src="attachments/20260608112324.png" alt=""></p>
+<p>제일 위 “인천광역시 연수구 주유소 현황” 자료를 사용하자.</p>
+<p>제목 부분인 “인천광역시 연수구 주유소 현황“을 클릭하면 데이터 상세 화면이 나타난다.</p>
+<p><img src="attachments/20260608112615.png" alt=""></p>
+<p>상세 화면 아래 쪽에 이 데이터의 미리보기 화면이 보이는데, “위도”, “경도“가 있는 것을 확인한다.</p>
+<br />
+<h2 id="3-주유소-자료-다운로드"><a class="header" href="#3-주유소-자료-다운로드">3. 주유소 자료 다운로드</a></h2>
+<p><img src="attachments/20260608112808.png" alt=""></p>
+<p>위쪽으로 올라가 “다운로드” 버튼을 눌러 주유소 자료를 다운로드 받는다.</p>
+<br />
+<h2 id="4-다운로드받은-자료의-확인-가공"><a class="header" href="#4-다운로드받은-자료의-확인-가공">4. 다운로드받은 자료의 확인, 가공</a></h2>
+<h3 id="다운로드받은-자료-열어보기"><a class="header" href="#다운로드받은-자료-열어보기">다운로드받은 자료 열어보기</a></h3>
+<p><img src="attachments/20260608130545.png" alt=""></p>
+<br />
+<h3 id="qgis로-주유소-자료-가져오기"><a class="header" href="#qgis로-주유소-자료-가져오기">QGIS로 주유소 자료 가져오기</a></h3>
+<p><img src="attachments/20260608131025.png" alt=""></p>
+<p>QGIS를 실행하고, 레이어 &gt; 레이어 추가 &gt; 구분자로 분리된 텍스트 레이어 추가 선택</p>
+<br />
+<p><img src="attachments/20260608131427.png" alt=""></p>
+<ol>
+<li>
+<p>다운로드받은 파일을 선택한다.</p>
+</li>
+<li>
+<p>인코딩을 “UTF-8“로 바꾼다.</p>
+</li>
+</ol>
+<br />
+<p>위와 같이 처리하면 한글이 전부 깨진 것을 확인할 수 있다.</p>
+<p>아래에서 이 문제를 해결해 보자.</p>
+<br />
+<h2 id="4-1-한글-인코딩-처리"><a class="header" href="#4-1-한글-인코딩-처리">4-1. 한글 인코딩 처리</a></h2>
+<p><img src="attachments/20260608132110.png" alt=""></p>
+<ol>
+<li>
+<p>다운로드 받은 파일을 오른쪽 클릭한다.</p>
+</li>
+<li>
+<p>“Code(으)로 열기” 를 선택한다.<br>만약 “Code(으)로 열기” 메뉴가 없으면 다운로드 받은 파일을 오른쪽 클릭할 때, Shift 키를 누른 상태에서 오른쪽 클릭해 본다.</p>
+</li>
+</ol>
+<br />
+<p><img src="attachments/20260608133417.png" alt=""></p>
+<p>만약 위와 같이 창이 열리면 위쪽의 visual studio code 로고 부분을 클릭해서 텍스트 편집 모드로 넘어간다.</p>
+<br />
+<p><img src="attachments/20260608133847.png" alt=""></p>
+<p>이렇게 텍스트 편집 상태가 되어야 한다.</p>
+<p>좀전에 QGIS에서 본 모습과 같이 한글이 깨져 나오는 것을 볼 수 있다.</p>
+<p>이 문제를 해결하려면 다운로드받은 csv 파일을 <a href="https://namu.wiki/w/UTF-8">“UTF-8”</a> 방식으로 바꿔야 한다.</p>
+<br />
+<h3 id="한글이-깨지지-않은-상태로-읽어오기"><a class="header" href="#한글이-깨지지-않은-상태로-읽어오기">한글이 깨지지 않은 상태로 읽어오기</a></h3>
+<p>대부분의 cvs 파일은 euc-kr로 인코딩되어 있다. = euc-kr 이라는 방식을 이용해 한글을 처리하고 있다.</p>
+<p>그래서 먼저 euc-kr 방식을 이용해 csv 파일을 읽어와 한글이 제대로 보이게 하자.</p>
+<p><img src="attachments/20260608134317.png" alt=""></p>
+<ol>
+<li>
+<p>visual studio code의 아래 쪽에 “UTF-8“이라고 쓰인 부분 클릭</p>
+</li>
+<li>
+<p>화면 위쪽에 메뉴가 열리면 “인코딩하여 다시 열기” 선택</p>
+</li>
+</ol>
+<br />
+<p><img src="attachments/20260608134429.png" alt=""></p>
+<p>“Korean(EUC-KR)“을 선택한다.</p>
+<br />
+<p><img src="attachments/20260608134627.png" alt=""></p>
+<p>한글이 잘 보여진다.</p>
+<br />
+<h3 id="utf-8-방식으로-저장하기"><a class="header" href="#utf-8-방식으로-저장하기">UTF-8 방식으로 저장하기</a></h3>
+<p><img src="attachments/20260608134944.png" alt=""></p>
+<ol>
+<li>
+<p>아까 아래쪽에 “UTF-8” 이라고 쓰여 있던 부분이 “EUC-KR“로 바뀌어 있다. 이걸 다시 클릭한다.</p>
+</li>
+<li>
+<p>화면 위쪽에 메뉴가 열리는데, 이 중 “인코딩하여 저장“을 선택한다.</p>
+</li>
+</ol>
+<br />
+<p><img src="attachments/20260608135105.png" alt=""></p>
+<p>“UTF-8“을 선택한다.</p>
+<p>이렇게 하면 원래 “EUC-KR“로 저장되어 있던 csv 파일이 “UTF-8“로 저장된다.</p>
+<br />
+<h2 id="4-2-qgis에서-주유소-자료-읽어들이기"><a class="header" href="#4-2-qgis에서-주유소-자료-읽어들이기">4-2. QGIS에서 주유소 자료 읽어들이기</a></h2>
+<p>다시 QGIS로 와서 주유소 자료를 읽어들인다.</p>
+<p><img src="attachments/20260608135916.png" alt=""></p>
+<ol>
+<li>
+<p>파일 읽기 버튼을 눌러 주유소 csv 파일을 읽어들인다.</p>
+</li>
+<li>
+<p>인코딩을 “UTF-8“로 한다.</p>
+</li>
+</ol>
+<p>한글이 제대로 보여진다.</p>
+<p>만약 파일을 다시 읽어들여도 여전히 한글이 깨진 상태라면, “인코딩“을 아무 거나 다른 걸로 바꾼 다음 다시 “UTF-8“로 바꿔보자.</p>
+<br />
+<p><img src="attachments/20260608140810.png" alt=""></p>
+<ol start="3">
+<li>
+<p>X 필드에 경도, Y 필드에 위도 를 선택한다. 좀전에 열어본 CSV 파일의 항목 중 경도, 위도를 뜻한다.</p>
+</li>
+<li>
+<p>도형 좌표계에 “EPSG:4326“을 선택한다.</p>
+</li>
+<li>
+<p>“추가” 버튼을 클릭한다.</p>
+</li>
+</ol>
+<br />
+<p><img src="attachments/20260608141732.png" alt=""></p>
+<p>레이어가 추가되고 그 레이어에 의해 주유소의 위치가 표시된다.</p>
+<br />
+<h2 id="5-open-street-map-추가"><a class="header" href="#5-open-street-map-추가">5. Open Street Map 추가</a></h2>
+<p>위치를 확인하기 위해 OSM을 추가한다.</p>
+<p><img src="attachments/20260608142046.png" alt=""></p>
+<ol>
+<li>
+<p>왼쪽 “XYZ Tiles“에서 “OpenStreetMap“을 선택한다.</p>
+</li>
+<li>
+<p>OpenStreetMap 레이어가 추가된다.</p>
+</li>
+</ol>
+<p>가장 나중에 추가한 레이어가 가장 위에 올라오기 때문에, OpenStreepMap 레이어가 주유소 레이어 위에 올라왔고, 주유소 레이어는 완전히 가려져서 안 보이게 된다. 이 문제를 해결하려면 OpenStreetMap 레이어를 주유소 레이어 아래로 끌어 내려야 한다.</p>
+<br />
+<p><img src="attachments/20260608142420.png" alt=""></p>
+<p>“OpenStreetMap” 레이어를 마우스 왼쪽 버튼으로 누른 상태에서 아래로 움직여 끌어내린 다음 마우스 왼쪽 버튼을 놓아 위치를 고정한다.</p>
+<br />
+<p><img src="attachments/20260608142632.png" alt=""></p>
+<br />
+<h2 id="6-레이어를-shape-파일로-내보내기"><a class="header" href="#6-레이어를-shape-파일로-내보내기">6. 레이어를 shape 파일로 내보내기</a></h2>
+<p><img src="attachments/20260608143022.png" alt=""></p>
+<p>주유소 레이어를 오른쪽 클릭한 후, “내보내기 &gt; 피처를 다른 이름으로 저장“을 선택한다.</p>
+<br />
+<p><img src="attachments/20260608144202.png" alt=""></p>
+<ol>
+<li>
+<p>포맷을 “ESRI 셰이프 파일” 로 바꾼다.</p>
+</li>
+<li>
+<p>… (탐색) 버튼을 누른다.</p>
+</li>
+</ol>
+<br />
+<p><img src="attachments/20260608143345.png" alt=""></p>
+<p>레이어를 다른 이름으로 저장 창이 나타난다.</p>
+<ol>
+<li>
+<p>“d:\qgis” 폴더로 이동한다.</p>
+</li>
+<li>
+<p>“새 폴더” 버튼을 누른다.</p>
+</li>
+<li>
+<p>폴더명을 <strong>“proj5”</strong> 로 한다.</p>
+</li>
+</ol>
+<br />
+<p><img src="attachments/20260608144004.png" alt=""></p>
+<ol>
+<li>
+<p>proj5 폴더로 이동한다.</p>
+</li>
+<li>
+<p>파일이름을 <strong>“oil”</strong> 로 한다.</p>
+</li>
+<li>
+<p>“저장” 버튼을 누른다.</p>
+</li>
+</ol>
+<br />
+<p><img src="attachments/20260608145107.png" alt=""></p>
+<ol>
+<li>
+<p>좌표계를 “EPSG:4326 - WGS84“로 변경한다.</p>
+</li>
+<li>
+<p>인코딩을 “UTF-8“로 변경한다.</p>
+</li>
+<li>
+<p>확인 버튼을 누른다.</p>
+</li>
+</ol>
+<br />
+<p><img src="attachments/20260608145207.png" alt=""></p>
+<p>“D:\qgis\proj5“에 oil.shp 파일 등이 생성된 것을 확인한다. 이제 GeoServer에서 처리할 준비가 되었다.</p>
 
                     </main>
 

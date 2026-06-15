@@ -37,10 +37,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-d5e776e0.js";
+            window.path_to_searchindex_js = "searchindex-8feda350.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-f8387f13.js"></script>
+        <script src="toc-674eb9b9.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -179,12 +179,516 @@
                         <h1 id="노코드-기반-geoai-이해와-활용"><a class="header" href="#노코드-기반-geoai-이해와-활용">노코드 기반 GeoAI 이해와 활용</a></h1>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="실습-1---iris"><a class="header" href="#실습-1---iris">실습 1 - iris</a></h1>
+<h2 id="실습-설명-iris붓꽃-분류"><a class="header" href="#실습-설명-iris붓꽃-분류">실습 설명: Iris(붓꽃) 분류</a></h2>
+<p>Iris(붓꽃)의 품종은 백가지 종류가 넘지만 여기서는 딱 3개만 구분해 보자.</p>
+<ul>
+<li>setosa(세토사)“ 꽃잎이 상대적으로 매우 작고 둥근 편.</li>
+<li>versicolor(버시컬러): 중간 크기, 푸른색과 보라색이 강하다.</li>
+<li>virginica(버지니카): 꽃잎과 꽃받침이 가장 크고 길쭉하다.</li>
+</ul>
+<p><img src="nocodegeoai-01/attachments/20260615154231.png" alt=""></p>
+<p><a href="https://peaceadegbite1.medium.com/iris-flower-classification-60790e9718a1">사진 출처: Iris Flower Classification - Peace Ikeoluwa Adegbite 미디엄</a></p>
+<p>구분하는 기준은 다음과 같다.</p>
+<ul>
+<li>꽃받침(sepal)의 길이</li>
+<li>꽃받침(sepal)의 너비</li>
+<li>꽃잎(petal)의 길이</li>
+<li>꽃잎(petal)의 너비</li>
+</ul>
+<p>길이, 너비 데이터의 숫자 단위는 모두 <strong>cm</strong> 이다.</p>
+<br />
+<h2 id="파일-읽어오기"><a class="header" href="#파일-읽어오기">파일 읽어오기</a></h2>
+<p><img src="nocodegeoai-01/attachments/20260615152733.png" alt=""></p>
+<ol>
+<li>
+<p>위젯 중 “File“을 클릭한다.</p>
+</li>
+<li>
+<p>추가된 “File” 노드를 더블클릭한다.</p>
+</li>
+<li>
+<p>파일 선택 창이 나타난다.</p>
+</li>
+<li>
+<p>Source에서 “iris.tab“을 선택한다.</p>
+</li>
+<li>
+<p>창을 닫는다.</p>
+</li>
+</ol>
+<br />
+<h2 id="필드명을-한글로-바꾸기"><a class="header" href="#필드명을-한글로-바꾸기">필드명을 한글로 바꾸기</a></h2>
+<p>생소한 영어단어들 때문에 학습에 방해가 되니, 필드명을 한글로 바꾸자.</p>
+<p>다음과 같이 바꾼다.</p>
+<ul>
+<li>sepal length: 꽃받침 길이</li>
+<li>sepal width: 꽃받침 너비</li>
+<li>petal length: 꽃잎 길이</li>
+<li>petal width: 꽃잎 너비</li>
+<li>iris: 품종</li>
+</ul>
+<br />
+<p><img src="nocodegeoai-01/attachments/20260615155348.png" alt=""></p>
+<ol>
+<li>
+<p>왼쪽 위젯 중 “Edit Domain“을 선택한다.</p>
+</li>
+<li>
+<p>“Edit Domain” 노드가 나타난다.</p>
+</li>
+<li>
+<p>“File” 노드와 “Edit Domain” 노드를 연결하고 “Edit Domain” 노드를 더블클릭한다.</p>
+</li>
+<li>
+<p>“Edit Domain” 창이 나타난다.</p>
+</li>
+<li>
+<p>Iris.tab 이 가지고 있는 데이터의 필드 목록이 나타난다. 이 중 제일 위 “sepal length“를 선택한다.</p>
+</li>
+<li>
+<p>“꽃받침 길이“라고 입력한다.</p>
+</li>
+<li>
+<p>“Apply” 버튼을 누른다. “sepal width → 꽃받침 길이” 라고 나타난 걸 볼 수 있다.</p>
+</li>
+</ol>
+<br />
+<p><img src="nocodegeoai-01/attachments/20260615160419.png" alt=""></p>
+<p>위와 같은 방식으로 5개 필드 모두 바꾸고 창을 닫는다.</p>
+<br />
+<h2 id="데이터-확인"><a class="header" href="#데이터-확인">데이터 확인</a></h2>
+<p>한글화가 잘 되었는지, 어떤 데이터가 있는지 확인한다.</p>
+<h3 id="테이블-형태로-보기"><a class="header" href="#테이블-형태로-보기">테이블 형태로 보기</a></h3>
+<p><img src="nocodegeoai-01/attachments/20260615160828.png" alt=""></p>
+<ol>
+<li>
+<p>“Data Table” 위젯을 선택한다.</p>
+</li>
+<li>
+<p>“Edit Domain” 노드와 “Data Table” 노드를 연결한다.</p>
+</li>
+<li>
+<p>“Data Table” 노드를 더블클릭한다.</p>
+</li>
+<li>
+<p>iris Data Table이 나타난다. 필드명이 한글인지 확인하자.</p>
+</li>
+</ol>
+<br />
+<p><img src="nocodegeoai-01/attachments/20260615161024.png" alt=""></p>
+<br />
+<h2 id="그래프로-시각해-해서-보기"><a class="header" href="#그래프로-시각해-해서-보기">그래프로 시각해 해서 보기</a></h2>
+<h3 id="scatter-plot산점도-시각화"><a class="header" href="#scatter-plot산점도-시각화">scatter plot(산점도 시각화)</a></h3>
+<p><img src="nocodegeoai-01/attachments/20260615161423.png" alt=""></p>
+<ol>
+<li>
+<p>“Scatter Plot“를 선택한다.</p>
+</li>
+<li>
+<p>“Data Table” 노드와 “Scatter Plot” 노드 사이를 연결한다.</p>
+</li>
+<li>
+<p>“Scatter Plot” 노드를 더블클릭한다.</p>
+</li>
+<li>
+<p>그래프가 나타난다.</p>
+</li>
+</ol>
+<br />
+<p><img src="nocodegeoai-01/attachments/20260615161650.png" alt=""></p>
+<p>꽃잎 길이와 꽃잎 너비로 바꾸고 보면 파란색으로 표시된 세토사의 꽃잎 크기가 매우 작다는 것을 알 수 있다.</p>
+<br />
+<h2 id="distributions분포-시각화"><a class="header" href="#distributions분포-시각화">Distributions(분포 시각화)</a></h2>
+<p><img src="nocodegeoai-01/attachments/20260615162357.png" alt=""></p>
+<ol>
+<li>
+<p>“Distributions” 위젯을 클릭한다.</p>
+</li>
+<li>
+<p>“Data Table” 노드와 “Distributions” 노드를 연결한다.</p>
+</li>
+<li>
+<p>“Distributions” 노드를 더블클릭한다.</p>
+</li>
+<li>
+<p>Distributions 창이 나타난다.</p>
+</li>
+</ol>
+<br />
+<p><img src="nocodegeoai-01/attachments/20260615162545.png" alt=""></p>
+<p>갯수를 보여주는 창이기 때문에, “품종“을 선택하면 각 품종이 50개씩 있음을 알 수 있다.</p>
+<br />
+<p><img src="nocodegeoai-01/attachments/20260615162706.png" alt=""></p>
+<p>“꽃잎 길이“를 선택하면 세토사의 크기가 매우 작은게 50개 있음을 알 수 있다.</p>
+<p>버지니카의 꽃잎은 80% 정도는 5cm 정도이고, 20% 정도는 7.5cm 정도임을 알 수 있다.</p>
+<br />
+<h3 id="box-plot상자-수염-그림"><a class="header" href="#box-plot상자-수염-그림">box plot(상자 수염 그림)</a></h3>
+<p>box plot은 다음과 같은 통계적 특성을 한 번에 보여준다.</p>
+<ul>
+<li>최대값</li>
+<li>최소값</li>
+<li>중앙값(median. 평균값이 아닌 크기 순으로 정렬했을 때 가장 중앙에 있는 값)</li>
+<li>사분위수(크기 순으로 정렬했을 때 하위 25%, 하위 50%, 하위 75%의 값)</li>
+</ul>
+<p><img src="nocodegeoai-01/attachments/20260615163722.png" alt=""></p>
+<ol>
+<li>
+<p>위젯에서 “Box Plot“을 클릭한다.</p>
+</li>
+<li>
+<p>“Data Table“과 “Box Plot“을 연결한다.</p>
+</li>
+<li>
+<p>“Box Plot“을 더블클릭한다.</p>
+</li>
+<li>
+<p>Box Plot 창이 나타난다.</p>
+</li>
+</ol>
+<br />
+<p><img src="nocodegeoai-01/attachments/20260615163929.png" alt=""></p>
+<h4 id="box-plot의-의미"><a class="header" href="#box-plot의-의미">box plot의 의미</a></h4>
+<p>위 그래프에서 제일 오른쪽에 있는 버지니카를 보면서 box plot 각 항목의 의미를 확인해 보자.</p>
+<br />
+<p><strong>평균</strong> = 파란색 세로선 : 5.552</p>
+<p><img src="nocodegeoai-01/attachments/20260615171120.png" alt=""></p>
+<br />
+<p><strong>표준편차</strong> : 0.5463</p>
+<p><img src="nocodegeoai-01/attachments/20260615171214.png" alt=""></p>
+<br />
+<p><strong>1사분위</strong> : 5.1</p>
+<p><img src="nocodegeoai-01/attachments/20260615171305.png" alt=""></p>
+<br />
+<p><strong>2사분위</strong> = 노란색 세로선 = <strong>중앙값</strong> = 제일 가운데 값(median) : 5.55</p>
+<p><img src="nocodegeoai-01/attachments/20260615171422.png" alt=""></p>
+<br />
+<p><strong>3사분위</strong> : 5.85</p>
+<p><img src="nocodegeoai-01/attachments/20260615171519.png" alt=""></p>
+<br />
+<p><strong>전체 데이터 영역</strong></p>
+<p><img src="nocodegeoai-01/attachments/20260615171757.png" alt=""></p>
+<p>점선으로 표시한 영역이 전체 데이터 영역</p>
+<br />
+<p><strong>실선으로 표시한 부분의 왼쪽 끝</strong> : 평균 - 표준편차 = 5.552 - 0.5463 인 지점</p>
+<p><img src="nocodegeoai-01/attachments/20260615171859.png" alt=""></p>
+<br />
+<p><strong>실선으로 표시한 부분의 오른쪽 끝</strong> : 평균 + 표준편차 = 5.552 + 0.5463 인 지점</p>
+<p><img src="nocodegeoai-01/attachments/20260615172014.png" alt=""></p>
+<br />
+<h3 id="linear-projection선형-투영-시각화"><a class="header" href="#linear-projection선형-투영-시각화">Linear Projection(선형 투영 시각화)</a></h3>
+<p><img src="nocodegeoai-01/attachments/20260615172652.png" alt=""></p>
+<ol>
+<li>
+<p>위젯 중 “Linear Projection“을 선택한다.</p>
+</li>
+<li>
+<p>“Data Table“과 “Linear Projection“을 연결한다.</p>
+</li>
+<li>
+<p>“Linear Projection“을 더블클릭한다.</p>
+</li>
+<li>
+<p>“Linear Projection” 창이 나타난다.</p>
+</li>
+</ol>
+<br />
+<p><img src="nocodegeoai-01/attachments/20260615172855.png" alt=""></p>
+<br />
+<h2 id="ai-학습"><a class="header" href="#ai-학습">AI 학습</a></h2>
+<p>그래프 등을 통해 여기까지 본 사람은 이제 대체적으로 ‘아주 작은 꽃은 세토사’ 라는 등의 특징을 알 수 있지만 AI는 알지 못한다. AI에게 이런 특징을 학습시키자.</p>
+<p><img src="nocodegeoai-01/attachments/20260615173638.png" alt=""></p>
+<ol start="0">
+<li>
+<p>기존 시각화 노드들은 모두 지우고 시작한다.(놔둬도 상관없지만 불편하다)</p>
+</li>
+<li>
+<p>Model 위젯 중 “KNN” 위젯을 클릭한다.</p>
+</li>
+<li>
+<p>Evaluate 위젯 중 “Test and Score” 위젯을 클릭한다.</p>
+</li>
+<li>
+<p>“Data Table” 노드와 “KNN” 노드를 연결한다.</p>
+</li>
+<li>
+<p>“Data Table” 노드와 “Test and Score” 노드를 연결한다.</p>
+</li>
+<li>
+<p>“KNN” 노드와 “Test and Score” 노드를 연결한다.</p>
+</li>
+<li>
+<p>“Test and Score” 노드를 더블클릭한다.</p>
+</li>
+<li>
+<p>학습 결과를 확인한다.</p>
+</li>
+</ol>
+<br />
+<h3 id="knn-위젯"><a class="header" href="#knn-위젯">KNN 위젯</a></h3>
+<ul>
+<li>
+<p>KNN 알고리즘에 의해 동작하는 AI 모델.</p>
+</li>
+<li>
+<p>K-NN(K-Nearest Neightbors, K-최근접 이웃) 위젯</p>
+</li>
+<li>
+<p>학습한 결과가 여기에 저장된다 = 가중치가 여기에 저장된다.</p>
+</li>
+<li>
+<p>이제 붓꽃의 꽃잎, 꽃받침 등의 정보로 붓꽃의 품종을 알고 싶으면 관련 데이터 학습이 끝난 이 노드에게 물어보면 된다.</p>
+</li>
+</ul>
+<h3 id="test-and-score-위젯"><a class="header" href="#test-and-score-위젯">Test and Score 위젯</a></h3>
+<ul>
+<li>데이터를 받아 학습하고 성능을 평가하는 위젯</li>
+</ul>
+<p><img src="nocodegeoai-01/attachments/20260615175211.png" alt=""></p>
+<p>AUC는 accuracy(정확도)로 0.987 = 98.7%의 정확도로 붓꽃의 정보를 보고 품종을 맞췄다는 뜻.</p>
+<br />
+<h2 id="새로운-붓꽃-데이터-주고-맞춰보라-시키기"><a class="header" href="#새로운-붓꽃-데이터-주고-맞춰보라-시키기">새로운 붓꽃 데이터 주고 맞춰보라 시키기</a></h2>
+<h3 id="기존-붓꽃-데이터-형식으로-새로운-데이터-생성하기"><a class="header" href="#기존-붓꽃-데이터-형식으로-새로운-데이터-생성하기">기존 붓꽃 데이터 형식으로 새로운 데이터 생성하기</a></h3>
+<p><img src="nocodegeoai-01/attachments/20260615201642.png" alt=""></p>
+<ol>
+<li>
+<p>Transform 에서 “Create Instance” 위젯을 클릭한다.</p>
+</li>
+<li>
+<p>“Data Table” 노드와 “Create  Instance” 노드를 연결한다.</p>
+</li>
+<li>
+<p>연결하자 마자 Edit Links 창이 나타난다.</p>
+</li>
+<li>
+<p>“Clear All” 버튼을 누른다. 연결선이 없어진다.</p>
+</li>
+<li>
+<p>“Data“와 “Data“를 연결한다.</p>
+</li>
+<li>
+<p>OK 버튼을 누른다.</p>
+</li>
+</ol>
+<h3 id="새로운-데이터-입력"><a class="header" href="#새로운-데이터-입력">새로운 데이터 입력</a></h3>
+<p>들판을 다니다 붓꽃을 발견했다. 이 붓꽃의 품종을 확인하기 위해 꽃잎의 길이와 너비, 꽃받침의 길이와 너비를 측정했다. 그리고 이전에 학습시켜 놓은 붓꽃 AI 모델에게 그 값을 주면서 품종이 무엇인지 물어보는 과정이다.</p>
+<p>하지만 실제로는 지금 우리 손에 붓꽃이 없기 때문에 기존 데이터를 참조해서 대략적인 값을 만들어 보겠다.</p>
+<p><img src="nocodegeoai-01/attachments/20260615201052.png" alt=""></p>
+<p>“Data Table” 노드를 더블클릭하면 위와 같이 3가지 품종의 데이터들을 볼 수 있다.</p>
+<p>여기서 우리는 세토사의 기존 값을 참조해 새로운 값을 만들어 보겠다.</p>
+<p><img src="nocodegeoai-01/attachments/20260615201945.png" alt=""></p>
+<ol>
+<li>
+<p>슬라이더를 조정해 꽃받침 길이를 <strong>4.9</strong> 와 비슷한 값으로 바꾼다.</p>
+</li>
+<li>
+<p>슬라이더를 조정해 꽃받침 너비를 <strong>3.1</strong> 과 비슷한 값으로 바꾼다.</p>
+</li>
+<li>
+<p>슬라이더를 조정해 꽃잎 길이를 <strong>1.6</strong> 과 비슷한 값으로 바꾼다.</p>
+</li>
+<li>
+<p>슬라이더를 조정해 꽃잎 너비를 <strong>0.1</strong> 과 비슷한 값으로 바꾼다.</p>
+</li>
+<li>
+<p>품종은 “?“로 바꾼다. 우리는 AI에게 이게 뭔지 물어보는 중이다. 학습할 때처럼 정답은 주지 않는다.</p>
+</li>
+<li>
+<p>“Append this instance to input data“의 체크를 푼다. 이 체크를 하면 기존 150개의 데이터에 지금 방금 내가 새로 입력한 데이터를 추가로 해서 151개의 데이터가 AI에게 넘어가게 된다. 우리가 원하는 건 지금 방금 발견한 붓꽃 하나의 품종이니 이 체크를 풀어 이 데이터 하나만 AI에게 넘어가도록 한다.</p>
+</li>
+</ol>
+<br />
+<h2 id="예측-위젯-추가"><a class="header" href="#예측-위젯-추가">예측 위젯 추가</a></h2>
+<p><img src="nocodegeoai-01/attachments/20260615203001.png" alt=""></p>
+<ol>
+<li>
+<p>Evalute 에서 “Predictions” 위젯을 클릭한다.</p>
+</li>
+<li>
+<p>“Predictions” 노드가 추가되면 “Create instance” 노드와 연결한다.</p>
+</li>
+<li>
+<p>“KNN” 노드와 연결한다.</p>
+</li>
+<li>
+<p>“Predictions” 노드를 더블클릭한다.</p>
+</li>
+<li>
+<p>KNN이 어떤 품종으로 예측했는지 확인한다. 여기서는 우리가 값 입력할 때 예제로 사용했던 세토사가 표시된 걸 확인할 수 있다.</p>
+</li>
+</ol>
+<br />
+<h2 id="ai-모델에게-계속-물어보기"><a class="header" href="#ai-모델에게-계속-물어보기">AI 모델에게 계속 물어보기</a></h2>
+<p>같은 방법으로 다양한 길이를 주면서 테스트하며 의도한 품종으로 잘 예측하는지 확인하자.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="실습-2---도근점-사진찾기"><a class="header" href="#실습-2---도근점-사진찾기">실습 2 - 도근점 사진찾기</a></h1>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="실습-3---qgis--geoai"><a class="header" href="#실습-3---qgis--geoai">실습 3 - QGIS + GeoAI</a></h1>
-<div style="break-before: page; page-break-before: always;"></div>
 <h1 id="실습-3---보스턴-주택-가격"><a class="header" href="#실습-3---보스턴-주택-가격">실습 3 - 보스턴 주택 가격</a></h1>
+<h2 id="실습-설명-보스턴-주택-가격"><a class="header" href="#실습-설명-보스턴-주택-가격">실습 설명: 보스턴 주택 가격</a></h2>
+<p>다양한 요인들에 의해 형성된 주택의 가격 데이터를 학습하고, 새로운 집에 대해 기존 학습한 데이터에 의하면 이 집의 가격은 어떻게 될지 예측하는 AI 모델을 만든다.</p>
+<br />
+<h2 id="데이터-추가"><a class="header" href="#데이터-추가">데이터 추가</a></h2>
+<p><img src="nocodegeoai-01/attachments/20260615204215.png" alt=""></p>
+<ol>
+<li>
+<p>Data 에서 “File” 위젯을 클릭한다.</p>
+</li>
+<li>
+<p>“File” 노드를 더블클릭한다.</p>
+</li>
+<li>
+<p>File 창에서 Source를 “housing.tab“으로 선택한다.</p>
+</li>
+</ol>
+<br />
+<h2 id="필드명을-한글로-바꾸기-1"><a class="header" href="#필드명을-한글로-바꾸기-1">필드명을 한글로 바꾸기</a></h2>
+<p>생소한 영어단어들 때문에 학습에 방해가 되니, 필드명을 한글로 바꾸자.</p>
+<p>다음과 같이 바꾼다. 괄호 안은 설명이니 입력은 하지 말자.</p>
+<ul>
+<li>CRIM: 범죄율(1인당 범죄 발생률)</li>
+<li>ZN: 주거지비율(주변의 주거지 비율)</li>
+<li>INDUS: 상업지 비율(주변의 상업지 비율)</li>
+<li>CHAS: 찰스강 여부(찰스강에 접해 있으면 1, 아니면 0)</li>
+<li>NOX: 일산화질소 농도</li>
+<li>RM: 방 갯수</li>
+<li>AGE: 주변 노후주택비율(그 집이 아니라 주변에 1940년 이전 건축된 주택 비율)</li>
+<li>DIS: 직업센터 거리(직장이 몰려 있는 곳까지의 거리)</li>
+<li>RAD: 고속도로 접근성</li>
+<li>TAX: 재산세율</li>
+<li>PTRATIO: 학생교사비율</li>
+<li>B: 흑인 비율</li>
+<li>LSTAT: 하위계층비율</li>
+<li>MEDV: 주택가격(단위: $1,000)</li>
+</ul>
+<br />
+<p><img src="nocodegeoai-01/attachments/20260615205857.png" alt=""></p>
+<ol>
+<li>
+<p>Data에서 “Edit Domain” 위젯을 클릭한다.</p>
+</li>
+<li>
+<p>“File” 노드와 “Edit Domain” 노드를 연결한다.</p>
+</li>
+<li>
+<p>“Edit Domain” 노드를 더블클릭한다.</p>
+</li>
+<li>
+<p>“Edit Domain” 창이 나타나면 필드의 이름을 모두 바꾼다.</p>
+</li>
+<li>
+<p>닫기 버튼을 클릭한다.</p>
+</li>
+</ol>
+<br />
+<h2 id="scatter-plot로-값-보기"><a class="header" href="#scatter-plot로-값-보기">Scatter Plot로 값 보기</a></h2>
+<p><img src="nocodegeoai-01/attachments/20260615210353.png" alt=""></p>
+<ol>
+<li>
+<p>Data Table 위젯을 추가하고 선을 연결한다.</p>
+</li>
+<li>
+<p>Scatter Plot 위젯을 추가하고 선을 연결한다. 그리고 더블 클릭한다.</p>
+</li>
+</ol>
+<br />
+<p><img src="nocodegeoai-01/attachments/20260615211109.png" alt=""></p>
+<p>위와 같이 범죄율과 주택가격 등의 상관관계 등을 확인할 수 있다.</p>
+<p>범죄율이 낮을수록 주택의 가격이 높고, 범죄율이 높은 곳은 비싼 주택이 전무한 것을 볼 수 있다.</p>
+<br />
+<h2 id="ai-모델-학습시키기"><a class="header" href="#ai-모델-학습시키기">AI 모델 학습시키기</a></h2>
+<p>여기서는 Linear Regression을 사용하겠다.</p>
+<p><img src="nocodegeoai-01/attachments/20260615212248.png" alt=""></p>
+<ol>
+<li>
+<p>Model에서 “Linear Regression” 위젯을 추가하고 “Data Table” 노드와 연결한다.</p>
+</li>
+<li>
+<p>Evaluate에서 “Test and Score” 위젯을 추가한다. 그리고 “Data Table” 노드와 연결한다. 그리고 “Linear Regression” 노드와도 연결한다. 그리고 “Test and Score” 노드를 더블클릭한다.</p>
+</li>
+</ol>
+<br />
+<p><img src="nocodegeoai-01/attachments/20260615212629.png" alt=""></p>
+<p>학습 결과가 바로 나타난다.</p>
+<h3 id="linear-regression-결과창-지표-설명"><a class="header" href="#linear-regression-결과창-지표-설명">Linear Regression 결과창 지표 설명</a></h3>
+<p>보통은 R2와 RMSE 지표를 우선 본다.</p>
+<h4 id="mse"><a class="header" href="#mse">MSE</a></h4>
+<ul>
+<li>Mean Squared Error. 평균 제곱 오차</li>
+<li>오차를 제곱해서 평균 낸 것.</li>
+<li>해석: 오차를 제곱했기 때문에 오차가 날수록 이 값은 매우 커진다. 오차를 크게 놓고 보고 싶을 때 사용. 단, 제곱된 상태라 금액에 대한 직관적인 이해는 어렵다.</li>
+<li>작을수록 학습이 잘 된 것 = 모델 성능이 좋은 것</li>
+</ul>
+<h3 id="rmse"><a class="header" href="#rmse">RMSE</a></h3>
+<ul>
+<li>Root Mean Squared Error. 평균 제곱근 오차</li>
+<li>MSE에 루트를 씌워 단위를 원래 주택가격 단위로 맞춘 것. 그래서 금액에 대한 직관적인 이해가 쉽다.</li>
+<li>해석: MSE의 장점인 큰 오차에 민감함은 유지하면서도 MAE처럼 실제 금액 단위로 해석 가능하다.</li>
+<li>작을수록 학습이 잘 된 것 = 모델 성능이 좋은 것</li>
+</ul>
+<h4 id="mae"><a class="header" href="#mae">MAE</a></h4>
+<ul>
+<li>Mean Absolute Error. 평균 절대 오차</li>
+<li>실제 가격과 예측 가격의 에 절대값을 씌워 평균한 것.</li>
+<li>해석: 만약 MAE가 3이라면, 이 주택가격의 단위가 $1,000 이므로, 약 $3,000 정도 싸거나 비싸게 맞추는구나 라고 직관적으로 이해한다.</li>
+<li>작을수록 학습이 잘 된 것 = 모델 성능이 좋은 것</li>
+</ul>
+<h3 id="mape"><a class="header" href="#mape">MAPE</a></h3>
+<ul>
+<li>Mean Absolute Percentage Error, 평균 절대 백분율 오차</li>
+<li>오차가 실제 가격의 몇 %수준인지를 비율로 나타낸 것.</li>
+<li>해석: 만약 MAPE가 15%라면, 실제 집값 대비 평균 15% 정도의 오차율을 보이며 예측한다.</li>
+<li>작을수록 학습이 잘 된 것 = 모델 성능이 좋은 것</li>
+</ul>
+<h3 id="smape"><a class="header" href="#smape">sMAPE</a></h3>
+<ul>
+<li>Symmetric Mean Absolute Percentage Error, 대칭 평균 절대 백분율 오차</li>
+<li>MAPE의 단점인 실제값이 너무 작으면 왜곡되는 문제를 보완하기 위해 분모에 실제값과 예측값의 평균을 넣어 대칭적으로 계산한 오차 비율</li>
+<li>해석: 만약 MAPE가 15%라면, 실제 집값 대비 평균 15% 정도의 오차율을 보이며 예측한다.</li>
+<li>작을수록 학습이 잘 된 것 = 모델 성능이 좋은 것</li>
+</ul>
+<h3 id="r2"><a class="header" href="#r2">R2</a></h3>
+<ul>
+<li>R Squared. 결정계수. R2는 R의 제곱이라는 뜻.</li>
+<li>이 모델이 얼마나 많은 부분을 예측할 수 있는가를 나타내는 비율</li>
+<li>해석: 0~1의 값을 가지는데 이 값이 1이면 100% 완벽하게 집값을 맞추었다는 뜻.</li>
+<li>1에 가까울수록 학습이 잘 된 것 = 모델 성능이 좋은 것. 0.7 이상이면 괜찮은 모델. (나쁜 모델은 음수가 나오기도 함)</li>
+</ul>
+<br />
+<h2 id="ai-모델에게-예측-준비"><a class="header" href="#ai-모델에게-예측-준비">AI 모델에게 예측 준비</a></h2>
+<p><img src="nocodegeoai-01/attachments/20260615215108.png" alt=""></p>
+<ol>
+<li>
+<p>Transform의 “Create Instance” 위젯 추가하고 “Data Table“과 연결하기</p>
+</li>
+<li>
+<p>연결 관계 설정하는 창이 나타나면 Data 와 Data를 연결하도록 수정한다.</p>
+</li>
+<li>
+<p>OK 버튼을 눌러 Edit Links 창을 닫는다.</p>
+</li>
+<li>
+<p>Predictions 위젯을 추가한다.</p>
+</li>
+</ol>
+<br />
+<h2 id="ai-모델에게-값-넘겨주며-예측시키기"><a class="header" href="#ai-모델에게-값-넘겨주며-예측시키기">AI 모델에게 값 넘겨주며 예측시키기</a></h2>
+<p><img src="nocodegeoai-01/attachments/20260615215626.png" alt=""></p>
+<ol>
+<li>
+<p>“Create Instance” 노드를 더블클릭한다.</p>
+</li>
+<li>
+<p>Boston Housing 데이터 양식에 맞게 입력할 수 있는 창이 나타나면 값을 다양하게 바꿔본다. 이 때 주택가격은 가장 낮은 가격인 5로 바꿔둔다.</p>
+</li>
+</ol>
+<p><img src="nocodegeoai-01/attachments/20260615220233.png" alt=""></p>
+<ol start="3">
+<li>
+<p>“Predictions” 노드를 더블클릭한다.</p>
+</li>
+<li>
+<p>예측 창이 열리고 이 상황에 따른 주택의 가격이 25.2378으로 예측된다. 이 단위가 $1,000이므로 $25,237.8로 예측되었다.</p>
+</li>
+</ol>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="실습-4---선형회귀-다항회귀"><a class="header" href="#실습-4---선형회귀-다항회귀">실습 4 - 선형회귀 다항회귀</a></h1>
 <div style="break-before: page; page-break-before: always;"></div>
@@ -195,6 +699,8 @@
 <h1 id="실습-7---random-forest"><a class="header" href="#실습-7---random-forest">실습 7 - Random Forest</a></h1>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="실습-8---gradient-boosting"><a class="header" href="#실습-8---gradient-boosting">실습 8 - Gradient Boosting</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="실습-3---qgis--geoai"><a class="header" href="#실습-3---qgis--geoai">실습 3 - QGIS + GeoAI</a></h1>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="복습문제-1---ai-이해와-활용"><a class="header" href="#복습문제-1---ai-이해와-활용">복습문제 1 - AI 이해와 활용</a></h1>
 <div style="break-before: page; page-break-before: always;"></div>
@@ -13894,7 +14400,7 @@ A: The most commonly used color for the building roofs in this image is blue.
 <p><img src="dt-01/ai/attachments/20260412194248.png" alt=""></p>
 <p>기존 데이터를 다시 열어 보며 잘못된 데이터가 있거나 누락된 데이터가 있으면 그 행은 삭제하거나 평균값으로 채워넣는다.</p>
 <br />
-<h2 id="ai-학습"><a class="header" href="#ai-학습">AI 학습</a></h2>
+<h2 id="ai-학습-1"><a class="header" href="#ai-학습-1">AI 학습</a></h2>
 <p>준비된 데이터를 AI 학습해 AI 모델로 만드는 것은 파이썬 프로그래밍에 의해 실행한다.</p>
 <p>파이썬 코드를 이용해 파일을 읽어들이고, 머신러닝 기법을 이용해 AI 학습한다. 이 결과로 나오는 것이 AI 모델이다.</p>
 <br />

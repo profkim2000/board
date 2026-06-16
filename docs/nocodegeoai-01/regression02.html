@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>실습 5 - K-NN - Eugene&#x27;s Board</title>
+        <title>실습 6 - K-NN - Eugene&#x27;s Board</title>
 
 
         <!-- Custom HTML head -->
@@ -36,10 +36,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-8feda350.js";
+            window.path_to_searchindex_js = "../searchindex-7c06e74d.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-674eb9b9.js"></script>
+        <script src="../toc-2f4bd671.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -175,13 +175,187 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="실습-5---k-nn"><a class="header" href="#실습-5---k-nn">실습 5 - K-NN</a></h1>
+                        <h1 id="실습-6---k-nn"><a class="header" href="#실습-6---k-nn">실습 6 - K-NN</a></h1>
+<h2 id="데이터-만들기"><a class="header" href="#데이터-만들기">데이터 만들기</a></h2>
+<p><img src="attachments/20260616213116.png" alt=""></p>
+<ol>
+<li>
+<p>“Paint Data” 위젯을 추가하고 더블클릭한다.</p>
+</li>
+<li>
+<p>마우스를 이용해 이런 모양으로 데이터를 그린다.</p>
+</li>
+</ol>
+<div style="display: flex; justify-content: flex-start; margin-left: 40px;">
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th style="text-align: left">X축의 값</th><th style="text-align: left">Y축의 값</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align: left">0 ~ 0.2</td><td style="text-align: left">0.2</td></tr>
+<tr><td style="text-align: left">0.2 ~ 0.4</td><td style="text-align: left">0.4</td></tr>
+<tr><td style="text-align: left">0.4 ~ 0.6</td><td style="text-align: left">0.6</td></tr>
+<tr><td style="text-align: left">0.6 ~ 0.8</td><td style="text-align: left">0.8</td></tr>
+<tr><td style="text-align: left">0.8 ~ 1.0</td><td style="text-align: left">1.0</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<ol start="3">
+<li>만들어진 데이터의 갯수는 여기서 확인할 수 있다. 여기서는 마우스를 그림을 그려 총 456개의 데이터를 만들어 냈음을 알 수 있다.</li>
+</ol>
+<br />
+<h2 id="데이터의-feature와-target-구분하기"><a class="header" href="#데이터의-feature와-target-구분하기">데이터의 Feature와 Target 구분하기</a></h2>
+<p>Paint Data는 데이터를 쉽게 만들어 주지만 target을 지정해 주지 못한다. 그래서 Select Columns 위젯을 이용해 target을 지정해 준다.</p>
+<ul>
+<li>
+<p>Feature: 독립변수, X, target 값을 결정하는 요인.</p>
+</li>
+<li>
+<p>Target: 종속변수, Y, 주택가격 등 feature 들에 의해 결정된 값.</p>
+</li>
+</ul>
+<br />
+<p><img src="attachments/20260616153703.png" alt=""></p>
+<ol>
+<li>
+<p>Transform에서 “Select Columns” 위젯을 추가한다.</p>
+</li>
+<li>
+<p>Select Columns 창이 나타나면 Features 항목에서 “Y” 를 Target 항목으로 끌어내린다.(드래그 앤 드롭)</p>
+</li>
+<li>
+<p>닫기 버튼을 누른다.</p>
+</li>
+</ol>
+<p>이제 X축의 값이 feature이고, Y축의 값이 target이 되었다.</p>
+<br />
+<h2 id="k-nn-성능-테스트"><a class="header" href="#k-nn-성능-테스트">K-NN 성능 테스트</a></h2>
+<p><img src="attachments/20260616215043.png" alt=""></p>
+<ol>
+<li>
+<p>Model에서 “KNN” 위젯을 추가한다.</p>
+</li>
+<li>
+<p>Evaluate 에서 “Test and Score” 위젯을 추가한다.</p>
+</li>
+<li>
+<p>“KNN” 노드와 “Test and Score” 노드를 연결한다. 연결선에 “Learner” 라고 적혀 있어야 한다.</p>
+</li>
+<li>
+<p>“Select Columns” 노드와 Test and Score“ 노드를 연결한다. 연결선에 “Data” 라고 적혀 있어야 한다.</p>
+</li>
+</ol>
+<br />
+<p><img src="attachments/20260616215424.png" alt=""></p>
+<ol start="5">
+<li>
+<p>“Test and Score” 노드를 더블클릭한다.</p>
+</li>
+<li>
+<p>RMSE값을 보니 충분히 훌륭한 결과를 보여준다.</p>
+</li>
+<li>
+<p>R2값을 보니 충분히 훌륭한 결과를 보여준다.</p>
+</li>
+</ol>
+<br />
+<h2 id="k-nn-동작-테스트"><a class="header" href="#k-nn-동작-테스트">K-NN 동작 테스트</a></h2>
+<p>특이하게 입력한 데이터를 이용해 K-NN의 동작을 테스트 해 보자.</p>
+<p><img src="attachments/20260616215802.png" alt=""></p>
+<ol>
+<li>
+<p>Transform에서 “Create Instance” 위젯을 추가한다.</p>
+</li>
+<li>
+<p>“Select Columns” 노드와 “Create Instance” 노드를 연결한다.</p>
+</li>
+<li>
+<p>연결하자 마자 “Edit Links” 창이 나타나는데 “Data - Data“로 되어 있는 것을 확인하고 “OK” 버튼을 누른다.</p>
+</li>
+</ol>
+<br />
+<p><img src="attachments/20260616220330.png" alt=""></p>
+<ol>
+<li>
+<p>Evaluate에서 “Predictions” 위젯을 추가한다.</p>
+</li>
+<li>
+<p>“KNN” 노드와 “Predictions” 노드를 연결한다. 연결 선에 “Model - Predictions” 라고 나타나야 한다.</p>
+</li>
+<li>
+<p>“Create Instance” 노드와 “Predictions” 노드를 연결한다. 연결 선에 “Data” 라고 나타나야 한다.</p>
+</li>
+</ol>
+<br />
+<p><img src="attachments/20260616220823.png" alt=""></p>
+<ol>
+<li>
+<p>“Predictions” 노드를 더블클릭한다.</p>
+</li>
+<li>
+<p>Predictions 창이 나타난다.</p>
+</li>
+<li>
+<p>“Create Instance” 노드를 더블클릭한다.</p>
+</li>
+<li>
+<p>Create Instance 창이 나타난다. 이 때 Predictions 창이 뒤로 가려서 안보일텐데, 모니터 화면 맨 아래 태스크바에서 “Predictions“를 누르면 다시 나타나서 위 그림과 같은 상태가 된다.</p>
+</li>
+<li>
+<p>독립변수인 x의 값을 슬라이드를 조절해 변경한다.</p>
+</li>
+<li>
+<p>x값이 바뀔 때마다 KNN에서 찾아낸 값이 달라지는 것을 확인할 수 있다.</p>
+</li>
+</ol>
+<p>Error의 값은 신경쓰지 말자. 우리가 Create Instance 창에서 x값만 바꾸고 정답인 y값은 바꾸지 않았기 때문이다.</p>
+<br />
+<h3 id="테스트할-요소들"><a class="header" href="#테스트할-요소들">테스트할 요소들</a></h3>
+<p>기본적으로 K(확인할 이웃의 수)의 값은 5이다. 설정을 만지지 않았다면 K=5인 상태다.</p>
+<h4 id="독립변수-x"><a class="header" href="#독립변수-x">독립변수 X</a></h4>
+<p>독립변수인 x의 값을 0.1, 0.3, 0.5, 0.7. 0.9로 순서대로 바꿔보자.</p>
+<p><img src="attachments/20260616221334.png" alt=""></p>
+<p>그 값들은 가로로 길게 준 값들의 중간쯤이다.</p>
+<br />
+<p><strong>x = 0.1인 경우,</strong></p>
+<p><img src="attachments/20260616221459.png" alt=""></p>
+<p>y = 0.2로 동일하게 준 그 가로선의 중간쯤이 되고, 이 부근에서 x축 상에서 가까운 이웃을 찾으니 빨간 원안에 있는 데이터가 될 테고 모두 y=0.2라서 K-NN의 결과도 아래와 같이 0.2근처의 값이 나타난다.</p>
+<p><img src="attachments/20260616221756.png" alt=""></p>
+<br />
+<p><strong>x = 0.3인 경우,</strong></p>
+<p><img src="attachments/20260616222030.png" alt=""></p>
+<p>y = 0.4로 동일하게 준 그 가로선의 중간쯤이 되고, 이 부근에서 x축 상에서 가까운 이웃을 찾으니 빨간 원안에 있는 데이터가 될 테고 모두 y=0.4라서 K-NN의 결과도 아래와 같이 0.4근처의 값이 나타난다.</p>
+<p><img src="attachments/20260616222155.png" alt=""></p>
+<br />
+<h4 id="k계산에-사용할-이웃의-수-변경"><a class="header" href="#k계산에-사용할-이웃의-수-변경">K(계산에 사용할 이웃의 수) 변경</a></h4>
+<p>지금까지는 기본값인 K=5인 상태에서의 테스트였다.</p>
+<p><img src="attachments/20260616222525.png" alt=""></p>
+<p>K=100으로 바꾸고 테스트해 보자.</p>
+<br />
+<p><strong>아까와 같이 x=0.112인 경우</strong></p>
+<p><img src="attachments/20260616222808.png" alt=""></p>
+<p>똑같이 x=0.112로 주었는데,</p>
+<ul>
+<li>
+<p>아까 k = 5일 때는 0.203581,</p>
+</li>
+<li>
+<p>지금 k = 100일 때는 0.266492 이다.</p>
+</li>
+</ul>
+<p>이유는,</p>
+<p><img src="attachments/20260616223106.png" alt=""></p>
+<p>100개의 이웃을 찾아서 평균을 내야 하는데, 아래에는 대략 90개의 자료 밖에 없어 x축에서 가장 가까운 0.25 정도까지의 이웃까지 찾아서 그 값을 평균냈기 때문이다.</p>
+<p>X값이 0.2 ~ 0.4까지의 Y값은 모두 0.4이기 때문에 평균이 약간 올라갔다.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../nocodegeoai-01/regression01.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../nocodegeoai-01/overfit.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
@@ -195,7 +369,7 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../nocodegeoai-01/regression01.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../nocodegeoai-01/overfit.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 

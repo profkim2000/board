@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>실습 5 - 과적합 - Eugene&#x27;s Board</title>
+        <title>로컬에서 가사있는 음악만들기 - Ace Step v1.5 - Eugene&#x27;s Board</title>
 
 
         <!-- Custom HTML head -->
@@ -36,10 +36,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-d14c9f34.js";
+            window.path_to_searchindex_js = "../searchindex-726ce66e.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-2f4bd671.js"></script>
+        <script src="../toc-5e45f2b7.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -175,104 +175,78 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="실습-5---과적합"><a class="header" href="#실습-5---과적합">실습 5 - 과적합</a></h1>
-<h2 id="데이터-만들기"><a class="header" href="#데이터-만들기">데이터 만들기</a></h2>
-<p><img src="attachments/20260616160045.png" alt=""></p>
+                        <h1 id="comfyui---ace-step-v15-xl-turbo"><a class="header" href="#comfyui---ace-step-v15-xl-turbo">ComfyUI - ACE-Step v1.5 XL Turbo</a></h1>
+<h2 id="ace-step-v15-xl-turbo-기본"><a class="header" href="#ace-step-v15-xl-turbo-기본">ACE-Step v1.5 XL Turbo 기본</a></h2>
+<p><img src="attachments/20260427231846.png" alt=""></p>
+<p>가사를 불러주는 보컬이 있는 음악을 만들어 준다.</p>
+<p>이 워크플로에서는 크게 4가지를 설정해 줘야 한다.</p>
+<p><img src="attachments/20260427235620.png" alt=""></p>
 <ol>
 <li>
-<p>Data 에서 “Paint Data” 위젯을 추가하고 더블클릭한다.</p>
+<p>길이: 음악의 길이인데, 길이가 길면 길수록 시간이 오래 걸린다.</p>
 </li>
 <li>
-<p>오른쪽 그래프 부분에 마우스로 위 그림과 비슷하게 그린다.</p>
-</li>
-</ol>
-<p>이제 우리의 데이터는 직선 그래프로는 예측하기 어려운, <strong>곡선형으로 예측해야 하는 데이터</strong>로 만들어졌다.</p>
-<h3 id="이상치-만들기"><a class="header" href="#이상치-만들기">이상치 만들기</a></h3>
-<p><img src="attachments/20260616160307.png" alt=""></p>
-<p>화살표로 표시한 것처럼 원래의 큰 틀과 어긋나는 값들(이상치)을 <strong>마우스 클릭으로 추가</strong>한다.</p>
-<br />
-<h3 id="데이터의-feature와-target-구분하기"><a class="header" href="#데이터의-feature와-target-구분하기">데이터의 Feature와 Target 구분하기</a></h3>
-<p>Paint Data는 데이터를 쉽게 만들어 주지만 target을 지정해 주지 못한다. 그래서 Select Columns 위젯을 이용해 target을 지정해 준다.</p>
-<ul>
-<li>
-<p>Feature: 독립변수, X, target 값을 결정하는 요인.</p>
+<p>BPM(Beats Per Minute): 음악의 속도. 템포.</p>
 </li>
 <li>
-<p>Target: 종속변수, Y, 주택가격 등 feature 들에 의해 결정된 값.</p>
-</li>
-</ul>
-<br />
-<p><img src="attachments/20260616153703.png" alt=""></p>
-<ol>
-<li>
-<p>Transform에서 “Select Columns” 위젯을 추가한다.</p>
+<p>prompt: 음악의 느낌을 설명</p>
 </li>
 <li>
-<p>Select Columns 창이 나타나면 Features 항목에서 “Y” 를 Target 항목으로 끌어내린다.(드래그 앤 드롭)</p>
-</li>
-<li>
-<p>닫기 버튼을 누른다.</p>
-</li>
-</ol>
-<p>이제 X축의 값이 feature이고, Y축의 값이 target이 되었다.</p>
-<br />
-<h3 id="애드온-추가---educational-애드온"><a class="header" href="#애드온-추가---educational-애드온">애드온 추가 - Educational 애드온</a></h3>
-<p>이미 Educational 애드온이 설치되어 있으면 이 챕터는 넘어간다.</p>
-<p>다항 회귀를 위한 Polynomial Regression 위젯을 설치하기 위해 <a href="https://orange3-educational.readthedocs.io/en/latest/">“Educational” 애드온</a>을 설치한다.</p>
-<p><img src="attachments/20260616144857.png" alt=""></p>
-<ol>
-<li>
-<p>메뉴에서 “Options” 를 선택한다.</p>
-</li>
-<li>
-<p>“Add-ons…“를 선택한다.</p>
+<p>가사<br>- Verse: 곡의 도입부 가사. 이제 한글도 잘 된다.<br>- Chorus: 우리말로 하면 하이라이트 부분 가사. 후렴부이다. 한글도 잘 된다.</p>
 </li>
 </ol>
 <br />
-<p><img src="attachments/20260616145015.png" alt=""></p>
+<h2 id="워크플로-실행"><a class="header" href="#워크플로-실행">워크플로 실행</a></h2>
+<p><img src="attachments/20260428000632.png" alt=""></p>
 <ol>
 <li>
-<p>애드온 Installer 창에서 “Educational“을 선택한다. (체크가 된 상태여야 함)</p>
+<p>길이를 기본값인 120초(2분)으로 놔둔다.</p>
 </li>
 <li>
-<p>OK 버튼을 누른다.</p>
+<p>BPM: 기본 값인 95로 놔둔다.</p>
+</li>
+<li>
+<p>prompt: kpop, piano, acoustic guitar, happy, synth</p>
+</li>
+<li>
+<p>Verse(도입부 가사):</p>
 </li>
 </ol>
-<br />
-<p><img src="attachments/20260616145821.png" alt=""></p>
-<p>애드온이 설치된다. 약 1분 정도 소요된다.</p>
-<br />
-<p><img src="attachments/20260616145448.png" alt=""></p>
-<p>설치가 끝나면 다시 시작하겠냐고 물어본다. “OK“를 눌러 다시 시작한다.</p>
-<br />
-<h3 id="polynomial-regression-위젯-추가"><a class="header" href="#polynomial-regression-위젯-추가">Polynomial Regression 위젯 추가</a></h3>
-<p><img src="attachments/20260616161412.png" alt=""></p>
-<ol>
-<li>아마도 맨 밑에 있을 Educational에서 “Polynomial Regression” 위젯을 추가하고 “Paint Data” 노드와 연결한다. 그리고 더블클릭한다.</li>
+<blockquote>
+<p>(한글)<br>나 보기가 역겨워 가실 때에는 말없이 고이 보내 드리우리다.<br>영변에 약산 진달래 꽃 아름따다 가실 길에 뿌리우리다.<br>가시는 걸음걸음 놓인 그꽃을 사뿐히 즈려밟고 가시오소서.</p>
+</blockquote>
+<ol start="4">
+<li>Chorus(후렴부 가사):</li>
 </ol>
-<br />
-<h3 id="과적합-발생시키기"><a class="header" href="#과적합-발생시키기">과적합 발생시키기</a></h3>
-<p><strong>Polynomial Degree = 2</strong> 일 때</p>
-<p><img src="attachments/20260616161808.png" alt=""></p>
-<p>큰 패턴을 따를 뿐 과적합은 발생하지 않았다.</p>
-<br />
-<p><strong>Polynomial Degree = 4</strong> 일 때</p>
-<p><img src="attachments/20260616161946.png" alt=""></p>
-<p>패턴의 모양에 근접했다. 하지만 이상치를 따라 약간 변형되었다. (이상치 제거가 필요한 이유)</p>
-<br />
-<p><strong>Polynomial Degree = 10</strong> 일 때</p>
-<p><img src="attachments/20260616162106.png" alt=""></p>
-<p>원래의 패턴에서 벗어나 이상치를 따라가는 과적합이 상당히 발생했다.</p>
+<blockquote>
+<p>(한글)<br>나 보기가 역겨워 가실 때에는 죽어도 아니 눈물 흘리우리다.</p>
+</blockquote>
+<ol start="5">
+<li>“실행” 버튼을 누른다.</li>
+</ol>
+<h2 id="실행-결과"><a class="header" href="#실행-결과">실행 결과</a></h2>
+<audio controls="" src="./ACE_Step1.5_xl_turbo_00001_.mp3">
+  <!-- 브라우저가 audio 태그를 지원하지 않을 경우 표시될 텍스트 -->
+  Your browser does not support the audio element.
+</audio>
+<h2 id="결과-듣기"><a class="header" href="#결과-듣기">결과 듣기</a></h2>
+<p><img src="attachments/20260428001310.png" alt=""></p>
+<p>애셋에서 방금 전 생성된 mp3 파일을 찾아 play 버튼을 누르면 재생할 수 있다.</p>
+<h2 id="결과-mp3-파일-다운로드"><a class="header" href="#결과-mp3-파일-다운로드">결과 mp3 파일 다운로드</a></h2>
+<p><img src="attachments/20260428001428.png" alt=""></p>
+<p>세로 … 버튼을 누른 다음,</p>
+<p><img src="attachments/20260428001513.png" alt=""></p>
+<p>다운로드 버튼을 누른다.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../nocodegeoai-01/regression01.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../aiuu-01/comfyui-007.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="../nocodegeoai-01/regression02.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../aiuu-01/comfyui-005.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -282,11 +256,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../nocodegeoai-01/regression01.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../aiuu-01/comfyui-007.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="../nocodegeoai-01/regression02.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../aiuu-01/comfyui-005.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

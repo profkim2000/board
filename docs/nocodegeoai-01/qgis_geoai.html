@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>실습 10 - QGIS + GeoAI - Eugene&#x27;s Board</title>
+        <title>실습 9 - QGIS + GeoAI - Eugene&#x27;s Board</title>
 
 
         <!-- Custom HTML head -->
@@ -36,10 +36,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-d14c9f34.js";
+            window.path_to_searchindex_js = "../searchindex-726ce66e.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-2f4bd671.js"></script>
+        <script src="../toc-5e45f2b7.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -175,7 +175,245 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="실습-3---qgis--geoai"><a class="header" href="#실습-3---qgis--geoai">실습 3 - QGIS + GeoAI</a></h1>
+                        <h1 id="실습-10---qgis-geoai"><a class="header" href="#실습-10---qgis-geoai">실습 10 - QGIS, GeoAI</a></h1>
+<h2 id="qgis에-geoai-설치"><a class="header" href="#qgis에-geoai-설치">QGIS에 GeoAI 설치</a></h2>
+<p>QGIS에서 Geospatial AI를 사용하기 위한 플러그인 설치</p>
+<p><a href="../dt-01/ai/install_geoai.html">QGIS에 GeoAI 플러그인 설치과정 안내</a></p>
+<br />
+<h2 id="tms-for-korea-설치"><a class="header" href="#tms-for-korea-설치">TMS for Korea 설치</a></h2>
+<p>QGIS에서 VWorld Satellite 맵을 사용하기 위해 TMS for Korea 플러그인 설치</p>
+<p>이 맵은 테스트용으로만 사용해야 하며 실제 상업적인 서비스를 위해 사용할 떄는 라이선스를 별도로 살펴야 한다.</p>
+<p>테스트 후 사용한 geoTiff 파일은 모두 삭제한다.</p>
+<p><a href="../dt-01/ai/install_tms.html">QGIS에 TMS for Korea 플러그인 설치과정 안내</a></p>
+<br />
+<h2 id="테스트용-이미지-생성"><a class="header" href="#테스트용-이미지-생성">테스트용 이미지 생성</a></h2>
+<p>GeoAI는 raster 이미지(<a href="https://en.wikipedia.org/wiki/GeoTIFF">geoTiff</a> 등)를 사용하기 때문에, AI 분석에 사용하기 위해 VWorld Satellite 맵을 <a href="https://en.wikipedia.org/wiki/GeoTIFF">geoTiff</a> 형식으로 내보내야 한다.</p>
+<p><a href="../dt-01/ai/export_to_geotiff.html">QGIS 맵을 geoTiff 형식으로 내보내 AI 테스트용 이미지 생성</a></p>
+<p>위 과정을 통해 테스트할 부분을 geoTiff 파일로 만들고 그 파일을 QGIS에 하나의 레이어로 올린다.</p>
+<br />
+<h2 id="qgis에서-geoai-사용"><a class="header" href="#qgis에서-geoai-사용">QGIS에서 GeoAI 사용</a></h2>
+<h3 id="1-위성사진에서-나무-찾기tree-segmentation"><a class="header" href="#1-위성사진에서-나무-찾기tree-segmentation">1. 위성사진에서 나무 찾기(Tree Segmentation)</a></h3>
+<p><a href="../dt-01/ai/export_to_geotiff.html">테스트용 이미지 생성</a> 방법을 이용해 지도에 나무가 보이는 영역을 geoTiff로 저장한 후 사용한다.</p>
+<p>이 예에서는 “tree” 레이어로 올려 사용한다.</p>
+<p><img src="../dt-01/ai/attachments/20260412143457.png" alt=""></p>
+<p>tree 레이어로 올려 사용하는 예</p>
+<br />
+<p><img src="../dt-01/ai/attachments/20260412144010.png" alt=""></p>
+<ol>
+<li>
+<p>geoAI 툴바에서 나무 모양의 아이콘(Tree Segmentation)을 누른다.</p>
+</li>
+<li>
+<p>“Load Model” 버튼을 눌러 나무 찾기 AI 모델(Deep Forest)을 로드한다.(메모리에 올린다.)</p>
+</li>
+<li>
+<p>레이어 다시 읽기 버튼을 누른다.</p>
+</li>
+<li>
+<p>geoTiff 파일이 올라가 있는 “tree” 레이어를 선택하다.</p>
+</li>
+<li>
+<p>“Set Image from layer” 버튼을 눌러 위에서 선택한 레이어를 AI가 입력 이미지로 사용하도록 한다.</p>
+</li>
+</ol>
+<br />
+<p><img src="../dt-01/ai/attachments/20260412144307.png" alt=""></p>
+<ol>
+<li>
+<p>Predict 탭을 선택한다.</p>
+</li>
+<li>
+<p>Run Prediction“ 버튼을 클릭해 사진에서 나무가 있는 부분을 찾는 예측을 시작한다.</p>
+</li>
+</ol>
+<br />
+<p><strong>결과</strong></p>
+<p><img src="../dt-01/ai/attachments/20260412144405.png" alt=""></p>
+<p>AI가 위성사진에서 나무 부분을 찾아 빨간색 네모로 표시해 준다.</p>
+<br />
+<h3 id="2-위성사진에서-물-찾기water-segmentation"><a class="header" href="#2-위성사진에서-물-찾기water-segmentation">2. 위성사진에서 물 찾기(Water Segmentation)</a></h3>
+<p><a href="../dt-01/ai/export_to_geotiff.html">테스트용 이미지 생성</a> 방법을 이용해 지도에 물이 보이는 영역을 geoTiff로 저장한 후 사용한다.</p>
+<p>이 예에서는 “&gt; 사곡면” 으로 검색해 “충남 공주시 사곡면” 일대를 geoTiff로 저장해 사용했다.</p>
+<p><a href="https://github.com/DPIRD-DMA/OmniWaterMask">OmniWaterMask</a> 모델을 사용하며, 정확한 탐지를 위해서는 NIR 채널까지 사용해야 하지만, 이 예에서는 RGB 밴드만 사용한다. (NIR 채널이 포함된 샘플을 다운로드 하려면 회원가입을 해야 하는 등 시간이 오래 걸려서 강의에서는 사용하지 않음)</p>
+<p>이 예에서는 “water” 레이어로 올려 사용한다.</p>
+<p><img src="../dt-01/ai/attachments/20260412150259.png" alt=""></p>
+<p>water 레이어로 올려 사용하는 예</p>
+<br />
+<p><img src="../dt-01/ai/attachments/20260412151944.png" alt=""></p>
+<ol>
+<li>
+<p>geoAI 툴바에서 물방울 모양의 아이콘(Water Segmentation)을 누른다.</p>
+</li>
+<li>
+<p>레이어 새로고침 버튼을 누른다.</p>
+</li>
+<li>
+<p>Water 레이어를 선택한다.</p>
+</li>
+<li>
+<p>Dtype을 “bfloat16” 으로 설정한다. 처리 속도가 빨라진다.</p>
+</li>
+<li>
+<p>“Run Water Segmentation” 버튼을 눌러 AI를 이용한 물찾기를 시작한다.</p>
+</li>
+</ol>
+<br />
+<p><strong>결과</strong></p>
+<p><img src="../dt-01/ai/attachments/20260412151105.png" alt=""></p>
+<p><img src="../dt-01/ai/attachments/20260412151209.png" alt=""></p>
+<br />
+<h2 id="3-위성사진에-대해-ai에게-질의하기moondream-vlm"><a class="header" href="#3-위성사진에-대해-ai에게-질의하기moondream-vlm">3. 위성사진에 대해 AI에게 질의하기(<a href="https://github.com/vikhyat/moondream">Moondream VLM</a>)</a></h2>
+<p>* VLM: Vision-Language Model: 시각 정보와 언어 정보를 동시에 처리하는 AI 모델</p>
+<p><a href="https://github.com/vikhyat/moondream">Moondream VLM</a> 모델을 사용</p>
+<p>이 예에서는 water.tif 파일을 AI 입력용 이미지로 사용한다.</p>
+<h3 id="caption"><a class="header" href="#caption">Caption</a></h3>
+<p><img src="../dt-01/ai/attachments/20260412153107.png" alt=""></p>
+<ol>
+<li>
+<p>getAI 툴바에서 Moondream VLM을 누른다.</p>
+</li>
+<li>
+<p>Water.tif 파일을 이용해(끌어다 놓아) Water 레이어를 추가한다.</p>
+</li>
+<li>
+<p>“Load Model” 버튼을 누른다.</p>
+</li>
+<li>
+<p>레이어를 Water 레이어로 설정한다.</p>
+</li>
+<li>
+<p>“Load Image” 버튼을 누른다. AI 입력용 이미지로 water 레이어의 water.tif 파일을 사용한다.</p>
+</li>
+<li>
+<p>Mode를 “Caption“으로 설정한다.</p>
+</li>
+<li>
+<p>“Run” 버튼을 누른다.</p>
+</li>
+</ol>
+<br />
+<p><strong>결과</strong></p>
+<p><img src="../dt-01/ai/attachments/20260412153333.png" alt=""></p>
+<pre><code>Caption:
+An aerial image depicts a village nestled in a verdant valley, surrounded by fields and forests. The village is a patchwork of green and brown, with the majority of the fields appearing dry and possibly cultivated. A river meanders through the village and surrounding area, acting as a natural boundary. Several bridges cross the river, and a major road or highway runs parallel to it. The village is primarily built on raised platforms or stilts, and includes various buildings, including a church with a blue roof. Several buildings also feature corrugated metal roofing. The fields and forests surrounding the village show a mix of green and brown foliage, possibly indicating different crops or stages of growth.
+</code></pre>
+<pre><code>(번역)
+항공 사진에는 푸른 계곡에 자리 잡은 마을이 들판과 숲으로 둘러싸여 있는 모습이 담겨 있습니다. 마을은 초록색과 갈색이 어우러진 풍경을 보여주며, 대부분의 들판은 메말라 있거나 경작 중인 것으로 보입니다. 강이 마을과 주변 지역을 구불구불 흐르며 자연적인 경계를 이루고 있습니다. 강에는 여러 개의 다리가 놓여 있고, 주요 도로 또는 고속도로가 강과 나란히 뻗어 있습니다. 마을은 주로 높은 단이나 기둥 위에 세워져 있으며, 파란색 지붕의 교회를 비롯한 다양한 건물들이 있습니다. 몇몇 건물은 골함석 지붕을 사용하고 있습니다. 마을 주변의 들판과 숲에는 초록색과 갈색 잎이 섞여 있는데, 이는 다양한 작물이나 성장 단계를 나타내는 것일 수 있습니다.
+</code></pre>
+<br />
+<h3 id="query"><a class="header" href="#query">Query</a></h3>
+<p>위성사진에 대해 물어보는 경우</p>
+<p><img src="../dt-01/ai/attachments/20260412154108.png" alt=""></p>
+<br />
+<p><strong>질문 : how many buildings in this image</strong></p>
+<ol>
+<li>
+<p>Mode를 “Query“로 설정한다.</p>
+</li>
+<li>
+<p>prompt를 “how many buildings in this image“으로 설정한다.</p>
+</li>
+<li>
+<p>“Run” 버튼을 누른다.</p>
+</li>
+<li>
+<p>결과를 확인한다.</p>
+</li>
+</ol>
+<pre><code>Q: how many buildings in this image
+
+A: Many buildings can be seen in this image, scattered throughout the village.
+</code></pre>
+<pre><code>질문: 이 사진에는 건물이 몇 개나 있나요?
+
+답변: 이 사진에는 마을 곳곳에 흩어져 있는 많은 건물들이 보입니다.
+</code></pre>
+<br />
+<p><strong>또 다른 질문: What is the most commonly used color for the building roofs in this image?</strong></p>
+<pre><code>Q: What is the most commonly used color for the building roofs in this image?
+
+A: The most commonly used color for the building roofs in this image is blue.
+</code></pre>
+<pre><code>질문: 이 이미지에서 건물 지붕에 가장 많이 사용된 색상은 무엇인가?
+
+답변: 이 이미지에서 건물 지붕에 가장 많이 사용된 색상은 파란색이다.
+</code></pre>
+<br />
+<h2 id="detect"><a class="header" href="#detect">Detect</a></h2>
+<p><strong>다리 질의</strong></p>
+<p><img src="../dt-01/ai/attachments/20260412155159.png" alt=""></p>
+<ol>
+<li>
+<p>모드를 “Detect“로 설정한다.</p>
+</li>
+<li>
+<p>prompt를 “bridge“로 설정한다.</p>
+</li>
+<li>
+<p>“Run” 버튼을 클릭한다.</p>
+</li>
+<li>
+<p>결과를 확인한다. 1개를 확인했다는 메시지가 보인다.</p>
+</li>
+<li>
+<p>지도 위에 빨간 네모 박스로 다리를 표시한 걸 확인한다.</p>
+</li>
+</ol>
+<br />
+<p><strong>비닐하우스 질의</strong></p>
+<p><img src="../dt-01/ai/attachments/20260412155715.png" alt=""></p>
+<ol>
+<li>
+<p>모드를 “Detect“로 설정한다.</p>
+</li>
+<li>
+<p>prompt를 “greenhouse“로 설정한다.</p>
+</li>
+<li>
+<p>Result Color를 초록색 등으로 변경한다. (좀전의 다리와 다른 색으로 표시하기 위해)</p>
+</li>
+<li>
+<p>“Run” 버튼을 클릭한다.</p>
+</li>
+<li>
+<p>결과를 확인한다. 50개를 확인했다는 메시지가 보인다.</p>
+</li>
+<li>
+<p>지도 위에 초록색 네모 박스로 비닐하우스를 표시한 걸 확인한다. 실제로는 50개를 각각 네모로 표시했는데, 겹쳐져서 마치 영역을 전부 칠해놓은 것처럼 보이고 있다.</p>
+</li>
+</ol>
+<br />
+<h2 id="point"><a class="header" href="#point">Point</a></h2>
+<p><strong>비닐하우스를 점으로 표시</strong></p>
+<p><img src="../dt-01/ai/attachments/20260412160339.png" alt=""></p>
+<ol>
+<li>
+<p>이전 결과 레이어가 영향을 미치면 지우거나 레이어 체크를 풀어 보이지 않도록 한다. 이 경우에는 레이어 체크를 풀어 보이지 않도록 했다.</p>
+</li>
+<li>
+<p>모드를 “Point“로 설정한다.</p>
+</li>
+<li>
+<p>prompt를 “greenhouse“로 설정한다.</p>
+</li>
+<li>
+<p>Result Color를 초록색 등으로 변경한다. (좀전의 다리와 다른 색으로 표시하기 위해)</p>
+</li>
+<li>
+<p>“Run” 버튼을 클릭한다.</p>
+</li>
+</ol>
+<br />
+<p><strong>결과</strong></p>
+<p><img src="../dt-01/ai/attachments/20260412160453.png" alt=""></p>
+<ol>
+<li>
+<p>결과를 확인한다. 점 1개를 추가했다는 메시지가 보인다</p>
+</li>
+<li>
+<p>지도 위에 초록색 점으로 비닐하우스를 표시한 걸 확인한다.</p>
+</li>
+</ol>
 
                     </main>
 
@@ -185,7 +423,7 @@
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="../nocodegeoai-01/review01.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../../dt-01/ai/install_geoai.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -199,7 +437,7 @@
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="../nocodegeoai-01/review01.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../../dt-01/ai/install_geoai.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

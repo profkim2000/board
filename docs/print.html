@@ -37,7 +37,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-7c06e74d.js";
+            window.path_to_searchindex_js = "searchindex-d14c9f34.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-2f4bd671.js"></script>
@@ -1131,11 +1131,263 @@
 <p>100개의 이웃을 찾아서 평균을 내야 하는데, 아래에는 대략 90개의 자료 밖에 없어 x축에서 가장 가까운 0.25 정도까지의 이웃까지 찾아서 그 값을 평균냈기 때문이다.</p>
 <p>X값이 0.2 ~ 0.4까지의 Y값은 모두 0.4이기 때문에 평균이 약간 올라갔다.</p>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="실습-6---decision-tree"><a class="header" href="#실습-6---decision-tree">실습 6 - Decision Tree</a></h1>
+<h1 id="실습-7---decision-tree"><a class="header" href="#실습-7---decision-tree">실습 7 - Decision Tree</a></h1>
+<h2 id="데이터-만들기-3"><a class="header" href="#데이터-만들기-3">데이터 만들기</a></h2>
+<p>금리에 따른 측량횟수라는 데이터를 가상으로 만들어 사용한다. 이번 실습에서는 금리가 낮을수록 측량횟수가 많다는 가정으로 데이터를 만들어 사용하자.</p>
+<p><img src="nocodegeoai-01/attachments/20260617144057.png" alt=""></p>
+<ol>
+<li>
+<p>Data에서 “Paint Data” 위젯을 추가하고 더블클릭한다.</p>
+</li>
+<li>
+<p>X를 “금리”, Y를 “측량횟수“로 바꾼다.</p>
+</li>
+<li>
+<p>마우스를 이용해 우하향의 데이터 그래프를 그린다.</p>
+</li>
+</ol>
+<br />
+<h2 id="데이터-값-조정"><a class="header" href="#데이터-값-조정">데이터 값 조정</a></h2>
+<p>Paint Data 위젯은 x축과 y축이 모두 0 ~ 1.0 사이의 값을 갖도록 되어 있다.</p>
+<p>우리의 데이터 자체가 가상의 데이터이긴 하지만 현실감을 주기 위해,</p>
+<p>X축은 금리이니 0 ~ 1 사이의 값이 1.0 ~ 3.0 사이의 값을 갖도록 조정하고,<br>Y축은 측량횟수이니 0 ~ 1 사이의 값이 100 ~ 500 사이의 값을 갖도록 조정하자.</p>
+<p><img src="nocodegeoai-01/attachments/20260617145438.png" alt=""></p>
+<ol>
+<li>
+<p>Transform에서 “Formula” 위젯을 추가한다.</p>
+</li>
+<li>
+<p>“Paint Data” 노드와 “Formula” 노드를 연결한다.</p>
+</li>
+</ol>
+<br />
+<p>Formula 설정 창에서 X축과 Y축의 값을 조정한다.</p>
+<p><img src="nocodegeoai-01/attachments/20260617150136.png" alt=""></p>
+<ol>
+<li>
+<p>“Formula” 노드를 더블클릭한다.</p>
+</li>
+<li>
+<p>Formula 창의 메뉴에서 “New“를 누른다.</p>
+</li>
+<li>
+<p>데이터가 숫자였으니 <strong>Numeric</strong> 을 선택한다.</p>
+</li>
+</ol>
+<br />
+<h3 id="금리-필드-값-조정"><a class="header" href="#금리-필드-값-조정">“금리” 필드 값 조정</a></h3>
+<p><img src="nocodegeoai-01/attachments/20260617150421.png" alt=""></p>
+<ol>
+<li>
+<p>우리가 만든 “금리”, “측량횟수” 필드 중 먼저 “금리” 필드의 값을 조정하기 위해 “금리“를 입력한다.</p>
+</li>
+<li>
+<p>“금리” 필드의 0 ~ 1 사이의 값을 1 ~ 3 으로 조정하기 위해, <strong>“금리 * 2.0 + 1.0”</strong> 을 입력한다.</p>
+</li>
+<li>
+<p>금리를 조정하는 수식이 완성된 것을 확인한다.</p>
+</li>
+</ol>
+<blockquote>
+<p>금리 := 금리 * 2.0 + 1.0</p>
+</blockquote>
+<br />
+<h3 id="측량횟수-필드-값-조정"><a class="header" href="#측량횟수-필드-값-조정">“측량횟수” 필드 값 조정</a></h3>
+<p><img src="nocodegeoai-01/attachments/20260617151525.png" alt=""></p>
+<ol>
+<li>
+<p>“New” 버튼을 누르고 “Numeric“을 선택한다.</p>
+</li>
+<li>
+<p>“측량횟수” 필드의 값을 조정하기 위해 “측량횟수“를 입력한다.</p>
+</li>
+<li>
+<p>“측량횟수” 필드의 0 ~ 1 사이의 값을 100 ~ 500 으로 조정하기 위해, <strong>“측량횟수 * 400 + 100”</strong> 을 입력한다.</p>
+</li>
+<li>
+<p>측량횟수를 조정하는 수식이 완성된 것을 확인한다.</p>
+</li>
+<li>
+<p>“Send” 버튼을 누른다.</p>
+</li>
+<li>
+<p>닫기 버튼을 누른다.</p>
+</li>
+</ol>
+<blockquote>
+<p>측량횟수 := 측량횟수 * 400 + 100</p>
+</blockquote>
+<br />
+<h3 id="조정된-데이터-확인"><a class="header" href="#조정된-데이터-확인">조정된 데이터 확인</a></h3>
+<p><img src="nocodegeoai-01/attachments/20260617151617.png" alt=""></p>
+<ol>
+<li>
+<p>Data 에서 “Data Table” 위젯을 추가한다. 그리고 “Formula” 노드와 “Data Table” 노드를 연결한다. 그리고 “Data Table” 노드를 더블클릭한다.</p>
+</li>
+<li>
+<p>Data Table 창이 나타나고 기존에 0~1 사이에만 있던 값들이 금리는 1.0 ~ 3.0, 측량횟수는 100 ~ 500 사이인 것을 확인할 수 있다.</p>
+</li>
+</ol>
+<br />
+<h3 id="feature와-target-정리"><a class="header" href="#feature와-target-정리">feature와 target 정리</a></h3>
+<p><img src="nocodegeoai-01/attachments/20260617152203.png" alt=""></p>
+<ol>
+<li>
+<p>Transform에서 “Select Columns” 위젯을 추가한다. “Data Table” 위젯과 연결한다. “Select Columns” 위젯을 더블클릭한다.</p>
+</li>
+<li>
+<p>Feature에 있던 “측량횟수“를 마우스로 끌어내려 Target에 붙인다.</p>
+</li>
+</ol>
+<p>이제 금리는 feature = 독립변수가 되었고,<br>측량횟수는 target = 종속변수가 되었다.</p>
+<br />
+<h3 id="데이터-시각화"><a class="header" href="#데이터-시각화">데이터 시각화</a></h3>
+<p><img src="nocodegeoai-01/attachments/20260617152609.png" alt=""></p>
+<ol>
+<li>
+<p>Visualize 에서 “Scatter Plot” 위젯을 추가한다. “Select Columns” 노드와 연결한다. “Scatter Plot” 노드를 더블클릭한다.</p>
+</li>
+<li>
+<p>Scatter Plot를 보며 대략적인 금리와 측량횟수 간의 관계를 확인한다.</p>
+</li>
+</ol>
+<p>확인이 끝나면 Scatter Plot는 삭제한다.</p>
+<br />
+<h3 id="decision-tree-모델-추가"><a class="header" href="#decision-tree-모델-추가">Decision Tree 모델 추가</a></h3>
+<p><img src="nocodegeoai-01/attachments/20260617152922.png" alt=""></p>
+<ol>
+<li>Model 에서 “Tree” 위젯을 추가한다. 그리고 “Select Columns” 노드와 연결한다.</li>
+</ol>
+<br />
+<h3 id="decision-tree-모델-성능-테스트"><a class="header" href="#decision-tree-모델-성능-테스트">Decision Tree 모델 성능 테스트</a></h3>
+<p><img src="nocodegeoai-01/attachments/20260617153426.png" alt=""></p>
+<ol>
+<li>
+<p>Evaluate 에서 “Test and Score” 위젯을 추가한다.</p>
+</li>
+<li>
+<p>“Tree” 노드와 “Test and Score” 위젯을 연결한다. 이 때 선에 “Learner” 라고 적혀 있어야 한다.</p>
+</li>
+<li>
+<p>“Select Columns” 노드와 “Test and Score” 위젯을 연결한다. 이 때 선에 “Data” 라고 적혀 있어야 한다.</p>
+</li>
+<li>
+<p>“Test and Score” 위젯을 더블클릭한 다음, “RMSE” 항목을 확인한다.</p>
+</li>
+<li>
+<p>Test and Score 창에서 “R2” 항목을 확인한다.</p>
+</li>
+</ol>
+<br />
+<h3 id="decision-tree-성능-조정"><a class="header" href="#decision-tree-성능-조정">Decision Tree 성능 조정</a></h3>
+<p><img src="nocodegeoai-01/attachments/20260617153930.png" alt=""></p>
+<ol>
+<li>
+<p>“Tree” 노드를 더블클릭한다.</p>
+</li>
+<li>
+<p>“Tree” 노드의 성능을 조정하기 위한 값의 기본값이 다음과 같았음을 확인한다.</p>
+</li>
+</ol>
+<ul>
+<li>“Limit the maximal tree depth to” : 5</li>
+</ul>
+<p>위와 같은 설정일 때 R2의 값이 0.994였음을 알 수 있다.</p>
+<br />
+<h4 id="tree-모델의-depth-줄이기"><a class="header" href="#tree-모델의-depth-줄이기">“Tree” 모델의 Depth 줄이기</a></h4>
+<p>Decesion Tree 모델의 depth는 이 모델이 몇 단계나 깊이 들어가며 계속 가지를 쳐 나갈건지에 대한 옵션값이다.</p>
+<p>Depth를 줄이면 세밀하게 정리하는 단계가 줄어들어 정확도가 떨어진다.</p>
+<p><img src="nocodegeoai-01/attachments/20260617154554.png" alt=""></p>
+<p><img src="nocodegeoai-01/attachments/20260617154641.png" alt=""></p>
+<p>R2의 값이 depth가 기본값인 5일때는 0.994였는데, 2로 줄이니 0.943으로 떨어진 것을 확인할 수 있다.</p>
+<br />
+<h4 id="tree-모델의-depth-늘리기"><a class="header" href="#tree-모델의-depth-늘리기">“Tree” 모델의 Depth 늘리기</a></h4>
+<p>depth를 늘리면 더 많은 가지를 치며 세밀하게 정리해 정확도가 높아지지만 너무 높이면 과적합이 될 수 있다.</p>
+<p><img src="nocodegeoai-01/attachments/20260617154853.png" alt=""></p>
+<p><img src="nocodegeoai-01/attachments/20260617154928.png" alt=""></p>
+<p>depth를 10으로 올리니 R2의 값이 0.996으로 depth=5일 때(0.994)보다 높아진 것을 볼 수 있다.</p>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="실습-7---random-forest"><a class="header" href="#실습-7---random-forest">실습 7 - Random Forest</a></h1>
+<h1 id="실습-8---random-forest"><a class="header" href="#실습-8---random-forest">실습 8 - Random Forest</a></h1>
+<p>Random Forest 는 <a href="#실습-7---decision-tree">실습 7. Decision Tree</a> 실습을 기반으로 합니다. 먼저 <a href="#실습-7---decision-tree">이 실습</a>을 먼저 완성해 주세요.</p>
+<p><img src="nocodegeoai-01/attachments/20260617160057.png" alt=""></p>
+<p>실습 7 완성 모습</p>
+<br />
+<h2 id="random-forest-모델-추가"><a class="header" href="#random-forest-모델-추가">Random Forest 모델 추가</a></h2>
+<p><img src="nocodegeoai-01/attachments/20260617160238.png" alt=""></p>
+<ol>
+<li>
+<p>Model에서 “Random Forest” 위젯을 추가한다.</p>
+</li>
+<li>
+<p>“Random Forest” 노드와 “Test and Score” 위젯을 연결한다. 이 때 선에 “Learner” 라고 적혀 있어야 한다.</p>
+</li>
+<li>
+<p>“Select Columns” 노드와 “Random Forest” 위젯을 연결한다. 이 때 선에 “Data” 라고 적혀 있어야 한다.</p>
+</li>
+</ol>
+<br />
+<h2 id="random-forest-모델-성능-테스트"><a class="header" href="#random-forest-모델-성능-테스트">Random Forest 모델 성능 테스트</a></h2>
+<p><img src="nocodegeoai-01/attachments/20260617160754.png" alt=""></p>
+<ol>
+<li>“Test and Score” 노드를 더블클릭한다.</li>
+</ol>
+<p>Test and Score 창이 나타나며 결과를 보여준다.</p>
+<p>같이 연결된 기존 Decision Tree 모델과의 결과도 비교해 볼 수 있다.</p>
+<h2 id="random-forest-모델-성능-설정"><a class="header" href="#random-forest-모델-성능-설정">Random Forest 모델 성능 설정</a></h2>
+<p><img src="nocodegeoai-01/attachments/20260617161100.png" alt=""></p>
+<ol>
+<li>
+<p>“Random Forest” 노드를 더블클릭한다.</p>
+</li>
+<li>
+<p>Random Forest 설정창을 보면 이 Random Forest 모델이 사용하는 기본 decision tree의 갯수가 100개 임을 알 수 있다. 그러니까. 이 100개의 decision tree가 예측한 값을 평균내어 사용하는 것이다.</p>
+</li>
+</ol>
+<p>“Number of Trees“의 값을 올리면 더 정확하게 예측할 수 있지만 시간이 오래 걸린다. 지금 정도의 데이터에서 “Number of Trees” 값을 1000 으로 올리면 “Test and Score” 노드에서 약 5초 정도 시간이 걸린다고 보여준다.</p>
+<p><img src="nocodegeoai-01/attachments/20260617161426.png" alt=""></p>
+<p>사실 계속 이런 식으로 진행상황이 표시되고 있었는데, 데이터 수도 적고 decision tree의 수도 적어서 순식간에 진행되었던 것이다.</p>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="실습-8---gradient-boosting"><a class="header" href="#실습-8---gradient-boosting">실습 8 - Gradient Boosting</a></h1>
+<h1 id="실습-9---gradient-boosting"><a class="header" href="#실습-9---gradient-boosting">실습 9 - Gradient Boosting</a></h1>
+<p>Random Forest 는 <a href="#실습-8---random-forest">실습 8. Random Forest</a> 실습을 기반으로 합니다. 먼저 <a href="#실습-8---random-forest">이 실습</a>을 먼저 완성해 주세요.</p>
+<p><img src="nocodegeoai-01/attachments/20260617161744.png" alt=""></p>
+<p>실습 8 완성 모습</p>
+<br />
+<h2 id="gradient-boosting-모델-추가"><a class="header" href="#gradient-boosting-모델-추가">Gradient Boosting 모델 추가</a></h2>
+<p><img src="nocodegeoai-01/attachments/20260617161922.png" alt=""></p>
+<ol>
+<li>
+<p>Model에서 “Gradient Boosting” 위젯을 추가한다.</p>
+</li>
+<li>
+<p>“Gradient Boosting” 노드와 “Test and Score” 위젯을 연결한다. 이 때 선에 “Learner” 라고 적혀 있어야 한다.</p>
+</li>
+<li>
+<p>“Select Columns” 노드와 “Gradient Boosting” 위젯을 연결한다. 이 때 선에 “Data” 라고 적혀 있어야 한다.</p>
+</li>
+</ol>
+<br />
+<h2 id="gradient-boosting-모델-성능-테스트"><a class="header" href="#gradient-boosting-모델-성능-테스트">Gradient Boosting 모델 성능 테스트</a></h2>
+<p><img src="nocodegeoai-01/attachments/20260617162134.png" alt=""></p>
+<ol>
+<li>“Test and Score” 노드를 더블클릭한다.</li>
+</ol>
+<p>Test and Score 창이 나타나며 결과를 보여준다.</p>
+<p>같이 연결된 기존 Decision Tree, Random Forest 모델과의 결과도 비교해 볼 수 있다.</p>
+<p>데이터가 매우 예측가능한 선형 구조여서 각 모델 간의 차이가 크지 않지만, 이론상으로는 Decision Tree &lt; Random Forest  &lt; Gradient Boosting 순으로 정확도가 높아진다. (오른쪽으로 갈 수록 정확도가 높음)</p>
+<h2 id="gradient-boosting-모델-성능-설정"><a class="header" href="#gradient-boosting-모델-성능-설정">Gradient Boosting 모델 성능 설정</a></h2>
+<p><img src="nocodegeoai-01/attachments/20260617162628.png" alt=""></p>
+<ol>
+<li>
+<p>“Gradient Boosting” 노드를 더블클릭한다.</p>
+</li>
+<li>
+<p>사용할 Decision Tree의 수의 기본값이 100이다.</p>
+</li>
+<li>
+<p>Learning rate의 기본값은 0.1이다. 이 값이 낮으면 이전 나무의 오차를 강하게 반영하지만 속도가 느려지고, 이 값이 높으면 빠르게 학습하지만 이전의 오차를 지나쳐 버릴 수 있는 문제가 생긴다. 이 값은 보통 0.01 ~ 0.3 정도의 값을 가진다.</p>
+</li>
+</ol>
+<p>Learning rate의 값을 낮추면 Decision Tree의 수는 늘려야 한다. 꼼꼼하게 학습하려면 Decision Tree의 수가 많아야 한다.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="실습-3---qgis--geoai"><a class="header" href="#실습-3---qgis--geoai">실습 3 - QGIS + GeoAI</a></h1>
 <div style="break-before: page; page-break-before: always;"></div>

@@ -37,10 +37,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-2f27b4c5.js";
+            window.path_to_searchindex_js = "searchindex-5cba1bdb.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-5ac9e784.js"></script>
+        <script src="toc-2faf3afd.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -1084,8 +1084,97 @@
 <p>두 모델, “Polynomial Regression“과 “Linear Regression“의 성능 차이가 한 눈에 나타난다.</p>
 <p>이런 데이터의 경우 Linear Regression의 R2 값은 음수로 매우 성능이 좋지 않음을 알 수 있다.</p>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="실습-6---k-nn"><a class="header" href="#실습-6---k-nn">실습 6 - K-NN</a></h1>
+<h1 id="실습-5---과적합"><a class="header" href="#실습-5---과적합">실습 5 - 과적합</a></h1>
 <h2 id="데이터-만들기-1"><a class="header" href="#데이터-만들기-1">데이터 만들기</a></h2>
+<p><img src="nocodegeoai-01/attachments/20260616160045.png" alt=""></p>
+<ol>
+<li>
+<p>Data 에서 “Paint Data” 위젯을 추가하고 더블클릭한다.</p>
+</li>
+<li>
+<p>오른쪽 그래프 부분에 마우스로 위 그림과 비슷하게 그린다.</p>
+</li>
+</ol>
+<p>이제 우리의 데이터는 직선 그래프로는 예측하기 어려운, <strong>곡선형으로 예측해야 하는 데이터</strong>로 만들어졌다.</p>
+<h3 id="이상치-만들기"><a class="header" href="#이상치-만들기">이상치 만들기</a></h3>
+<p><img src="nocodegeoai-01/attachments/20260616160307.png" alt=""></p>
+<p>화살표로 표시한 것처럼 원래의 큰 틀과 어긋나는 값들(이상치)을 <strong>마우스 클릭으로 추가</strong>한다.</p>
+<br />
+<h3 id="데이터의-feature와-target-구분하기-1"><a class="header" href="#데이터의-feature와-target-구분하기-1">데이터의 Feature와 Target 구분하기</a></h3>
+<p>Paint Data는 데이터를 쉽게 만들어 주지만 target을 지정해 주지 못한다. 그래서 Select Columns 위젯을 이용해 target을 지정해 준다.</p>
+<ul>
+<li>
+<p>Feature: 독립변수, X, target 값을 결정하는 요인.</p>
+</li>
+<li>
+<p>Target: 종속변수, Y, 주택가격 등 feature 들에 의해 결정된 값.</p>
+</li>
+</ul>
+<br />
+<p><img src="nocodegeoai-01/attachments/20260616153703.png" alt=""></p>
+<ol>
+<li>
+<p>Transform에서 “Select Columns” 위젯을 추가한다.</p>
+</li>
+<li>
+<p>Select Columns 창이 나타나면 Features 항목에서 “Y” 를 Target 항목으로 끌어내린다.(드래그 앤 드롭)</p>
+</li>
+<li>
+<p>닫기 버튼을 누른다.</p>
+</li>
+</ol>
+<p>이제 X축의 값이 feature이고, Y축의 값이 target이 되었다.</p>
+<br />
+<h3 id="애드온-추가---educational-애드온-1"><a class="header" href="#애드온-추가---educational-애드온-1">애드온 추가 - Educational 애드온</a></h3>
+<p>이미 Educational 애드온이 설치되어 있으면 이 챕터는 넘어간다.</p>
+<p>다항 회귀를 위한 Polynomial Regression 위젯을 설치하기 위해 <a href="https://orange3-educational.readthedocs.io/en/latest/">“Educational” 애드온</a>을 설치한다.</p>
+<p><img src="nocodegeoai-01/attachments/20260616144857.png" alt=""></p>
+<ol>
+<li>
+<p>메뉴에서 “Options” 를 선택한다.</p>
+</li>
+<li>
+<p>“Add-ons…“를 선택한다.</p>
+</li>
+</ol>
+<br />
+<p><img src="nocodegeoai-01/attachments/20260616145015.png" alt=""></p>
+<ol>
+<li>
+<p>애드온 Installer 창에서 “Educational“을 선택한다. (체크가 된 상태여야 함)</p>
+</li>
+<li>
+<p>OK 버튼을 누른다.</p>
+</li>
+</ol>
+<br />
+<p><img src="nocodegeoai-01/attachments/20260616145821.png" alt=""></p>
+<p>애드온이 설치된다. 약 1분 정도 소요된다.</p>
+<br />
+<p><img src="nocodegeoai-01/attachments/20260616145448.png" alt=""></p>
+<p>설치가 끝나면 다시 시작하겠냐고 물어본다. “OK“를 눌러 다시 시작한다.</p>
+<br />
+<h3 id="polynomial-regression-위젯-추가-1"><a class="header" href="#polynomial-regression-위젯-추가-1">Polynomial Regression 위젯 추가</a></h3>
+<p><img src="nocodegeoai-01/attachments/20260616161412.png" alt=""></p>
+<ol>
+<li>아마도 맨 밑에 있을 Educational에서 “Polynomial Regression” 위젯을 추가하고 “Paint Data” 노드와 연결한다. 그리고 더블클릭한다.</li>
+</ol>
+<br />
+<h3 id="과적합-발생시키기"><a class="header" href="#과적합-발생시키기">과적합 발생시키기</a></h3>
+<p><strong>Polynomial Degree = 2</strong> 일 때</p>
+<p><img src="nocodegeoai-01/attachments/20260616161808.png" alt=""></p>
+<p>큰 패턴을 따를 뿐 과적합은 발생하지 않았다.</p>
+<br />
+<p><strong>Polynomial Degree = 4</strong> 일 때</p>
+<p><img src="nocodegeoai-01/attachments/20260616161946.png" alt=""></p>
+<p>패턴의 모양에 근접했다. 하지만 이상치를 따라 약간 변형되었다. (이상치 제거가 필요한 이유)</p>
+<br />
+<p><strong>Polynomial Degree = 10</strong> 일 때</p>
+<p><img src="nocodegeoai-01/attachments/20260616162106.png" alt=""></p>
+<p>원래의 패턴에서 벗어나 이상치를 따라가는 과적합이 상당히 발생했다.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="실습-6---k-nn"><a class="header" href="#실습-6---k-nn">실습 6 - K-NN</a></h1>
+<h2 id="데이터-만들기-2"><a class="header" href="#데이터-만들기-2">데이터 만들기</a></h2>
 <p><img src="nocodegeoai-01/attachments/20260616213116.png" alt=""></p>
 <ol>
 <li>
@@ -1116,7 +1205,7 @@
 <li>만들어진 데이터의 갯수는 여기서 확인할 수 있다. 여기서는 마우스를 그림을 그려 총 456개의 데이터를 만들어 냈음을 알 수 있다.</li>
 </ol>
 <br />
-<h2 id="데이터의-feature와-target-구분하기-1"><a class="header" href="#데이터의-feature와-target-구분하기-1">데이터의 Feature와 Target 구분하기</a></h2>
+<h2 id="데이터의-feature와-target-구분하기-2"><a class="header" href="#데이터의-feature와-target-구분하기-2">데이터의 Feature와 Target 구분하기</a></h2>
 <p>Paint Data는 데이터를 쉽게 만들어 주지만 target을 지정해 주지 못한다. 그래서 Select Columns 위젯을 이용해 target을 지정해 준다.</p>
 <ul>
 <li>
@@ -1261,7 +1350,7 @@
 <p>X값이 0.2 ~ 0.4까지의 Y값은 모두 0.4이기 때문에 평균이 약간 올라갔다.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="실습-7---decision-tree"><a class="header" href="#실습-7---decision-tree">실습 7 - Decision Tree</a></h1>
-<h2 id="데이터-만들기-2"><a class="header" href="#데이터-만들기-2">데이터 만들기</a></h2>
+<h2 id="데이터-만들기-3"><a class="header" href="#데이터-만들기-3">데이터 만들기</a></h2>
 <p>금리에 따른 측량횟수라는 데이터를 가상으로 만들어 사용한다. 이번 실습에서는 금리가 낮을수록 측량횟수가 많다는 가정으로 데이터를 만들어 사용하자.</p>
 <p><img src="nocodegeoai-01/attachments/20260617144057.png" alt=""></p>
 <ol>

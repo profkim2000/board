@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>3. OpenLayers 작업 - Eugene&#x27;s Board</title>
+        <title>실습 5 - 과적합 - Eugene&#x27;s Board</title>
 
 
         <!-- Custom HTML head -->
@@ -175,188 +175,104 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="3-openlayers-작업"><a class="header" href="#3-openlayers-작업">3. OpenLayers 작업</a></h1>
-<h2 id="1-dopenlayersproj4-폴더를-만든다"><a class="header" href="#1-dopenlayersproj4-폴더를-만든다">1. d:\openlayers\proj4 폴더를 만든다.</a></h2>
-<br />
-<h2 id="2-이-폴더에서-powershell을-연다"><a class="header" href="#2-이-폴더에서-powershell을-연다">2. 이 폴더에서 PowerShell을 연다.</a></h2>
-<p><img src="attachments/20260608095242.png" alt=""></p>
+                        <h1 id="실습-5---과적합"><a class="header" href="#실습-5---과적합">실습 5 - 과적합</a></h1>
+<h2 id="데이터-만들기"><a class="header" href="#데이터-만들기">데이터 만들기</a></h2>
+<p><img src="attachments/20260616160045.png" alt=""></p>
 <ol>
 <li>
-<p>빈 공간을 Shift 키를 누른 채로 마우스 오른쪽 클릭한다.</p>
+<p>Data 에서 “Paint Data” 위젯을 추가하고 더블클릭한다.</p>
 </li>
 <li>
-<p>“여기에 PowerShell 창 열기” 메뉴를 선택한다.</p>
+<p>오른쪽 그래프 부분에 마우스로 위 그림과 비슷하게 그린다.</p>
 </li>
 </ol>
+<p>이제 우리의 데이터는 직선 그래프로는 예측하기 어려운, <strong>곡선형으로 예측해야 하는 데이터</strong>로 만들어졌다.</p>
+<h3 id="이상치-만들기"><a class="header" href="#이상치-만들기">이상치 만들기</a></h3>
+<p><img src="attachments/20260616160307.png" alt=""></p>
+<p>화살표로 표시한 것처럼 원래의 큰 틀과 어긋나는 값들(이상치)을 <strong>마우스 클릭으로 추가</strong>한다.</p>
 <br />
-<h2 id="3-openlayers-프로젝트-생성"><a class="header" href="#3-openlayers-프로젝트-생성">3. openLayers 프로젝트 생성</a></h2>
-<p>powerShell 내에서 다음을 실행해 openLayers 프로젝트를 생성한다.</p>
-<p>프로젝트명은 <strong>“map-trip”</strong> 이다.</p>
-<pre><code class="language-shell">npm  create  ol-app  map-trip
-</code></pre>
-<p><img src="attachments/20260608095501.png" alt=""></p>
-<p><img src="attachments/20260608100332.png" alt=""></p>
-<p>“map-trip” 폴더가 생성된다.</p>
+<h3 id="데이터의-feature와-target-구분하기"><a class="header" href="#데이터의-feature와-target-구분하기">데이터의 Feature와 Target 구분하기</a></h3>
+<p>Paint Data는 데이터를 쉽게 만들어 주지만 target을 지정해 주지 못한다. 그래서 Select Columns 위젯을 이용해 target을 지정해 준다.</p>
+<ul>
+<li>
+<p>Feature: 독립변수, X, target 값을 결정하는 요인.</p>
+</li>
+<li>
+<p>Target: 종속변수, Y, 주택가격 등 feature 들에 의해 결정된 값.</p>
+</li>
+</ul>
 <br />
-<h2 id="4-map-trip-폴더에서-visual-studio-code-실행"><a class="header" href="#4-map-trip-폴더에서-visual-studio-code-실행">4. map-trip 폴더에서 visual studio code 실행</a></h2>
-<p><img src="attachments/20260608101254.png" alt=""></p>
+<p><img src="attachments/20260616153703.png" alt=""></p>
 <ol>
 <li>
-<p>탐색기에서 “map-trip” 폴더로 이동한다.</p>
+<p>Transform에서 “Select Columns” 위젯을 추가한다.</p>
 </li>
 <li>
-<p>“map-trip“에서 빈 공간을 오른쪽 클릭한 후 “Code(으)로 열기” 메뉴를 선택한다.</p>
+<p>Select Columns 창이 나타나면 Features 항목에서 “Y” 를 Target 항목으로 끌어내린다.(드래그 앤 드롭)</p>
+</li>
+<li>
+<p>닫기 버튼을 누른다.</p>
 </li>
 </ol>
-<p><img src="attachments/20260608101403.png" alt=""></p>
-<p>“작성자를 신뢰합니까” 라는 질문에 “예. 작성자를 신뢰합니다.“를 선택한다.</p>
+<p>이제 X축의 값이 feature이고, Y축의 값이 target이 되었다.</p>
 <br />
-<h2 id="5-openlayers-실행"><a class="header" href="#5-openlayers-실행">5. OpenLayers 실행</a></h2>
-<p><img src="attachments/20260608102219.png" alt=""></p>
+<h3 id="애드온-추가---educational-애드온"><a class="header" href="#애드온-추가---educational-애드온">애드온 추가 - Educational 애드온</a></h3>
+<p>이미 Educational 애드온이 설치되어 있으면 이 챕터는 넘어간다.</p>
+<p>다항 회귀를 위한 Polynomial Regression 위젯을 설치하기 위해 <a href="https://orange3-educational.readthedocs.io/en/latest/">“Educational” 애드온</a>을 설치한다.</p>
+<p><img src="attachments/20260616144857.png" alt=""></p>
 <ol>
 <li>
-<p>visual studio에서 “보기” 메뉴를 선택한다.</p>
+<p>메뉴에서 “Options” 를 선택한다.</p>
 </li>
 <li>
-<p>“터미널“을 선택한다.</p>
-</li>
-<li>
-<p>터미널 창이 아래쪽에 열린다.</p>
+<p>“Add-ons…“를 선택한다.</p>
 </li>
 </ol>
 <br />
-<p><img src="attachments/20260608102338.png" alt=""></p>
-<ol>
-<li>터미널 창에서 <code>npm start</code> 를 입력하고 엔터친다.</li>
-</ol>
-<br />
-<p><img src="attachments/20260608102637.png" alt=""></p>
-<p>위와 같이 실행되는 내용이 나타난다.</p>
-<p>이 중 웹 주소가 보이는데, 이 주소를 아래 그림과 같이 웹브라우저 url 창에 입력한다.</p>
-<br />
-<p><img src="attachments/20260608102913.png" alt=""></p>
-<p>좀 전에 <code>npm start</code>라고 한 것으로 인해 내 컴퓨터에서 내부적으로 openLayers 서버가 실행되었고, 그 내부 서버에 접속했더니 위와 같이 지도가 나타났다.<br>이 지도는 <a href="https://www.openstreetmap.org">Open Street Map</a>에서 무료로 제공하는 지도로 openLayers에서 기본으로 사용하는 지도이다.<br>웹지도의 기본 기능인 줌, 이동 등이 제공된다.</p>
-<br />
-<h2 id="6-geoserver가-실행-중인지-확인"><a class="header" href="#6-geoserver가-실행-중인지-확인">6. GeoServer가 실행 중인지 확인</a></h2>
-<p><img src="attachments/20260608104455.png" alt=""></p>
-<p>GeoServer가 실행 중인지, 레이어의 이름이 “proj4:trip“인지 확인한다.</p>
-<br />
-<h2 id="7-우리가-하려는-것-지도-위에-여행가고-싶은-곳-표시하기"><a class="header" href="#7-우리가-하려는-것-지도-위에-여행가고-싶은-곳-표시하기">7. 우리가 하려는 것: 지도 위에 여행가고 싶은 곳 표시하기</a></h2>
-<h3 id="mainjs-파일-수정"><a class="header" href="#mainjs-파일-수정">main.js 파일 수정</a></h3>
-<p><img src="attachments/20260608153731.png" alt=""></p>
+<p><img src="attachments/20260616145015.png" alt=""></p>
 <ol>
 <li>
-<p>main.js 파일을 선택한다.</p>
+<p>애드온 Installer 창에서 “Educational“을 선택한다. (체크가 된 상태여야 함)</p>
 </li>
 <li>
-<p>main.js 파일을 아래의 코드로 수정한다.</p>
+<p>OK 버튼을 누른다.</p>
 </li>
 </ol>
-<pre><code class="language-js">import 'ol/ol.css';
-import Map from 'ol/Map';
-import View from 'ol/View';
-import TileLayer from 'ol/layer/Tile';
-import OSM from 'ol/source/OSM';
-import TileWMS from 'ol/source/TileWMS';
-import { fromLonLat } from 'ol/proj';
-
-// 1. OpenStreetMap 배경지도 레이어 생성
-const osmLayer = new TileLayer({
-  source: new OSM(),
-});
-
-// 2. GeoServer WMS 레이어 생성
-const geoserverWmsLayer = new TileLayer({
-  source: new TileWMS({
-    // GeoServer의 WMS 서비스 엔드포인트 주소
-    url: 'http://localhost:8080/geoserver/proj4/wms',
-    params: {
-      'LAYERS': 'proj4:trip',       // 작업공간:레이어이름
-      'TILED': true,                // 타일 방식으로 성능 최적화
-    },
-
-    // OSM 지도(EPSG:3857)와 좌표계를 맞춥니다.
-    projection: 'EPSG:3857', 
-  }),
-});
-
-// 3. 지도 객체 생성 및 레이어 결합
-const map = new Map({
-  target: 'map', // HTML에서 지도가 들어갈 div의 id
-  layers: [
-    osmLayer,          // 밑에 깔릴 OSM
-    geoserverWmsLayer, // OSM 위에 얹어질 GeoServer WMS
-  ],
-  view: new View({
-    // 지도의 초기 중심점 (경도, 위도 순서로 입력 후 OSM 좌표계로 변환)
-    // 예: [127.0, 37.5]는 대한민국 서울 근처입니다. 데이터 위치에 맞게 수정하세요!
-    center: fromLonLat([127.0, 37.5]), 
-    zoom: 7, // 초기 줌 레벨
-  }),
-});
-</code></pre>
-<ol start="3">
-<li>main.js 파일을 저장한다.</li>
-</ol>
-<p>아직까지는 웹브라우저에 별다른 변화도 없고, 오히려 화면이 아무 것도 표시되지 않는 흰 화면이 되어 있을 거다.</p>
 <br />
-<h3 id="indexhtml-파일-수정"><a class="header" href="#indexhtml-파일-수정">index.html 파일 수정</a></h3>
-<p><img src="attachments/20260608105150.png" alt=""></p>
-<ol>
-<li>
-<p>index.html 파일을 선택한다.</p>
-</li>
-<li>
-<p>표시한 부분을 다음의 코드로 수정한다.</p>
-</li>
-</ol>
-<pre><code class="language-html">&lt;div id="map" style="width: 100%; height: 100vh;"&gt;&lt;/div&gt;
-</code></pre>
-<p>최종적으로 index.html 파일의 전체 내용은 다음과 같다.</p>
-<pre><code class="language-html">&lt;!DOCTYPE html&gt;
-&lt;html lang="en"&gt;
-  &lt;head&gt;
-    &lt;meta charset="UTF-8" /&gt;
-    &lt;link rel="icon" type="image/x-icon" href="https://openlayers.org/favicon.ico" /&gt;
-    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;
-    &lt;title&gt;Using OpenLayers with Vite&lt;/title&gt;
-  &lt;/head&gt;
-  &lt;body&gt;
-    &lt;div id="map" style="width: 100%; height: 100vh;"&gt;&lt;/div&gt;
-    &lt;script type="module" src="./main.js"&gt;&lt;/script&gt;
-  &lt;/body&gt;
-&lt;/html&gt;
-</code></pre>
+<p><img src="attachments/20260616145821.png" alt=""></p>
+<p>애드온이 설치된다. 약 1분 정도 소요된다.</p>
 <br />
-<p>main.js 파일과 index.html 파일을 수정한 결과는 다음과 같다.
-<img src="attachments/20260608110113.png" alt=""></p>
-<p><img src="attachments/20260608105958.png" alt=""></p>
-<p>줌 인, 이동을 해 크게 확대해서 본다.</p>
-<h2 id="8-웹브라우저-타이틀-바꾸기"><a class="header" href="#8-웹브라우저-타이틀-바꾸기">8. 웹브라우저 타이틀 바꾸기</a></h2>
-<p><img src="attachments/20260608110327.png" alt=""></p>
-<p>웹브라우저 타이틀이 마음에 들지 않는다.</p>
-<p>내가 원하는 것으로 바꿔보자.</p>
-<p><img src="attachments/20260608110456.png" alt=""></p>
+<p><img src="attachments/20260616145448.png" alt=""></p>
+<p>설치가 끝나면 다시 시작하겠냐고 물어본다. “OK“를 눌러 다시 시작한다.</p>
+<br />
+<h3 id="polynomial-regression-위젯-추가"><a class="header" href="#polynomial-regression-위젯-추가">Polynomial Regression 위젯 추가</a></h3>
+<p><img src="attachments/20260616161412.png" alt=""></p>
 <ol>
-<li>
-<p><code>index.html</code> 파일을 선택한다.</p>
-</li>
-<li>
-<p>title 부분을 수정한다. 주의할 점은 <code>&lt;title&gt;</code>과 <code>&lt;/title&gt;</code> 부분은 지우면 안되고 그 둘 사이의 문자만 수정해야 한다는 것이다.</p>
-</li>
+<li>아마도 맨 밑에 있을 Educational에서 “Polynomial Regression” 위젯을 추가하고 “Paint Data” 노드와 연결한다. 그리고 더블클릭한다.</li>
 </ol>
-<p><img src="attachments/20260608110632.png" alt=""></p>
-<p>이걸 우리는 “타이틀 태그를 수정했다“고 한다.</p>
+<br />
+<h3 id="과적합-발생시키기"><a class="header" href="#과적합-발생시키기">과적합 발생시키기</a></h3>
+<p><strong>Polynomial Degree = 2</strong> 일 때</p>
+<p><img src="attachments/20260616161808.png" alt=""></p>
+<p>큰 패턴을 따를 뿐 과적합은 발생하지 않았다.</p>
+<br />
+<p><strong>Polynomial Degree = 4</strong> 일 때</p>
+<p><img src="attachments/20260616161946.png" alt=""></p>
+<p>패턴의 모양에 근접했다. 하지만 이상치를 따라 약간 변형되었다. (이상치 제거가 필요한 이유)</p>
+<br />
+<p><strong>Polynomial Degree = 10</strong> 일 때</p>
+<p><img src="attachments/20260616162106.png" alt=""></p>
+<p>원래의 패턴에서 벗어나 이상치를 따라가는 과적합이 상당히 발생했다.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../webgis-01/prac11-02.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../nocodegeoai-01/regression01.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="../webgis-01/prac12.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../nocodegeoai-01/regression02.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -366,11 +282,11 @@ const map = new Map({
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../webgis-01/prac11-02.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../nocodegeoai-01/regression01.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="../webgis-01/prac12.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../nocodegeoai-01/regression02.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

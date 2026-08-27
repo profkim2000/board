@@ -37,10 +37,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-4efe4684.js";
+            window.path_to_searchindex_js = "searchindex-08a4d6eb.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-d8b3efc1.js"></script>
+        <script src="toc-b96d0c86.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -1093,28 +1093,31 @@ The puppy turned around, and at that moment, a small fish suddenly jumped onto t
 <p><img src="geo3d/sample/img/flat3-withoutgrid.png" alt="평면도 밑그림용"></p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="cesium-소스코드"><a class="header" href="#cesium-소스코드">cesium 소스코드</a></h1>
-<p>* 2024. 11. 12. cesium js 1.123 동작 확인.</p>
-<h2 id="cesium_jsserverjs"><a class="header" href="#cesium_jsserverjs">cesium_js/server.js</a></h2>
-<pre><code class="language-js">const express = require('express');
+<p>* 2026. 8. cesium js 1.144 동작 확인.</p>
+<!--
+## cesium_js/server.js
+```js
+const express = require('express');
 const path = require('path');
 const app = express();
 
 app.use(express.static(path.join(__dirname, 'node_modules/cesium/Build/Cesium')));
 
-app.get('/', (req, res) =&gt; {
+app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-app.listen(3000, () =&gt; {
+app.listen(3000, () => {
   console.log('Server is running on http://localhost:3000');
 });
-</code></pre>
+```
+-->
 <h2 id="cesium_jsindexhtml"><a class="header" href="#cesium_jsindexhtml">cesium_js/index.html</a></h2>
 <pre><code class="language-js">&lt;html&gt;
 &lt;head&gt;
     &lt;meta charset="utf-8"&gt;    
-    &lt;script src="https://cesium.com/downloads/cesiumjs/releases/1.123/Build/Cesium/Cesium.js"&gt;&lt;/script&gt;
-    &lt;link href="https://cesium.com/downloads/cesiumjs/releases/1.123/Build/Cesium/Widgets/widgets.css" rel="stylesheet"&gt;
+    &lt;script src="https://cesium.com/downloads/cesiumjs/releases/1.144/Build/Cesium/Cesium.js"&gt;&lt;/script&gt;
+    &lt;link href="https://cesium.com/downloads/cesiumjs/releases/1.144/Build/Cesium/Widgets/widgets.css" rel="stylesheet"&gt;
 &lt;/head&gt;
 
 &lt;body onload="render()"&gt;
@@ -1135,12 +1138,12 @@ app.listen(3000, () =&gt; {
       {
         // 애셋을 추가한다.
         // OSM Building 애셋 추가.
-        var tileset = await Cesium.Cesium3DTileset.fromIonAssetId(96188);
+        var tileset = await Cesium.Cesium3DTileset.fromIonAssetId(96188); // osm building
         viewer.scene.primitives.add(tileset);
         
         // 카메라 위치와 방향 조정
         await viewer.scene.camera.setView({
-          destination: Cesium.Cartesian3.fromDegrees(127.056718, 36.527274, 300), // 위도, 경도, 높이
+          destination: Cesium.Cartesian3.fromDegrees(127.056718, 36.527274, 300), // 경도, 위도, 높이
           orientation: new Cesium.HeadingPitchRoll.fromDegrees(0, -10, 0,), // Heading(Yaw), Pitch, Roll(bank)
         });      
       } catch (error) 
@@ -1159,8 +1162,8 @@ app.listen(3000, () =&gt; {
 <pre><code class="language-js">&lt;html&gt;
 &lt;head&gt;
     &lt;meta charset="utf-8"&gt;    
-    &lt;script src="https://cesium.com/downloads/cesiumjs/releases/1.123/Build/Cesium/Cesium.js"&gt;&lt;/script&gt;
-    &lt;link href="https://cesium.com/downloads/cesiumjs/releases/1.123/Build/Cesium/Widgets/widgets.css" rel="stylesheet"&gt;
+    &lt;script src="https://cesium.com/downloads/cesiumjs/releases/1.144/Build/Cesium/Cesium.js"&gt;&lt;/script&gt;
+    &lt;link href="https://cesium.com/downloads/cesiumjs/releases/1.144/Build/Cesium/Widgets/widgets.css" rel="stylesheet"&gt;
 &lt;/head&gt;
 
 &lt;body onload="render()"&gt;
@@ -1180,10 +1183,11 @@ app.listen(3000, () =&gt; {
       try
       {
         // 애셋을 추가한다.
-        var tileset = await Cesium.Cesium3DTileset.fromIonAssetId(96188);
+        var tileset = await Cesium.Cesium3DTileset.fromIonAssetId(96188); // OSM building
         viewer.scene.primitives.add(tileset);
 
-        tileset = await Cesium.Cesium3DTileset.fromIonAssetId(111111111);
+        // 아래 두 줄을 계속 추가하면 내가 업로드한 여러 건물을 모두 3D 지도에 추가할 수 있다.
+        tileset = await Cesium.Cesium3DTileset.fromIonAssetId(&lt;여기에 내가 업로드한 건물의 Asset ID 적기&gt;);
         viewer.scene.primitives.add(tileset);
         
         // 카메라 위치와 방향 조정
@@ -1200,6 +1204,42 @@ app.listen(3000, () =&gt; {
 &lt;/body&gt;
 &lt;/html&gt;
 </code></pre>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="웹서버에-배포"><a class="header" href="#웹서버에-배포">웹서버에 배포</a></h1>
+<p>지금 만든 index.html 파일은 내 컴퓨터에만 저장되어 있다.</p>
+<p>지역 민원인들이 이 지도를 보게 하고 싶은데 내 컴퓨터에만 파일이 있으면 다른 사람들은 (보안상의 이유로라도) 내 컴퓨터 안의 파일을 열어볼 수가 없어 이 3D 지도를 볼 수 없게 된다.</p>
+<p>그래서 내가 만든 index.html 파일을 웹서버에 업로드해서 모든 사람들이 이 index.html 파일에 접근할 수 있도록 해야 한다.</p>
+<h2 id="웹서버"><a class="header" href="#웹서버">웹서버</a></h2>
+<p>웹서버에 업로드하려면 웹서버를 구입하고, 설치, 운영해야 한다.</p>
+<p>상당한 비용과 운영인력까지 필요하다.</p>
+<p>그런데 이런 일들을 (테스트는 무료로, 유료 요금도 월 $20 정도) 깔끔하게 처리해주는 서비스들이 있다.</p>
+<p>대표적인 곳이</p>
+<ul>
+<li><a href="https://www.netlify.com/">netlify</a></li>
+<li><a href="https://vercel.com/">vercel</a></li>
+<li><a href="https://docs.github.com/ko/pages">github pages</a></li>
+<li><a href="https://render.com/">render</a></li>
+<li><a href="https://firebase.google.com">firebase hosting</a></li>
+<li><a href="https://www.cloudflare.com/products/pages/">cloudflare pages</a></li>
+</ul>
+<p>등이다.</p>
+<h2 id="netlify"><a class="header" href="#netlify">netlify</a></h2>
+<p>여기서 우리는 netlify를 이용한 배포를 해 보자.</p>
+<p><a href="https://netlify.com">https://netlify.com</a>에 접속하고 회원가입, 로그인한다.</p>
+<p><img src="geo3d/deploy/attachments/20260827100131.png" alt=""></p>
+<p>netlify 상단 메뉴에서 dashboard로 이동한다.</p>
+<p><img src="geo3d/deploy/attachments/20260827100230.png" alt=""></p>
+<p>Add new projects 버튼을 누른다.</p>
+<p><img src="geo3d/deploy/attachments/20260827100504.png" alt=""></p>
+<p>index.html 파일을 netlify 웹페이지의 Upload you project files 부분에 끌어다 놓는다. 끝.</p>
+<p><img src="geo3d/deploy/attachments/20260827100724.png" alt=""></p>
+<p>이 하나로 웹서버에 업로드하는 게 끝난다. 잠시 후 화면이 아래와 같이 바뀐다.</p>
+<p><img src="geo3d/deploy/attachments/20260827100811.png" alt=""></p>
+<p>표시한 부분이 전 세계에서(핸드폰에서도 가능) 접속할 수 있는 url 주소이다.</p>
+<p><img src="geo3d/deploy/attachments/20260827101028.png" alt=""></p>
+<h3 id="url-변경--project-이름-변경"><a class="header" href="#url-변경--project-이름-변경">url 변경 = project 이름 변경</a></h3>
+<p>url이 복잡한데 url은 project 이름을 따라가도록 되어 있다. 그래서 project 이름을 변경하면 더 짧은 주소로 접근할 수 있게 된다.</p>
+<p>project 이름을 변경하는 방법은, 위 이미지에서 “Project configuration” 버튼을 눌러 안으로 들어간 화면에서 “Change project name“을 누르는 것이다.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="ai-이해-및-활용"><a class="header" href="#ai-이해-및-활용">AI 이해 및 활용</a></h1>
 <p><img src="ailu-01/attachments/ai-05.png" alt=""></p>

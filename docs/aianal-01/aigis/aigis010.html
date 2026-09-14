@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Export to geoTiff - Eugene&#x27;s Board</title>
+        <title>실습 1: pyQGIS &amp; AI - Eugene&#x27;s Board</title>
 
 
         <!-- Custom HTML head -->
@@ -36,10 +36,10 @@
             const path_to_root = "../../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../../searchindex-26ddad27.js";
+            window.path_to_searchindex_js = "../../searchindex-710c481c.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../../toc-514dca4b.js"></script>
+        <script src="../../toc-6f3b7a7b.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -175,87 +175,99 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="qgis-맵을-geotiff-형식으로-내보내-ai-테스트용-이미지-생성"><a class="header" href="#qgis-맵을-geotiff-형식으로-내보내-ai-테스트용-이미지-생성">QGIS 맵을 geoTiff 형식으로 내보내 AI 테스트용 이미지 생성</a></h1>
-<h2 id="vworld-위성-지도-추가"><a class="header" href="#vworld-위성-지도-추가">VWorld 위성 지도 추가</a></h2>
-<p><img src="attachments/20260412135635.png" alt=""></p>
-<p>이 방식은 테스트용으로만 사용해야 하며, 실제 상업용으로 사용할 떄는 지도 제공 업체와 라이선스를 별도 확인해야 합니다.</p>
-<p><a href="./install_tms.html">TMS for Korea 플러그인을 설치</a>하면 메뉴에 “웹” 메뉴가 추가된다. 위와 같이 “VWorld Satellite” 메뉴를 선택한다.</p>
+                        <h1 id="실습-1-pyqgis--ai"><a class="header" href="#실습-1-pyqgis--ai">실습 1: pyQGIS &amp; AI</a></h1>
+<h2 id="qgis-툴박스를-이용한-버퍼분석"><a class="header" href="#qgis-툴박스를-이용한-버퍼분석">QGIS 툴박스를 이용한 버퍼분석</a></h2>
+<p><img src="attachments/20260914165628.png" alt=""></p>
+<ul>
+<li>XYZ Tiles에서 OpenStreemMap을 연다.</li>
+</ul>
 <br />
-<p><img src="attachments/20260412135852.png" alt=""></p>
-<p>VWorld 위성 사진 레이어가 추가되어 나타난다.</p>
+<p><img src="attachments/20260914165912.png" alt=""></p>
+<ul>
+<li>‘공주봉황초등학교 경계선’ 레이어를 polygon 형태로 만든다.</li>
+</ul>
 <br />
-<h2 id="서울역-주변으로-이동"><a class="header" href="#서울역-주변으로-이동">서울역 주변으로 이동</a></h2>
-<p><img src="attachments/20260412140322.png" alt=""></p>
+<p><strong>AI에게 QGIS pyQGIS용 코드 만들어 달라고 요청</strong></p>
+<blockquote>
+<p>QGIS의 PyQGIS 환경에서 실행할 파이썬 코드 만들어 줘. <br />
+’공주봉황초등학교 경계선’이라는 이름의 벡터 레이어를 입력받아 200m 버퍼를 만들고, 겹치는 부분은 합친(Dissolve) 후 ’buffer_200m’이라는 이름의 레이어로 등록하는 코드 알려줘.</p>
+</blockquote>
+<p><img src="attachments/20260914172513.png" alt=""></p>
+<p><strong>AI가 만들어 준 소스 코드</strong></p>
+<pre><code class="language-python">from qgis.core import QgsProject
+import processing
+
+# 1. 입력 레이어 명칭 설정 및 가져오기
+layer_name = '공주봉황초등학교 경계선'
+layers = QgsProject.instance().mapLayersByName(layer_name)
+
+if not layers:
+    print(f"오류: '{layer_name}' 레이어를 찾을 수 없습니다. 레이어 이름을 확인해 주세요.")
+else:
+    input_layer = layers[0]
+
+    # 2. 버퍼 생성 및 Dissolve 알고리즘 실행 파라미터 설정
+    params = {
+        'INPUT': input_layer,
+        'DISTANCE': 200,             # 버퍼 거리 (미터)
+        'SEGMENTS': 8,               # 원형 곡선 부드러움 정도
+        'END_CAP_STYLE': 0,          # 캡 스타일 (0: Round)
+        'JOIN_STYLE': 0,             # 조인 스타일 (0: Round)
+        'MITER_LIMIT': 2,            # 미터 한계
+        'DISSOLVE': True,            # 겹치는 버퍼 구역 합치기(Dissolve)
+        'OUTPUT': 'memory:buffer_200m' # 임시 메모리 레이어로 출력 설정
+    }
+
+    # 3. Native Buffer 알고리즘 실행
+    result = processing.run("native:buffer", params)
+
+    # 4. 결과 레이어를 QGIS 프로젝트에 추가
+    output_layer = result['OUTPUT']
+    output_layer.setName('buffer_200m') # 레이어 명칭 지정
+    QgsProject.instance().addMapLayer(output_layer)
+
+    print("버퍼 레이어('buffer_200m')가 성공적으로 추가되었습니다.")
+</code></pre>
+<br />
+<p><img src="attachments/20260914172258.png" alt=""></p>
 <ol>
 <li>
-<p>QGIS 맨 왼쪽 아래의 검색창에서 “&gt; 서울역“으로 검색한다.</p>
+<p>플러그인 메뉴 선택</p>
 </li>
 <li>
-<p>5개가 검색되어 나오는데, 그 중 가장 위 “서울역, 378, 청파로, …” 를 더블 클릭한다.</p>
+<p>“파이썬 콘솔” 메뉴 선택</p>
+</li>
+<li>
+<p>“편집기 표시하기” 버튼 클릭</p>
+</li>
+<li>
+<p>편집기에 AI가 만들어준 코드 붙여넣기</p>
+</li>
+<li>
+<p>“스크립트 실행” 버튼 클릭</p>
 </li>
 </ol>
 <br />
-<p><img src="attachments/20260412140641.png" alt=""></p>
-<ol>
-<li>
-<p>마우스 휠을 위로 올려 축척이 대략 “1:963” 정도 되도록 확대하고</p>
-</li>
-<li>
-<p>지도를 마우스 가운데 휠로 누르고 약간 움직여 위와 같은 부분에 위치하도록 한다.</p>
-</li>
-</ol>
+<p><strong>결과</strong></p>
+<p><img src="attachments/20260914172726.png" alt=""></p>
 <br />
-<h2 id="지도에-표시된-지역을-geotiff로-저장하기"><a class="header" href="#지도에-표시된-지역을-geotiff로-저장하기">지도에 표시된 지역을 geoTiff로 저장하기</a></h2>
-<p><img src="attachments/20260412140854.png" alt=""></p>
-<ol>
-<li>
-<p>VWorld Satellite 레이어를 오른쪽 클릭하고,</p>
-</li>
-<li>
-<p>내보내기, “다른 이름으로 저장“을 선택한다.</p>
-</li>
-</ol>
+<p><strong>반투명하게 하기</strong></p>
+<p><img src="attachments/20260914173309.png" alt=""></p>
 <br />
-<p><img src="attachments/20260412141342.png" alt=""></p>
-<ol>
-<li>
-<p>포맷을 “GeoTiff“로 선택한다.</p>
-</li>
-<li>
-<p>“VRT 생성” 옵션을 끈다.(체크 표시를 지운다)</p>
-</li>
-<li>
-<p>“… 버튼“을 눌러 파일 이름을 설정한다. 이 경우 “E:\test\geoai\tree.tif“로 설정했다.</p>
-</li>
-<li>
-<p>좌표계는 지도에 맞게 설정한다.</p>
-</li>
-<li>
-<p>“현재 보여지는 지도의 영역만 사용하기 위해 “지도 캔버스 범위” 버튼을 눌러준다.</p>
-</li>
-<li>
-<p>해상도의 수평을 “0.1”, 수직을 “0.1“로 설정한다. 이 값을 바꿀 때마다 바로 아래의 열 행이 바뀌는데 열이 대략 3000 정도가 되도록 하면 일반적인 컴퓨터에서도 아주 큰 무리는 없이 AI 수행을 할 수 있다.</p>
-</li>
-<li>
-<p>해상도의 수평을 “0.1”, 수직을 “0.1“로 설정한다. 이 값을 바꿀 때마다 바로 아래의 열 행이 바뀌는데 열이 대략 3000 정도가 되도록 하면 일반적인 컴퓨터에서도 아주 큰 무리는 없이 AI 수행을 할 수 있다.</p>
-</li>
-<li>
-<p>확인 버튼을 누른다.</p>
-</li>
-</ol>
+<p><img src="attachments/20260914173349.png" alt=""></p>
 <br />
-<p><img src="attachments/20260412141845.png" alt=""></p>
-<p>방금 내보낸 파일이 QGIS에 추가되고, geoTiff의 특성 상 그 지도의 해당 위치에 정확하게 붙는다.</p>
+<p><strong>VWorld Satellite 에서 보기</strong></p>
+<p><img src="attachments/20260914173514.png" alt=""></p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../../aianal-01/ai/install_tms.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../aianal-01/aigis/ai20.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="../../aichamp-01/aichamp-01.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../../aianal-01/aigis/pr03.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -265,11 +277,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../../aianal-01/ai/install_tms.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../aianal-01/aigis/ai20.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="../../aichamp-01/aichamp-01.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../../aianal-01/aigis/pr03.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

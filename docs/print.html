@@ -37,10 +37,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-9b3b01d2.js";
+            window.path_to_searchindex_js = "searchindex-591e70c8.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-e5dd327c.js"></script>
+        <script src="toc-9459bc64.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -178,6 +178,18 @@
                     <main>
                         <h1 id="인공지능-분석과-활용"><a class="header" href="#인공지능-분석과-활용">인공지능 분석과 활용</a></h1>
 <div style="break-before: page; page-break-before: always;"></div>
+<h1 id="복습문제"><a class="header" href="#복습문제">복습문제</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="1-인공지능의-현재와-미래"><a class="header" href="#1-인공지능의-현재와-미래">1. 인공지능의 현재와 미래</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="2-인공지능에-관한-궁금증"><a class="header" href="#2-인공지능에-관한-궁금증">2. 인공지능에 관한 궁금증</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="7-ai-활용-공간문제-해결"><a class="header" href="#7-ai-활용-공간문제-해결">7. AI 활용 공간문제 해결</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="8-인공지능에-관한-궁금증"><a class="header" href="#8-인공지능에-관한-궁금증">8. 인공지능에 관한 궁금증</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="실습"><a class="header" href="#실습">실습</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
 <h1 id="이미지-분류-실습"><a class="header" href="#이미지-분류-실습">이미지 분류 실습</a></h1>
 <h2 id="랜디인지-lx맨인지-분류"><a class="header" href="#랜디인지-lx맨인지-분류">랜디인지 LX맨인지 분류</a></h2>
 <p>url: <a href="https://machinelearningforkids.co.uk/?lang=ko">https://machinelearningforkids.co.uk/?lang=ko</a></p>
@@ -188,6 +200,545 @@
 <p><img src="aianal-01/image/lxman01.png" alt=""> <img src="aianal-01/image/lxman02.png" alt=""> <img src="aianal-01/image/lxman03.png" alt=""> <img src="aianal-01/image/lxman04.png" alt=""> <img src="aianal-01/image/lxman05.png" alt=""></p>
 <h3 id="파일-다운로드"><a class="header" href="#파일-다운로드">파일 다운로드</a></h3>
 <p><a href="aianal-01/image_classification.zip">학습, 테스트용 이미지 압축파일 다운로드</a></p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="ai-활용-공간문제-실습"><a class="header" href="#ai-활용-공간문제-실습">AI 활용 공간문제 실습</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="실습-1-보스턴-주택가격"><a class="header" href="#실습-1-보스턴-주택가격">실습 1: 보스턴 주택가격</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="실습-2-도근점-찾기"><a class="header" href="#실습-2-도근점-찾기">실습 2: 도근점 찾기</a></h1>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="ai와-gis-융합-분석-실습"><a class="header" href="#ai와-gis-융합-분석-실습">AI와 GIS 융합 분석 실습</a></h1>
+<ul>
+<li>
+<p><a href="#실습-1-geogpt">실습 1: GeoGPT</a></p>
+</li>
+<li>
+<p><a href="#실습-2-국토의-변화상을-빠르게-수집">실습 2: 국토 변화상 파악</a></p>
+</li>
+<li>
+<p><a href="#실습-3-geoai">실습 3: GeoAI</a></p>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="실습-1-geogpt"><a class="header" href="#실습-1-geogpt">실습 1: GeoGPT</a></h1>
+<p><strong>url</strong>: <a href="https://geogpt-sg.zero2x.org/">https://geogpt-sg.zero2x.org</a></p>
+<p><strong>질문</strong>: 서울에서 인구밀도가 가장 높은 구는?</p>
+<p><strong>답</strong>:<br><img src="aianal-01/ai/attachments/20260406223328.png" alt=""></p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="실습-2-국토의-변화상을-빠르게-수집"><a class="header" href="#실습-2-국토의-변화상을-빠르게-수집">실습 2. 국토의 변화상을 빠르게 수집</a></h1>
+<img src="aianal-01/ai/attachments/20260407151247.png" width="800">
+<h2 id="해결책"><a class="header" href="#해결책">해결책</a></h2>
+<p>드론을 1달에 2번씩 띄워 같은 지역의 사진을 찍은 후 변화 검출</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>촬영 1</th><th>촬영 2</th></tr>
+</thead>
+<tbody>
+<tr><td>2026. 1. 1. 촬영본</td><td>2026. 1. 16. 촬영본</td></tr>
+<tr><td><img src="aianal-01/ai/land-2026.01.01.png" alt=""></td><td><img src="aianal-01/ai/land-2026.01.16.png" alt=""></td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="실행-방법-1---ai가-아닌-방법"><a class="header" href="#실행-방법-1---ai가-아닌-방법">실행 방법 1 - AI가 아닌 방법</a></h3>
+<h4 id="1-odiff를-다운로드-받는다"><a class="header" href="#1-odiff를-다운로드-받는다">1. odiff를 다운로드 받는다.</a></h4>
+<ol>
+<li>
+<p><a href="https://github.com/dmtrKovalenko/odiff">https://github.com/dmtrKovalenko/odiff</a> 에 접속</p>
+</li>
+<li>
+<p>Release 아래의 version 부분을 클릭한다.<br><img src="aianal-01/ai/attachments/20260407170740.png" alt=""></p>
+</li>
+<li>
+<p>odiff-windows-x64.exe 파일을 클릭해 다운로드 받는다.<br><img src="aianal-01/ai/attachments/20260407170910.png" alt=""></p>
+</li>
+</ol>
+<h4 id="2-샘플-이미지-준비"><a class="header" href="#2-샘플-이미지-준비">2. 샘플 이미지 준비</a></h4>
+<ol>
+<li>위 이미지 파일 2개를 다운로드 받는다.</li>
+</ol>
+<h4 id="3-파일-한-곳에-모으고-powershell-실행하기"><a class="header" href="#3-파일-한-곳에-모으고-powershell-실행하기">3. 파일 한 곳에 모으고 powershell 실행하기</a></h4>
+<p><img src="aianal-01/ai/attachments/20260407171615.png" alt=""></p>
+<p>land-2026.01.01.png, land-2026.01.16.png, odiff-windows-x64.exe, 총 3개의 파일을 한 폴더에 모은다. 웹브라우저로 다운로드 받았기 때문에 “다운로드” 폴더에 이미 모여 있을 것이다.(여기서는 d:\test\odiff 폴더 사용)</p>
+<ol>
+<li>
+<p>탐색기에서 빈 곳을 Shift 키를 누른 채로 오른쪽 클릭한다.</p>
+</li>
+<li>
+<p>“여기에 PowerShell 창 열기“를 선택한다.</p>
+</li>
+</ol>
+<h4 id="4-odiff-실행"><a class="header" href="#4-odiff-실행">4. odiff 실행</a></h4>
+<p><img src="aianal-01/ai/attachments/20260407172030.png" alt=""></p>
+<pre><code class="language-ps">.\odiff-windows-x64.exe .\land-2026.01.01.png .\land-2026.01.16.png .\land-diff.png
+</code></pre>
+<h4 id="5-odiff-실행결과"><a class="header" href="#5-odiff-실행결과">5. odiff 실행결과</a></h4>
+<p><strong>land-diff.png 파일 내용</strong></p>
+<p><img src="aianal-01/ai/land-diff.png" alt=""></p>
+<h2 id="위-방법의-문제점"><a class="header" href="#위-방법의-문제점">위 방법의 문제점</a></h2>
+<p>위 방법은 사진이 아주 완벽하게 똑같은 위치, 똑같은 각도에서 찍은 경우에만 비교 가능하다는 문제가 있다.</p>
+<p>드론을 이용해 찍은 사진은 위와 같이 촬영되는 경우가 없다.</p>
+<h2 id="드론으로-촬영한-듯한-샘플"><a class="header" href="#드론으로-촬영한-듯한-샘플">드론으로 촬영한 듯한 샘플</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>촬영 1</th><th>촬영 2</th></tr>
+</thead>
+<tbody>
+<tr><td>2026. 1. 1. 촬영본</td><td>2026. 1. 16. 촬영본</td></tr>
+<tr><td><img src="aianal-01/ai/land-2026.01.02.jpg" width="600"></td><td><img src="aianal-01/ai/land-2026.01.17.jpg" width="600"></td></tr>
+</tbody>
+</table>
+</div>
+<p>위 두 이미지는 같은 지역을 촬영했지만, 드론으로 여러 번 촬영할 때처럼 촬영 위치와 각도가 다르다.</p>
+<h3 id="실행방법-2---ai-나노-바나나2-이용"><a class="header" href="#실행방법-2---ai-나노-바나나2-이용">실행방법 2 - AI, 나노 바나나2 이용</a></h3>
+<p><img src="aianal-01/ai/attachments/20260407180749.png" alt=""></p>
+<p>제미나이에서 위와 같이 2개의 이미지 파일을 업로드한다.</p>
+<p><img src="aianal-01/ai/attachments/20260407181128.png" alt=""></p>
+<pre><code>두 이미지는 드론에서 시간차를 두고 촬영한 사진이야. 이 사진을 보고 증축되거나 없어진 것들을 두번째 사진 위에 마스킹을 오버레이해서 보여줘
+</code></pre>
+<h4 id="결과"><a class="header" href="#결과">결과</a></h4>
+<p><img src="aianal-01/ai/attachments/20260407181211.png" alt=""></p>
+<h2 id="건물-증축-파악"><a class="header" href="#건물-증축-파악">건물 증축 파악</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>촬영 1</th><th>촬영 2</th></tr>
+</thead>
+<tbody>
+<tr><td>2026. 1. 16. 촬영본</td><td>2026. 2. 2. 촬영본</td></tr>
+<tr><td><img src="aianal-01/ai/land-2026.01.17.jpg" width="600"></td><td><img src="aianal-01/ai/land-2026.02.02.jpg" width="600"></td></tr>
+</tbody>
+</table>
+</div>
+<p><img src="aianal-01/ai/attachments/20260408133733.png" alt=""></p>
+<h4 id="결과-1"><a class="header" href="#결과-1">결과</a></h4>
+<p><img src="aianal-01/ai/attachments/20260408134101.png" alt=""></p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="실습-3-geoai"><a class="header" href="#실습-3-geoai">실습 3: GeoAI</a></h1>
+<h2 id="qgis에-geoai-설치"><a class="header" href="#qgis에-geoai-설치">QGIS에 GeoAI 설치</a></h2>
+<p>QGIS에서 Geospatial AI를 사용하기 위한 플러그인 설치</p>
+<p><a href="#geoai-플러그인-설치">QGIS에 GeoAI 플러그인 설치과정 안내</a></p>
+<br />
+<h2 id="tms-for-korea-설치"><a class="header" href="#tms-for-korea-설치">TMS for Korea 설치</a></h2>
+<p>QGIS에서 VWorld Satellite 맵을 사용하기 위해 TMS for Korea 플러그인 설치</p>
+<p>이 맵은 테스트용으로만 사용해야 하며 실제 상업적인 서비스를 위해 사용할 떄는 라이선스를 별도로 살펴야 한다.</p>
+<p>테스트 후 사용한 geoTiff 파일은 모두 삭제한다.</p>
+<p><a href="#tms-for-korea-플러그인-설치">QGIS에 TMS for Korea 플러그인 설치과정 안내</a></p>
+<br />
+<h2 id="테스트용-이미지-생성"><a class="header" href="#테스트용-이미지-생성">테스트용 이미지 생성</a></h2>
+<p>GeoAI는 raster 이미지(<a href="https://en.wikipedia.org/wiki/GeoTIFF">geoTiff</a> 등)를 사용하기 때문에, AI 분석에 사용하기 위해 VWorld Satellite 맵을 <a href="https://en.wikipedia.org/wiki/GeoTIFF">geoTiff</a> 형식으로 내보내야 한다.</p>
+<p><a href="#qgis-맵을-geotiff-형식으로-내보내-ai-테스트용-이미지-생성">QGIS 맵을 geoTiff 형식으로 내보내 AI 테스트용 이미지 생성</a></p>
+<p>위 과정을 통해 테스트할 부분을 geoTiff 파일로 만들고 그 파일을 QGIS에 하나의 레이어로 올린다.</p>
+<br />
+<h2 id="qgis에서-geoai-사용"><a class="header" href="#qgis에서-geoai-사용">QGIS에서 GeoAI 사용</a></h2>
+<h3 id="1-위성사진에서-나무-찾기tree-segmentation"><a class="header" href="#1-위성사진에서-나무-찾기tree-segmentation">1. 위성사진에서 나무 찾기(Tree Segmentation)</a></h3>
+<p><a href="#qgis-맵을-geotiff-형식으로-내보내-ai-테스트용-이미지-생성">테스트용 이미지 생성</a> 방법을 이용해 지도에 나무가 보이는 영역을 geoTiff로 저장한 후 사용한다.</p>
+<p>이 예에서는 “tree” 레이어로 올려 사용한다.</p>
+<p><img src="aianal-01/ai/attachments/20260412143457.png" alt=""></p>
+<p>tree 레이어로 올려 사용하는 예</p>
+<br />
+<p><img src="aianal-01/ai/attachments/20260412144010.png" alt=""></p>
+<ol>
+<li>
+<p>geoAI 툴바에서 나무 모양의 아이콘(Tree Segmentation)을 누른다.</p>
+</li>
+<li>
+<p>“Load Model” 버튼을 눌러 나무 찾기 AI 모델(Deep Forest)을 로드한다.(메모리에 올린다.)</p>
+</li>
+<li>
+<p>레이어 다시 읽기 버튼을 누른다.</p>
+</li>
+<li>
+<p>geoTiff 파일이 올라가 있는 “tree” 레이어를 선택하다.</p>
+</li>
+<li>
+<p>“Set Image from layer” 버튼을 눌러 위에서 선택한 레이어를 AI가 입력 이미지로 사용하도록 한다.</p>
+</li>
+</ol>
+<br />
+<p><img src="aianal-01/ai/attachments/20260412144307.png" alt=""></p>
+<ol>
+<li>
+<p>Predict 탭을 선택한다.</p>
+</li>
+<li>
+<p>Run Prediction“ 버튼을 클릭해 사진에서 나무가 있는 부분을 찾는 예측을 시작한다.</p>
+</li>
+</ol>
+<br />
+<p><strong>결과</strong></p>
+<p><img src="aianal-01/ai/attachments/20260412144405.png" alt=""></p>
+<p>AI가 위성사진에서 나무 부분을 찾아 빨간색 네모로 표시해 준다.</p>
+<br />
+<h3 id="2-위성사진에서-물-찾기water-segmentation"><a class="header" href="#2-위성사진에서-물-찾기water-segmentation">2. 위성사진에서 물 찾기(Water Segmentation)</a></h3>
+<p><a href="#qgis-맵을-geotiff-형식으로-내보내-ai-테스트용-이미지-생성">테스트용 이미지 생성</a> 방법을 이용해 지도에 물이 보이는 영역을 geoTiff로 저장한 후 사용한다.</p>
+<p>이 예에서는 “&gt; 사곡면” 으로 검색해 “충남 공주시 사곡면” 일대를 geoTiff로 저장해 사용했다.</p>
+<p><a href="https://github.com/DPIRD-DMA/OmniWaterMask">OmniWaterMask</a> 모델을 사용하며, 정확한 탐지를 위해서는 NIR 채널까지 사용해야 하지만, 이 예에서는 RGB 밴드만 사용한다. (NIR 채널이 포함된 샘플을 다운로드 하려면 회원가입을 해야 하는 등 시간이 오래 걸려서 강의에서는 사용하지 않음)</p>
+<p>이 예에서는 “water” 레이어로 올려 사용한다.</p>
+<p><img src="aianal-01/ai/attachments/20260412150259.png" alt=""></p>
+<p>water 레이어로 올려 사용하는 예</p>
+<br />
+<p><img src="aianal-01/ai/attachments/20260412151944.png" alt=""></p>
+<ol>
+<li>
+<p>geoAI 툴바에서 물방울 모양의 아이콘(Water Segmentation)을 누른다.</p>
+</li>
+<li>
+<p>레이어 새로고침 버튼을 누른다.</p>
+</li>
+<li>
+<p>Water 레이어를 선택한다.</p>
+</li>
+<li>
+<p>Dtype을 “bfloat16” 으로 설정한다. 처리 속도가 빨라진다.</p>
+</li>
+<li>
+<p>“Run Water Segmentation” 버튼을 눌러 AI를 이용한 물찾기를 시작한다.</p>
+</li>
+</ol>
+<br />
+<p><strong>결과</strong></p>
+<p><img src="aianal-01/ai/attachments/20260412151105.png" alt=""></p>
+<p><img src="aianal-01/ai/attachments/20260412151209.png" alt=""></p>
+<br />
+<h2 id="3-위성사진에-대해-ai에게-질의하기moondream-vlm"><a class="header" href="#3-위성사진에-대해-ai에게-질의하기moondream-vlm">3. 위성사진에 대해 AI에게 질의하기(<a href="https://github.com/vikhyat/moondream">Moondream VLM</a>)</a></h2>
+<p>* VLM: Vision-Language Model: 시각 정보와 언어 정보를 동시에 처리하는 AI 모델</p>
+<p><a href="https://github.com/vikhyat/moondream">Moondream VLM</a> 모델을 사용</p>
+<p>이 예에서는 water.tif 파일을 AI 입력용 이미지로 사용한다.</p>
+<h3 id="caption"><a class="header" href="#caption">Caption</a></h3>
+<p><img src="aianal-01/ai/attachments/20260412153107.png" alt=""></p>
+<ol>
+<li>
+<p>getAI 툴바에서 Moondream VLM을 누른다.</p>
+</li>
+<li>
+<p>Water.tif 파일을 이용해(끌어다 놓아) Water 레이어를 추가한다.</p>
+</li>
+<li>
+<p>“Load Model” 버튼을 누른다.</p>
+</li>
+<li>
+<p>레이어를 Water 레이어로 설정한다.</p>
+</li>
+<li>
+<p>“Load Image” 버튼을 누른다. AI 입력용 이미지로 water 레이어의 water.tif 파일을 사용한다.</p>
+</li>
+<li>
+<p>Mode를 “Caption“으로 설정한다.</p>
+</li>
+<li>
+<p>“Run” 버튼을 누른다.</p>
+</li>
+</ol>
+<br />
+<p><strong>결과</strong></p>
+<p><img src="aianal-01/ai/attachments/20260412153333.png" alt=""></p>
+<pre><code>Caption:
+An aerial image depicts a village nestled in a verdant valley, surrounded by fields and forests. The village is a patchwork of green and brown, with the majority of the fields appearing dry and possibly cultivated. A river meanders through the village and surrounding area, acting as a natural boundary. Several bridges cross the river, and a major road or highway runs parallel to it. The village is primarily built on raised platforms or stilts, and includes various buildings, including a church with a blue roof. Several buildings also feature corrugated metal roofing. The fields and forests surrounding the village show a mix of green and brown foliage, possibly indicating different crops or stages of growth.
+</code></pre>
+<pre><code>(번역)
+항공 사진에는 푸른 계곡에 자리 잡은 마을이 들판과 숲으로 둘러싸여 있는 모습이 담겨 있습니다. 마을은 초록색과 갈색이 어우러진 풍경을 보여주며, 대부분의 들판은 메말라 있거나 경작 중인 것으로 보입니다. 강이 마을과 주변 지역을 구불구불 흐르며 자연적인 경계를 이루고 있습니다. 강에는 여러 개의 다리가 놓여 있고, 주요 도로 또는 고속도로가 강과 나란히 뻗어 있습니다. 마을은 주로 높은 단이나 기둥 위에 세워져 있으며, 파란색 지붕의 교회를 비롯한 다양한 건물들이 있습니다. 몇몇 건물은 골함석 지붕을 사용하고 있습니다. 마을 주변의 들판과 숲에는 초록색과 갈색 잎이 섞여 있는데, 이는 다양한 작물이나 성장 단계를 나타내는 것일 수 있습니다.
+</code></pre>
+<br />
+<h3 id="query"><a class="header" href="#query">Query</a></h3>
+<p>위성사진에 대해 물어보는 경우</p>
+<p><img src="aianal-01/ai/attachments/20260412154108.png" alt=""></p>
+<br />
+<p><strong>질문 : how many buildings in this image</strong></p>
+<ol>
+<li>
+<p>Mode를 “Query“로 설정한다.</p>
+</li>
+<li>
+<p>prompt를 “how many buildings in this image“으로 설정한다.</p>
+</li>
+<li>
+<p>“Run” 버튼을 누른다.</p>
+</li>
+<li>
+<p>결과를 확인한다.</p>
+</li>
+</ol>
+<pre><code>Q: how many buildings in this image
+
+A: Many buildings can be seen in this image, scattered throughout the village.
+</code></pre>
+<pre><code>질문: 이 사진에는 건물이 몇 개나 있나요?
+
+답변: 이 사진에는 마을 곳곳에 흩어져 있는 많은 건물들이 보입니다.
+</code></pre>
+<br />
+<p><strong>또 다른 질문: What is the most commonly used color for the building roofs in this image?</strong></p>
+<pre><code>Q: What is the most commonly used color for the building roofs in this image?
+
+A: The most commonly used color for the building roofs in this image is blue.
+</code></pre>
+<pre><code>질문: 이 이미지에서 건물 지붕에 가장 많이 사용된 색상은 무엇인가?
+
+답변: 이 이미지에서 건물 지붕에 가장 많이 사용된 색상은 파란색이다.
+</code></pre>
+<br />
+<h2 id="detect"><a class="header" href="#detect">Detect</a></h2>
+<p><strong>다리 질의</strong></p>
+<p><img src="aianal-01/ai/attachments/20260412155159.png" alt=""></p>
+<ol>
+<li>
+<p>모드를 “Detect“로 설정한다.</p>
+</li>
+<li>
+<p>prompt를 “bridge“로 설정한다.</p>
+</li>
+<li>
+<p>“Run” 버튼을 클릭한다.</p>
+</li>
+<li>
+<p>결과를 확인한다. 1개를 확인했다는 메시지가 보인다.</p>
+</li>
+<li>
+<p>지도 위에 빨간 네모 박스로 다리를 표시한 걸 확인한다.</p>
+</li>
+</ol>
+<br />
+<p><strong>비닐하우스 질의</strong></p>
+<p><img src="aianal-01/ai/attachments/20260412155715.png" alt=""></p>
+<ol>
+<li>
+<p>모드를 “Detect“로 설정한다.</p>
+</li>
+<li>
+<p>prompt를 “greenhouse“로 설정한다.</p>
+</li>
+<li>
+<p>Result Color를 초록색 등으로 변경한다. (좀전의 다리와 다른 색으로 표시하기 위해)</p>
+</li>
+<li>
+<p>“Run” 버튼을 클릭한다.</p>
+</li>
+<li>
+<p>결과를 확인한다. 50개를 확인했다는 메시지가 보인다.</p>
+</li>
+<li>
+<p>지도 위에 초록색 네모 박스로 비닐하우스를 표시한 걸 확인한다. 실제로는 50개를 각각 네모로 표시했는데, 겹쳐져서 마치 영역을 전부 칠해놓은 것처럼 보이고 있다.</p>
+</li>
+</ol>
+<br />
+<h2 id="point"><a class="header" href="#point">Point</a></h2>
+<p><strong>비닐하우스를 점으로 표시</strong></p>
+<p><img src="aianal-01/ai/attachments/20260412160339.png" alt=""></p>
+<ol>
+<li>
+<p>이전 결과 레이어가 영향을 미치면 지우거나 레이어 체크를 풀어 보이지 않도록 한다. 이 경우에는 레이어 체크를 풀어 보이지 않도록 했다.</p>
+</li>
+<li>
+<p>모드를 “Point“로 설정한다.</p>
+</li>
+<li>
+<p>prompt를 “greenhouse“로 설정한다.</p>
+</li>
+<li>
+<p>Result Color를 초록색 등으로 변경한다. (좀전의 다리와 다른 색으로 표시하기 위해)</p>
+</li>
+<li>
+<p>“Run” 버튼을 클릭한다.</p>
+</li>
+</ol>
+<br />
+<p><strong>결과</strong></p>
+<p><img src="aianal-01/ai/attachments/20260412160453.png" alt=""></p>
+<ol>
+<li>
+<p>결과를 확인한다. 점 1개를 추가했다는 메시지가 보인다</p>
+</li>
+<li>
+<p>지도 위에 초록색 점으로 비닐하우스를 표시한 걸 확인한다.</p>
+</li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="geoai-플러그인-설치"><a class="header" href="#geoai-플러그인-설치">GeoAI 플러그인 설치</a></h1>
+<p><img src="aianal-01/ai/attachments/20260408230707.png" alt=""></p>
+<p>플러그인 &gt; 플러그인 관리 및 설치 메뉴 실행</p>
+<br />
+<p><img src="aianal-01/ai/attachments/20260408230958.png" alt=""></p>
+<ol>
+<li>
+<p>‘설치하지 않음’ 선택</p>
+</li>
+<li>
+<p>’geoAI’로 검색</p>
+</li>
+<li>
+<p>검색되어 나온 것 중 ‘GeoAI’ 선택</p>
+</li>
+<li>
+<p>‘플러그인 설치’ 선택</p>
+</li>
+</ol>
+<br />
+<p><img src="aianal-01/ai/attachments/20260408231628.png" alt=""></p>
+<ol>
+<li>
+<p>’플러그인을 성공적으로 설치했다’는 메시지 확인 후</p>
+</li>
+<li>
+<p>‘닫기’ 버튼 누름</p>
+</li>
+</ol>
+<br />  
+<p><img src="aianal-01/ai/attachments/20260408231829.png" alt=""></p>
+<p>GeoAI 메뉴와 툴바가 설치된다.</p>
+<br />
+<h3 id="플러그인-업데이트"><a class="header" href="#플러그인-업데이트">플러그인 업데이트</a></h3>
+<p><img src="aianal-01/ai/attachments/20260408232430.png" alt=""></p>
+<ol>
+<li>
+<p>메뉴에서 ‘GeoAI’ 선택</p>
+</li>
+<li>
+<p>‘Check for Updates…’ 선택</p>
+</li>
+</ol>
+<br />
+<p><img src="aianal-01/ai/attachments/20260408232631.png" alt=""></p>
+<ol>
+<li>
+<p>‘Check for Updates’ 버튼을 누른다.</p>
+</li>
+<li>
+<p>새로운 버전이 있다고 나오면 (위 그림에서는 현재 1.0.7 버전이 설치되어 있는데 점검 결과 1.0.8 버전이 있다고 나옴) ‘Download and Install Update’ 버튼을 누른다.</p>
+</li>
+</ol>
+<br />
+<p><img src="aianal-01/ai/attachments/20260408232805.png" alt=""></p>
+<p>업데이트가 완료되면 QGIS를 수동으로 다시 시작해야 한다.</p>
+<br />
+<h3 id="geoai-플러그인-실행에-필요한-프로그램-설치"><a class="header" href="#geoai-플러그인-실행에-필요한-프로그램-설치">GeoAI 플러그인 실행에 필요한 프로그램 설치</a></h3>
+<p><img src="aianal-01/ai/attachments/20260408233647.png" alt=""></p>
+<ol>
+<li>
+<p>GeoAI 툴바의 아무 버튼이나 누른다.</p>
+</li>
+<li>
+<p>‘Install Dependencies’ 버튼을 누른다.</p>
+</li>
+</ol>
+<br />  
+<p>위와 같이 하면 자동으로 플러그인 실행에 필요한 프로그램들이 설치된다. 2~3GB 정도 다운로드해야 해서 시간이 꽤 걸린다(20분정도).</p>
+<p><img src="aianal-01/ai/attachments/20260408234520.png" alt=""></p>
+<p>설치 중</p>
+<br />  
+<p><img src="aianal-01/ai/attachments/20260408234619.png" alt=""></p>
+<p>설치가 완료되면 해당 기능에 대한 설정 창이 나타난다.</p>
+<br /><div style="break-before: page; page-break-before: always;"></div>
+<h1 id="tms-for-korea-플러그인-설치"><a class="header" href="#tms-for-korea-플러그인-설치">TMS for Korea 플러그인 설치</a></h1>
+<p><img src="aianal-01/ai/attachments/20260412133235.png" alt=""></p>
+<ol>
+<li>
+<p>메뉴 중 플러그인 을 선택한다.</p>
+</li>
+<li>
+<p>“플러그인 관리 및 설치” 메뉴를 선택한다.</p>
+</li>
+</ol>
+<br />
+<p><img src="aianal-01/ai/attachments/20260412133032.png" alt=""></p>
+<ol>
+<li>
+<p>“설치하지 않음” 을 선택한다.</p>
+</li>
+<li>
+<p>검색어로 “TMS“를 입력한다.</p>
+</li>
+<li>
+<p>“TMS for Korea“를 선택한다.</p>
+</li>
+<li>
+<p>“플러그인 설치” 버튼을 누른다.</p>
+</li>
+</ol>
+  <br />
+<p><img src="aianal-01/ai/attachments/20260412133105.png" alt=""></p>
+<ol>
+<li>
+<p>’플러그인을 성공적으로 설치했다’는 메시지 확인 후</p>
+</li>
+<li>
+<p>‘닫기’ 버튼 누름</p>
+</li>
+</ol>
+<br />
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="qgis-맵을-geotiff-형식으로-내보내-ai-테스트용-이미지-생성"><a class="header" href="#qgis-맵을-geotiff-형식으로-내보내-ai-테스트용-이미지-생성">QGIS 맵을 geoTiff 형식으로 내보내 AI 테스트용 이미지 생성</a></h1>
+<h2 id="vworld-위성-지도-추가"><a class="header" href="#vworld-위성-지도-추가">VWorld 위성 지도 추가</a></h2>
+<p><img src="aianal-01/ai/attachments/20260412135635.png" alt=""></p>
+<p>이 방식은 테스트용으로만 사용해야 하며, 실제 상업용으로 사용할 떄는 지도 제공 업체와 라이선스를 별도 확인해야 합니다.</p>
+<p><a href="#tms-for-korea-플러그인-설치">TMS for Korea 플러그인을 설치</a>하면 메뉴에 “웹” 메뉴가 추가된다. 위와 같이 “VWorld Satellite” 메뉴를 선택한다.</p>
+<br />
+<p><img src="aianal-01/ai/attachments/20260412135852.png" alt=""></p>
+<p>VWorld 위성 사진 레이어가 추가되어 나타난다.</p>
+<br />
+<h2 id="서울역-주변으로-이동"><a class="header" href="#서울역-주변으로-이동">서울역 주변으로 이동</a></h2>
+<p><img src="aianal-01/ai/attachments/20260412140322.png" alt=""></p>
+<ol>
+<li>
+<p>QGIS 맨 왼쪽 아래의 검색창에서 “&gt; 서울역“으로 검색한다.</p>
+</li>
+<li>
+<p>5개가 검색되어 나오는데, 그 중 가장 위 “서울역, 378, 청파로, …” 를 더블 클릭한다.</p>
+</li>
+</ol>
+<br />
+<p><img src="aianal-01/ai/attachments/20260412140641.png" alt=""></p>
+<ol>
+<li>
+<p>마우스 휠을 위로 올려 축척이 대략 “1:963” 정도 되도록 확대하고</p>
+</li>
+<li>
+<p>지도를 마우스 가운데 휠로 누르고 약간 움직여 위와 같은 부분에 위치하도록 한다.</p>
+</li>
+</ol>
+<br />
+<h2 id="지도에-표시된-지역을-geotiff로-저장하기"><a class="header" href="#지도에-표시된-지역을-geotiff로-저장하기">지도에 표시된 지역을 geoTiff로 저장하기</a></h2>
+<p><img src="aianal-01/ai/attachments/20260412140854.png" alt=""></p>
+<ol>
+<li>
+<p>VWorld Satellite 레이어를 오른쪽 클릭하고,</p>
+</li>
+<li>
+<p>내보내기, “다른 이름으로 저장“을 선택한다.</p>
+</li>
+</ol>
+<br />
+<p><img src="aianal-01/ai/attachments/20260412141342.png" alt=""></p>
+<ol>
+<li>
+<p>포맷을 “GeoTiff“로 선택한다.</p>
+</li>
+<li>
+<p>“VRT 생성” 옵션을 끈다.(체크 표시를 지운다)</p>
+</li>
+<li>
+<p>“… 버튼“을 눌러 파일 이름을 설정한다. 이 경우 “E:\test\geoai\tree.tif“로 설정했다.</p>
+</li>
+<li>
+<p>좌표계는 지도에 맞게 설정한다.</p>
+</li>
+<li>
+<p>“현재 보여지는 지도의 영역만 사용하기 위해 “지도 캔버스 범위” 버튼을 눌러준다.</p>
+</li>
+<li>
+<p>해상도의 수평을 “0.1”, 수직을 “0.1“로 설정한다. 이 값을 바꿀 때마다 바로 아래의 열 행이 바뀌는데 열이 대략 3000 정도가 되도록 하면 일반적인 컴퓨터에서도 아주 큰 무리는 없이 AI 수행을 할 수 있다.</p>
+</li>
+<li>
+<p>해상도의 수평을 “0.1”, 수직을 “0.1“로 설정한다. 이 값을 바꿀 때마다 바로 아래의 열 행이 바뀌는데 열이 대략 3000 정도가 되도록 하면 일반적인 컴퓨터에서도 아주 큰 무리는 없이 AI 수행을 할 수 있다.</p>
+</li>
+<li>
+<p>확인 버튼을 누른다.</p>
+</li>
+</ol>
+<br />
+<p><img src="aianal-01/ai/attachments/20260412141845.png" alt=""></p>
+<p>방금 내보낸 파일이 QGIS에 추가되고, geoTiff의 특성 상 그 지도의 해당 위치에 정확하게 붙는다.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="ai-챔피언"><a class="header" href="#ai-챔피언">AI 챔피언</a></h1>
 <div style="break-before: page; page-break-before: always;"></div>
@@ -1363,7 +1914,7 @@ app.listen(3000, () => {
 <iframe width="560" height="315" src="https://www.youtube.com/embed/9m3e8IFjIC4?si=p5QMwm9Sxpv-IldO" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen=""></iframe>
 <h2 id="4-mcp를-이용한-qgis-사용"><a class="header" href="#4-mcp를-이용한-qgis-사용">4. MCP를 이용한 QGIS 사용</a></h2>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/dEWOilwgsdo?si=wQzvYKN6bAKIzF__" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen=""></iframe><div style="break-before: page; page-break-before: always;"></div>
-<h1 id="복습문제"><a class="header" href="#복습문제">복습문제</a></h1>
+<h1 id="복습문제-1"><a class="header" href="#복습문제-1">복습문제</a></h1>
 <h3 id="1-ai-기법으로-학습시켜-놓은-결과물은"><a class="header" href="#1-ai-기법으로-학습시켜-놓은-결과물은">1. AI 기법으로 학습시켜 놓은 결과물은?</a></h3>
 <ol>
 <li>알고리즘</li>
@@ -2872,24 +3423,24 @@ app.listen(3000, () => {
 <p>Learning rate의 값을 낮추면 Decision Tree의 수는 늘려야 한다. 꼼꼼하게 학습하려면 Decision Tree의 수가 많아야 한다.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="실습-10---qgis-geoai"><a class="header" href="#실습-10---qgis-geoai">실습 10 - QGIS, GeoAI</a></h1>
-<h2 id="qgis에-geoai-설치"><a class="header" href="#qgis에-geoai-설치">QGIS에 GeoAI 설치</a></h2>
+<h2 id="qgis에-geoai-설치-1"><a class="header" href="#qgis에-geoai-설치-1">QGIS에 GeoAI 설치</a></h2>
 <p>QGIS에서 Geospatial AI를 사용하기 위한 플러그인 설치</p>
-<p><a href="#geoai-플러그인-설치">QGIS에 GeoAI 플러그인 설치과정 안내</a></p>
+<p><a href="#geoai-플러그인-설치-1">QGIS에 GeoAI 플러그인 설치과정 안내</a></p>
 <br />
-<h2 id="tms-for-korea-설치"><a class="header" href="#tms-for-korea-설치">TMS for Korea 설치</a></h2>
+<h2 id="tms-for-korea-설치-1"><a class="header" href="#tms-for-korea-설치-1">TMS for Korea 설치</a></h2>
 <p>QGIS에서 VWorld Satellite 맵을 사용하기 위해 TMS for Korea 플러그인 설치</p>
 <p>이 맵은 테스트용으로만 사용해야 하며 실제 상업적인 서비스를 위해 사용할 떄는 라이선스를 별도로 살펴야 한다.</p>
 <p>테스트 후 사용한 geoTiff 파일은 모두 삭제한다.</p>
-<p><a href="#tms-for-korea-플러그인-설치">QGIS에 TMS for Korea 플러그인 설치과정 안내</a></p>
+<p><a href="#tms-for-korea-플러그인-설치-1">QGIS에 TMS for Korea 플러그인 설치과정 안내</a></p>
 <br />
-<h2 id="테스트용-이미지-생성"><a class="header" href="#테스트용-이미지-생성">테스트용 이미지 생성</a></h2>
+<h2 id="테스트용-이미지-생성-1"><a class="header" href="#테스트용-이미지-생성-1">테스트용 이미지 생성</a></h2>
 <p>GeoAI는 raster 이미지(<a href="https://en.wikipedia.org/wiki/GeoTIFF">geoTiff</a> 등)를 사용하기 때문에, AI 분석에 사용하기 위해 VWorld Satellite 맵을 <a href="https://en.wikipedia.org/wiki/GeoTIFF">geoTiff</a> 형식으로 내보내야 한다.</p>
-<p><a href="#qgis-맵을-geotiff-형식으로-내보내-ai-테스트용-이미지-생성">QGIS 맵을 geoTiff 형식으로 내보내 AI 테스트용 이미지 생성</a></p>
+<p><a href="#qgis-맵을-geotiff-형식으로-내보내-ai-테스트용-이미지-생성-1">QGIS 맵을 geoTiff 형식으로 내보내 AI 테스트용 이미지 생성</a></p>
 <p>위 과정을 통해 테스트할 부분을 geoTiff 파일로 만들고 그 파일을 QGIS에 하나의 레이어로 올린다.</p>
 <br />
-<h2 id="qgis에서-geoai-사용"><a class="header" href="#qgis에서-geoai-사용">QGIS에서 GeoAI 사용</a></h2>
-<h3 id="1-위성사진에서-나무-찾기tree-segmentation"><a class="header" href="#1-위성사진에서-나무-찾기tree-segmentation">1. 위성사진에서 나무 찾기(Tree Segmentation)</a></h3>
-<p><a href="#qgis-맵을-geotiff-형식으로-내보내-ai-테스트용-이미지-생성">테스트용 이미지 생성</a> 방법을 이용해 지도에 나무가 보이는 영역을 geoTiff로 저장한 후 사용한다.</p>
+<h2 id="qgis에서-geoai-사용-1"><a class="header" href="#qgis에서-geoai-사용-1">QGIS에서 GeoAI 사용</a></h2>
+<h3 id="1-위성사진에서-나무-찾기tree-segmentation-1"><a class="header" href="#1-위성사진에서-나무-찾기tree-segmentation-1">1. 위성사진에서 나무 찾기(Tree Segmentation)</a></h3>
+<p><a href="#qgis-맵을-geotiff-형식으로-내보내-ai-테스트용-이미지-생성-1">테스트용 이미지 생성</a> 방법을 이용해 지도에 나무가 보이는 영역을 geoTiff로 저장한 후 사용한다.</p>
 <p>이 예에서는 “tree” 레이어로 올려 사용한다.</p>
 <p><img src="dt-01/ai/attachments/20260412143457.png" alt=""></p>
 <p>tree 레이어로 올려 사용하는 예</p>
@@ -2927,8 +3478,8 @@ app.listen(3000, () => {
 <p><img src="dt-01/ai/attachments/20260412144405.png" alt=""></p>
 <p>AI가 위성사진에서 나무 부분을 찾아 빨간색 네모로 표시해 준다.</p>
 <br />
-<h3 id="2-위성사진에서-물-찾기water-segmentation"><a class="header" href="#2-위성사진에서-물-찾기water-segmentation">2. 위성사진에서 물 찾기(Water Segmentation)</a></h3>
-<p><a href="#qgis-맵을-geotiff-형식으로-내보내-ai-테스트용-이미지-생성">테스트용 이미지 생성</a> 방법을 이용해 지도에 물이 보이는 영역을 geoTiff로 저장한 후 사용한다.</p>
+<h3 id="2-위성사진에서-물-찾기water-segmentation-1"><a class="header" href="#2-위성사진에서-물-찾기water-segmentation-1">2. 위성사진에서 물 찾기(Water Segmentation)</a></h3>
+<p><a href="#qgis-맵을-geotiff-형식으로-내보내-ai-테스트용-이미지-생성-1">테스트용 이미지 생성</a> 방법을 이용해 지도에 물이 보이는 영역을 geoTiff로 저장한 후 사용한다.</p>
 <p>이 예에서는 “&gt; 사곡면” 으로 검색해 “충남 공주시 사곡면” 일대를 geoTiff로 저장해 사용했다.</p>
 <p><a href="https://github.com/DPIRD-DMA/OmniWaterMask">OmniWaterMask</a> 모델을 사용하며, 정확한 탐지를 위해서는 NIR 채널까지 사용해야 하지만, 이 예에서는 RGB 밴드만 사용한다. (NIR 채널이 포함된 샘플을 다운로드 하려면 회원가입을 해야 하는 등 시간이 오래 걸려서 강의에서는 사용하지 않음)</p>
 <p>이 예에서는 “water” 레이어로 올려 사용한다.</p>
@@ -2958,11 +3509,11 @@ app.listen(3000, () => {
 <p><img src="dt-01/ai/attachments/20260412151105.png" alt=""></p>
 <p><img src="dt-01/ai/attachments/20260412151209.png" alt=""></p>
 <br />
-<h2 id="3-위성사진에-대해-ai에게-질의하기moondream-vlm"><a class="header" href="#3-위성사진에-대해-ai에게-질의하기moondream-vlm">3. 위성사진에 대해 AI에게 질의하기(<a href="https://github.com/vikhyat/moondream">Moondream VLM</a>)</a></h2>
+<h2 id="3-위성사진에-대해-ai에게-질의하기moondream-vlm-1"><a class="header" href="#3-위성사진에-대해-ai에게-질의하기moondream-vlm-1">3. 위성사진에 대해 AI에게 질의하기(<a href="https://github.com/vikhyat/moondream">Moondream VLM</a>)</a></h2>
 <p>* VLM: Vision-Language Model: 시각 정보와 언어 정보를 동시에 처리하는 AI 모델</p>
 <p><a href="https://github.com/vikhyat/moondream">Moondream VLM</a> 모델을 사용</p>
 <p>이 예에서는 water.tif 파일을 AI 입력용 이미지로 사용한다.</p>
-<h3 id="caption"><a class="header" href="#caption">Caption</a></h3>
+<h3 id="caption-1"><a class="header" href="#caption-1">Caption</a></h3>
 <p><img src="dt-01/ai/attachments/20260412153107.png" alt=""></p>
 <ol>
 <li>
@@ -2997,7 +3548,7 @@ An aerial image depicts a village nestled in a verdant valley, surrounded by fie
 항공 사진에는 푸른 계곡에 자리 잡은 마을이 들판과 숲으로 둘러싸여 있는 모습이 담겨 있습니다. 마을은 초록색과 갈색이 어우러진 풍경을 보여주며, 대부분의 들판은 메말라 있거나 경작 중인 것으로 보입니다. 강이 마을과 주변 지역을 구불구불 흐르며 자연적인 경계를 이루고 있습니다. 강에는 여러 개의 다리가 놓여 있고, 주요 도로 또는 고속도로가 강과 나란히 뻗어 있습니다. 마을은 주로 높은 단이나 기둥 위에 세워져 있으며, 파란색 지붕의 교회를 비롯한 다양한 건물들이 있습니다. 몇몇 건물은 골함석 지붕을 사용하고 있습니다. 마을 주변의 들판과 숲에는 초록색과 갈색 잎이 섞여 있는데, 이는 다양한 작물이나 성장 단계를 나타내는 것일 수 있습니다.
 </code></pre>
 <br />
-<h3 id="query"><a class="header" href="#query">Query</a></h3>
+<h3 id="query-1"><a class="header" href="#query-1">Query</a></h3>
 <p>위성사진에 대해 물어보는 경우</p>
 <p><img src="dt-01/ai/attachments/20260412154108.png" alt=""></p>
 <br />
@@ -3035,7 +3586,7 @@ A: The most commonly used color for the building roofs in this image is blue.
 답변: 이 이미지에서 건물 지붕에 가장 많이 사용된 색상은 파란색이다.
 </code></pre>
 <br />
-<h2 id="detect"><a class="header" href="#detect">Detect</a></h2>
+<h2 id="detect-1"><a class="header" href="#detect-1">Detect</a></h2>
 <p><strong>다리 질의</strong></p>
 <p><img src="dt-01/ai/attachments/20260412155159.png" alt=""></p>
 <ol>
@@ -3079,7 +3630,7 @@ A: The most commonly used color for the building roofs in this image is blue.
 </li>
 </ol>
 <br />
-<h2 id="point"><a class="header" href="#point">Point</a></h2>
+<h2 id="point-1"><a class="header" href="#point-1">Point</a></h2>
 <p><strong>비닐하우스를 점으로 표시</strong></p>
 <p><img src="dt-01/ai/attachments/20260412160339.png" alt=""></p>
 <ol>
@@ -3111,7 +3662,7 @@ A: The most commonly used color for the building roofs in this image is blue.
 </li>
 </ol>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="geoai-플러그인-설치"><a class="header" href="#geoai-플러그인-설치">GeoAI 플러그인 설치</a></h1>
+<h1 id="geoai-플러그인-설치-1"><a class="header" href="#geoai-플러그인-설치-1">GeoAI 플러그인 설치</a></h1>
 <p><img src="dt-01/ai/attachments/20260408230707.png" alt=""></p>
 <p>플러그인 &gt; 플러그인 관리 및 설치 메뉴 실행</p>
 <br />
@@ -3144,7 +3695,7 @@ A: The most commonly used color for the building roofs in this image is blue.
 <p><img src="dt-01/ai/attachments/20260408231829.png" alt=""></p>
 <p>GeoAI 메뉴와 툴바가 설치된다.</p>
 <br />
-<h3 id="플러그인-업데이트"><a class="header" href="#플러그인-업데이트">플러그인 업데이트</a></h3>
+<h3 id="플러그인-업데이트-1"><a class="header" href="#플러그인-업데이트-1">플러그인 업데이트</a></h3>
 <p><img src="dt-01/ai/attachments/20260408232430.png" alt=""></p>
 <ol>
 <li>
@@ -3168,7 +3719,7 @@ A: The most commonly used color for the building roofs in this image is blue.
 <p><img src="dt-01/ai/attachments/20260408232805.png" alt=""></p>
 <p>업데이트가 완료되면 QGIS를 수동으로 다시 시작해야 한다.</p>
 <br />
-<h3 id="geoai-플러그인-실행에-필요한-프로그램-설치"><a class="header" href="#geoai-플러그인-실행에-필요한-프로그램-설치">GeoAI 플러그인 실행에 필요한 프로그램 설치</a></h3>
+<h3 id="geoai-플러그인-실행에-필요한-프로그램-설치-1"><a class="header" href="#geoai-플러그인-실행에-필요한-프로그램-설치-1">GeoAI 플러그인 실행에 필요한 프로그램 설치</a></h3>
 <p><img src="dt-01/ai/attachments/20260408233647.png" alt=""></p>
 <ol>
 <li>
@@ -3225,7 +3776,7 @@ A: The most commonly used color for the building roofs in this image is blue.
 <br />
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="3-qgis-맵을-geotiff-형식으로-내보내-ai-테스트용-이미지-생성"><a class="header" href="#3-qgis-맵을-geotiff-형식으로-내보내-ai-테스트용-이미지-생성">3. QGIS 맵을 geoTiff 형식으로 내보내 AI 테스트용 이미지 생성</a></h1>
-<h2 id="vworld-위성-지도-추가"><a class="header" href="#vworld-위성-지도-추가">VWorld 위성 지도 추가</a></h2>
+<h2 id="vworld-위성-지도-추가-1"><a class="header" href="#vworld-위성-지도-추가-1">VWorld 위성 지도 추가</a></h2>
 <p><img src="dt-01/ai/attachments/20260412135635.png" alt=""></p>
 <p>이 방식은 테스트용으로만 사용해야 하며, 실제 상업용으로 사용할 떄는 지도 제공 업체와 라이선스를 별도 확인해야 합니다.</p>
 <p><a href="#2-tms-for-korea-플러그인-설치">TMS for Korea 플러그인을 설치</a>하면 메뉴에 “웹” 메뉴가 추가된다. 위와 같이 “VWorld Satellite” 메뉴를 선택한다.</p>
@@ -3233,7 +3784,7 @@ A: The most commonly used color for the building roofs in this image is blue.
 <p><img src="dt-01/ai/attachments/20260412135852.png" alt=""></p>
 <p>VWorld 위성 사진 레이어가 추가되어 나타난다.</p>
 <br />
-<h2 id="서울역-주변으로-이동"><a class="header" href="#서울역-주변으로-이동">서울역 주변으로 이동</a></h2>
+<h2 id="서울역-주변으로-이동-1"><a class="header" href="#서울역-주변으로-이동-1">서울역 주변으로 이동</a></h2>
 <p><img src="dt-01/ai/attachments/20260412140322.png" alt=""></p>
 <ol>
 <li>
@@ -3254,7 +3805,7 @@ A: The most commonly used color for the building roofs in this image is blue.
 </li>
 </ol>
 <br />
-<h2 id="지도에-표시된-지역을-geotiff로-저장하기"><a class="header" href="#지도에-표시된-지역을-geotiff로-저장하기">지도에 표시된 지역을 geoTiff로 저장하기</a></h2>
+<h2 id="지도에-표시된-지역을-geotiff로-저장하기-1"><a class="header" href="#지도에-표시된-지역을-geotiff로-저장하기-1">지도에 표시된 지역을 geoTiff로 저장하기</a></h2>
 <p><img src="dt-01/ai/attachments/20260412140854.png" alt=""></p>
 <ol>
 <li>
@@ -5305,7 +5856,7 @@ const map = new Map({
 </li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="복습문제-1"><a class="header" href="#복습문제-1">복습문제</a></h1>
+<h1 id="복습문제-2"><a class="header" href="#복습문제-2">복습문제</a></h1>
 <p><img src="default/quiz01.png" alt=""></p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="파이썬의-개요"><a class="header" href="#파이썬의-개요">파이썬의 개요</a></h1>
@@ -7886,10 +8437,10 @@ prs.save('sample.pptx')				# 파일 저장
 <li>pgAdmin 공식 홈페이지: <a href="https://www.pgadmin.org">https://www.pgadmin.org</a></li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="복습문제-2"><a class="header" href="#복습문제-2">복습문제</a></h1>
+<h1 id="복습문제-3"><a class="header" href="#복습문제-3">복습문제</a></h1>
 <p><img src="default/quiz01.png" alt=""></p>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="복습문제-3"><a class="header" href="#복습문제-3">복습문제</a></h1>
+<h1 id="복습문제-4"><a class="header" href="#복습문제-4">복습문제</a></h1>
 <h3 id="1-다음-중-데이터베이스의-특징이-아닌-것은"><a class="header" href="#1-다음-중-데이터베이스의-특징이-아닌-것은"><strong>1. 다음 중 데이터베이스의 특징이 아닌 것은?</strong></a></h3>
 <ol>
 <li>자료를 체계적으로 저장한다.</li>
@@ -7933,7 +8484,7 @@ prs.save('sample.pptx')				# 파일 저장
 <li>한국의 좌표 체계도 포함되어 있다.</li>
 </ol>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="복습문제-4"><a class="header" href="#복습문제-4">복습문제</a></h1>
+<h1 id="복습문제-5"><a class="header" href="#복습문제-5">복습문제</a></h1>
 <h3 id="1-postgresql-설치에-대한-설명-중-틀린-것은"><a class="header" href="#1-postgresql-설치에-대한-설명-중-틀린-것은"><strong>1. postgreSQL 설치에 대한 설명 중 틀린 것은?</strong></a></h3>
 <ol>
 <li>공식 홈페이지에는 설치 프로그램이 업로드되어 있지 않아 다른 사이트에 가서 받아야 한다.</li>
@@ -7986,7 +8537,7 @@ prs.save('sample.pptx')				# 파일 저장
 <h3 id="8-pgadmin에서-psql을-실행하는-아이콘은"><a class="header" href="#8-pgadmin에서-psql을-실행하는-아이콘은"><strong>8. pgAdmin에서 psql을 실행하는 아이콘은?</strong></a></h3>
 <p><img src="gisws/quiz/img/20240722204950.png" alt=""></p>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="복습문제-5"><a class="header" href="#복습문제-5">복습문제</a></h1>
+<h1 id="복습문제-6"><a class="header" href="#복습문제-6">복습문제</a></h1>
 <h3 id="1-sql에-대해-맞는-설명은"><a class="header" href="#1-sql에-대해-맞는-설명은"><strong>1. SQL에 대해 맞는 설명은?</strong></a></h3>
 <ol>
 <li>DBMS에서만 사용하는 언어이다.</li>
@@ -8016,7 +8567,7 @@ prs.save('sample.pptx')				# 파일 저장
 <li>query from member;</li>
 </ol>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="복습문제-6"><a class="header" href="#복습문제-6">복습문제</a></h1>
+<h1 id="복습문제-7"><a class="header" href="#복습문제-7">복습문제</a></h1>
 <h3 id="1-postgis에-대해-맞는-설명은"><a class="header" href="#1-postgis에-대해-맞는-설명은"><strong>1. postgis에 대해 맞는 설명은?</strong></a></h3>
 <ol>
 <li>postgreSQL을 설치하면 자동으로 같이 설치된다.</li>
@@ -8289,7 +8840,7 @@ insert into food (name, price) values ('짬뽕', 7000);
 <li>[2] 점이 추가되자마자 위와 같은 속성 창이 나타나서 자료를 입력할 수 있다. id값은 점을 찍을 때마다 중복된 값이 입력되지 않도록 1, 2, 3, 4, 5, … 으로 알아서 점마다 다른 값을입력해야 한다.<br>name 항목은 조금 전에 추가한 그 항목이다.</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="복습문제-7"><a class="header" href="#복습문제-7">복습문제</a></h1>
+<h1 id="복습문제-8"><a class="header" href="#복습문제-8">복습문제</a></h1>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="복습문제-1-1"><a class="header" href="#복습문제-1-1">복습문제 1</a></h1>
 <h3 id="1-공간정보를-다운로드-받을-수-있는-곳이-아닌-것은"><a class="header" href="#1-공간정보를-다운로드-받을-수-있는-곳이-아닌-것은">1. 공간정보를 다운로드 받을 수 있는 곳이 아닌 것은?</a></h3>
@@ -8698,7 +9249,7 @@ function func()
 </li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="복습문제-8"><a class="header" href="#복습문제-8">복습문제</a></h1>
+<h1 id="복습문제-9"><a class="header" href="#복습문제-9">복습문제</a></h1>
 <p><img src="default/quiz01.png" alt=""></p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="1-파이썬의-개요"><a class="header" href="#1-파이썬의-개요">1. 파이썬의 개요</a></h1>
@@ -10858,7 +11409,7 @@ clip.write_videofile(video_name)
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="asset-등록-안내-영상"><a class="header" href="#asset-등록-안내-영상">asset 등록 안내 영상</a></h1>
 <iframe width="1280" height="720" src="https://www.youtube.com/embed/I6RjquXBgG4?si=kcThKGOJ7OB5z0pc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen=""></iframe><div style="break-before: page; page-break-before: always;"></div>
-<h1 id="복습문제-9"><a class="header" href="#복습문제-9">복습문제</a></h1>
+<h1 id="복습문제-10"><a class="header" href="#복습문제-10">복습문제</a></h1>
 <p><img src="default/quiz01.png" alt=""></p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="1-세슘-기초-실습1"><a class="header" href="#1-세슘-기초-실습1">1. 세슘 기초 실습(1)</a></h1>
@@ -12657,7 +13208,7 @@ export default DidTime
 <li>Open Street Map의 좌표체계는 EPSG:3857이다.</li>
 <li>GPS에서 관측한 값의 좌표체계는 EPSG:4326(WGS-84)이다.</li>
 </ul>
-<h3 id="해결책"><a class="header" href="#해결책">해결책</a></h3>
+<h3 id="해결책-1"><a class="header" href="#해결책-1">해결책</a></h3>
 <ul>
 <li>QGIS는 각 레이어의 좌표체계가 달라도 실시간으로 투영하여 렌더링하기 때문에 각 레이어간의 위치가 정확하게 맞춰진다.</li>
 </ul>
@@ -12755,7 +13306,7 @@ export default DidTime
 <iframe width="800" height="450" src="https://www.youtube.com/embed/LW9EVQzRYMM?si=dw2jhaafF5RmMtTi" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen=""></iframe>
 <h2 id="주사위-굴리기-결과-동영상"><a class="header" href="#주사위-굴리기-결과-동영상">주사위 굴리기 결과 동영상</a></h2>
 <iframe width="800" height="450" src="https://www.youtube.com/embed/4YTQkijOcKA?si=aqMiBSrTJ3R92sId" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen=""></iframe><div style="break-before: page; page-break-before: always;"></div>
-<h1 id="복습문제-10"><a class="header" href="#복습문제-10">복습문제</a></h1>
+<h1 id="복습문제-11"><a class="header" href="#복습문제-11">복습문제</a></h1>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="1-3d-그래픽-기본"><a class="header" href="#1-3d-그래픽-기본">1. 3D 그래픽 기본</a></h1>
 <h3 id="1-blender에-대한-설명으로-틀린-것은"><a class="header" href="#1-blender에-대한-설명으로-틀린-것은"><strong>1. blender에 대한 설명으로 틀린 것은?</strong></a></h3>
@@ -13288,7 +13839,7 @@ export default DidTime
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="국토정보-프로그래밍_파이썬"><a class="header" href="#국토정보-프로그래밍_파이썬">국토정보 프로그래밍_파이썬</a></h1>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="복습문제-11"><a class="header" href="#복습문제-11">복습문제</a></h1>
+<h1 id="복습문제-12"><a class="header" href="#복습문제-12">복습문제</a></h1>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="1-파이썬-환경-이해"><a class="header" href="#1-파이썬-환경-이해">1. 파이썬 환경 이해</a></h1>
 <h3 id="1-파이썬이라는-이름에-대한-설명-중-틀린-것은-2"><a class="header" href="#1-파이썬이라는-이름에-대한-설명-중-틀린-것은-2"><strong>1. 파이썬이라는 이름에 대한 설명 중 틀린 것은?</strong></a></h3>
@@ -13819,7 +14370,7 @@ for item in a :
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="자료-영상"><a class="header" href="#자료-영상">자료 영상</a></h1>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="복습문제-12"><a class="header" href="#복습문제-12">복습문제</a></h1>
+<h1 id="복습문제-13"><a class="header" href="#복습문제-13">복습문제</a></h1>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="1-공간정보-코딩-기초"><a class="header" href="#1-공간정보-코딩-기초">1. 공간정보 코딩 기초</a></h1>
 <h3 id="1-프로그램-내에서-변수에-저장된-자료가-실제로-저장되는-곳은"><a class="header" href="#1-프로그램-내에서-변수에-저장된-자료가-실제로-저장되는-곳은">1. 프로그램 내에서 변수에 저장된 자료가 실제로 저장되는 곳은?</a></h3>
@@ -14953,7 +15504,7 @@ desktop_extensions:
 <iframe width="560" height="315" src="https://www.youtube.com/embed/9m3e8IFjIC4?si=p5QMwm9Sxpv-IldO" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen=""></iframe>
 <h2 id="4-mcp를-이용한-qgis-사용-1"><a class="header" href="#4-mcp를-이용한-qgis-사용-1">4. MCP를 이용한 QGIS 사용</a></h2>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/dEWOilwgsdo?si=wQzvYKN6bAKIzF__" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen=""></iframe><div style="break-before: page; page-break-before: always;"></div>
-<h1 id="복습문제-13"><a class="header" href="#복습문제-13">복습문제</a></h1>
+<h1 id="복습문제-14"><a class="header" href="#복습문제-14">복습문제</a></h1>
 <h3 id="1-ai-기법으로-학습시켜-놓은-결과물은-1"><a class="header" href="#1-ai-기법으로-학습시켜-놓은-결과물은-1">1. AI 기법으로 학습시켜 놓은 결과물은?</a></h3>
 <ol>
 <li>알고리즘</li>
@@ -15228,24 +15779,24 @@ desktop_extensions:
 <h1 id="공간정보정책과-인공지능"><a class="header" href="#공간정보정책과-인공지능">공간정보정책과 인공지능</a></h1>
 <ul>
 <li>
-<p><a href="#실습-1-geogpt">실습 1: GeoGPT</a></p>
+<p><a href="#실습-1-geogpt-1">실습 1: GeoGPT</a></p>
 </li>
 <li>
-<p><a href="#실습-2-국토의-변화상을-빠르게-수집">실습 2: 국토 변화상 파악</a></p>
+<p><a href="#실습-2-국토의-변화상을-빠르게-수집-1">실습 2: 국토 변화상 파악</a></p>
 </li>
 <li>
-<p><a href="#실습-3-geoai">실습 3: GeoAI</a></p>
+<p><a href="#실습-3-geoai-1">실습 3: GeoAI</a></p>
 </li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="실습-1-geogpt"><a class="header" href="#실습-1-geogpt">실습 1: GeoGPT</a></h1>
+<h1 id="실습-1-geogpt-1"><a class="header" href="#실습-1-geogpt-1">실습 1: GeoGPT</a></h1>
 <p><strong>url</strong>: <a href="https://geogpt-sg.zero2x.org/">https://geogpt-sg.zero2x.org</a></p>
 <p><strong>질문</strong>: 서울에서 인구밀도가 가장 높은 구는?</p>
 <p><strong>답</strong>:<br><img src="dt-01/ai/attachments/20260406223328.png" alt=""></p>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="실습-2-국토의-변화상을-빠르게-수집"><a class="header" href="#실습-2-국토의-변화상을-빠르게-수집">실습 2. 국토의 변화상을 빠르게 수집</a></h1>
+<h1 id="실습-2-국토의-변화상을-빠르게-수집-1"><a class="header" href="#실습-2-국토의-변화상을-빠르게-수집-1">실습 2. 국토의 변화상을 빠르게 수집</a></h1>
 <img src="dt-01/ai/attachments/20260407151247.png" width="800">
-<h2 id="해결책-1"><a class="header" href="#해결책-1">해결책</a></h2>
+<h2 id="해결책-2"><a class="header" href="#해결책-2">해결책</a></h2>
 <p>드론을 1달에 2번씩 띄워 같은 지역의 사진을 찍은 후 변화 검출</p>
 <div class="table-wrapper">
 <table>
@@ -15258,8 +15809,8 @@ desktop_extensions:
 </tbody>
 </table>
 </div>
-<h3 id="실행-방법-1---ai가-아닌-방법"><a class="header" href="#실행-방법-1---ai가-아닌-방법">실행 방법 1 - AI가 아닌 방법</a></h3>
-<h4 id="1-odiff를-다운로드-받는다"><a class="header" href="#1-odiff를-다운로드-받는다">1. odiff를 다운로드 받는다.</a></h4>
+<h3 id="실행-방법-1---ai가-아닌-방법-1"><a class="header" href="#실행-방법-1---ai가-아닌-방법-1">실행 방법 1 - AI가 아닌 방법</a></h3>
+<h4 id="1-odiff를-다운로드-받는다-1"><a class="header" href="#1-odiff를-다운로드-받는다-1">1. odiff를 다운로드 받는다.</a></h4>
 <ol>
 <li>
 <p><a href="https://github.com/dmtrKovalenko/odiff">https://github.com/dmtrKovalenko/odiff</a> 에 접속</p>
@@ -15271,11 +15822,11 @@ desktop_extensions:
 <p>odiff-windows-x64.exe 파일을 클릭해 다운로드 받는다.<br><img src="dt-01/ai/attachments/20260407170910.png" alt=""></p>
 </li>
 </ol>
-<h4 id="2-샘플-이미지-준비"><a class="header" href="#2-샘플-이미지-준비">2. 샘플 이미지 준비</a></h4>
+<h4 id="2-샘플-이미지-준비-1"><a class="header" href="#2-샘플-이미지-준비-1">2. 샘플 이미지 준비</a></h4>
 <ol>
 <li>위 이미지 파일 2개를 다운로드 받는다.</li>
 </ol>
-<h4 id="3-파일-한-곳에-모으고-powershell-실행하기"><a class="header" href="#3-파일-한-곳에-모으고-powershell-실행하기">3. 파일 한 곳에 모으고 powershell 실행하기</a></h4>
+<h4 id="3-파일-한-곳에-모으고-powershell-실행하기-1"><a class="header" href="#3-파일-한-곳에-모으고-powershell-실행하기-1">3. 파일 한 곳에 모으고 powershell 실행하기</a></h4>
 <p><img src="dt-01/ai/attachments/20260407171615.png" alt=""></p>
 <p>land-2026.01.01.png, land-2026.01.16.png, odiff-windows-x64.exe, 총 3개의 파일을 한 폴더에 모은다. 웹브라우저로 다운로드 받았기 때문에 “다운로드” 폴더에 이미 모여 있을 것이다.(여기서는 d:\test\odiff 폴더 사용)</p>
 <ol>
@@ -15286,17 +15837,17 @@ desktop_extensions:
 <p>“여기에 PowerShell 창 열기“를 선택한다.</p>
 </li>
 </ol>
-<h4 id="4-odiff-실행"><a class="header" href="#4-odiff-실행">4. odiff 실행</a></h4>
+<h4 id="4-odiff-실행-1"><a class="header" href="#4-odiff-실행-1">4. odiff 실행</a></h4>
 <p><img src="dt-01/ai/attachments/20260407172030.png" alt=""></p>
 <pre><code class="language-ps">.\odiff-windows-x64.exe .\land-2026.01.01.png .\land-2026.01.16.png .\land-diff.png
 </code></pre>
-<h4 id="5-odiff-실행결과"><a class="header" href="#5-odiff-실행결과">5. odiff 실행결과</a></h4>
+<h4 id="5-odiff-실행결과-1"><a class="header" href="#5-odiff-실행결과-1">5. odiff 실행결과</a></h4>
 <p><strong>land-diff.png 파일 내용</strong></p>
 <p><img src="dt-01/ai/land-diff.png" alt=""></p>
-<h2 id="위-방법의-문제점"><a class="header" href="#위-방법의-문제점">위 방법의 문제점</a></h2>
+<h2 id="위-방법의-문제점-1"><a class="header" href="#위-방법의-문제점-1">위 방법의 문제점</a></h2>
 <p>위 방법은 사진이 아주 완벽하게 똑같은 위치, 똑같은 각도에서 찍은 경우에만 비교 가능하다는 문제가 있다.</p>
 <p>드론을 이용해 찍은 사진은 위와 같이 촬영되는 경우가 없다.</p>
-<h2 id="드론으로-촬영한-듯한-샘플"><a class="header" href="#드론으로-촬영한-듯한-샘플">드론으로 촬영한 듯한 샘플</a></h2>
+<h2 id="드론으로-촬영한-듯한-샘플-1"><a class="header" href="#드론으로-촬영한-듯한-샘플-1">드론으로 촬영한 듯한 샘플</a></h2>
 <div class="table-wrapper">
 <table>
 <thead>
@@ -15309,15 +15860,15 @@ desktop_extensions:
 </table>
 </div>
 <p>위 두 이미지는 같은 지역을 촬영했지만, 드론으로 여러 번 촬영할 때처럼 촬영 위치와 각도가 다르다.</p>
-<h3 id="실행방법-2---ai-나노-바나나2-이용"><a class="header" href="#실행방법-2---ai-나노-바나나2-이용">실행방법 2 - AI, 나노 바나나2 이용</a></h3>
+<h3 id="실행방법-2---ai-나노-바나나2-이용-1"><a class="header" href="#실행방법-2---ai-나노-바나나2-이용-1">실행방법 2 - AI, 나노 바나나2 이용</a></h3>
 <p><img src="dt-01/ai/attachments/20260407180749.png" alt=""></p>
 <p>제미나이에서 위와 같이 2개의 이미지 파일을 업로드한다.</p>
 <p><img src="dt-01/ai/attachments/20260407181128.png" alt=""></p>
 <pre><code>두 이미지는 드론에서 시간차를 두고 촬영한 사진이야. 이 사진을 보고 증축되거나 없어진 것들을 두번째 사진 위에 마스킹을 오버레이해서 보여줘
 </code></pre>
-<h4 id="결과"><a class="header" href="#결과">결과</a></h4>
+<h4 id="결과-2"><a class="header" href="#결과-2">결과</a></h4>
 <p><img src="dt-01/ai/attachments/20260407181211.png" alt=""></p>
-<h2 id="건물-증축-파악"><a class="header" href="#건물-증축-파악">건물 증축 파악</a></h2>
+<h2 id="건물-증축-파악-1"><a class="header" href="#건물-증축-파악-1">건물 증축 파악</a></h2>
 <div class="table-wrapper">
 <table>
 <thead>
@@ -15330,28 +15881,28 @@ desktop_extensions:
 </table>
 </div>
 <p><img src="dt-01/ai/attachments/20260408133733.png" alt=""></p>
-<h4 id="결과-1"><a class="header" href="#결과-1">결과</a></h4>
+<h4 id="결과-1-1"><a class="header" href="#결과-1-1">결과</a></h4>
 <p><img src="dt-01/ai/attachments/20260408134101.png" alt=""></p>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="실습-3-geoai"><a class="header" href="#실습-3-geoai">실습 3: GeoAI</a></h1>
-<h2 id="qgis에-geoai-설치-1"><a class="header" href="#qgis에-geoai-설치-1">QGIS에 GeoAI 설치</a></h2>
+<h1 id="실습-3-geoai-1"><a class="header" href="#실습-3-geoai-1">실습 3: GeoAI</a></h1>
+<h2 id="qgis에-geoai-설치-2"><a class="header" href="#qgis에-geoai-설치-2">QGIS에 GeoAI 설치</a></h2>
 <p>QGIS에서 Geospatial AI를 사용하기 위한 플러그인 설치</p>
-<p><a href="#geoai-플러그인-설치-1">QGIS에 GeoAI 플러그인 설치과정 안내</a></p>
+<p><a href="#geoai-플러그인-설치-2">QGIS에 GeoAI 플러그인 설치과정 안내</a></p>
 <br />
-<h2 id="tms-for-korea-설치-1"><a class="header" href="#tms-for-korea-설치-1">TMS for Korea 설치</a></h2>
+<h2 id="tms-for-korea-설치-2"><a class="header" href="#tms-for-korea-설치-2">TMS for Korea 설치</a></h2>
 <p>QGIS에서 VWorld Satellite 맵을 사용하기 위해 TMS for Korea 플러그인 설치</p>
 <p>이 맵은 테스트용으로만 사용해야 하며 실제 상업적인 서비스를 위해 사용할 떄는 라이선스를 별도로 살펴야 한다.</p>
 <p>테스트 후 사용한 geoTiff 파일은 모두 삭제한다.</p>
-<p><a href="#tms-for-korea-플러그인-설치">QGIS에 TMS for Korea 플러그인 설치과정 안내</a></p>
+<p><a href="#tms-for-korea-플러그인-설치-1">QGIS에 TMS for Korea 플러그인 설치과정 안내</a></p>
 <br />
-<h2 id="테스트용-이미지-생성-1"><a class="header" href="#테스트용-이미지-생성-1">테스트용 이미지 생성</a></h2>
+<h2 id="테스트용-이미지-생성-2"><a class="header" href="#테스트용-이미지-생성-2">테스트용 이미지 생성</a></h2>
 <p>GeoAI는 raster 이미지(<a href="https://en.wikipedia.org/wiki/GeoTIFF">geoTiff</a> 등)를 사용하기 때문에, AI 분석에 사용하기 위해 VWorld Satellite 맵을 <a href="https://en.wikipedia.org/wiki/GeoTIFF">geoTiff</a> 형식으로 내보내야 한다.</p>
-<p><a href="#qgis-맵을-geotiff-형식으로-내보내-ai-테스트용-이미지-생성">QGIS 맵을 geoTiff 형식으로 내보내 AI 테스트용 이미지 생성</a></p>
+<p><a href="#qgis-맵을-geotiff-형식으로-내보내-ai-테스트용-이미지-생성-1">QGIS 맵을 geoTiff 형식으로 내보내 AI 테스트용 이미지 생성</a></p>
 <p>위 과정을 통해 테스트할 부분을 geoTiff 파일로 만들고 그 파일을 QGIS에 하나의 레이어로 올린다.</p>
 <br />
-<h2 id="qgis에서-geoai-사용-1"><a class="header" href="#qgis에서-geoai-사용-1">QGIS에서 GeoAI 사용</a></h2>
-<h3 id="1-위성사진에서-나무-찾기tree-segmentation-1"><a class="header" href="#1-위성사진에서-나무-찾기tree-segmentation-1">1. 위성사진에서 나무 찾기(Tree Segmentation)</a></h3>
-<p><a href="#qgis-맵을-geotiff-형식으로-내보내-ai-테스트용-이미지-생성">테스트용 이미지 생성</a> 방법을 이용해 지도에 나무가 보이는 영역을 geoTiff로 저장한 후 사용한다.</p>
+<h2 id="qgis에서-geoai-사용-2"><a class="header" href="#qgis에서-geoai-사용-2">QGIS에서 GeoAI 사용</a></h2>
+<h3 id="1-위성사진에서-나무-찾기tree-segmentation-2"><a class="header" href="#1-위성사진에서-나무-찾기tree-segmentation-2">1. 위성사진에서 나무 찾기(Tree Segmentation)</a></h3>
+<p><a href="#qgis-맵을-geotiff-형식으로-내보내-ai-테스트용-이미지-생성-1">테스트용 이미지 생성</a> 방법을 이용해 지도에 나무가 보이는 영역을 geoTiff로 저장한 후 사용한다.</p>
 <p>이 예에서는 “tree” 레이어로 올려 사용한다.</p>
 <p><img src="dt-01/ai/attachments/20260412143457.png" alt=""></p>
 <p>tree 레이어로 올려 사용하는 예</p>
@@ -15389,8 +15940,8 @@ desktop_extensions:
 <p><img src="dt-01/ai/attachments/20260412144405.png" alt=""></p>
 <p>AI가 위성사진에서 나무 부분을 찾아 빨간색 네모로 표시해 준다.</p>
 <br />
-<h3 id="2-위성사진에서-물-찾기water-segmentation-1"><a class="header" href="#2-위성사진에서-물-찾기water-segmentation-1">2. 위성사진에서 물 찾기(Water Segmentation)</a></h3>
-<p><a href="#qgis-맵을-geotiff-형식으로-내보내-ai-테스트용-이미지-생성">테스트용 이미지 생성</a> 방법을 이용해 지도에 물이 보이는 영역을 geoTiff로 저장한 후 사용한다.</p>
+<h3 id="2-위성사진에서-물-찾기water-segmentation-2"><a class="header" href="#2-위성사진에서-물-찾기water-segmentation-2">2. 위성사진에서 물 찾기(Water Segmentation)</a></h3>
+<p><a href="#qgis-맵을-geotiff-형식으로-내보내-ai-테스트용-이미지-생성-1">테스트용 이미지 생성</a> 방법을 이용해 지도에 물이 보이는 영역을 geoTiff로 저장한 후 사용한다.</p>
 <p>이 예에서는 “&gt; 사곡면” 으로 검색해 “충남 공주시 사곡면” 일대를 geoTiff로 저장해 사용했다.</p>
 <p><a href="https://github.com/DPIRD-DMA/OmniWaterMask">OmniWaterMask</a> 모델을 사용하며, 정확한 탐지를 위해서는 NIR 채널까지 사용해야 하지만, 이 예에서는 RGB 밴드만 사용한다. (NIR 채널이 포함된 샘플을 다운로드 하려면 회원가입을 해야 하는 등 시간이 오래 걸려서 강의에서는 사용하지 않음)</p>
 <p>이 예에서는 “water” 레이어로 올려 사용한다.</p>
@@ -15420,11 +15971,11 @@ desktop_extensions:
 <p><img src="dt-01/ai/attachments/20260412151105.png" alt=""></p>
 <p><img src="dt-01/ai/attachments/20260412151209.png" alt=""></p>
 <br />
-<h2 id="3-위성사진에-대해-ai에게-질의하기moondream-vlm-1"><a class="header" href="#3-위성사진에-대해-ai에게-질의하기moondream-vlm-1">3. 위성사진에 대해 AI에게 질의하기(<a href="https://github.com/vikhyat/moondream">Moondream VLM</a>)</a></h2>
+<h2 id="3-위성사진에-대해-ai에게-질의하기moondream-vlm-2"><a class="header" href="#3-위성사진에-대해-ai에게-질의하기moondream-vlm-2">3. 위성사진에 대해 AI에게 질의하기(<a href="https://github.com/vikhyat/moondream">Moondream VLM</a>)</a></h2>
 <p>* VLM: Vision-Language Model: 시각 정보와 언어 정보를 동시에 처리하는 AI 모델</p>
 <p><a href="https://github.com/vikhyat/moondream">Moondream VLM</a> 모델을 사용</p>
 <p>이 예에서는 water.tif 파일을 AI 입력용 이미지로 사용한다.</p>
-<h3 id="caption-1"><a class="header" href="#caption-1">Caption</a></h3>
+<h3 id="caption-2"><a class="header" href="#caption-2">Caption</a></h3>
 <p><img src="dt-01/ai/attachments/20260412153107.png" alt=""></p>
 <ol>
 <li>
@@ -15459,7 +16010,7 @@ An aerial image depicts a village nestled in a verdant valley, surrounded by fie
 항공 사진에는 푸른 계곡에 자리 잡은 마을이 들판과 숲으로 둘러싸여 있는 모습이 담겨 있습니다. 마을은 초록색과 갈색이 어우러진 풍경을 보여주며, 대부분의 들판은 메말라 있거나 경작 중인 것으로 보입니다. 강이 마을과 주변 지역을 구불구불 흐르며 자연적인 경계를 이루고 있습니다. 강에는 여러 개의 다리가 놓여 있고, 주요 도로 또는 고속도로가 강과 나란히 뻗어 있습니다. 마을은 주로 높은 단이나 기둥 위에 세워져 있으며, 파란색 지붕의 교회를 비롯한 다양한 건물들이 있습니다. 몇몇 건물은 골함석 지붕을 사용하고 있습니다. 마을 주변의 들판과 숲에는 초록색과 갈색 잎이 섞여 있는데, 이는 다양한 작물이나 성장 단계를 나타내는 것일 수 있습니다.
 </code></pre>
 <br />
-<h3 id="query-1"><a class="header" href="#query-1">Query</a></h3>
+<h3 id="query-2"><a class="header" href="#query-2">Query</a></h3>
 <p>위성사진에 대해 물어보는 경우</p>
 <p><img src="dt-01/ai/attachments/20260412154108.png" alt=""></p>
 <br />
@@ -15497,7 +16048,7 @@ A: The most commonly used color for the building roofs in this image is blue.
 답변: 이 이미지에서 건물 지붕에 가장 많이 사용된 색상은 파란색이다.
 </code></pre>
 <br />
-<h2 id="detect-1"><a class="header" href="#detect-1">Detect</a></h2>
+<h2 id="detect-2"><a class="header" href="#detect-2">Detect</a></h2>
 <p><strong>다리 질의</strong></p>
 <p><img src="dt-01/ai/attachments/20260412155159.png" alt=""></p>
 <ol>
@@ -15541,7 +16092,7 @@ A: The most commonly used color for the building roofs in this image is blue.
 </li>
 </ol>
 <br />
-<h2 id="point-1"><a class="header" href="#point-1">Point</a></h2>
+<h2 id="point-2"><a class="header" href="#point-2">Point</a></h2>
 <p><strong>비닐하우스를 점으로 표시</strong></p>
 <p><img src="dt-01/ai/attachments/20260412160339.png" alt=""></p>
 <ol>
@@ -15573,7 +16124,7 @@ A: The most commonly used color for the building roofs in this image is blue.
 </li>
 </ol>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="geoai-플러그인-설치-1"><a class="header" href="#geoai-플러그인-설치-1">GeoAI 플러그인 설치</a></h1>
+<h1 id="geoai-플러그인-설치-2"><a class="header" href="#geoai-플러그인-설치-2">GeoAI 플러그인 설치</a></h1>
 <p><img src="dt-01/ai/attachments/20260408230707.png" alt=""></p>
 <p>플러그인 &gt; 플러그인 관리 및 설치 메뉴 실행</p>
 <br />
@@ -15606,7 +16157,7 @@ A: The most commonly used color for the building roofs in this image is blue.
 <p><img src="dt-01/ai/attachments/20260408231829.png" alt=""></p>
 <p>GeoAI 메뉴와 툴바가 설치된다.</p>
 <br />
-<h3 id="플러그인-업데이트-1"><a class="header" href="#플러그인-업데이트-1">플러그인 업데이트</a></h3>
+<h3 id="플러그인-업데이트-2"><a class="header" href="#플러그인-업데이트-2">플러그인 업데이트</a></h3>
 <p><img src="dt-01/ai/attachments/20260408232430.png" alt=""></p>
 <ol>
 <li>
@@ -15630,7 +16181,7 @@ A: The most commonly used color for the building roofs in this image is blue.
 <p><img src="dt-01/ai/attachments/20260408232805.png" alt=""></p>
 <p>업데이트가 완료되면 QGIS를 수동으로 다시 시작해야 한다.</p>
 <br />
-<h3 id="geoai-플러그인-실행에-필요한-프로그램-설치-1"><a class="header" href="#geoai-플러그인-실행에-필요한-프로그램-설치-1">GeoAI 플러그인 실행에 필요한 프로그램 설치</a></h3>
+<h3 id="geoai-플러그인-실행에-필요한-프로그램-설치-2"><a class="header" href="#geoai-플러그인-실행에-필요한-프로그램-설치-2">GeoAI 플러그인 실행에 필요한 프로그램 설치</a></h3>
 <p><img src="dt-01/ai/attachments/20260408233647.png" alt=""></p>
 <ol>
 <li>
@@ -15648,7 +16199,7 @@ A: The most commonly used color for the building roofs in this image is blue.
 <p><img src="dt-01/ai/attachments/20260408234619.png" alt=""></p>
 <p>설치가 완료되면 해당 기능에 대한 설정 창이 나타난다.</p>
 <br /><div style="break-before: page; page-break-before: always;"></div>
-<h1 id="tms-for-korea-플러그인-설치"><a class="header" href="#tms-for-korea-플러그인-설치">TMS for Korea 플러그인 설치</a></h1>
+<h1 id="tms-for-korea-플러그인-설치-1"><a class="header" href="#tms-for-korea-플러그인-설치-1">TMS for Korea 플러그인 설치</a></h1>
 <p><img src="dt-01/ai/attachments/20260412133235.png" alt=""></p>
 <ol>
 <li>
@@ -15686,16 +16237,16 @@ A: The most commonly used color for the building roofs in this image is blue.
 </ol>
 <br />
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="qgis-맵을-geotiff-형식으로-내보내-ai-테스트용-이미지-생성"><a class="header" href="#qgis-맵을-geotiff-형식으로-내보내-ai-테스트용-이미지-생성">QGIS 맵을 geoTiff 형식으로 내보내 AI 테스트용 이미지 생성</a></h1>
-<h2 id="vworld-위성-지도-추가-1"><a class="header" href="#vworld-위성-지도-추가-1">VWorld 위성 지도 추가</a></h2>
+<h1 id="qgis-맵을-geotiff-형식으로-내보내-ai-테스트용-이미지-생성-1"><a class="header" href="#qgis-맵을-geotiff-형식으로-내보내-ai-테스트용-이미지-생성-1">QGIS 맵을 geoTiff 형식으로 내보내 AI 테스트용 이미지 생성</a></h1>
+<h2 id="vworld-위성-지도-추가-2"><a class="header" href="#vworld-위성-지도-추가-2">VWorld 위성 지도 추가</a></h2>
 <p><img src="dt-01/ai/attachments/20260412135635.png" alt=""></p>
 <p>이 방식은 테스트용으로만 사용해야 하며, 실제 상업용으로 사용할 떄는 지도 제공 업체와 라이선스를 별도 확인해야 합니다.</p>
-<p><a href="#tms-for-korea-플러그인-설치">TMS for Korea 플러그인을 설치</a>하면 메뉴에 “웹” 메뉴가 추가된다. 위와 같이 “VWorld Satellite” 메뉴를 선택한다.</p>
+<p><a href="#tms-for-korea-플러그인-설치-1">TMS for Korea 플러그인을 설치</a>하면 메뉴에 “웹” 메뉴가 추가된다. 위와 같이 “VWorld Satellite” 메뉴를 선택한다.</p>
 <br />
 <p><img src="dt-01/ai/attachments/20260412135852.png" alt=""></p>
 <p>VWorld 위성 사진 레이어가 추가되어 나타난다.</p>
 <br />
-<h2 id="서울역-주변으로-이동-1"><a class="header" href="#서울역-주변으로-이동-1">서울역 주변으로 이동</a></h2>
+<h2 id="서울역-주변으로-이동-2"><a class="header" href="#서울역-주변으로-이동-2">서울역 주변으로 이동</a></h2>
 <p><img src="dt-01/ai/attachments/20260412140322.png" alt=""></p>
 <ol>
 <li>
@@ -15716,7 +16267,7 @@ A: The most commonly used color for the building roofs in this image is blue.
 </li>
 </ol>
 <br />
-<h2 id="지도에-표시된-지역을-geotiff로-저장하기-1"><a class="header" href="#지도에-표시된-지역을-geotiff로-저장하기-1">지도에 표시된 지역을 geoTiff로 저장하기</a></h2>
+<h2 id="지도에-표시된-지역을-geotiff로-저장하기-2"><a class="header" href="#지도에-표시된-지역을-geotiff로-저장하기-2">지도에 표시된 지역을 geoTiff로 저장하기</a></h2>
 <p><img src="dt-01/ai/attachments/20260412140854.png" alt=""></p>
 <ol>
 <li>
@@ -16287,7 +16838,7 @@ A: The most commonly used color for the building roofs in this image is blue.
 </li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="복습문제-14"><a class="header" href="#복습문제-14">복습문제</a></h1>
+<h1 id="복습문제-15"><a class="header" href="#복습문제-15">복습문제</a></h1>
 <p><img src="default/quiz01.png" alt=""></p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="파이썬의-개요-1"><a class="header" href="#파이썬의-개요-1">파이썬의 개요</a></h1>

@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>벡터래스터 게이트</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Gowun+Dodum&family=Orbitron:wght@700;800&family=Press+Start+2P&display=swap">
+<style>
+  :root{
+    --bg: #090b16;
+    --bg-2: #0d1024;
+    --surface: #131735 ;
+    --surface-2: #1a1f47;
+    --border: #2b3166;
+    --text: #eef0fb;
+    --text-muted: #9aa0c8;
+    --vector-1: #5fe3ff;
+    --vector-2: #9b7bff;
+    --raster-1: #ff5f7e;
+    --raster-2: #ffb454;
+    --success: #4ade80;
+    --success-dim: #234a37;
+    --danger: #ff6b6b;
+    --danger-dim: #4a2330;
+    --shadow: rgba(3,4,12,0.55);
+  }
+
+  *{ box-sizing: border-box; }
+
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Gowun Dodum', 'Malgun Gothic', sans-serif;
+  }
+
+  .stage{
+    position: relative;
+    min-height: 100%;
+    padding: 28px 16px 40px;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    background:
+      radial-gradient(60% 45% at 18% 8%, rgba(95,227,255,0.16), transparent 60%),
+      radial-gradient(55% 40% at 88% 12%, rgba(255,95,126,0.15), transparent 60%),
+      var(--bg);
+  }
+
+  .bg-grid{
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.5;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+    background-size: 26px 26px;
+    mask-image: radial-gradient(65% 60% at 50% 30%, #000 40%, transparent 90%);
+  }
+
+  .wrap{
+    position: relative;
+    width: 100%;
+    max-width: 560px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .hud{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .title{
+    margin: 0;
+    text-align: center;
+    font-family: 'Do Hyeon', 'Malgun Gothic', sans-serif;
+    font-size: clamp(1.5rem, 6vw, 2.15rem);
+    letter-spacing: 0.02em;
+    text-wrap: balance;
+  }
+  .title .t-vector{ color: var(--vector-1); }
+  .title .t-vs{
+    color: var(--text-muted);
+    font-size: 0.6em;
+    margin: 0 0.15em;
+    vertical-align: middle;
+  }
+  .title .t-raster{ color: var(--raster-1); }
+
+  .hud-row{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .progress{
+    flex: 1;
+    display: flex;
+    gap: 5px;
+  }
+  .dot{
+    flex: 1;
+    height: 8px;
+    border-radius: 3px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    transition: background 0.25s ease, box-shadow 0.25s ease;
+  }
+  .dot.done-correct{ background: var(--success); border-color: var(--success); box-shadow: 0 0 8px rgba(74,222,128,0.5); }
+  .dot.done-missed{ background: var(--danger); border-color: var(--danger); box-shadow: 0 0 8px rgba(255,107,107,0.45); }
+  .dot.current{ background: linear-gradient(90deg, var(--vector-1), var(--raster-1)); }
+
+  .score{
+    font-family: 'Do Hyeon', sans-serif;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+  .score strong{ color: var(--text); font-size: 1.15rem; }
+
+  .panel{
+    background: linear-gradient(180deg, var(--surface), var(--surface-2));
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 26px 22px;
+    box-shadow: 0 18px 40px var(--shadow);
+  }
+
+  .lede{
+    margin: 0 0 20px;
+    font-size: 1rem;
+    line-height: 1.7;
+    text-align: center;
+    text-wrap: balance;
+  }
+  .hl-vector{ color: var(--vector-1); }
+  .hl-raster{ color: var(--raster-1); }
+
+  .btn-start{
+    display: block;
+    width: 100%;
+    padding: 14px 20px;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    background: linear-gradient(90deg, rgba(95,227,255,0.18), rgba(255,95,126,0.18));
+    color: var(--text);
+    font-family: 'Do Hyeon', sans-serif;
+    font-size: 1.05rem;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .btn-start:hover{ transform: translateY(-2px); box-shadow: 0 10px 24px var(--shadow); }
+  .btn-start:active{ transform: translateY(0); }
+  .btn-start:focus-visible{ outline: 3px solid var(--vector-1); outline-offset: 3px; }
+
+  .q-count{
+    margin: 0 0 6px;
+    font-family: 'Do Hyeon', sans-serif;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+  }
+
+  .question{
+    margin: 0 0 16px;
+    font-size: clamp(1rem, 3.6vw, 1.18rem);
+    line-height: 1.65;
+    text-wrap: balance;
+    min-height: 3.3em;
+  }
+
+  .feedback{
+    min-height: 44px;
+    margin-bottom: 14px;
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-size: 0.92rem;
+    line-height: 1.55;
+    display: flex;
+    align-items: center;
+    opacity: 0;
+    transform: translateY(-4px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+  .feedback.show{ opacity: 1; transform: translateY(0); }
+  .feedback.ok{ background: var(--success-dim); border: 1px solid var(--success); color: #d6ffe8; }
+  .feedback.bad{ background: var(--danger-dim); border: 1px solid var(--danger); color: #ffe0e0; }
+
+  .doors{
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: clamp(12px, 4vw, 22px);
+  }
+
+  .door{
+    position: relative;
+    flex: 1;
+    max-width: 190px;
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .door:focus-visible .door-svg{ outline: 3px solid var(--text); outline-offset: 4px; border-radius: 10px; }
+  .door[disabled]{ cursor: default; }
+
+  .door-frame{
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    border-radius: 12px 12px 4px 4px;
+    padding: 6px;
+    transition: transform 0.15s ease, box-shadow 0.2s ease;
+  }
+  .door-vector .door-frame{
+    background: radial-gradient(120% 100% at 50% 100%, rgba(95,227,255,0.14), transparent 70%);
+    box-shadow: inset 0 0 0 1px rgba(95,227,255,0.25);
+  }
+  .door-raster .door-frame{
+    background: radial-gradient(120% 100% at 50% 100%, rgba(255,95,126,0.14), transparent 70%);
+    box-shadow: inset 0 0 0 1px rgba(255,95,126,0.25);
+  }
+  .door:hover .door-frame{ transform: translateY(-3px); }
+  .door-vector:hover .door-frame{ box-shadow: inset 0 0 0 1px rgba(95,227,255,0.5), 0 10px 24px rgba(95,227,255,0.18); }
+  .door-raster:hover .door-frame{ box-shadow: inset 0 0 0 1px rgba(255,95,126,0.5), 0 10px 24px rgba(255,95,126,0.18); }
+
+  .door-svg{ width: 100%; height: 100%; display: block; }
+
+  .door-label{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.3;
+  }
+  .door-eng{
+    font-size: 0.6rem;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+  }
+  .door-vector .door-eng{ font-family: 'Orbitron', sans-serif; font-weight: 800; }
+  .door-raster .door-eng{ font-family: 'Press Start 2P', monospace; font-size: 0.5rem; }
+  .door-kor{
+    font-family: 'Do Hyeon', sans-serif;
+    font-size: 1rem;
+  }
+  .door-vector .door-kor{ color: var(--vector-1); }
+  .door-raster .door-kor{ color: var(--raster-1); }
+
+  .door.correct .door-frame{ animation: pulseCorrect 0.7s ease; }
+  .door.wrong .door-frame{ animation: shakeWrong 0.4s ease; }
+
+  @keyframes pulseCorrect{
+    0%{ transform: scale(1); }
+    35%{ transform: scale(1.08); }
+    100%{ transform: scale(1); }
+  }
+  @keyframes shakeWrong{
+    0%, 100%{ transform: translateX(0); }
+    20%{ transform: translateX(-6px); }
+    40%{ transform: translateX(6px); }
+    60%{ transform: translateX(-4px); }
+    80%{ transform: translateX(4px); }
+  }
+
+  .hint{
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    margin-top: 4px;
+  }
+
+  .end-panel{ text-align: center; }
+  .end-grade{
+    margin: 0 0 6px;
+    font-family: 'Do Hyeon', sans-serif;
+    font-size: clamp(1.3rem, 5vw, 1.7rem);
+    background: linear-gradient(90deg, var(--vector-1), var(--raster-1));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .end-score{
+    margin: 0 0 14px;
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    font-variant-numeric: tabular-nums;
+  }
+  .end-score strong{ color: var(--text); font-size: 1.3rem; }
+  .end-msg{
+    margin: 0 0 22px;
+    line-height: 1.7;
+    text-wrap: balance;
+  }
+
+  [hidden]{ display: none !important; }
+
+  @media (prefers-reduced-motion: reduce){
+    .door.correct .door-frame, .door.wrong .door-frame{ animation: none; }
+    .door:hover .door-frame{ transform: none; }
+    .btn-start:hover{ transform: none; }
+  }
+
+  @media (max-width: 380px){
+    .panel{ padding: 20px 16px; }
+    .door-eng{ display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="stage">
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="wrap">
+    <header class="hud">
+      <h1 class="title"><span class="t-vector">벡터</span><span class="t-vs">VS</span><span class="t-raster">래스터</span> 게이트</h1>
+      <div class="hud-row">
+        <div class="progress" id="progress"></div>
+        <div class="score">점수 <strong id="scoreVal">0</strong>/10</div>
+      </div>
+    </header>
+
+    <main>
+      <section class="panel start-panel" id="startPanel">
+        <p class="lede">문 앞에 그래픽 방식에 대한 설명이 나타나요. 설명이 <b class="hl-vector">벡터</b> 이야기면 <b class="hl-vector">벡터문</b>을, <b class="hl-raster">래스터</b> 이야기면 <b class="hl-raster">래스터문</b>을 통과하세요. 총 10문제이며, <b>한 번이라도 틀리면 그 자리에서 게임이 끝나요!</b></p>
+        <button class="btn-start" id="startBtn" type="button">게이트 입장하기 →</button>
+      </section>
+
+      <section class="panel game-panel" id="gamePanel" hidden>
+        <p class="q-count" id="qCount">문제 1 / 10</p>
+        <p class="question" id="questionText"></p>
+        <div class="feedback" id="feedback" role="status" aria-live="polite"></div>
+        <div class="doors">
+          <button class="door door-vector" id="doorVector" type="button" aria-label="벡터문 통과">
+            <span class="door-frame">
+              <svg class="door-svg" viewBox="0 0 200 300" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
+                <defs>
+                  <linearGradient id="vecFill" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#9b7bff"/>
+                    <stop offset="100%" stop-color="#5fe3ff"/>
+                  </linearGradient>
+                </defs>
+                <path d="M20,296 L20,112 C20,54 56,16 100,16 C144,16 180,54 180,112 L180,296 Z"
+                      fill="url(#vecFill)" fill-opacity="0.28" stroke="#8de6ff" stroke-width="2.5"/>
+                <path d="M20,296 L20,112 C20,54 56,16 100,16 C144,16 180,54 180,112 L180,296"
+                      fill="none" stroke="#5fe3ff" stroke-width="1" stroke-dasharray="2 5" opacity="0.65"/>
+                <line x1="20" y1="112" x2="45" y2="55" stroke="#c9b8ff" stroke-width="1" opacity="0.7"/>
+                <line x1="100" y1="16" x2="45" y2="55" stroke="#c9b8ff" stroke-width="1" opacity="0.7"/>
+                <line x1="100" y1="16" x2="155" y2="55" stroke="#c9b8ff" stroke-width="1" opacity="0.7"/>
+                <line x1="180" y1="112" x2="155" y2="55" stroke="#c9b8ff" stroke-width="1" opacity="0.7"/>
+                <circle cx="45" cy="55" r="3.5" fill="#0b0e1a" stroke="#c9b8ff" stroke-width="1.4"/>
+                <circle cx="155" cy="55" r="3.5" fill="#0b0e1a" stroke="#c9b8ff" stroke-width="1.4"/>
+                <circle cx="20" cy="112" r="4.5" fill="#5fe3ff"/>
+                <circle cx="100" cy="16" r="4.5" fill="#5fe3ff"/>
+                <circle cx="180" cy="112" r="4.5" fill="#5fe3ff"/>
+                <circle cx="100" cy="170" r="5" fill="none" stroke="#9b7bff" stroke-width="2"/>
+              </svg>
+            </span>
+            <span class="door-label">
+              <span class="door-eng">VECTOR</span>
+              <span class="door-kor">벡터문</span>
+            </span>
+          </button>
+
+          <button class="door door-raster" id="doorRaster" type="button" aria-label="래스터문 통과">
+            <span class="door-frame">
+              <svg class="door-svg" id="rasterSvg" viewBox="0 0 120 160" preserveAspectRatio="xMidYMax meet" aria-hidden="true" shape-rendering="crispEdges"></svg>
+            </span>
+            <span class="door-label">
+              <span class="door-eng">RASTER</span>
+              <span class="door-kor">래스터문</span>
+            </span>
+          </button>
+        </div>
+      </section>
+
+      <section class="panel end-panel" id="endPanel" hidden>
+        <p class="end-grade" id="endGrade"></p>
+        <p class="end-score">최종 점수 <strong id="finalScore">0</strong> / 10</p>
+        <p class="end-msg" id="endMsg"></p>
+        <button class="btn-start" id="restartBtn" type="button">처음부터 다시 도전하기 ↻</button>
+      </section>
+    </main>
+
+    <p class="hint">정답 문을 통과할 때마다 점수 1점을 얻어요. 오답 문을 고르면 그 즉시 게임이 종료됩니다.</p>
+  </div>
+</div>
+
+<script>
+(function(){
+  var QUESTIONS = [
+    { text: "이 이미지는 작은 정사각형 점(픽셀)들이 격자로 촘촘히 모여 있어요. 크게 확대하면 경계선이 계단처럼 울퉁불퉁해져요.", answer: "raster",
+      note: "픽셀 격자로 색을 기록하는 방식이라 확대하면 계단현상(앨리어싱)이 생겨요." },
+    { text: "이 그래픽은 점과 곡선의 좌표를 수학 공식으로 저장해요. 그래서 아무리 확대해도 선이 매끈하게 유지돼요.", answer: "vector",
+      note: "좌표와 방정식으로 그려서 크기를 바꿔도 화질 손실이 없어요." },
+    { text: "대표 확장자로 SHP, SVG, AI, EPS를 사용해요.", answer: "vector",
+      note: "이 포맷들은 도형의 경로(패스) 정보를 저장해요." },    
+    { text: "대표 확장자로 JPG, PNG, GIF, BMP를 사용해요.", answer: "raster",
+      note: "이 확장자들은 모두 픽셀 정보를 저장하는 방식의 이미지 포맷이에요." },    
+    { text: "디지털카메라로 찍은 사진이나 스캔한 이미지를 표현할 때 주로 이 방식을 써요.", answer: "raster",
+      note: "사진처럼 색이 미세하게 변하는 이미지는 픽셀 단위 기록이 자연스러워요." },
+    { text: "회사 로고나 아이콘처럼, 명함에도 대형 옥외 간판에도 크기만 바꿔서 똑같이 쓰고 싶을 때 이 방식을 선택해요.", answer: "vector",
+      note: "경로 데이터는 크기에 상관없이 항상 선명해서 로고 작업에 적합해요." },    
+    { text: "Adobe Illustrator나 CorelDRAW 같은 프로그램에서 주로 그려요.", answer: "vector",
+      note: "두 프로그램 모두 패스(경로) 기반으로 도형을 그리는 대표적인 편집 툴이에요." },
+    { text: "이미지의 해상도(가로x세로 픽셀 수)가 커질수록 파일 용량도 함께 커져요.", answer: "raster",
+      note: "픽셀 하나하나의 색 정보를 저장하기 때문에 픽셀 수가 늘면 용량도 늘어나요." },
+    { text: "Adobe Photoshop에서 주로 편집하고, 그림자·질감처럼 사실적인 색 표현에 강해요.", answer: "raster",
+      note: "포토샵은 픽셀 단위로 색을 조정하는 대표적인 편집 툴이에요." },
+    { text: "도형의 좌표나 두께, 색 같은 속성 값을 나중에 수정해도 이미지 품질이 전혀 떨어지지 않아요.", answer: "vector",
+      note: "속성으로 저장된 데이터라서 값만 바꾸면 되고, 다시 그려도 화질 저하가 없어요." }
+  ];
+
+  var RASTER_BITMAP = [
+    "000111111000",
+    "001111111100",
+    "011222222110",
+    "011222222110",
+    "011222222110",
+    "011222232110",
+    "011222222110",
+    "011222222110",
+    "011222222110",
+    "011222222110",
+    "011222222110",
+    "011222222110",
+    "011222222110",
+    "011222222110",
+    "011111111110",
+    "000000000000"
+  ];
+  var PIXEL_SHADES = ["#ff5f7e","#ff6e8c","#ff5573","#ff7c98"];
+
+  var progressEl = document.getElementById('progress');
+  var scoreValEl = document.getElementById('scoreVal');
+  var startPanel = document.getElementById('startPanel');
+  var gamePanel = document.getElementById('gamePanel');
+  var endPanel = document.getElementById('endPanel');
+  var startBtn = document.getElementById('startBtn');
+  var restartBtn = document.getElementById('restartBtn');
+  var qCountEl = document.getElementById('qCount');
+  var questionTextEl = document.getElementById('questionText');
+  var feedbackEl = document.getElementById('feedback');
+  var doorVector = document.getElementById('doorVector');
+  var doorRaster = document.getElementById('doorRaster');
+  var endGradeEl = document.getElementById('endGrade');
+  var finalScoreEl = document.getElementById('finalScore');
+  var endMsgEl = document.getElementById('endMsg');
+
+  var current = 0;
+  var score = 0;
+  var locked = false;
+  var results = []; // 'correct' | 'missed' per finished question
+  var screen = 'start';
+
+  function buildRasterDoor(){
+    var svg = document.getElementById('rasterSvg');
+    var cell = 10;
+    var frag = document.createDocumentFragment();
+    var shadeIdx = 0;
+    RASTER_BITMAP.forEach(function(row, r){
+      for (var c = 0; c < row.length; c++){
+        var v = row[c];
+        if (v === '0') continue;
+        var rect = document.createElementNS('http://www.w3.org/2000/svg','rect');
+        rect.setAttribute('x', c * cell);
+        rect.setAttribute('y', r * cell);
+        rect.setAttribute('width', cell);
+        rect.setAttribute('height', cell);
+        rect.setAttribute('stroke', 'rgba(9,11,22,0.55)');
+        rect.setAttribute('stroke-width', '0.6');
+        var fill;
+        if (v === '1'){ fill = '#c23b57'; }
+        else if (v === '3'){ fill = '#ffe066'; }
+        else { fill = PIXEL_SHADES[shadeIdx % PIXEL_SHADES.length]; shadeIdx++; }
+        rect.setAttribute('fill', fill);
+        frag.appendChild(rect);
+      }
+    });
+    svg.appendChild(frag);
+  }
+
+  function buildDots(){
+    progressEl.innerHTML = '';
+    for (var i = 0; i < QUESTIONS.length; i++){
+      var d = document.createElement('div');
+      d.className = 'dot';
+      progressEl.appendChild(d);
+    }
+  }
+
+  function renderDots(){
+    var dots = progressEl.children;
+    for (var i = 0; i < dots.length; i++){
+      dots[i].className = 'dot' +
+        (results[i] === 'correct' ? ' done-correct' : '') +
+        (results[i] === 'missed' ? ' done-missed' : '') +
+        (i === current && screen === 'game' ? ' current' : '');
+    }
+  }
+
+  function setScreen(name){
+    screen = name;
+    startPanel.hidden = name !== 'start';
+    gamePanel.hidden = name !== 'game';
+    endPanel.hidden = name !== 'end';
+    renderDots();
+  }
+
+  function loadQuestion(i){
+    var q = QUESTIONS[i];
+    locked = false;
+    qCountEl.textContent = '문제 ' + (i + 1) + ' / ' + QUESTIONS.length;
+    questionTextEl.textContent = q.text;
+    feedbackEl.className = 'feedback';
+    feedbackEl.textContent = '';
+    doorVector.classList.remove('correct','wrong');
+    doorRaster.classList.remove('correct','wrong');
+    doorVector.disabled = false;
+    doorRaster.disabled = false;
+    renderDots();
+  }
+
+  function showFeedback(kind, text){
+    feedbackEl.textContent = text;
+    feedbackEl.className = 'feedback show ' + kind;
+  }
+
+  function chooseDoor(choice){
+    if (locked) return;
+    var q = QUESTIONS[current];
+    var doorEl = choice === 'vector' ? doorVector : doorRaster;
+    locked = true;
+    doorVector.disabled = true;
+    doorRaster.disabled = true;
+
+    if (choice === q.answer){
+      doorEl.classList.add('correct');
+      score++;
+      results[current] = 'correct';
+      scoreValEl.textContent = score;
+      showFeedback('ok', '통과! ' + q.note);
+      renderDots();
+      setTimeout(function(){
+        current++;
+        if (current >= QUESTIONS.length){ showEnd('cleared'); }
+        else { loadQuestion(current); }
+      }, 1500);
+    } else {
+      doorEl.classList.add('wrong');
+      results[current] = 'missed';
+      renderDots();
+      var correctLabel = q.answer === 'vector' ? '벡터문' : '래스터문';
+      showFeedback('bad', '오답이에요! 정답은 ' + correctLabel + '이었어요. ' + q.note);
+      setTimeout(function(){ showEnd('gameover'); }, 1900);
+    }
+  }
+
+  function showEnd(reason){
+    setScreen('end');
+    finalScoreEl.textContent = score;
+    var grade, msg;
+    if (reason === 'cleared'){
+      grade = '🏆 벡터·래스터 마스터';
+      msg = '10문제를 전부 통과했어요! 두 그래픽 방식의 차이를 정확히 이해하고 있네요.';
+    } else {
+      var failedAt = current + 1;
+      grade = '💥 게임 오버';
+      if (score >= 7){ msg = failedAt + '번 문제에서 아쉽게 걸렸어요. 거의 다 왔으니 다시 도전해 보세요!'; }
+      else if (score >= 4){ msg = failedAt + '번 문제에서 게임이 끝났어요. 절반 가까이 왔으니 다시 도전해 보세요!'; }
+      else { msg = failedAt + '번 문제에서 게임이 끝났어요. 벡터는 좌표와 수식, 래스터는 픽셀 격자! 개념을 다시 확인하고 도전해 보세요.'; }
+    }
+    endGradeEl.textContent = grade;
+    endMsgEl.textContent = msg;
+  }
+
+  function restart(){
+    current = 0;
+    score = 0;
+    results = [];
+    scoreValEl.textContent = '0';
+    setScreen('game');
+    loadQuestion(0);
+  }
+
+  doorVector.addEventListener('click', function(){ chooseDoor('vector'); });
+  doorRaster.addEventListener('click', function(){ chooseDoor('raster'); });
+  startBtn.addEventListener('click', function(){ setScreen('game'); loadQuestion(0); });
+  restartBtn.addEventListener('click', restart);
+
+  function getState(){
+    return { current: current, score: score, results: results, screen: screen };
+  }
+
+  function boot(data){
+    buildDots();
+    buildRasterDoor();
+    if (data && typeof data.current === 'number' && data.screen){
+      current = data.current;
+      score = data.score || 0;
+      results = data.results || [];
+      scoreValEl.textContent = score;
+      if (data.screen === 'end'){ showEnd(); }
+      else if (data.screen === 'game' && current < QUESTIONS.length){ setScreen('game'); loadQuestion(current); }
+      else { setScreen('start'); }
+    } else {
+      setScreen('start');
+    }
+    if (window.claude && window.claude.hot && window.claude.hot.snapshot){
+      window.claude.hot.snapshot(getState);
+    }
+  }
+
+  boot({});
+})();
+</script>
+</body>
+</html>

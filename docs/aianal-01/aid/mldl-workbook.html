@@ -1,0 +1,750 @@
+<title>머신러닝 vs 딥러닝 체험 학습지</title>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+  :root{
+    --paper:#FAFAF8;
+    --paper-grid:#DCE6F5;
+    --paper-grid-strong:#C3D2EE;
+    --surface:#FFFFFF;
+    --border:#E2E6EE;
+    --ink:#1E2430;
+    --ink-soft:#63697A;
+    --pencil-blue:#2F5FD1;
+    --pencil-blue-soft:#E7EEFD;
+    --pencil-blue-ink:#1D3E96;
+    --pencil-red:#D8443A;
+    --pencil-red-soft:#FBE7E5;
+    --pencil-red-ink:#A9291F;
+    --pencil-yellow:#C98A00;
+    --pencil-yellow-soft:#FBF0D6;
+    --pencil-yellow-ink:#8A5E00;
+    --shadow: 0 1px 2px rgba(30,36,48,0.06), 0 6px 20px rgba(30,36,48,0.05);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#161D28; --paper-grid:#2D3B52; --paper-grid-strong:#3C4E6B;
+      --surface:#1D2534; --border:#31405A; --ink:#ECEFF6; --ink-soft:#9BA6BC;
+      --pencil-blue:#7DA2FF; --pencil-blue-soft:#243257; --pencil-blue-ink:#C4D3FF;
+      --pencil-red:#FF8A7E; --pencil-red-soft:#3A2429; --pencil-red-ink:#FFC0B7;
+      --pencil-yellow:#F0C243; --pencil-yellow-soft:#3A311A; --pencil-yellow-ink:#F5D27A;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 10px 26px rgba(0,0,0,0.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#161D28; --paper-grid:#2D3B52; --paper-grid-strong:#3C4E6B;
+    --surface:#1D2534; --border:#31405A; --ink:#ECEFF6; --ink-soft:#9BA6BC;
+    --pencil-blue:#7DA2FF; --pencil-blue-soft:#243257; --pencil-blue-ink:#C4D3FF;
+    --pencil-red:#FF8A7E; --pencil-red-soft:#3A2429; --pencil-red-ink:#FFC0B7;
+    --pencil-yellow:#F0C243; --pencil-yellow-soft:#3A311A; --pencil-yellow-ink:#F5D27A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 10px 26px rgba(0,0,0,0.35);
+  }
+
+  *{ box-sizing:border-box; }
+  [hidden]{ display:none !important; }
+  body{
+    margin:0;
+    background:
+      linear-gradient(var(--paper), var(--paper)),
+      repeating-linear-gradient(0deg, var(--paper-grid) 0 1px, transparent 1px 28px),
+      repeating-linear-gradient(90deg, var(--paper-grid) 0 1px, transparent 1px 28px);
+    background-color:var(--paper);
+    color:var(--ink);
+    font-family:'Noto Sans KR', 'Malgun Gothic', sans-serif;
+    line-height:1.6;
+  }
+  h1,h2,h3{ font-family:'Gowun Dodum','Noto Sans KR',sans-serif; font-weight:400; text-wrap:balance; margin:0; color:var(--ink); }
+  p{ margin:0; }
+  .mono{ font-family:'JetBrains Mono', ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+  button{ font-family:inherit; }
+  :focus-visible{ outline:3px solid var(--pencil-blue); outline-offset:2px; }
+
+  #app{ max-width:980px; margin-inline:auto; padding-inline:20px; padding-block:32px 56px; display:flex; flex-direction:column; gap:20px; }
+
+  .masthead{ display:flex; align-items:center; gap:20px; background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:22px 24px; box-shadow:var(--shadow); flex-wrap:wrap; }
+  .masthead-badge{ flex:none; width:84px; height:84px; display:grid; grid-template-columns:repeat(4,1fr); grid-template-rows:repeat(4,1fr); gap:3px; padding:8px; background:var(--paper); border:1px solid var(--border); border-radius:12px; }
+  .masthead-badge i{ background:var(--paper-grid); border-radius:2px; opacity:0; }
+  @media (prefers-reduced-motion: no-preference){ .masthead-badge i.on{ animation:inkIn 240ms ease-out forwards; } }
+  .masthead-badge i.on{ background:var(--pencil-blue); opacity:1; }
+  @keyframes inkIn{ from{ opacity:0; transform:scale(.4);} to{ opacity:1; transform:scale(1);} }
+  .masthead-text{ flex:1; min-width:220px; display:flex; flex-direction:column; gap:6px; }
+  .eyebrow{ font-size:.8rem; font-weight:700; letter-spacing:.06em; color:var(--pencil-blue); text-transform:uppercase; }
+  .masthead-text h1{ font-size:clamp(1.3rem,4vw,1.9rem); }
+  .lede{ color:var(--ink-soft); font-size:.95rem; max-width:64ch; }
+
+  .steps-nav{ display:flex; flex-wrap:wrap; gap:8px; }
+  .step-tab{ flex:1 1 auto; min-width:100px; display:flex; flex-direction:column; align-items:center; gap:2px; padding:10px 8px; border-radius:12px; border:1px solid var(--border); background:var(--surface); color:var(--ink-soft); cursor:pointer; font-size:.8rem; transition:background 150ms, color 150ms, border-color 150ms; }
+  .step-tab b{ font-family:'JetBrains Mono',monospace; font-size:.95rem; color:inherit; }
+  .step-tab.active{ background:var(--pencil-blue); border-color:var(--pencil-blue); color:#fff; }
+  .step-tab.active b{ color:#fff; }
+
+  .progress-track{ height:6px; border-radius:999px; background:var(--paper-grid); overflow:hidden; }
+  .progress-fill{ height:100%; background:var(--pencil-blue); border-radius:999px; transition:width 220ms ease; }
+
+  .sheet{ background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:26px 24px; box-shadow:var(--shadow); }
+  .step:not([hidden]){ display:flex; }
+  .step{ flex-direction:column; gap:18px; }
+  .step-head{ display:flex; flex-direction:column; gap:6px; }
+  .step-head .kicker{ font-size:.78rem; font-weight:700; color:var(--pencil-blue); letter-spacing:.04em; }
+  .step-head h2{ font-size:1.4rem; }
+  .step-head .desc{ color:var(--ink-soft); font-size:.95rem; max-width:68ch; }
+
+  .two-col{ display:grid; grid-template-columns:1fr; gap:22px; }
+  @media (min-width:680px){ .two-col{ grid-template-columns: minmax(0,260px) 1fr; align-items:start; } }
+
+  .compare-grid{ display:grid; grid-template-columns:1fr; gap:16px; }
+  @media (min-width:680px){ .compare-grid{ grid-template-columns:1fr 1fr; } }
+
+  .panel{ display:flex; flex-direction:column; gap:12px; }
+  .panel-title{ font-size:.85rem; font-weight:700; color:var(--ink-soft); }
+
+  .btn{ border-radius:10px; border:1px solid var(--border); background:var(--surface); color:var(--ink); padding:9px 14px; font-size:.85rem; font-weight:500; cursor:pointer; transition:background 120ms, border-color 120ms, color 120ms; }
+  .btn:hover{ border-color:var(--pencil-blue); }
+  .btn:disabled{ opacity:.45; cursor:not-allowed; }
+  .btn-primary{ background:var(--pencil-blue); border-color:var(--pencil-blue); color:#fff; }
+  .btn-primary:hover{ opacity:.92; }
+  .btn.active{ background:var(--pencil-blue); border-color:var(--pencil-blue); color:#fff; }
+  .control-row{ display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+
+  .note{ font-size:.82rem; color:var(--ink-soft); }
+  .callout{ background:var(--paper); border:1px dashed var(--paper-grid-strong); border-radius:12px; padding:12px 14px; font-size:.88rem; color:var(--ink-soft); }
+
+  .stat-box{ font-family:'JetBrains Mono',monospace; font-weight:700; font-size:.95rem; padding:10px 14px; border-radius:12px; background:var(--paper); border:1px solid var(--border); }
+  .info-box{ background:var(--paper); border:1px solid var(--border); border-radius:12px; padding:12px 14px; font-size:.85rem; display:flex; flex-direction:column; gap:4px; }
+
+  input[type="range"]{ width:100%; accent-color:var(--pencil-blue); height:6px; cursor:pointer; }
+
+  .formula-box{ background:var(--paper); border:1px solid var(--border); border-radius:12px; padding:12px 14px; font-family:'JetBrains Mono',monospace; font-size:.82rem; color:var(--ink); display:flex; flex-direction:column; gap:6px; line-height:1.7; overflow-x:auto; }
+  .formula-box .muted{ color:var(--ink-soft); }
+
+  .chart-wrap{ position:relative; width:100%; max-width:340px; aspect-ratio:1/1; background:var(--paper); border:1px solid var(--border); border-radius:12px; overflow:hidden; }
+  .chart-wrap.thin{ aspect-ratio:5/2; max-width:420px; }
+  .chart-wrap canvas{ position:absolute; inset:0; width:100%; height:100%; display:block; image-rendering:pixelated; }
+  .chart-wrap svg{ position:absolute; inset:0; width:100%; height:100%; }
+  .pt{ stroke:var(--surface); stroke-width:2; }
+  .pt.wrong{ stroke:var(--pencil-red); stroke-width:3; }
+
+  .legend-row{ display:flex; gap:14px; flex-wrap:wrap; font-size:.8rem; color:var(--ink-soft); align-items:center; }
+  .legend-dot{ display:inline-block; width:11px; height:11px; border-radius:50%; margin-right:5px; vertical-align:middle; }
+  .legend-dot.blue{ background:var(--pencil-blue); }
+  .legend-dot.yellow{ background:var(--pencil-yellow); }
+  .legend-line{ display:inline-block; width:16px; height:0; border-top:2.5px dashed var(--ink-soft); margin-right:5px; vertical-align:middle; }
+
+  .toggle-row{ display:flex; align-items:center; gap:12px; }
+  .toggle-btn{ border-radius:999px; border:2px solid var(--border); background:var(--surface); padding:10px 20px; font-weight:700; font-size:.95rem; cursor:pointer; transition:background 150ms,border-color 150ms,color 150ms; }
+  .toggle-btn.on{ background:var(--pencil-blue); border-color:var(--pencil-blue); color:#fff; }
+  .toggle-btn.off{ background:var(--pencil-red-soft); border-color:var(--pencil-red); color:var(--pencil-red-ink); }
+
+  .sheet-footer{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
+  .step-indicator{ font-family:'JetBrains Mono',monospace; font-size:.85rem; color:var(--ink-soft); }
+
+  @media (max-width:400px){ .masthead{ flex-direction:column; align-items:flex-start; } }
+</style>
+
+<div id="app">
+
+  <header class="masthead">
+    <div class="masthead-badge" id="logoGrid" aria-hidden="true"></div>
+    <div class="masthead-text">
+      <p class="eyebrow">완전 초보자를 위한 체험 학습지</p>
+      <h1>머신러닝 vs 딥러닝, 무엇이 다를까요?</h1>
+      <p class="lede">똑같은 점 데이터를 놓고, 사람이 특성을 직접 설계하는 머신러닝과 신경망이 스스로 특성을 찾아내는 딥러닝, 두 가지 방식을 나란히 체험하며 차이를 몸으로 느껴봐요.</p>
+    </div>
+  </header>
+
+  <nav class="steps-nav" id="stepsNav" aria-label="학습 단계">
+    <button class="step-tab" data-step="1"><b>1</b><span>문제 살펴보기</span></button>
+    <button class="step-tab" data-step="2"><b>2</b><span>머신러닝 방식</span></button>
+    <button class="step-tab" data-step="3"><b>3</b><span>딥러닝 방식</span></button>
+    <button class="step-tab" data-step="4"><b>4</b><span>무엇이 다를까</span></button>
+  </nav>
+
+  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+
+  <main class="sheet">
+
+    <!-- STEP 1 -->
+    <section id="step-1" class="step">
+      <div class="step-head">
+        <p class="kicker">STEP 1 · 문제를 살펴봐요</p>
+        <h2>직선 하나로 이 점들을 나눌 수 있을까요?</h2>
+        <p class="desc">가운데에 모인 파란 점 40개와, 그 바깥을 고리처럼 둘러싼 노란 점 40개가 있어요. 각도와 위치를 슬라이더로 움직여서 직선 하나로 완벽히 나눠보세요.</p>
+      </div>
+      <div class="two-col">
+        <div class="panel">
+          <p class="panel-title">각도: <span id="s1ThetaVal" class="mono"></span></p>
+          <input type="range" id="s1Theta" min="0" max="179" step="1">
+          <p class="panel-title">위치: <span id="s1CVal" class="mono"></span></p>
+          <input type="range" id="s1C" min="-320" max="320" step="5">
+          <button id="s1FlipBtn" class="btn">색 뒤집기</button>
+          <div class="stat-box mono" id="s1Stat"></div>
+          <div class="stat-box mono" id="s1Best"></div>
+        </div>
+        <div class="panel">
+          <div class="chart-wrap" id="chart1"><canvas width="150" height="150"></canvas><svg viewBox="0 0 150 150"></svg></div>
+          <div class="legend-row">
+            <span><span class="legend-dot blue"></span>안쪽 그룹</span>
+            <span><span class="legend-dot yellow"></span>바깥 고리 그룹</span>
+          </div>
+        </div>
+      </div>
+      <div class="callout" id="callout1">계산 중…</div>
+    </section>
+
+    <!-- STEP 2 -->
+    <section id="step-2" class="step" hidden>
+      <div class="step-head">
+        <p class="kicker">STEP 2 · 머신러닝 방식</p>
+        <h2>"중심으로부터 거리"라는 특성을 사람이 직접 만들어요</h2>
+        <p class="desc">원래 좌표 (x, y) 대신, 각 점이 중심에서 얼마나 떨어져 있는지를 나타내는 새로운 숫자 r을 사람이 직접 계산해서 만들어요. 이제 숫자 하나(r)만 보고 기준값을 정해보세요.</p>
+      </div>
+      <div class="formula-box">
+        <span>사람이 설계한 특성: <span class="muted">r = √(x² + y²)</span> — 중심으로부터의 거리</span>
+        <span>예측 규칙: <span class="muted">r &gt; 기준값 → 바깥 고리,  아니면 → 안쪽</span></span>
+      </div>
+      <div class="two-col">
+        <div class="panel">
+          <p class="panel-title">기준값(r): <span id="s2ThreshVal" class="mono"></span></p>
+          <input type="range" id="s2Thresh" min="0" max="320" step="1">
+          <div class="stat-box mono" id="s2Stat"></div>
+        </div>
+        <div class="panel">
+          <div class="chart-wrap thin" id="chart2"><canvas width="150" height="60"></canvas><svg viewBox="0 0 150 60"></svg></div>
+          <div class="legend-row">
+            <span><span class="legend-dot blue"></span>안쪽(정답)</span>
+            <span><span class="legend-dot yellow"></span>바깥 고리(정답)</span>
+            <span><span class="legend-line"></span>기준값</span>
+          </div>
+        </div>
+      </div>
+      <div class="callout">사람이 "중심으로부터 거리"라는 특성을 고안해서 계산해주면, 숫자 하나(r)에 기준값 하나만 그어도 <b>100%</b> 정확하게 나눌 수 있어요. 다만 <b>이 특성을 무엇으로 만들지는 사람이 직접 결정</b>해야 했어요 — 이게 전통적인 머신러닝의 핵심이에요.</div>
+    </section>
+
+    <!-- STEP 3 -->
+    <section id="step-3" class="step" hidden>
+      <div class="step-head">
+        <p class="kicker">STEP 3 · 딥러닝 방식</p>
+        <h2>원본 좌표 그대로, 신경망이 알아서 경계를 찾아요</h2>
+        <p class="desc">이번엔 r 같은 사람이 만든 특성 없이, 원래 좌표(x, y)를 은닉층 뉴런 8개짜리 작은 신경망에 그대로 넣어요. "학습 시작"을 누르면 신경망이 경사하강법으로 스스로 경계를 찾아가는 과정을 볼 수 있어요.</p>
+      </div>
+      <div class="formula-box">
+        <span>입력 2개(x, y) → 은닉 뉴런 8개(ReLU) → 출력 1개(시그모이드)</span>
+        <span class="muted">아무도 "거리"라는 개념을 알려주지 않아요 — 좌표값 그대로 넣을 뿐이에요.</span>
+      </div>
+      <div class="two-col">
+        <div class="panel">
+          <div class="stat-box mono" id="s3Stat">아직 학습 전이에요.</div>
+          <div class="control-row"><button id="s3TrainBtn" class="btn btn-primary">학습 시작</button></div>
+          <p class="panel-title">학습 손실(Loss) 변화</p>
+          <div id="s3LossChart"></div>
+          <p class="panel-title">은닉 뉴런 하나씩 들여다보기</p>
+          <div class="control-row" id="neuronRow"></div>
+          <div class="chart-wrap" id="chartNeuron"><canvas width="150" height="150"></canvas><svg viewBox="0 0 150 150"></svg></div>
+          <p class="note" id="neuronNote">학습이 끝나면 뉴런을 선택할 수 있어요.</p>
+        </div>
+        <div class="panel">
+          <div class="chart-wrap" id="chart3"><canvas width="150" height="150"></canvas><svg viewBox="0 0 150 150"></svg></div>
+          <div class="legend-row">
+            <span><span class="legend-dot blue"></span>안쪽 예측</span>
+            <span><span class="legend-dot yellow"></span>바깥 고리 예측</span>
+            <span>✕ 표시 = 틀린 점</span>
+          </div>
+        </div>
+      </div>
+      <div class="callout" id="callout3">학습 시작 버튼을 눌러보세요.</div>
+    </section>
+
+    <!-- STEP 4 -->
+    <section id="step-4" class="step" hidden>
+      <div class="step-head">
+        <p class="kicker">STEP 4 · 머신러닝 vs 딥러닝</p>
+        <h2>같은 문제, 두 가지 다른 해결 방식</h2>
+        <p class="desc">두 방식 모두 결국 100% 정확도에 도달했지만, 그 과정은 완전히 달라요. 무엇이 다른지 나란히 비교해볼게요.</p>
+      </div>
+      <div class="compare-grid">
+        <div class="info-box">
+          <p class="panel-title">머신러닝 파이프라인</p>
+          <span>원본 좌표 (x, y)</span>
+          <span>→ <b>사람이</b> r = √(x²+y²) 특성을 설계</span>
+          <span>→ 기준값 하나로 나누는 아주 단순한 모델</span>
+          <span>→ 정확도 100%</span>
+        </div>
+        <div class="info-box">
+          <p class="panel-title">딥러닝 파이프라인</p>
+          <span>원본 좌표 (x, y)</span>
+          <span>→ <b>신경망이 스스로</b> 은닉 뉴런 8개로 특성을 학습</span>
+          <span>→ 층을 쌓아 자동으로 경계를 조합</span>
+          <span>→ 정확도 100%</span>
+        </div>
+      </div>
+      <div class="info-box" id="compareStats"></div>
+      <div class="callout">머신러닝은 사람이 문제에 맞는 특성(r)을 직접 고민해서 만들어줘야 해요 — 특성 설계가 정확도를 좌우해요. 딥러닝은 원본 데이터를 그대로 넣고 층을 충분히 쌓으면, 사람이 알려주지 않아도 신경망이 <b>스스로</b> 쓸모 있는 특성을 찾아내요. 그 대신 딥러닝은 더 많은 파라미터와 데이터, 계산이 필요해요.</div>
+    </section>
+
+  </main>
+
+  <footer class="sheet-footer">
+    <button id="prevBtn" class="btn">← 이전</button>
+    <span class="step-indicator" id="stepLabel">1 / 4</span>
+    <button id="nextBtn" class="btn btn-primary">다음 →</button>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  // ============ seeded PRNG ============
+  function mulberry32(seed){
+    return function(){
+      seed |= 0; seed = (seed + 0x6D2B79F5) | 0;
+      var t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+  function sigmoid(z){ return 1/(1+Math.exp(-z)); }
+
+  // ============ dataset: inner blob (label 0) vs outer ring (label 1) ============
+  function buildDataset(seed){
+    var rng = mulberry32(seed);
+    var pts = [];
+    var nInner=40, nOuter=40;
+    for(var i=0;i<nInner;i++){
+      var ang = rng()*Math.PI*2;
+      var r = 0.2 + rng()*0.8; // 0.2 - 1.0
+      pts.push({x:r*Math.cos(ang), y:r*Math.sin(ang), label:0, r:r});
+    }
+    for(var j=0;j<nOuter;j++){
+      var ang2 = rng()*Math.PI*2;
+      var r2 = 1.8 + rng()*1.0; // 1.8 - 2.8
+      pts.push({x:r2*Math.cos(ang2), y:r2*Math.sin(ang2), label:1, r:r2});
+    }
+    pts.forEach(function(p,i){ p.jitterY = 12 + ((i*37)%36); });
+    return pts;
+  }
+  var DATA = buildDataset(424242);
+
+  function accuracyOf(classifyFn){
+    var correct=0;
+    DATA.forEach(function(p){ if(classifyFn(p.x,p.y)===p.label) correct++; });
+    return correct/DATA.length;
+  }
+
+  // ============ classifiers ============
+  function classifyLine(x,y,thetaDeg,c,flip){
+    var th = thetaDeg*Math.PI/180;
+    var v = x*Math.cos(th) + y*Math.sin(th) - c;
+    var pred = v>=0 ? 1 : 0;
+    return flip ? 1-pred : pred;
+  }
+
+  // brute-force the best possible single straight line on raw (x,y) — genuine ceiling, computed once at load.
+  function bestLineSearch(){
+    var best = {acc:0, theta:0, c:0, flip:false};
+    for(var th=0; th<180; th+=2){
+      for(var c=-3.2; c<=3.2; c+=0.1){
+        for(var f=0; f<2; f++){
+          var flip = f===1;
+          var acc = accuracyOf(function(x,y){ return classifyLine(x,y,th,c,flip); });
+          if(acc>best.acc) best = {acc:acc, theta:th, c:c, flip:flip};
+        }
+      }
+    }
+    return best;
+  }
+  var BEST_LINE = bestLineSearch();
+
+  function classifyByR(x,y,thresh){
+    var r = Math.sqrt(x*x+y*y);
+    return r>thresh ? 1 : 0;
+  }
+
+  // ============ small MLP: 2 -> H(ReLU) -> 1(sigmoid), trained with full-batch gradient descent ============
+  var H = 8;
+  function initMLP(seed){
+    var rng = mulberry32(seed);
+    function randn(){ var u=0; for(var k=0;k<6;k++) u+=rng(); return (u-3)/1.5; }
+    var W1=[], b1=[];
+    for(var j=0;j<H;j++){ W1.push([randn()*0.7, randn()*0.7]); b1.push(0); }
+    var W2=[], b2=0;
+    for(var j2=0;j2<H;j2++) W2.push(randn()*0.7);
+    return {W1:W1,b1:b1,W2:W2,b2:b2};
+  }
+  function forwardMLP(net, x, y){
+    var hpre=[], h=[];
+    for(var j=0;j<H;j++){
+      var v = net.W1[j][0]*x + net.W1[j][1]*y + net.b1[j];
+      hpre.push(v); h.push(Math.max(0,v));
+    }
+    var opre = net.b2;
+    for(var j2=0;j2<H;j2++) opre += net.W2[j2]*h[j2];
+    return { hpre:hpre, h:h, opre:opre, out:sigmoid(opre) };
+  }
+  function trainMLPStep(net, data, lr, l2){
+    var gW1 = net.W1.map(function(){return [0,0];});
+    var gb1 = net.b1.map(function(){return 0;});
+    var gW2 = net.W2.map(function(){return 0;});
+    var gb2 = 0, lossSum=0;
+    data.forEach(function(p){
+      var f = forwardMLP(net, p.x, p.y);
+      var eps=1e-9;
+      lossSum += -(p.label*Math.log(f.out+eps) + (1-p.label)*Math.log(1-f.out+eps));
+      var dOut = f.out - p.label;
+      for(var j=0;j<H;j++) gW2[j] += dOut*f.h[j];
+      gb2 += dOut;
+      for(var j2=0;j2<H;j2++){
+        var dh = dOut*net.W2[j2];
+        var dhpre = f.hpre[j2] > 0 ? dh : 0;
+        gW1[j2][0] += dhpre*p.x; gW1[j2][1] += dhpre*p.y; gb1[j2] += dhpre;
+      }
+    });
+    var n = data.length;
+    for(var j3=0;j3<H;j3++){
+      net.W1[j3][0] -= lr*(gW1[j3][0]/n + l2*net.W1[j3][0]);
+      net.W1[j3][1] -= lr*(gW1[j3][1]/n + l2*net.W1[j3][1]);
+      net.b1[j3] -= lr*(gb1[j3]/n);
+      net.W2[j3] -= lr*(gW2[j3]/n + l2*net.W2[j3]);
+    }
+    net.b2 -= lr*(gb2/n);
+    return lossSum/n;
+  }
+
+  // ============ dom / draw helpers ============
+  function q(id){ return document.getElementById(id); }
+  function cssVar(name){ return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); }
+  function hexToRgb(hex){
+    hex = hex.replace('#','');
+    if(hex.length===3){ hex = hex.split('').map(function(c){return c+c;}).join(''); }
+    var num = parseInt(hex,16);
+    return [(num>>16)&255,(num>>8)&255,num&255];
+  }
+  function lerpColor(hexA, hexB, t){
+    var a=hexToRgb(hexA), b=hexToRgb(hexB);
+    var r=Math.round(a[0]+(b[0]-a[0])*t);
+    var g=Math.round(a[1]+(b[1]-a[1])*t);
+    var bl=Math.round(a[2]+(b[2]-a[2])*t);
+    return 'rgb('+r+','+g+','+bl+')';
+  }
+
+  var DMIN=-3.2, DMAX=3.2;
+  function toPx(v){ return (v-DMIN)/(DMAX-DMIN)*150; }
+
+  function drawField(containerId, classifyFn){
+    var wrap=q(containerId), canvas=wrap.querySelector('canvas'), svg=wrap.querySelector('svg');
+    var ctx=canvas.getContext('2d'); var Wc=canvas.width, Hc=canvas.height;
+    var G=28;
+    var blueSoft=cssVar('--pencil-blue-soft'), yellowSoft=cssVar('--pencil-yellow-soft');
+    ctx.clearRect(0,0,Wc,Hc);
+    for(var gy=0; gy<G; gy++){
+      for(var gx=0; gx<G; gx++){
+        var dataX = DMIN + (gx+0.5)/G*(DMAX-DMIN);
+        var dataY = DMIN + (gy+0.5)/G*(DMAX-DMIN);
+        var cls = classifyFn(dataX,dataY);
+        ctx.fillStyle = cls===0 ? blueSoft : yellowSoft;
+        ctx.fillRect(gx*Wc/G, gy*Hc/G, Wc/G+1, Hc/G+1);
+      }
+    }
+    var s='';
+    DATA.forEach(function(p){
+      var px=toPx(p.x), py=toPx(p.y);
+      var pred = classifyFn(p.x,p.y);
+      var wrong = pred!==p.label;
+      var color = p.label===0 ? 'var(--pencil-blue)' : 'var(--pencil-yellow)';
+      s += '<circle class="pt'+(wrong?' wrong':'')+'" cx="'+px+'" cy="'+py+'" r="4.5" fill="'+color+'"/>';
+      if(wrong){
+        s += '<line x1="'+(px-4)+'" y1="'+(py-4)+'" x2="'+(px+4)+'" y2="'+(py+4)+'" stroke="var(--pencil-red)" stroke-width="2"/>';
+        s += '<line x1="'+(px-4)+'" y1="'+(py+4)+'" x2="'+(px+4)+'" y2="'+(py-4)+'" stroke="var(--pencil-red)" stroke-width="2"/>';
+      }
+    });
+    svg.innerHTML = s;
+  }
+
+  function drawRAxis(containerId, thresh){
+    var wrap=q(containerId), canvas=wrap.querySelector('canvas'), svg=wrap.querySelector('svg');
+    var ctx=canvas.getContext('2d'); var Wc=canvas.width, Hc=canvas.height;
+    var RMAX=3.2;
+    function rpx(r){ return r/RMAX*Wc; }
+    var threshPx = rpx(thresh);
+    var blueSoft=cssVar('--pencil-blue-soft'), yellowSoft=cssVar('--pencil-yellow-soft');
+    ctx.fillStyle = blueSoft; ctx.fillRect(0,0,threshPx,Hc);
+    ctx.fillStyle = yellowSoft; ctx.fillRect(threshPx,0,Wc-threshPx,Hc);
+    var s = '<line x1="'+threshPx+'" y1="0" x2="'+threshPx+'" y2="'+Hc+'" stroke="var(--ink-soft)" stroke-width="2.5" stroke-dasharray="6 4"/>';
+    DATA.forEach(function(p){
+      var px = rpx(p.r);
+      var pred = classifyByR(p.x,p.y,thresh);
+      var wrong = pred!==p.label;
+      var color = p.label===0 ? 'var(--pencil-blue)' : 'var(--pencil-yellow)';
+      s += '<circle class="pt'+(wrong?' wrong':'')+'" cx="'+px+'" cy="'+p.jitterY+'" r="4" fill="'+color+'"/>';
+    });
+    svg.innerHTML = s;
+  }
+
+  function drawNeuronField(containerId, net, idx){
+    var wrap=q(containerId), canvas=wrap.querySelector('canvas'), svg=wrap.querySelector('svg');
+    var ctx=canvas.getContext('2d'); var Wc=canvas.width, Hc=canvas.height;
+    var G=28;
+    var paper=cssVar('--paper'), blue=cssVar('--pencil-blue');
+    var acts = [];
+    for(var gy=0; gy<G; gy++){ for(var gx=0; gx<G; gx++){
+      var dataX = DMIN + (gx+0.5)/G*(DMAX-DMIN);
+      var dataY = DMIN + (gy+0.5)/G*(DMAX-DMIN);
+      var v = net.W1[idx][0]*dataX + net.W1[idx][1]*dataY + net.b1[idx];
+      acts.push(Math.max(0,v));
+    }}
+    var maxAct = Math.max.apply(null, acts) || 1;
+    var k=0;
+    for(var gy2=0; gy2<G; gy2++){ for(var gx2=0; gx2<G; gx2++){
+      var t = Math.min(1, acts[k++]/maxAct);
+      ctx.fillStyle = lerpColor(paper, blue, t);
+      ctx.fillRect(gx2*Wc/G, gy2*Hc/G, Wc/G+1, Hc/G+1);
+    }}
+    var s='';
+    DATA.forEach(function(p){
+      var px=toPx(p.x), py=toPx(p.y);
+      s += '<circle cx="'+px+'" cy="'+py+'" r="2.6" fill="none" stroke="var(--ink-soft)" stroke-width="1" opacity="0.45"/>';
+    });
+    svg.innerHTML = s;
+  }
+
+  // ============ state ============
+  var state = { step:1 };
+  var s1 = { theta:135, c:0, flip:false, best:0 }; // c in raw units
+  var s2 = { thresh:1.4 };
+  var s3 = { selectedNeuron:null };
+  var trainState = { started:false, done:false, net:null, lossHistory:null, revealCount:0, timer:null };
+
+  var progressFillEl, stepLabelEl, prevBtn, nextBtn;
+
+  // ---------- Step 1 ----------
+  function renderStep1(){
+    q('s1ThetaVal').textContent = s1.theta+'°';
+    q('s1CVal').textContent = s1.c.toFixed(2);
+    var fn = function(x,y){ return classifyLine(x,y,s1.theta,s1.c,s1.flip); };
+    var acc = accuracyOf(fn);
+    if(acc>s1.best) s1.best = acc;
+    q('s1Stat').textContent = '지금 정확도: '+Math.round(acc*100)+'% ('+Math.round(acc*80)+' / 80)';
+    q('s1Best').textContent = '이번 시도 중 최고 기록: '+Math.round(s1.best*100)+'%';
+    drawField('chart1', fn);
+    q('callout1').innerHTML = '아무리 각도와 위치를 바꿔봐도, 이 데이터에서 직선 하나가 낼 수 있는 최고 정확도는 <b>'+Math.round(BEST_LINE.acc*100)+'%</b>뿐이에요(가능한 모든 각도·위치를 다 계산해봐도 그래요). 가운데 점 무리를 감싸는 <b>곡선</b>이 있어야만 완벽하게 나눌 수 있어요.';
+  }
+
+  // ---------- Step 2 ----------
+  function renderStep2(){
+    var t = s2.thresh;
+    q('s2ThreshVal').textContent = 'r = '+t.toFixed(2);
+    var fn = function(x,y){ return classifyByR(x,y,t); };
+    var acc = accuracyOf(fn);
+    q('s2Stat').textContent = '지금 정확도: '+Math.round(acc*100)+'% ('+Math.round(acc*80)+' / 80)'+(acc===1?' — 완벽해요!':'');
+    drawRAxis('chart2', t);
+  }
+
+  // ---------- Step 3 ----------
+  function renderStep3(){
+    if(!trainState.net){
+      q('s3Stat').textContent = '아직 학습 전이에요.';
+      drawFieldPlaceholder();
+      renderNeuronRow();
+      return;
+    }
+    var fn = function(x,y){ return forwardMLP(trainState.net,x,y).out>0.5 ? 1:0; };
+    var acc = accuracyOf(fn);
+    var shown = trainState.lossHistory.slice(0, trainState.revealCount);
+    var lastLoss = shown.length ? shown[shown.length-1] : trainState.lossHistory[0];
+
+    if(trainState.done){
+      q('s3Stat').textContent = '학습 완료 · epoch '+trainState.lossHistory.length+'/'+trainState.lossHistory.length+' · loss '+lastLoss.toFixed(4)+' · 정확도 '+Math.round(acc*100)+'%';
+      q('callout3').innerHTML = '아무도 "거리"라는 개념을 알려주지 않았는데도, 신경망 스스로 정확도 <b>'+Math.round(acc*100)+'%</b>짜리 둥근 경계를 만들어냈어요. 왼쪽 뉴런 버튼을 눌러서, 각 은닉 뉴런이 저마다 다른 방향의 반평면(직선 경계)을 감지하고 있다는 걸 확인해보세요 — 이 반평면들을 출력층이 조합해서 원 모양을 만들어낸 거예요.';
+    } else {
+      q('s3Stat').textContent = '학습 중… epoch '+trainState.revealCount+'/'+trainState.lossHistory.length+' · loss '+lastLoss.toFixed(4)+' · 정확도 '+Math.round(acc*100)+'%';
+    }
+    drawLossChart('s3LossChart', shown, trainState.lossHistory.length);
+    drawField('chart3', fn);
+    renderNeuronRow();
+    if(trainState.done && s3.selectedNeuron!==null){
+      drawNeuronField('chartNeuron', trainState.net, s3.selectedNeuron);
+      q('neuronNote').textContent = '뉴런 '+(s3.selectedNeuron+1)+'의 활성화 지도예요. 진할수록 그 뉴런이 강하게 반응하는 영역이에요 — ReLU 하나는 항상 직선(반평면) 모양의 경계를 만들어요.';
+    }
+  }
+
+  function drawFieldPlaceholder(){
+    var wrap=q('chart3'), canvas=wrap.querySelector('canvas'), svg=wrap.querySelector('svg');
+    var ctx=canvas.getContext('2d');
+    ctx.fillStyle = cssVar('--paper'); ctx.fillRect(0,0,canvas.width,canvas.height);
+    var s='';
+    DATA.forEach(function(p){
+      var px=toPx(p.x), py=toPx(p.y);
+      var color = p.label===0 ? 'var(--pencil-blue)' : 'var(--pencil-yellow)';
+      s += '<circle cx="'+px+'" cy="'+py+'" r="4.5" fill="'+color+'" class="pt"/>';
+    });
+    svg.innerHTML = s;
+    drawLossChart('s3LossChart', [], 400);
+  }
+
+  function renderNeuronRow(){
+    var html='';
+    for(var i=0;i<H;i++){
+      var disabled = !trainState.done;
+      html += '<button class="btn preset-btn'+(s3.selectedNeuron===i?' active':'')+'" data-n="'+i+'"'+(disabled?' disabled':'')+'>뉴런 '+(i+1)+'</button>';
+    }
+    var el = q('neuronRow');
+    el.innerHTML = html;
+    el.querySelectorAll('.preset-btn').forEach(function(btn){
+      btn.addEventListener('click', function(){ s3.selectedNeuron = +btn.dataset.n; renderStep3(); });
+    });
+  }
+
+  function drawLossChart(containerId, arr, fullLen){
+    var w=380,h=110,pad=22;
+    var plotW=w-2*pad, plotH=h-2*pad;
+    var pts = arr.map(function(v,i){
+      var x = pad + (i/(fullLen-1))*plotW;
+      var y = pad + (1 - Math.min(1,v/0.75))*plotH;
+      return x.toFixed(1)+','+y.toFixed(1);
+    }).join(' ');
+    var border=cssVar('--border'), blue=cssVar('--pencil-blue');
+    var svg = '<svg viewBox="0 0 '+w+' '+h+'" width="100%" height="'+h+'" preserveAspectRatio="none">'+
+      '<line x1="'+pad+'" y1="'+(h-pad)+'" x2="'+(w-pad)+'" y2="'+(h-pad)+'" stroke="'+border+'" stroke-width="1"/>'+
+      '<line x1="'+pad+'" y1="'+pad+'" x2="'+pad+'" y2="'+(h-pad)+'" stroke="'+border+'" stroke-width="1"/>'+
+      (pts? '<polyline points="'+pts+'" fill="none" stroke="'+blue+'" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>':'')+
+      '</svg>';
+    q(containerId).innerHTML = svg;
+  }
+
+  function startTraining(){
+    if(trainState.timer){ clearInterval(trainState.timer); }
+    var net = initMLP(7);
+    var epochs = 400, lr=0.8, l2=0.001;
+    var lossHistory = [];
+    for(var e=0;e<epochs;e++){ lossHistory.push(trainMLPStep(net, DATA, lr, l2)); }
+    trainState.started=true; trainState.done=false;
+    trainState.net = net; trainState.lossHistory = lossHistory;
+    trainState.revealCount = 0;
+    s3.selectedNeuron = null;
+    var step=8;
+    trainState.timer = setInterval(function(){
+      trainState.revealCount = Math.min(trainState.lossHistory.length, trainState.revealCount+step);
+      if(trainState.revealCount >= trainState.lossHistory.length){
+        trainState.done = true;
+        clearInterval(trainState.timer);
+      }
+      if(state.step===3) renderStep3();
+    }, 20);
+  }
+
+  function ensureTrained(){
+    if(trainState.net) return;
+    var net = initMLP(7);
+    var epochs=400, lr=0.8, l2=0.001;
+    var lossHistory=[];
+    for(var e=0;e<epochs;e++){ lossHistory.push(trainMLPStep(net, DATA, lr, l2)); }
+    trainState.started=true; trainState.done=true;
+    trainState.net=net; trainState.lossHistory=lossHistory; trainState.revealCount=lossHistory.length;
+  }
+
+  // ---------- Step 4 ----------
+  function renderStep4(){
+    ensureTrained();
+    var fn = function(x,y){ return forwardMLP(trainState.net,x,y).out>0.5 ? 1:0; };
+    var dlAcc = accuracyOf(fn);
+    var mlFn = function(x,y){ return classifyByR(x,y, 1.4); };
+    // find true best threshold accuracy for a fair "ML best" number
+    var bestThresh = {acc:0, t:0};
+    for(var t=0; t<=3.2; t+=0.01){
+      var a = accuracyOf(function(x,y){ return classifyByR(x,y,t); });
+      if(a>bestThresh.acc) bestThresh = {acc:a, t:t};
+    }
+    var dlParams = 2*H + H + H + 1;
+    q('compareStats').innerHTML =
+      '<span>정확도 — 머신러닝(r 기준값): <b class="mono">'+Math.round(bestThresh.acc*100)+'%</b> ／ 딥러닝(신경망): <b class="mono">'+Math.round(dlAcc*100)+'%</b></span>'+
+      '<span>사람이 설계해야 했던 특성 수 — 머신러닝: <b class="mono">1개</b>(r) ／ 딥러닝: <b class="mono">0개</b>(원본 좌표 그대로)</span>'+
+      '<span>모델이 학습한 파라미터 수 — 머신러닝: <b class="mono">2개</b>(기준값+방향) ／ 딥러닝: <b class="mono">'+dlParams+'개</b>(2×'+H+'+'+H+'+'+H+'+1)</span>'+
+      '<span>원본 좌표만으로 직선 하나가 낼 수 있는 정확도(참고): <b class="mono">'+Math.round(BEST_LINE.acc*100)+'%</b></span>';
+  }
+
+  // ---------- nav / lifecycle ----------
+  function updateProgress(){
+    progressFillEl.style.width = (state.step/4*100)+'%';
+    stepLabelEl.textContent = state.step+' / 4';
+  }
+  function updateNavTabs(){
+    document.querySelectorAll('.step-tab').forEach(function(btn){
+      var s=+btn.dataset.step;
+      btn.classList.toggle('active', s===state.step);
+      if(s===state.step) btn.setAttribute('aria-current','step'); else btn.removeAttribute('aria-current');
+    });
+  }
+  function updatePrevNext(){
+    prevBtn.disabled = state.step===1;
+    nextBtn.textContent = state.step===4 ? '처음부터 다시 ↺' : '다음 →';
+  }
+  function renderCurrentStep(){
+    updateProgress();
+    switch(state.step){
+      case 1: renderStep1(); break;
+      case 2: renderStep2(); break;
+      case 3: renderStep3(); break;
+      case 4: renderStep4(); break;
+    }
+  }
+  function goToStep(n){
+    if(n<1) n=1; if(n>4) n=4;
+    state.step=n;
+    for(var i=1;i<=4;i++){ q('step-'+i).hidden = (i!==n); }
+    updateNavTabs();
+    updatePrevNext();
+    renderCurrentStep();
+  }
+
+  function renderLogoGrid(){
+    var el=q('logoGrid');
+    el.innerHTML='';
+    var pattern=[0,1,0,1, 1,0,1,0, 0,1,0,1, 1,0,1,0];
+    pattern.forEach(function(v,i){
+      var d=document.createElement('i');
+      d.className = v? 'on':'';
+      d.style.animationDelay = (i*28)+'ms';
+      el.appendChild(d);
+    });
+  }
+
+  function initListeners(){
+    q('s1Theta').addEventListener('input', function(e){ s1.theta=+e.target.value; renderStep1(); });
+    q('s1C').addEventListener('input', function(e){ s1.c=(+e.target.value)/100; renderStep1(); });
+    q('s1FlipBtn').addEventListener('click', function(){ s1.flip=!s1.flip; renderStep1(); });
+
+    q('s2Thresh').addEventListener('input', function(e){ s2.thresh=(+e.target.value)/100; renderStep2(); });
+
+    q('s3TrainBtn').addEventListener('click', startTraining);
+
+    q('stepsNav').addEventListener('click', function(e){
+      var b=e.target.closest('.step-tab'); if(!b) return;
+      goToStep(+b.dataset.step);
+    });
+    prevBtn.addEventListener('click', function(){ goToStep(state.step-1); });
+    nextBtn.addEventListener('click', function(){ if(state.step<4) goToStep(state.step+1); else goToStep(1); });
+  }
+
+  function init(){
+    progressFillEl=q('progressFill'); stepLabelEl=q('stepLabel');
+    prevBtn=q('prevBtn'); nextBtn=q('nextBtn');
+    q('s1Theta').value = s1.theta;
+    q('s1C').value = Math.round(s1.c*100);
+    q('s2Thresh').value = Math.round(s2.thresh*100);
+
+    renderLogoGrid();
+    initListeners();
+    updateNavTabs();
+    updatePrevNext();
+    renderCurrentStep();
+  }
+
+  try{
+    if(window.claude && window.claude.hot && window.claude.hot.ready){
+      window.claude.hot.ready(function(){ init(); });
+    } else { init(); }
+  }catch(e){ init(); }
+
+})();
+</script>

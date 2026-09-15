@@ -1,0 +1,628 @@
+<title>RNN 체험 학습지</title>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+  :root{
+    --paper:#FAFAF8;
+    --paper-grid:#DCE6F5;
+    --paper-grid-strong:#C3D2EE;
+    --surface:#FFFFFF;
+    --border:#E2E6EE;
+    --ink:#1E2430;
+    --ink-soft:#63697A;
+    --pencil-blue:#2F5FD1;
+    --pencil-blue-soft:#E7EEFD;
+    --pencil-blue-ink:#1D3E96;
+    --pencil-red:#D8443A;
+    --pencil-red-soft:#FBE7E5;
+    --pencil-red-ink:#A9291F;
+    --pencil-yellow:#C98A00;
+    --pencil-yellow-soft:#FBF0D6;
+    --pencil-yellow-ink:#8A5E00;
+    --shadow: 0 1px 2px rgba(30,36,48,0.06), 0 6px 20px rgba(30,36,48,0.05);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#161D28; --paper-grid:#2D3B52; --paper-grid-strong:#3C4E6B;
+      --surface:#1D2534; --border:#31405A; --ink:#ECEFF6; --ink-soft:#9BA6BC;
+      --pencil-blue:#7DA2FF; --pencil-blue-soft:#243257; --pencil-blue-ink:#C4D3FF;
+      --pencil-red:#FF8A7E; --pencil-red-soft:#3A2429; --pencil-red-ink:#FFC0B7;
+      --pencil-yellow:#F0C243; --pencil-yellow-soft:#3A311A; --pencil-yellow-ink:#F5D27A;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 10px 26px rgba(0,0,0,0.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#161D28; --paper-grid:#2D3B52; --paper-grid-strong:#3C4E6B;
+    --surface:#1D2534; --border:#31405A; --ink:#ECEFF6; --ink-soft:#9BA6BC;
+    --pencil-blue:#7DA2FF; --pencil-blue-soft:#243257; --pencil-blue-ink:#C4D3FF;
+    --pencil-red:#FF8A7E; --pencil-red-soft:#3A2429; --pencil-red-ink:#FFC0B7;
+    --pencil-yellow:#F0C243; --pencil-yellow-soft:#3A311A; --pencil-yellow-ink:#F5D27A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 10px 26px rgba(0,0,0,0.35);
+  }
+
+  *{ box-sizing:border-box; }
+  [hidden]{ display:none !important; }
+  body{
+    margin:0;
+    background:
+      linear-gradient(var(--paper), var(--paper)),
+      repeating-linear-gradient(0deg, var(--paper-grid) 0 1px, transparent 1px 28px),
+      repeating-linear-gradient(90deg, var(--paper-grid) 0 1px, transparent 1px 28px);
+    background-color:var(--paper);
+    color:var(--ink);
+    font-family:'Noto Sans KR', 'Malgun Gothic', sans-serif;
+    line-height:1.6;
+  }
+  h1,h2,h3{ font-family:'Gowun Dodum','Noto Sans KR',sans-serif; font-weight:400; text-wrap:balance; margin:0; color:var(--ink); }
+  p{ margin:0; }
+  .mono{ font-family:'JetBrains Mono', ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+  button{ font-family:inherit; }
+  :focus-visible{ outline:3px solid var(--pencil-blue); outline-offset:2px; }
+
+  #app{ max-width:960px; margin-inline:auto; padding-inline:20px; padding-block:32px 56px; display:flex; flex-direction:column; gap:20px; }
+
+  .masthead{ display:flex; align-items:center; gap:20px; background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:22px 24px; box-shadow:var(--shadow); flex-wrap:wrap; }
+  .masthead-badge{ flex:none; width:84px; height:84px; display:grid; grid-template-columns:repeat(4,1fr); grid-template-rows:repeat(4,1fr); gap:3px; padding:8px; background:var(--paper); border:1px solid var(--border); border-radius:12px; }
+  .masthead-badge i{ background:var(--paper-grid); border-radius:2px; opacity:0; }
+  @media (prefers-reduced-motion: no-preference){ .masthead-badge i.on{ animation:inkIn 240ms ease-out forwards; } }
+  .masthead-badge i.on{ background:var(--pencil-blue); opacity:1; }
+  @keyframes inkIn{ from{ opacity:0; transform:scale(.4);} to{ opacity:1; transform:scale(1);} }
+  .masthead-text{ flex:1; min-width:220px; display:flex; flex-direction:column; gap:6px; }
+  .eyebrow{ font-size:.8rem; font-weight:700; letter-spacing:.06em; color:var(--pencil-blue); text-transform:uppercase; }
+  .masthead-text h1{ font-size:clamp(1.4rem,4vw,2rem); }
+  .lede{ color:var(--ink-soft); font-size:.95rem; max-width:60ch; }
+
+  .steps-nav{ display:flex; flex-wrap:wrap; gap:8px; }
+  .step-tab{ flex:1 1 auto; min-width:100px; display:flex; flex-direction:column; align-items:center; gap:2px; padding:10px 8px; border-radius:12px; border:1px solid var(--border); background:var(--surface); color:var(--ink-soft); cursor:pointer; font-size:.8rem; transition:background 150ms, color 150ms, border-color 150ms; }
+  .step-tab b{ font-family:'JetBrains Mono',monospace; font-size:.95rem; color:inherit; }
+  .step-tab.active{ background:var(--pencil-blue); border-color:var(--pencil-blue); color:#fff; }
+  .step-tab.active b{ color:#fff; }
+
+  .progress-track{ height:6px; border-radius:999px; background:var(--paper-grid); overflow:hidden; }
+  .progress-fill{ height:100%; background:var(--pencil-blue); border-radius:999px; transition:width 220ms ease; }
+
+  .sheet{ background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:26px 24px; box-shadow:var(--shadow); }
+  .step:not([hidden]){ display:flex; }
+  .step{ flex-direction:column; gap:18px; }
+  .step-head{ display:flex; flex-direction:column; gap:6px; }
+  .step-head .kicker{ font-size:.78rem; font-weight:700; color:var(--pencil-blue); letter-spacing:.04em; }
+  .step-head h2{ font-size:1.4rem; }
+  .step-head .desc{ color:var(--ink-soft); font-size:.95rem; max-width:66ch; }
+
+  .two-col{ display:grid; grid-template-columns:1fr; gap:22px; }
+  @media (min-width:680px){ .two-col{ grid-template-columns: minmax(0,270px) 1fr; align-items:start; } }
+
+  .panel{ display:flex; flex-direction:column; gap:12px; }
+  .panel-title{ font-size:.85rem; font-weight:700; color:var(--ink-soft); }
+
+  .btn{ border-radius:10px; border:1px solid var(--border); background:var(--surface); color:var(--ink); padding:9px 14px; font-size:.85rem; font-weight:500; cursor:pointer; transition:background 120ms, border-color 120ms, color 120ms; }
+  .btn:hover{ border-color:var(--pencil-blue); }
+  .btn:disabled{ opacity:.45; cursor:not-allowed; }
+  .btn-primary{ background:var(--pencil-blue); border-color:var(--pencil-blue); color:#fff; }
+  .btn-primary:hover{ opacity:.92; }
+  .control-row{ display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+  .chip{ border-radius:999px; border:1px solid var(--border); background:var(--surface); padding:6px 13px; font-size:.8rem; color:var(--ink); }
+  .chip.on{ background:var(--pencil-blue-soft); border-color:var(--pencil-blue); color:var(--pencil-blue-ink); font-weight:700; }
+  .chip.on.yellow{ background:var(--pencil-yellow-soft); border-color:var(--pencil-yellow); color:var(--pencil-yellow-ink); }
+
+  .note{ font-size:.82rem; color:var(--ink-soft); }
+  .callout{ background:var(--paper); border:1px dashed var(--paper-grid-strong); border-radius:12px; padding:12px 14px; font-size:.88rem; color:var(--ink-soft); }
+
+  .stat-box{ font-family:'JetBrains Mono',monospace; font-weight:700; font-size:1rem; padding:10px 14px; border-radius:12px; background:var(--paper); border:1px solid var(--border); }
+  .info-box{ background:var(--paper); border:1px solid var(--border); border-radius:12px; padding:12px 14px; font-size:.85rem; display:flex; flex-direction:column; gap:4px; }
+  .info-box .name{ font-weight:700; font-size:.95rem; }
+
+  /* sequence tile strip */
+  .seq-strip{ display:flex; flex-wrap:wrap; gap:10px 8px; padding-top:6px; }
+  .seq-tile{ position:relative; width:38px; height:38px; border-radius:9px; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:1rem; border:1px solid var(--border); background:var(--paper); color:var(--ink-soft); transition:outline-color 150ms, opacity 150ms, transform 150ms; }
+  .seq-tile.blue{ background:var(--pencil-blue-soft); color:var(--pencil-blue-ink); border-color:var(--pencil-blue); }
+  .seq-tile.yellow{ background:var(--pencil-yellow-soft); color:var(--pencil-yellow-ink); border-color:var(--pencil-yellow); }
+  .seq-tile.pending{ opacity:.35; }
+  .seq-tile.current{ outline:3px solid var(--ink); outline-offset:2px; transform:translateY(-2px); }
+  .seq-tile .badge{ position:absolute; top:-8px; right:-8px; width:17px; height:17px; border-radius:50%; font-size:.62rem; display:flex; align-items:center; justify-content:center; font-weight:700; color:#fff; border:2px solid var(--surface); }
+  .seq-tile .badge.ok{ background:var(--pencil-blue); }
+  .seq-tile .badge.bad{ background:var(--pencil-red); }
+
+  /* hidden-state diverging bars */
+  .hstate{ display:flex; flex-direction:column; gap:9px; }
+  .hstate-item{ display:flex; align-items:center; gap:9px; }
+  .hstate-label{ width:24px; font-family:'JetBrains Mono',monospace; font-weight:700; color:var(--ink-soft); font-size:.78rem; flex:none; }
+  .hstate-track{ flex:1; height:20px; background:var(--paper); border:1px solid var(--border); border-radius:6px; position:relative; overflow:hidden; }
+  .hstate-mid{ position:absolute; left:50%; top:0; bottom:0; width:1px; background:var(--paper-grid-strong); }
+  .hstate-fill{ position:absolute; top:2px; bottom:2px; border-radius:4px; transition:width 220ms ease, left 220ms ease; }
+  .hstate-fill.pos{ left:50%; background:var(--pencil-blue); }
+  .hstate-fill.neg{ background:var(--pencil-red); }
+  .hstate-val{ width:50px; text-align:right; font-family:'JetBrains Mono',monospace; font-size:.78rem; color:var(--ink-soft); flex:none; }
+
+  /* prediction chips row */
+  .predict-row{ display:flex; gap:8px; flex-wrap:wrap; }
+  .predict-chip{ flex:1 1 120px; border-radius:12px; border:1px solid var(--border); background:var(--paper); padding:10px 12px; display:flex; flex-direction:column; gap:4px; }
+  .predict-chip .pc-char{ font-family:'Gowun Dodum',sans-serif; font-size:1.1rem; display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+  .predict-chip .pc-mark{ font-family:'Noto Sans KR',sans-serif; font-size:.7rem; font-weight:700; color:var(--pencil-blue-ink); background:var(--pencil-blue-soft); border-radius:6px; padding:2px 6px; }
+  .predict-chip .pc-bar{ height:8px; border-radius:999px; background:var(--paper-grid); overflow:hidden; }
+  .predict-chip .pc-bar-fill{ height:100%; background:var(--ink-soft); border-radius:999px; transition:width 220ms ease; }
+  .predict-chip.lead{ border-color:var(--pencil-blue); }
+  .predict-chip.lead .pc-bar-fill{ background:var(--pencil-blue); }
+  .predict-chip .pc-pct{ font-family:'JetBrains Mono',monospace; font-size:.78rem; color:var(--ink-soft); }
+
+  .add-btn{ border-radius:10px; border:1px solid var(--border); background:var(--surface); padding:10px 16px; font-weight:700; font-size:.95rem; cursor:pointer; }
+  .add-btn.blue{ color:var(--pencil-blue-ink); border-color:var(--pencil-blue); background:var(--pencil-blue-soft); }
+  .add-btn.yellow{ color:var(--pencil-yellow-ink); border-color:var(--pencil-yellow); background:var(--pencil-yellow-soft); }
+  .add-btn:hover{ opacity:.85; }
+
+  .sheet-footer{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
+  .step-indicator{ font-family:'JetBrains Mono',monospace; font-size:.85rem; color:var(--ink-soft); }
+
+  @media (max-width:400px){ .masthead{ flex-direction:column; align-items:flex-start; } }
+</style>
+
+<div id="app">
+
+  <header class="masthead">
+    <div class="masthead-badge" id="logoGrid" aria-hidden="true"></div>
+    <div class="masthead-text">
+      <p class="eyebrow">완전 초보자를 위한 체험 학습지</p>
+      <h1>RNN, 기억하면서 다음 글자를 맞혀요</h1>
+      <p class="lede">'가'와 '나' 두 글자로만 이루어진 아주 짧은 언어를 가지고, 글자를 하나씩 읽으면서 "다음엔 뭐가 올까?"를 맞히는 인공지능을 4단계로 체험해요. 핵심은 기억, 즉 은닉 상태예요.</p>
+    </div>
+  </header>
+
+  <nav class="steps-nav" id="stepsNav" aria-label="학습 단계">
+    <button class="step-tab" data-step="1"><b>1</b><span>순서와 기억</span></button>
+    <button class="step-tab" data-step="2"><b>2</b><span>한 칸씩 읽기</span></button>
+    <button class="step-tab" data-step="3"><b>3</b><span>쭉 읽어보기</span></button>
+    <button class="step-tab" data-step="4"><b>4</b><span>내가 만든 글자열</span></button>
+  </nav>
+
+  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+
+  <main class="sheet">
+
+    <!-- STEP 1 -->
+    <section id="step-1" class="step">
+      <div class="step-head">
+        <p class="kicker">STEP 1 · 순서가 있는 데이터</p>
+        <h2>같은 글자인데 다음이 다를 수 있어요</h2>
+        <p class="desc">아래는 '가가나'를 여섯 번 반복한 18글자예요. CNN·랜덤포레스트·XGBoost·GNN은 한 데이터를 통째로 보고 답했지만, 이번엔 글자를 <b>왼쪽부터 하나씩</b> 순서대로 읽어요.</p>
+      </div>
+      <div class="two-col">
+        <div class="panel">
+          <p class="panel-title">글자 다음에 뭐가 올까?</p>
+          <div class="info-box">
+            <span class="name">'가' 다음에는...</span>
+            <span>가: <b id="stat-aa" class="mono"></b>번 · 나: <b id="stat-ab" class="mono"></b>번</span>
+          </div>
+          <div class="info-box">
+            <span class="name">'나' 다음에는...</span>
+            <span>가: <b id="stat-ba" class="mono"></b>번 · 나: <b id="stat-bb" class="mono"></b>번</span>
+          </div>
+          <p class="note">'가'만 보고는 다음이 '가'일지 '나'일지 반반이에요. <b>지금 글자만으로는 부족</b>해요 — 앞서 무엇을 읽었는지 "기억"이 필요해요.</p>
+        </div>
+        <div class="panel">
+          <p class="panel-title">학습에 쓰인 글자열 (18글자)</p>
+          <div class="seq-strip" id="seq1"></div>
+        </div>
+      </div>
+      <div class="callout">RNN(순환신경망)은 글자를 하나 읽을 때마다 <b>은닉 상태(hidden state)</b>라는 숫자 기억을 업데이트해요. 그 기억 덕분에 똑같은 '가'라도 "몇 번째 가인지"에 따라 다른 예측을 할 수 있어요.</div>
+    </section>
+
+    <!-- STEP 2 -->
+    <section id="step-2" class="step" hidden>
+      <div class="step-head">
+        <p class="kicker">STEP 2 · 한 칸씩 읽으며 기억 업데이트하기</p>
+        <h2>글자를 하나 읽을 때마다 기억이 바뀌어요</h2>
+        <p class="desc">버튼을 눌러 글자를 하나씩 읽어보세요. 은닉 상태(h1, h2) 두 숫자가 어떻게 바뀌는지, 그리고 그 기억으로 다음 글자를 어떻게 예측하는지 확인해요.</p>
+      </div>
+      <div class="two-col">
+        <div class="panel">
+          <div class="control-row">
+            <button id="s2NextBtn" class="btn btn-primary">다음 글자 읽기 ▶</button>
+            <button id="s2ResetBtn" class="btn">처음부터</button>
+          </div>
+          <div class="stat-box mono" id="s2Stat">시작 전 — 기억이 비어있어요 (h = 0, 0)</div>
+          <p class="panel-title">은닉 상태 (기억)</p>
+          <div class="hstate" id="s2Hstate"></div>
+          <p class="panel-title">다음 글자 예측</p>
+          <div class="predict-row" id="s2Predict"></div>
+        </div>
+        <div class="panel">
+          <p class="panel-title">읽고 있는 글자열</p>
+          <div class="seq-strip" id="seq2"></div>
+          <p class="note">테두리가 굵은 칸이 지금 읽는 글자예요. 다음 칸 위의 ✓/✗는 <b>한 칸 전에 한 예측</b>이 맞았는지를 보여줘요.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 3 -->
+    <section id="step-3" class="step" hidden>
+      <div class="step-head">
+        <p class="kicker">STEP 3 · 쭉 읽으면서 확인하기</p>
+        <h2>18글자를 끝까지 읽으면 몇 번 맞힐까요?</h2>
+        <p class="desc">이번엔 자동으로 끝까지 읽어요. 같은 '가'라도 기억이 다르면 다른 예측을 한다는 게 반복해서 맞는지 지켜보세요.</p>
+      </div>
+      <div class="two-col">
+        <div class="panel">
+          <div class="control-row">
+            <button id="s3PlayBtn" class="btn btn-primary">자동 재생 ▶</button>
+            <button id="s3ResetBtn" class="btn">처음부터</button>
+          </div>
+          <div class="stat-box mono" id="s3Stat">정답 0 / 0</div>
+          <p class="note">한 글자를 읽고 다음 글자를 예측한 뒤, 실제로 맞았는지 바로바로 표시해요.</p>
+        </div>
+        <div class="panel">
+          <p class="panel-title">전체 글자열 (18글자)</p>
+          <div class="seq-strip" id="seq3"></div>
+        </div>
+      </div>
+      <div class="callout" id="s3Callout" hidden></div>
+    </section>
+
+    <!-- STEP 4 -->
+    <section id="step-4" class="step" hidden>
+      <div class="step-head">
+        <p class="kicker">STEP 4 · 내가 만든 글자열로 실험해보기</p>
+        <h2>학습 때 못 본 패턴도 잘 맞힐까요?</h2>
+        <p class="desc">'가'/'나' 버튼으로 직접 글자열을 만들어보세요. 학습한 '가가나' 리듬과 비슷하면 자신 있게 맞히지만, 전혀 다른 리듬(예: 가나가나...)이면 헷갈려해요.</p>
+      </div>
+      <div class="two-col">
+        <div class="panel">
+          <div class="control-row">
+            <button id="s4AddA" class="add-btn blue">가 추가</button>
+            <button id="s4AddB" class="add-btn yellow">나 추가</button>
+            <button id="s4Clear" class="btn">지우기</button>
+          </div>
+          <div class="control-row">
+            <button id="s4PresetTrain" class="btn">학습 패턴 채우기 (가가나×4)</button>
+            <button id="s4PresetAlt" class="btn">번갈아 패턴 채우기 (가나×6)</button>
+          </div>
+          <p class="panel-title">다음 글자 예측</p>
+          <div class="predict-row" id="s4Predict"></div>
+          <div class="callout" id="s4Callout"></div>
+        </div>
+        <div class="panel">
+          <p class="panel-title">내가 만든 글자열</p>
+          <div class="seq-strip" id="seq4"></div>
+          <p class="panel-title">지금 은닉 상태 (기억)</p>
+          <div class="hstate" id="s4Hstate"></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="sheet-footer">
+    <button id="prevBtn" class="btn">← 이전</button>
+    <span class="step-indicator" id="stepLabel">1 / 4</span>
+    <button id="nextBtn" class="btn btn-primary">다음 →</button>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  // ---------- trained RNN (weights trained offline via backprop-through-time) ----------
+  var VOCAB = ['가','나'];
+  var Wxh = [[-1.4514576134239165,0.6983267039225824],[0.4527403901670197,1.1882071553969396]];
+  var Whh = [[-0.16173525097895047,-0.737459232958287],[2.294663437116678,-1.372484454720098]];
+  var Why = [[0.6389102531522387,3.709544732506686],[-0.8277690881788611,-3.8237742786680586]];
+  var bh  = [0.1732060797710485,0.9650112070722171];
+  var by  = [0.7003237690737345,-0.7003237690737337];
+
+  function matVecH(M, v){
+    var out=[];
+    for(var i=0;i<M.length;i++){
+      var s=0;
+      for(var j=0;j<v.length;j++){ s+=M[i][j]*v[j]; }
+      out.push(s);
+    }
+    return out;
+  }
+  function stepRNN(xIdx, hPrev){
+    var wx = Wxh.map(function(row){ return row[xIdx]; });
+    var wh = matVecH(Whh, hPrev);
+    var hPre = wx.map(function(v,i){ return v+wh[i]+bh[i]; });
+    var hNew = hPre.map(Math.tanh);
+    var o = matVecH(Why, hNew).map(function(v,i){ return v+by[i]; });
+    var mx = Math.max(o[0],o[1]);
+    var e0=Math.exp(o[0]-mx), e1=Math.exp(o[1]-mx);
+    var sum=e0+e1;
+    return { h:hNew, p:[e0/sum, e1/sum] };
+  }
+  function runSeq(seqArr){
+    var h=[0,0], out=[];
+    for(var t=0;t<seqArr.length;t++){
+      var r = stepRNN(seqArr[t], h);
+      var actualNext = (t<seqArr.length-1) ? seqArr[t+1] : null;
+      var predIdx = r.p[0]>=r.p[1] ? 0 : 1;
+      out.push({ t:t, x:seqArr[t], h:r.h, p:r.p, predIdx:predIdx, actualNext:actualNext, correct: actualNext===null?null:(predIdx===actualNext) });
+      h = r.h;
+    }
+    return out;
+  }
+
+  // training-pattern sequence: 가가나 x 6 = 18 chars
+  var SEQ = [];
+  for(var i=0;i<6;i++){ SEQ.push(0,0,1); }
+  var FULL = runSeq(SEQ); // precomputed ground-truth results for the demo sequence
+
+  // ---------- shared render helpers ----------
+  function q(id){ return document.getElementById(id); }
+
+  function tileHtml(charIdx, cls){
+    var extra = cls || '';
+    return '<div class="seq-tile '+(charIdx===0?'blue':'yellow')+' '+extra+'">'+VOCAB[charIdx]+'</div>';
+  }
+
+  // renders a strip of the fixed SEQ, revealing up to `pos` (exclusive-ish: pos = count read so far), marking current tile and correctness badges
+  function renderSeqStripFixed(containerId, pos){
+    var el = q(containerId);
+    var html = '';
+    for(var i=0;i<SEQ.length;i++){
+      var cls = '';
+      if(i > pos-1) cls += ' pending';
+      if(i === pos-1) cls += ' current';
+      html += '<div class="seq-tile '+(SEQ[i]===0?'blue':'yellow')+cls+'">'+VOCAB[SEQ[i]];
+      if(i>=1 && i<=pos-1){
+        var prevRes = FULL[i-1];
+        html += '<span class="badge '+(prevRes.correct?'ok':'bad')+'">'+(prevRes.correct?'✓':'✗')+'</span>';
+      }
+      html += '</div>';
+    }
+    el.innerHTML = html;
+  }
+
+  function renderHState(containerId, hVals){
+    var el = q(containerId);
+    var labels = ['h1','h2'];
+    el.innerHTML = hVals.map(function(v, i){
+      var pct = Math.min(100, Math.abs(v)*50);
+      var isPos = v>=0;
+      var fillStyle = isPos ? ('left:50%;width:'+pct+'%;') : ('left:'+(50-pct)+'%;width:'+pct+'%;');
+      return '<div class="hstate-item">'+
+        '<span class="hstate-label mono">'+labels[i]+'</span>'+
+        '<div class="hstate-track"><div class="hstate-mid"></div><div class="hstate-fill '+(isPos?'pos':'neg')+'" style="'+fillStyle+'"></div></div>'+
+        '<span class="hstate-val mono">'+v.toFixed(3)+'</span>'+
+      '</div>';
+    }).join('');
+  }
+
+  function renderPredict(containerId, p, actualIdx){
+    var el = q(containerId);
+    var leadIdx = p[0]>=p[1] ? 0 : 1;
+    el.innerHTML = [0,1].map(function(i){
+      var pct = Math.round(p[i]*100);
+      var lead = i===leadIdx ? ' lead' : '';
+      var mark = '';
+      if(actualIdx!==null && actualIdx!==undefined){
+        if(i===actualIdx) mark = '<span class="pc-mark mono">실제 정답'+(i===leadIdx?' ✓':'')+'</span>';
+      }
+      return '<div class="predict-chip'+lead+'">'+
+        '<span class="pc-char">'+VOCAB[i]+mark+'</span>'+
+        '<div class="pc-bar"><div class="pc-bar-fill" style="width:'+pct+'%;"></div></div>'+
+        '<span class="pc-pct">'+pct+'%</span>'+
+      '</div>';
+    }).join('');
+  }
+
+  // ---------- state ----------
+  var state = { step:1 };
+  var s2 = { pos:0 };            // step2: how many chars have been read
+  var s3 = { pos:0, playing:false, timer:null }; // step3: autoplay position
+  var s4 = { seq:[] };           // step4: user-built sequence (array of 0/1)
+
+  var progressFillEl, stepLabelEl, prevBtn, nextBtn;
+
+  // ---------- Step 1 ----------
+  function renderStep1(){
+    q('stat-aa').textContent = FULL.filter(function(r){ return r.x===0 && r.actualNext===0; }).length;
+    q('stat-ab').textContent = FULL.filter(function(r){ return r.x===0 && r.actualNext===1; }).length;
+    q('stat-ba').textContent = FULL.filter(function(r){ return r.x===1 && r.actualNext===0; }).length;
+    q('stat-bb').textContent = FULL.filter(function(r){ return r.x===1 && r.actualNext===1; }).length;
+    var html='';
+    for(var i=0;i<SEQ.length;i++){ html += tileHtml(SEQ[i]); }
+    q('seq1').innerHTML = html;
+  }
+
+  // ---------- Step 2 ----------
+  function renderStep2(){
+    renderSeqStripFixed('seq2', s2.pos);
+    if(s2.pos===0){
+      q('s2Stat').textContent = '시작 전 — 기억이 비어있어요 (h = 0, 0)';
+      renderHState('s2Hstate', [0,0]);
+      q('s2Predict').innerHTML = '<p class="note">글자를 읽으면 예측이 나타나요.</p>';
+    } else {
+      var res = FULL[s2.pos-1];
+      var pieces = ['t='+(s2.pos-1)+' · 방금 읽은 글자: "'+VOCAB[res.x]+'"'];
+      q('s2Stat').textContent = pieces[0];
+      renderHState('s2Hstate', res.h);
+      renderPredict('s2Predict', res.p, res.actualNext);
+    }
+    q('s2NextBtn').disabled = s2.pos>=SEQ.length;
+    q('s2NextBtn').textContent = s2.pos>=SEQ.length ? '다 읽었어요' : '다음 글자 읽기 ▶';
+  }
+
+  // ---------- Step 3 ----------
+  function stopAutoplay(){
+    s3.playing=false;
+    if(s3.timer){ clearInterval(s3.timer); s3.timer=null; }
+    q('s3PlayBtn').textContent = '자동 재생 ▶';
+  }
+  function renderStep3(){
+    renderSeqStripFixed('seq3', s3.pos);
+    var done = FULL.slice(0, Math.max(0, s3.pos-1));
+    var correctCount = done.filter(function(r){ return r.correct===true; }).length;
+    q('s3Stat').textContent = '정답 '+correctCount+' / '+done.length;
+    var callout = q('s3Callout');
+    if(s3.pos>=SEQ.length){
+      callout.hidden=false;
+      callout.textContent = '18글자 중 '+done.length+'번 예측해서 '+correctCount+'번 맞혔어요! 같은 "가"라도 기억(은닉 상태)이 다르면 서로 다른 예측을 할 수 있다는 게 핵심이에요.';
+    } else {
+      callout.hidden=true;
+    }
+  }
+  function autoplayTick(){
+    if(s3.pos>=SEQ.length){ stopAutoplay(); renderStep3(); return; }
+    s3.pos++;
+    renderStep3();
+    if(s3.pos>=SEQ.length){ stopAutoplay(); }
+  }
+
+  // ---------- Step 4 ----------
+  function renderStep4(){
+    var html='';
+    for(var i=0;i<s4.seq.length;i++){ html += tileHtml(s4.seq[i]); }
+    q('seq4').innerHTML = html || '<p class="note">아직 글자가 없어요 — "가 추가"나 "나 추가"를 눌러보세요.</p>';
+
+    if(s4.seq.length===0){
+      renderHState('s4Hstate', [0,0]);
+      q('s4Predict').innerHTML = '<p class="note">글자를 추가하면 다음 글자 예측이 나타나요.</p>';
+      q('s4Callout').textContent = '먼저 글자를 하나 이상 추가해보세요.';
+      return;
+    }
+    var res = runSeq(s4.seq);
+    var last = res[res.length-1];
+    renderHState('s4Hstate', last.h);
+    renderPredict('s4Predict', last.p, null);
+    var maxP = Math.max(last.p[0], last.p[1]);
+    var leadIdx = last.p[0]>=last.p[1] ? 0 : 1;
+    var pct = Math.round(maxP*100);
+
+    var PERIOD_TRAIN=[0,0,1], PERIOD_ALT=[0,1];
+    function matchesPeriod(seq, period){
+      for(var i=0;i<seq.length;i++){ if(seq[i]!==period[i%period.length]) return false; }
+      return true;
+    }
+    var msg;
+    if(matchesPeriod(s4.seq, PERIOD_TRAIN)){
+      var naiveNext = PERIOD_TRAIN[s4.seq.length % PERIOD_TRAIN.length];
+      if(leadIdx===naiveNext){
+        msg = '지금까지는 학습한 "가가나" 리듬 그대로예요. 모델도 그 리듬을 기억하고 있어서 다음 글자를 확신도 '+pct+'%로 정확히 예측해요.';
+      } else {
+        msg = '학습 리듬과 똑같은데도 모델이 다른 글자('+VOCAB[leadIdx]+', 확신도 '+pct+'%)를 예측했어요 — 흔치 않은 경우예요.';
+      }
+    } else if(matchesPeriod(s4.seq, PERIOD_ALT)){
+      var naiveNext2 = PERIOD_ALT[s4.seq.length % PERIOD_ALT.length];
+      if(leadIdx!==naiveNext2){
+        msg = '이 "가나가나..." 리듬은 학습 때 전혀 본 적이 없어요. 번갈아 온다면 다음은 "'+VOCAB[naiveNext2]+'"여야 하는데, 모델은 오히려 "'+VOCAB[leadIdx]+'"를 확신도 '+pct+'%로 자신 있게 예측해요 — 확신도가 높다고 항상 정답은 아니에요! 기억하고 있던 "가가나" 습관을 낯선 패턴에도 억지로 적용하고 있는 거예요.';
+      } else {
+        msg = '이 리듬은 학습 때 못 본 패턴인데 우연히 예측이 맞았어요 (확신도 '+pct+'%). 계속 이어가면 흔들릴 수 있어요.';
+      }
+    } else {
+      msg = '이 글자열엔 정해진 정답이 없어요. 모델은 다음 글자를 "'+VOCAB[leadIdx]+'"로 확신도 '+pct+'%만큼 예측하고 있는데, 학습 패턴과 다르게 섞여 있을수록 이 확신도는 신뢰하기 어려워요.';
+    }
+    q('s4Callout').textContent = msg;
+  }
+
+  // ---------- nav / lifecycle ----------
+  function updateProgress(){
+    progressFillEl.style.width = (state.step/4*100)+'%';
+    stepLabelEl.textContent = state.step+' / 4';
+  }
+  function updateNavTabs(){
+    document.querySelectorAll('.step-tab').forEach(function(btn){
+      var s=+btn.dataset.step;
+      btn.classList.toggle('active', s===state.step);
+      if(s===state.step) btn.setAttribute('aria-current','step'); else btn.removeAttribute('aria-current');
+    });
+  }
+  function updatePrevNext(){
+    prevBtn.disabled = state.step===1;
+    nextBtn.textContent = state.step===4 ? '처음부터 다시 ↺' : '다음 →';
+  }
+  function renderCurrentStep(){
+    updateProgress();
+    switch(state.step){
+      case 1: renderStep1(); break;
+      case 2: renderStep2(); break;
+      case 3: renderStep3(); break;
+      case 4: renderStep4(); break;
+    }
+  }
+  function goToStep(n){
+    if(n<1) n=1; if(n>4) n=4;
+    if(n!==3) stopAutoplay();
+    state.step=n;
+    for(var i=1;i<=4;i++){ q('step-'+i).hidden = (i!==n); }
+    updateNavTabs();
+    updatePrevNext();
+    renderCurrentStep();
+  }
+
+  function renderLogoGrid(){
+    var el=q('logoGrid');
+    el.innerHTML='';
+    var pattern=[1,0,1,0, 0,1,0,1, 1,0,1,0, 0,1,0,1];
+    pattern.forEach(function(v,i){
+      var d=document.createElement('i');
+      d.className = v? 'on':'';
+      d.style.animationDelay = (i*28)+'ms';
+      el.appendChild(d);
+    });
+  }
+
+  function initListeners(){
+    q('s2NextBtn').addEventListener('click', function(){
+      if(s2.pos<SEQ.length){ s2.pos++; renderStep2(); }
+    });
+    q('s2ResetBtn').addEventListener('click', function(){
+      s2.pos=0; renderStep2();
+    });
+
+    q('s3PlayBtn').addEventListener('click', function(){
+      if(s3.playing){ stopAutoplay(); return; }
+      if(s3.pos>=SEQ.length){ s3.pos=0; }
+      s3.playing=true;
+      q('s3PlayBtn').textContent = '일시정지 ⏸';
+      s3.timer = setInterval(autoplayTick, 650);
+    });
+    q('s3ResetBtn').addEventListener('click', function(){
+      stopAutoplay(); s3.pos=0; renderStep3();
+    });
+
+    q('s4AddA').addEventListener('click', function(){
+      if(s4.seq.length<16){ s4.seq.push(0); renderStep4(); }
+    });
+    q('s4AddB').addEventListener('click', function(){
+      if(s4.seq.length<16){ s4.seq.push(1); renderStep4(); }
+    });
+    q('s4Clear').addEventListener('click', function(){
+      s4.seq=[]; renderStep4();
+    });
+    q('s4PresetTrain').addEventListener('click', function(){
+      var seq=[]; for(var i=0;i<4;i++){ seq.push(0,0,1); }
+      s4.seq=seq; renderStep4();
+    });
+    q('s4PresetAlt').addEventListener('click', function(){
+      var seq=[]; for(var i=0;i<6;i++){ seq.push(0,1); }
+      s4.seq=seq; renderStep4();
+    });
+
+    q('stepsNav').addEventListener('click', function(e){
+      var b=e.target.closest('.step-tab'); if(!b) return;
+      goToStep(+b.dataset.step);
+    });
+    prevBtn.addEventListener('click', function(){ goToStep(state.step-1); });
+    nextBtn.addEventListener('click', function(){ if(state.step<4) goToStep(state.step+1); else goToStep(1); });
+  }
+
+  function init(){
+    progressFillEl=q('progressFill'); stepLabelEl=q('stepLabel');
+    prevBtn=q('prevBtn'); nextBtn=q('nextBtn');
+
+    renderLogoGrid();
+    initListeners();
+    updateNavTabs();
+    updatePrevNext();
+    renderCurrentStep();
+  }
+
+  try{
+    if(window.claude && window.claude.hot && window.claude.hot.ready){
+      window.claude.hot.ready(function(){ init(); });
+    } else { init(); }
+  }catch(e){ init(); }
+
+})();
+</script>

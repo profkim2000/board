@@ -1,0 +1,733 @@
+<title>LSTM 체험 학습지</title>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+  :root{
+    --paper:#FAFAF8;
+    --paper-grid:#DCE6F5;
+    --paper-grid-strong:#C3D2EE;
+    --surface:#FFFFFF;
+    --border:#E2E6EE;
+    --ink:#1E2430;
+    --ink-soft:#63697A;
+    --pencil-blue:#2F5FD1;
+    --pencil-blue-soft:#E7EEFD;
+    --pencil-blue-ink:#1D3E96;
+    --pencil-red:#D8443A;
+    --pencil-red-soft:#FBE7E5;
+    --pencil-red-ink:#A9291F;
+    --pencil-yellow:#C98A00;
+    --pencil-yellow-soft:#FBF0D6;
+    --pencil-yellow-ink:#8A5E00;
+    --pencil-green:#1E8E5A;
+    --pencil-green-soft:#E4F4EC;
+    --pencil-green-ink:#146A43;
+    --shadow: 0 1px 2px rgba(30,36,48,0.06), 0 6px 20px rgba(30,36,48,0.05);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#161D28; --paper-grid:#2D3B52; --paper-grid-strong:#3C4E6B;
+      --surface:#1D2534; --border:#31405A; --ink:#ECEFF6; --ink-soft:#9BA6BC;
+      --pencil-blue:#7DA2FF; --pencil-blue-soft:#243257; --pencil-blue-ink:#C4D3FF;
+      --pencil-red:#FF8A7E; --pencil-red-soft:#3A2429; --pencil-red-ink:#FFC0B7;
+      --pencil-yellow:#F0C243; --pencil-yellow-soft:#3A311A; --pencil-yellow-ink:#F5D27A;
+      --pencil-green:#5FC793; --pencil-green-soft:#1C3327; --pencil-green-ink:#9FE3C2;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 10px 26px rgba(0,0,0,0.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#161D28; --paper-grid:#2D3B52; --paper-grid-strong:#3C4E6B;
+    --surface:#1D2534; --border:#31405A; --ink:#ECEFF6; --ink-soft:#9BA6BC;
+    --pencil-blue:#7DA2FF; --pencil-blue-soft:#243257; --pencil-blue-ink:#C4D3FF;
+    --pencil-red:#FF8A7E; --pencil-red-soft:#3A2429; --pencil-red-ink:#FFC0B7;
+    --pencil-yellow:#F0C243; --pencil-yellow-soft:#3A311A; --pencil-yellow-ink:#F5D27A;
+    --pencil-green:#5FC793; --pencil-green-soft:#1C3327; --pencil-green-ink:#9FE3C2;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 10px 26px rgba(0,0,0,0.35);
+  }
+
+  *{ box-sizing:border-box; }
+  [hidden]{ display:none !important; }
+  body{
+    margin:0;
+    background:
+      linear-gradient(var(--paper), var(--paper)),
+      repeating-linear-gradient(0deg, var(--paper-grid) 0 1px, transparent 1px 28px),
+      repeating-linear-gradient(90deg, var(--paper-grid) 0 1px, transparent 1px 28px);
+    background-color:var(--paper);
+    color:var(--ink);
+    font-family:'Noto Sans KR', 'Malgun Gothic', sans-serif;
+    line-height:1.6;
+  }
+  h1,h2,h3{ font-family:'Gowun Dodum','Noto Sans KR',sans-serif; font-weight:400; text-wrap:balance; margin:0; color:var(--ink); }
+  p{ margin:0; }
+  .mono{ font-family:'JetBrains Mono', ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+  button{ font-family:inherit; }
+  :focus-visible{ outline:3px solid var(--pencil-blue); outline-offset:2px; }
+
+  #app{ max-width:960px; margin-inline:auto; padding-inline:20px; padding-block:32px 56px; display:flex; flex-direction:column; gap:20px; }
+
+  .masthead{ display:flex; align-items:center; gap:20px; background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:22px 24px; box-shadow:var(--shadow); flex-wrap:wrap; }
+  .masthead-badge{ flex:none; width:84px; height:84px; display:grid; grid-template-columns:repeat(4,1fr); grid-template-rows:repeat(4,1fr); gap:3px; padding:8px; background:var(--paper); border:1px solid var(--border); border-radius:12px; }
+  .masthead-badge i{ background:var(--paper-grid); border-radius:2px; opacity:0; }
+  @media (prefers-reduced-motion: no-preference){ .masthead-badge i.on{ animation:inkIn 240ms ease-out forwards; } }
+  .masthead-badge i.on{ background:var(--pencil-blue); opacity:1; }
+  @keyframes inkIn{ from{ opacity:0; transform:scale(.4);} to{ opacity:1; transform:scale(1);} }
+  .masthead-text{ flex:1; min-width:220px; display:flex; flex-direction:column; gap:6px; }
+  .eyebrow{ font-size:.8rem; font-weight:700; letter-spacing:.06em; color:var(--pencil-blue); text-transform:uppercase; }
+  .masthead-text h1{ font-size:clamp(1.4rem,4vw,2rem); }
+  .lede{ color:var(--ink-soft); font-size:.95rem; max-width:60ch; }
+
+  .steps-nav{ display:flex; flex-wrap:wrap; gap:8px; }
+  .step-tab{ flex:1 1 auto; min-width:100px; display:flex; flex-direction:column; align-items:center; gap:2px; padding:10px 8px; border-radius:12px; border:1px solid var(--border); background:var(--surface); color:var(--ink-soft); cursor:pointer; font-size:.8rem; transition:background 150ms, color 150ms, border-color 150ms; }
+  .step-tab b{ font-family:'JetBrains Mono',monospace; font-size:.95rem; color:inherit; }
+  .step-tab.active{ background:var(--pencil-blue); border-color:var(--pencil-blue); color:#fff; }
+  .step-tab.active b{ color:#fff; }
+
+  .progress-track{ height:6px; border-radius:999px; background:var(--paper-grid); overflow:hidden; }
+  .progress-fill{ height:100%; background:var(--pencil-blue); border-radius:999px; transition:width 220ms ease; }
+
+  .sheet{ background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:26px 24px; box-shadow:var(--shadow); }
+  .step:not([hidden]){ display:flex; }
+  .step{ flex-direction:column; gap:18px; }
+  .step-head{ display:flex; flex-direction:column; gap:6px; }
+  .step-head .kicker{ font-size:.78rem; font-weight:700; color:var(--pencil-blue); letter-spacing:.04em; }
+  .step-head h2{ font-size:1.4rem; }
+  .step-head .desc{ color:var(--ink-soft); font-size:.95rem; max-width:66ch; }
+
+  .two-col{ display:grid; grid-template-columns:1fr; gap:22px; }
+  @media (min-width:680px){ .two-col{ grid-template-columns: minmax(0,280px) 1fr; align-items:start; } }
+
+  .panel{ display:flex; flex-direction:column; gap:12px; }
+  .panel-title{ font-size:.85rem; font-weight:700; color:var(--ink-soft); }
+
+  .btn{ border-radius:10px; border:1px solid var(--border); background:var(--surface); color:var(--ink); padding:9px 14px; font-size:.85rem; font-weight:500; cursor:pointer; transition:background 120ms, border-color 120ms, color 120ms; }
+  .btn:hover{ border-color:var(--pencil-blue); }
+  .btn:disabled{ opacity:.45; cursor:not-allowed; }
+  .btn-primary{ background:var(--pencil-blue); border-color:var(--pencil-blue); color:#fff; }
+  .btn-primary:hover{ opacity:.92; }
+  .control-row{ display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+
+  .note{ font-size:.82rem; color:var(--ink-soft); }
+  .callout{ background:var(--paper); border:1px dashed var(--paper-grid-strong); border-radius:12px; padding:12px 14px; font-size:.88rem; color:var(--ink-soft); }
+
+  .stat-box{ font-family:'JetBrains Mono',monospace; font-weight:700; font-size:1rem; padding:10px 14px; border-radius:12px; background:var(--paper); border:1px solid var(--border); }
+  .info-box{ background:var(--paper); border:1px solid var(--border); border-radius:12px; padding:12px 14px; font-size:.85rem; display:flex; flex-direction:column; gap:4px; }
+
+  input[type="range"]{ width:100%; accent-color:var(--pencil-blue); height:6px; cursor:pointer; }
+
+  /* sequence tile strip (shared look with RNN app) */
+  .seq-strip{ display:flex; flex-wrap:wrap; gap:10px 8px; padding-top:6px; }
+  .seq-tile{ position:relative; width:36px; height:36px; border-radius:9px; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:.95rem; border:1px solid var(--border); background:var(--paper); color:var(--ink-soft); transition:outline-color 150ms, opacity 150ms, transform 150ms; }
+  .seq-tile.marker{ background:var(--pencil-blue-soft); color:var(--pencil-blue-ink); border-color:var(--pencil-blue); }
+  .seq-tile.marker.b{ background:var(--pencil-yellow-soft); color:var(--pencil-yellow-ink); border-color:var(--pencil-yellow); }
+  .seq-tile.filler{ background:var(--paper); color:var(--ink-soft); }
+  .seq-tile.query{ background:var(--pencil-green-soft); color:var(--pencil-green-ink); border-color:var(--pencil-green); font-weight:900; }
+  .seq-tile.pending{ opacity:.35; }
+  .seq-tile.current{ outline:3px solid var(--ink); outline-offset:2px; transform:translateY(-2px); }
+
+  /* 0~1 gate bars */
+  .gate-row{ display:flex; flex-direction:column; gap:9px; }
+  .gate-item{ display:flex; align-items:center; gap:9px; }
+  .gate-label{ width:34px; font-family:'JetBrains Mono',monospace; font-weight:700; color:var(--ink-soft); font-size:.78rem; flex:none; }
+  .gate-track{ flex:1; height:18px; background:var(--paper); border:1px solid var(--border); border-radius:6px; position:relative; overflow:hidden; }
+  .gate-fill{ position:absolute; left:0; top:0; bottom:0; border-radius:6px 0 0 6px; transition:width 220ms ease; }
+  .gate-fill.i{ background:var(--pencil-green); }
+  .gate-fill.f{ background:var(--pencil-blue); }
+  .gate-fill.o{ background:var(--pencil-yellow); }
+  .gate-val{ width:46px; text-align:right; font-family:'JetBrains Mono',monospace; font-size:.76rem; color:var(--ink-soft); flex:none; }
+
+  /* diverging cell-state bars (wider range than hidden state) */
+  .cell-row{ display:flex; flex-direction:column; gap:9px; }
+  .cell-item{ display:flex; align-items:center; gap:9px; }
+  .cell-label{ width:24px; font-family:'JetBrains Mono',monospace; font-weight:700; color:var(--ink-soft); font-size:.78rem; flex:none; }
+  .cell-track{ flex:1; height:20px; background:var(--paper); border:1px solid var(--border); border-radius:6px; position:relative; overflow:hidden; }
+  .cell-mid{ position:absolute; left:50%; top:0; bottom:0; width:1px; background:var(--paper-grid-strong); }
+  .cell-fill{ position:absolute; top:2px; bottom:2px; border-radius:4px; transition:width 220ms ease, left 220ms ease; }
+  .cell-fill.pos{ left:50%; background:var(--pencil-blue); }
+  .cell-fill.neg{ background:var(--pencil-red); }
+  .cell-val{ width:54px; text-align:right; font-family:'JetBrains Mono',monospace; font-size:.76rem; color:var(--ink-soft); flex:none; }
+
+  .predict-row{ display:flex; gap:8px; flex-wrap:wrap; }
+  .predict-chip{ flex:1 1 120px; border-radius:12px; border:1px solid var(--border); background:var(--paper); padding:10px 12px; display:flex; flex-direction:column; gap:4px; }
+  .predict-chip .pc-char{ font-family:'Gowun Dodum',sans-serif; font-size:1.1rem; display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+  .predict-chip .pc-mark{ font-family:'Noto Sans KR',sans-serif; font-size:.7rem; font-weight:700; color:var(--pencil-blue-ink); background:var(--pencil-blue-soft); border-radius:6px; padding:2px 6px; }
+  .predict-chip .pc-bar{ height:8px; border-radius:999px; background:var(--paper-grid); overflow:hidden; }
+  .predict-chip .pc-bar-fill{ height:100%; background:var(--ink-soft); border-radius:999px; transition:width 220ms ease; }
+  .predict-chip.lead{ border-color:var(--pencil-blue); }
+  .predict-chip.lead .pc-bar-fill{ background:var(--pencil-blue); }
+  .predict-chip .pc-pct{ font-family:'JetBrains Mono',monospace; font-size:.78rem; color:var(--ink-soft); }
+
+  /* signal-strength comparison bars (step 4) */
+  .sig-row{ display:flex; flex-direction:column; gap:12px; }
+  .sig-item{ display:flex; flex-direction:column; gap:4px; }
+  .sig-item-top{ display:flex; justify-content:space-between; align-items:baseline; font-size:.82rem; }
+  .sig-item-top b{ font-weight:700; }
+  .sig-track{ height:22px; background:var(--paper); border:1px solid var(--border); border-radius:6px; position:relative; overflow:hidden; }
+  .sig-fill{ height:100%; border-radius:6px; min-width:2px; transition:width 220ms ease; }
+  .sig-fill.rnn{ background:var(--pencil-red); }
+  .sig-fill.lstm{ background:var(--pencil-blue); }
+
+  .legend-row{ display:flex; gap:14px; flex-wrap:wrap; font-size:.8rem; color:var(--ink-soft); align-items:center; }
+  .legend-dot{ display:inline-block; width:11px; height:11px; border-radius:50%; margin-right:5px; vertical-align:middle; }
+  .legend-dot.blue{ background:var(--pencil-blue); }
+  .legend-dot.red{ background:var(--pencil-red); }
+  .legend-dot.green{ background:var(--pencil-green); }
+  .legend-dot.yellow{ background:var(--pencil-yellow); }
+
+  .sheet-footer{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
+  .step-indicator{ font-family:'JetBrains Mono',monospace; font-size:.85rem; color:var(--ink-soft); }
+
+  @media (max-width:400px){ .masthead{ flex-direction:column; align-items:flex-start; } }
+</style>
+
+<div id="app">
+
+  <header class="masthead">
+    <div class="masthead-badge" id="logoGrid" aria-hidden="true"></div>
+    <div class="masthead-text">
+      <p class="eyebrow">완전 초보자를 위한 체험 학습지</p>
+      <h1>LSTM, 오래오래 기억하는 법</h1>
+      <p class="lede">첫 글자를 기억했다가, 상관없는 글자들이 잔뜩 지나간 뒤에도 정확히 답하는 인공지능을 4단계로 체험해요. RNN의 "짧은 기억"이 왜 부족했는지, LSTM이 그 문제를 어떻게 푸는지 실제 숫자로 확인해요.</p>
+    </div>
+  </header>
+
+  <nav class="steps-nav" id="stepsNav" aria-label="학습 단계">
+    <button class="step-tab" data-step="1"><b>1</b><span>오래 기억하기</span></button>
+    <button class="step-tab" data-step="2"><b>2</b><span>3개의 문</span></button>
+    <button class="step-tab" data-step="3"><b>3</b><span>얼마나 오래?</span></button>
+    <button class="step-tab" data-step="4"><b>4</b><span>왜 LSTM일까</span></button>
+  </nav>
+
+  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+
+  <main class="sheet">
+
+    <!-- STEP 1 -->
+    <section id="step-1" class="step">
+      <div class="step-head">
+        <p class="kicker">STEP 1 · 오래 기억하기 문제</p>
+        <h2>맨 처음 글자를, 한참 뒤에 다시 물어봐요</h2>
+        <p class="desc">이번 문제는 이래요: 맨 앞에 '가' 또는 '나'(표시) 하나가 나오고, 그다음 아무 의미 없는 '다'/'라'(잡음)가 여러 개 이어지다가, 마지막에 '마'(질문)가 나오면 <b>맨 처음 표시가 뭐였는지</b> 답해야 해요.</p>
+      </div>
+      <div class="two-col">
+        <div class="panel">
+          <p class="panel-title">글자 종류</p>
+          <div class="info-box">
+            <span><span class="seq-tile marker" style="display:inline-flex;width:26px;height:26px;font-size:.8rem;vertical-align:middle;">가</span> / <span class="seq-tile marker b" style="display:inline-flex;width:26px;height:26px;font-size:.8rem;vertical-align:middle;">나</span> — 맨 앞에 딱 한 번, 기억해야 할 표시</span>
+            <span><span class="seq-tile filler" style="display:inline-flex;width:26px;height:26px;font-size:.8rem;vertical-align:middle;">다</span> / <span class="seq-tile filler" style="display:inline-flex;width:26px;height:26px;font-size:.8rem;vertical-align:middle;">라</span> — 뜻 없는 잡음, 몇 개든 올 수 있어요</span>
+            <span><span class="seq-tile query" style="display:inline-flex;width:26px;height:26px;font-size:.8rem;vertical-align:middle;">마</span> — "표시가 뭐였지?" 물어보는 질문 신호</span>
+          </div>
+          <p class="note">이전 RNN 학습지의 "바로 다음 글자 맞히기"보다 훨씬 오래 기억해야 하는 문제예요.</p>
+        </div>
+        <div class="panel">
+          <p class="panel-title">예시 글자열</p>
+          <div class="seq-strip" id="seq1"></div>
+          <p class="note" style="margin-top:8px;">잡음(다/라)이 몇 개가 오든 상관없이, 맨 앞의 '가'를 기억하고 있다가 '마'에서 정확히 답해야 해요.</p>
+        </div>
+      </div>
+      <div class="callout">지난 RNN 학습지에서 은닉 상태는 매 글자마다 tanh를 거치며 -1~1 사이로 눌려 다시 섞였어요. 그래서 잡음이 계속 끼어들면 오래된 기억이 점점 흐려져요. LSTM은 이 문제를 풀기 위해 은닉 상태 말고 <b>셀 상태(cell state)</b>라는 별도의 "장기 기억 창고"를 하나 더 둬요.</div>
+    </section>
+
+    <!-- STEP 2 -->
+    <section id="step-2" class="step" hidden>
+      <div class="step-head">
+        <p class="kicker">STEP 2 · 입력문·망각문·출력문</p>
+        <h2>LSTM은 문 3개로 기억을 관리해요</h2>
+        <p class="desc">글자를 하나씩 읽을 때마다 <b>입력문(i)</b>은 "이 글자를 얼마나 받아들일지", <b>망각문(f)</b>은 "기존 기억을 얼마나 남길지", <b>출력문(o)</b>은 "지금 기억을 얼마나 꺼내 보여줄지"를 0~100%로 결정해요.</p>
+      </div>
+      <div class="two-col">
+        <div class="panel">
+          <div class="control-row">
+            <button id="s2NextBtn" class="btn btn-primary">다음 글자 읽기 ▶</button>
+            <button id="s2ResetBtn" class="btn">처음부터</button>
+          </div>
+          <div class="stat-box mono" id="s2Stat">시작 전</div>
+          <p class="panel-title">문(gate) 열림 정도</p>
+          <div class="gate-row" id="s2Gates"></div>
+          <p class="panel-title">셀 상태 (장기 기억 창고)</p>
+          <div class="cell-row" id="s2Cell"></div>
+          <p class="panel-title">은닉 상태 → 예측</p>
+          <div class="predict-row" id="s2Predict"></div>
+        </div>
+        <div class="panel">
+          <p class="panel-title">읽고 있는 글자열</p>
+          <div class="seq-strip" id="seq2"></div>
+          <p class="note">테두리가 굵은 칸이 지금 읽는 글자예요. 잡음(다/라)을 읽는 동안 망각문이 얼마나 열려 있는지, 셀 상태가 어떻게 바뀌는지 지켜보세요.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 3 -->
+    <section id="step-3" class="step" hidden>
+      <div class="step-head">
+        <p class="kicker">STEP 3 · 장기 기억력 테스트</p>
+        <h2>잡음을 얼마나 길게 늘려도 기억할까요?</h2>
+        <p class="desc">이 LSTM은 잡음이 1~5개인 짧은 경우로만 학습했어요. 슬라이더로 잡음 개수를 늘려보면서, 학습 때 못 본 긴 간격에서도 정확도가 유지되는지 직접(실시간 계산으로) 확인해보세요.</p>
+      </div>
+      <div class="two-col">
+        <div class="panel">
+          <p class="panel-title">잡음(다/라) 개수: <span id="s3KVal" class="mono"></span></p>
+          <input type="range" id="s3Slider" min="0" max="25" step="1">
+          <div class="stat-box mono" id="s3Stat"></div>
+          <button id="s3NewBtn" class="btn">다른 예시로 테스트</button>
+        </div>
+        <div class="panel">
+          <p class="panel-title">방금 테스트한 예시</p>
+          <div class="seq-strip" id="seq3"></div>
+          <div class="predict-row" id="s3Predict"></div>
+        </div>
+      </div>
+      <div class="callout" id="s3Callout"></div>
+    </section>
+
+    <!-- STEP 4 -->
+    <section id="step-4" class="step" hidden>
+      <div class="step-head">
+        <p class="kicker">STEP 4 · 그런데 왜 LSTM일까?</p>
+        <h2>일반 RNN은 신호가 훨씬 빨리 약해져요</h2>
+        <p class="desc">아직 학습하지 않은, 막 초기화한 신경망 두 개(일반 RNN vs LSTM)에 같은 문제를 주고, "정답 신호"가 맨 처음 글자까지 얼마나 잘 전달되는지 계산해봐요. 이 신호가 약할수록 학습(훈련)이 더 어려워요.</p>
+      </div>
+      <div class="two-col">
+        <div class="panel">
+          <p class="panel-title">잡음(다/라) 개수: <span id="s4KVal" class="mono"></span></p>
+          <input type="range" id="s4Slider" min="1" max="25" step="1">
+          <p class="note">간격이 길어질수록 두 모델의 차이가 어떻게 벌어지는지 슬라이더를 움직여보세요.</p>
+        </div>
+        <div class="panel">
+          <p class="panel-title">맨 처음 글자까지 남은 신호 세기</p>
+          <div class="sig-row" id="s4Sig"></div>
+          <div class="legend-row">
+            <span><span class="legend-dot red"></span>일반 RNN</span>
+            <span><span class="legend-dot blue"></span>LSTM</span>
+          </div>
+        </div>
+      </div>
+      <div class="callout" id="s4Callout"></div>
+    </section>
+
+  </main>
+
+  <footer class="sheet-footer">
+    <button id="prevBtn" class="btn">← 이전</button>
+    <span class="step-indicator" id="stepLabel">1 / 4</span>
+    <button id="nextBtn" class="btn btn-primary">다음 →</button>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var VOCAB = ['가','나','다','라','마']; // 0,1=markers 2,3=filler(random) 4=query
+
+  // ---------- math helpers ----------
+  function sigmoid(x){ return 1/(1+Math.exp(-x)); }
+  function matVec(M, v){
+    var out=[];
+    for(var i=0;i<M.length;i++){ var s=0; for(var j=0;j<v.length;j++){ s+=M[i][j]*v[j]; } out.push(s); }
+    return out;
+  }
+  function addVec(a,b){ return a.map(function(x,i){return x+b[i];}); }
+  function transpose(M){
+    var out=[];
+    for(var j=0;j<M[0].length;j++){ var row=[]; for(var i=0;i<M.length;i++){ row.push(M[i][j]); } out.push(row); }
+    return out;
+  }
+  function onehot(idx, V){ var v=[]; for(var i=0;i<V;i++) v.push(0); v[idx]=1; return v; }
+  function norm(v){ return Math.sqrt(v.reduce(function(s,x){return s+x*x;},0)); }
+  function mulberry32(a){
+    return function(){
+      a |= 0; a = (a + 0x6D2B79F5) | 0;
+      var t = Math.imul(a ^ (a >>> 15), 1 | a);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+
+  // ---------- trained LSTM: solves the long-gap recall task ----------
+  // trained offline via full backprop-through-time (BPTT) on random gaps of 1~5 filler chars,
+  // gradients verified against numerical finite-difference gradient checking (max rel. error ~3e-7)
+  var LSTM_TRAINED = {"Wxi":[[0.43103535124235887,0.30541541973058917,0.2682939906368954,0.2705693559091263,0.1613505526429481],[0.41044374982265314,0.15956328957463292,-0.10189246542907131,0.11807992463211425,0.358979463238396],[0.161692996013765,0.28910217668922167,0.025283347976857756,-0.3660907813691777,0.08657576036434167]],"Whi":[[-0.034069984371957414,0.37850640123908036,-0.3390780212966106],[-0.5083012668145757,0.08371500589908762,0.46517536529510556],[0.3995338287051605,-0.21247070846882196,0.3955080804327435]],"bi":[0.5592878578845571,1.0980304642878695,0.2094142056748904],"Wxf":[[-0.48715207003988326,-0.14998664357699454,0.021316506557831415,0.14305377772152134,0.05339312003700517],[0.23672740370966494,-0.4142755188513547,0.401321943910732,0.39420582929958914,0.44932304494587333],[-0.17449016799218953,-0.3551592577714473,-0.22382804787024266,-0.12644073222990423,0.2109679291717268]],"Whf":[[0.07703031926152018,-0.10580923804210325,0.20697907748761216],[-0.2806873589692687,-0.02158832110177992,-0.05167076161869121],[0.3092041212380933,-0.12790290035407553,-0.06543339486154652]],"bf":[1.4412606751556416,1.6908969286316349,1.0238745137950094],"Wxg":[[0.77193201620451,-0.8297555598727323,0.15542239540836955,-0.22108026090742242,-0.14405706376851052],[-0.9295702034322517,1.2724861195695858,0.3097478379295025,0.29861907128015597,0.0341735010019107],[0.21248101606731315,-0.46068616625461906,-0.017574020669072616,0.03142136855082056,-0.18404709612382972]],"Whg":[[0.3624592419309565,-1.2175922880575611,0.20828421718939624],[-0.8466611838000747,1.4789950877086602,-0.3796168501340679],[-0.2391672818414523,0.9102287434597413,-0.2768444404324865]],"bg":[0.06639976946613899,-0.2147211618011789,0.05108634772700563],"Wxo":[[-0.26803944939711927,0.1629108909495653,-0.3130406388710458,0.137395026745201,0.775459799247568],[0.476465035285015,-0.166408836171868,0.1017880178463141,0.6059433269651945,1.0093155047615292],[0.42765577181863795,-0.363066584199064,0.24445806687084926,0.22143024381692616,0.03746737695783637]],"Who":[[-0.35463402365680496,0.1814755473951758,-0.10644617832817549],[0.17082979377109447,0.1671235553364958,-0.008710946816790043],[-0.4472448478022746,-0.3218215122278265,-0.07085200138199711]],"bo":[0.876489744045949,1.8400280854499618,0.259514035003908],"Why":[[1.995991947072192,-2.9210437861340584,-0.9054719997704416],[-1.2269006372286906,2.971132945465983,0.6873753507998666],[0.15318470542285084,-0.03654761136147705,-0.11934552860154397],[0.0035098608711576114,-0.4594100476916616,-0.17170422841284605],[0.27136718036855956,-0.09741899589560192,0.11105146505436282]],"by":[2.6078704064353966,2.474046927827664,-1.6992777789837297,-1.694941288715195,-1.6876982665641496]};
+
+  // fresh (never-trained) init pair used ONLY to compare gradient-signal flow in step 4 —
+  // both start from the identical random weights/scale, differing only in architecture.
+  var LSTM_FRESH = {"Wxi":[[0.31176237389445305,0.21082149492576718,0.15052588586695492,0.18532626423984766,0.018940793350338936],[0.165603116620332,-0.13965564570389688,-0.3412125101312995,-0.03980702115222812,0.20221555791795254],[0.15652190009132028,0.29691301356069744,-0.021608942188322544,-0.4137287854682654,-0.030947891995310783]],"Whi":[[-0.05830925004556775,0.4267719588242471,-0.33939215540885925],[-0.4956993537489325,0.0830913947429508,0.49958628066815436],[0.40721304109320045,-0.21630501933395863,0.39711437677033246]],"bi":[0,0,0],"Wxf":[[-0.48715207003988326,-0.14998664357699454,-0.11969832493923604,0.020890193060040474,-0.12468913896009326],[0.23672740370966494,-0.4142755188513547,0.1483001473825425,0.16501499409787357,0.2406387480441481],[-0.17449016799218953,-0.3551592577714473,-0.2223285213112831,-0.12207341776229441,0.18122657435014844]],"Whf":[[0.05247551039792597,-0.06997161637991667,0.2099211097229272],[-0.3114610477350652,-0.039131081430241466,-0.04032579017803073],[0.31831161701120436,-0.13200630666688085,-0.06786177516914904]],"bf":[1,1,1],"Wxg":[[0.44228930468671024,-0.38400295679457486,0.30399613827466965,-0.383703650906682,-0.3125170776620507],[0.05236818827688694,0.3902509240433574,0.4619557117111981,0.4173876631539315,-0.12178499903529882],[0.17565887537784874,-0.49488825676962733,-0.02123368764296174,0.05686477734707296,-0.1858929544687271]],"Whg":[[-0.1321844111662358,-0.2831950532272458,0.17858170229010284],[-0.17264516442082822,0.24833033909089863,-0.1418759566731751],[0.10818636929616332,0.30655257496982813,-0.2991163516417146]],"bg":[0,0,0],"Wxo":[[-0.30724076461046934,0.1294386361259967,-0.36346935760229826,0.09482136322185397,0.06464600749313831],[0.42133126757107675,-0.2458337270654738,-0.11742081283591688,0.4644626055378467,-0.33546436997130513],[0.4162456828635186,-0.3792401785030961,0.24986530118621886,0.21903941174969077,-0.19747937703505158]],"Who":[[-0.41312471334822476,0.2936832576524466,-0.072239238768816],[0.20352873811498284,0.037084804847836494,-0.00796310300938785],[-0.4634668983053416,-0.2761779574211687,-0.057143093552440405]],"bo":[0,0,0],"Why":[[0.33390253875404596,-0.46254161396063864,-0.41236897744238377],[0.4003553125075996,0.2531943288631737,0.3152227762620896],[0.11429933342151344,0.1261999800335616,-0.14011061168275774],[0.08512366376817226,-0.48298964696004987,-0.24123482056893408],[0.26347220805473626,0.022849456407129765,0.08039669250138104]],"by":[0,0,0,0,0]};
+  var RNN_FRESH = {"Wxh":[[0.31176237389445305,0.21082149492576718,0.15052588586695492,0.18532626423984766,0.018940793350338936],[0.165603116620332,-0.13965564570389688,-0.3412125101312995,-0.03980702115222812,0.20221555791795254],[0.15652190009132028,0.29691301356069744,-0.021608942188322544,-0.4137287854682654,-0.030947891995310783]],"Whh":[[-0.05830925004556775,0.4267719588242471,-0.33939215540885925],[-0.4956993537489325,0.0830913947429508,0.49958628066815436],[0.40721304109320045,-0.21630501933395863,0.39711437677033246]],"bh":[0,0,0],"Why":[[-0.48715207003988326,-0.14998664357699454,-0.11969832493923604],[0.020890193060040474,-0.12468913896009326,0.23672740370966494],[-0.4142755188513547,0.1483001473825425,0.16501499409787357],[0.2406387480441481,-0.17449016799218953,-0.3551592577714473],[-0.2223285213112831,-0.12207341776229441,0.18122657435014844]],"by":[0,0,0,0,0]};
+
+  var V = 5;
+
+  function lstmForward(P, seqIdx){
+    var H = P.bi.length;
+    var h = new Array(H).fill(0), c = new Array(H).fill(0);
+    var cache = [];
+    for(var t=0;t<seqIdx.length;t++){
+      var x = onehot(seqIdx[t], V);
+      var zi = addVec(addVec(matVec(P.Wxi,x), matVec(P.Whi,h)), P.bi);
+      var zf = addVec(addVec(matVec(P.Wxf,x), matVec(P.Whf,h)), P.bf);
+      var zg = addVec(addVec(matVec(P.Wxg,x), matVec(P.Whg,h)), P.bg);
+      var zo = addVec(addVec(matVec(P.Wxo,x), matVec(P.Who,h)), P.bo);
+      var i_ = zi.map(sigmoid), f_ = zf.map(sigmoid), g_ = zg.map(Math.tanh), o_ = zo.map(sigmoid);
+      var cPrev = c;
+      var cNew = f_.map(function(fv,k){ return fv*cPrev[k]+i_[k]*g_[k]; });
+      var tanhC = cNew.map(Math.tanh);
+      var hNew = o_.map(function(ov,k){ return ov*tanhC[k]; });
+      cache.push({x:x,hPrev:h,cPrev:c,i:i_,f:f_,g:g_,o:o_,c:cNew,tanhC:tanhC,h:hNew});
+      h=hNew; c=cNew;
+    }
+    var logits = addVec(matVec(P.Why,h), P.by);
+    var mx = Math.max.apply(null, logits);
+    var exps = logits.map(function(v){ return Math.exp(v-mx); });
+    var sum = exps.reduce(function(a,b){return a+b;},0);
+    var probs = exps.map(function(v){ return v/sum; });
+    return { cache: cache, h:h, probs: probs };
+  }
+  function rnnForward(P, seqIdx){
+    var H = P.bh.length;
+    var h = new Array(H).fill(0);
+    var cache=[];
+    for(var t=0;t<seqIdx.length;t++){
+      var x = onehot(seqIdx[t], V);
+      var z = addVec(addVec(matVec(P.Wxh,x), matVec(P.Whh,h)), P.bh);
+      var hNew = z.map(Math.tanh);
+      cache.push({x:x,hPrev:h,h:hNew});
+      h=hNew;
+    }
+    var logits = addVec(matVec(P.Why,h), P.by);
+    var mx = Math.max.apply(null, logits);
+    var exps = logits.map(function(v){ return Math.exp(v-mx); });
+    var sum = exps.reduce(function(a,b){return a+b;},0);
+    var probs = exps.map(function(v){ return v/sum; });
+    return { cache: cache, h:h, probs: probs };
+  }
+
+  // gradient-magnitude trace: how strongly the training signal (dLoss/dh) reaches back to t=0
+  function lstmGradNorms(P, seqIdx, label){
+    var fwd = lstmForward(P, seqIdx);
+    var H = P.bi.length;
+    var dLogits = fwd.probs.slice(); dLogits[label]-=1;
+    var dh = matVec(transpose(P.Why), dLogits);
+    var dc = new Array(H).fill(0);
+    var normT = norm(dh);
+    for(var t=seqIdx.length-1;t>=0;t--){
+      var ct = fwd.cache[t];
+      var do_ = dh.map(function(v,k){ return v*ct.tanhC[k]; });
+      var dcTotal = dc.map(function(v,k){ return v+dh[k]*ct.o[k]*(1-ct.tanhC[k]*ct.tanhC[k]); });
+      var df_ = dcTotal.map(function(v,k){ return v*ct.cPrev[k]; });
+      var di_ = dcTotal.map(function(v,k){ return v*ct.g[k]; });
+      var dg_ = dcTotal.map(function(v,k){ return v*ct.i[k]; });
+      var dcPrev = dcTotal.map(function(v,k){ return v*ct.f[k]; });
+      var dzo = do_.map(function(v,k){ return v*ct.o[k]*(1-ct.o[k]); });
+      var dzf = df_.map(function(v,k){ return v*ct.f[k]*(1-ct.f[k]); });
+      var dzi = di_.map(function(v,k){ return v*ct.i[k]*(1-ct.i[k]); });
+      var dzg = dg_.map(function(v,k){ return v*(1-ct.g[k]*ct.g[k]); });
+      var dhPrev = new Array(H).fill(0);
+      function accum(WhX, dz){ var c2=matVec(transpose(WhX),dz); for(var k=0;k<H;k++) dhPrev[k]+=c2[k]; }
+      accum(P.Who,dzo); accum(P.Whf,dzf); accum(P.Whi,dzi); accum(P.Whg,dzg);
+      dh = dhPrev; dc = dcPrev;
+    }
+    return { atOutput: normT, atFirst: norm(dh) };
+  }
+  function rnnGradNorms(P, seqIdx, label){
+    var fwd = rnnForward(P, seqIdx);
+    var dLogits = fwd.probs.slice(); dLogits[label]-=1;
+    var dh = matVec(transpose(P.Why), dLogits);
+    var normT = norm(dh);
+    for(var t=seqIdx.length-1;t>=0;t--){
+      var ct = fwd.cache[t];
+      var dz = dh.map(function(v,k){ return v*(1-ct.h[k]*ct.h[k]); });
+      dh = matVec(transpose(P.Whh), dz);
+    }
+    return { atOutput: normT, atFirst: norm(dh) };
+  }
+
+  function makeSample(rng, k, marker){
+    var seq=[marker];
+    for(var i=0;i<k;i++){ seq.push(rng()<0.5?2:3); }
+    seq.push(4);
+    return seq;
+  }
+
+  // ---------- shared render helpers ----------
+  function q(id){ return document.getElementById(id); }
+
+  function tileClass(idx){
+    if(idx===0) return 'marker';
+    if(idx===1) return 'marker b';
+    if(idx===4) return 'query';
+    return 'filler';
+  }
+  function renderSeqStrip(containerId, seq, currentIdx){
+    var html='';
+    for(var i=0;i<seq.length;i++){
+      var cls = tileClass(seq[i]);
+      if(currentIdx!==undefined && currentIdx!==null){
+        if(i>currentIdx) cls+=' pending';
+        if(i===currentIdx) cls+=' current';
+      }
+      html += '<div class="seq-tile '+cls+'">'+VOCAB[seq[i]]+'</div>';
+    }
+    q(containerId).innerHTML = html;
+  }
+
+  function renderGates(containerId, i_,f_,o_){
+    var rows = [['i','입력문',i_,'i'],['f','망각문',f_,'f'],['o','출력문',o_,'o']];
+    var html='';
+    rows.forEach(function(row){
+      var key=row[0], vals=row[2], cls=row[3];
+      vals.forEach(function(v,idx){
+        html += '<div class="gate-item">'+
+          '<span class="gate-label mono">'+key+(idx+1)+'</span>'+
+          '<div class="gate-track"><div class="gate-fill '+cls+'" style="width:'+(v*100)+'%;"></div></div>'+
+          '<span class="gate-val mono">'+Math.round(v*100)+'%</span>'+
+        '</div>';
+      });
+    });
+    q(containerId).innerHTML = html;
+  }
+  function renderCell(containerId, cVals, scale){
+    var html = cVals.map(function(v,i){
+      var pct = Math.min(100, Math.abs(v)/scale*50);
+      var isPos = v>=0;
+      var style = isPos ? ('left:50%;width:'+pct+'%;') : ('left:'+(50-pct)+'%;width:'+pct+'%;');
+      return '<div class="cell-item">'+
+        '<span class="cell-label mono">c'+(i+1)+'</span>'+
+        '<div class="cell-track"><div class="cell-mid"></div><div class="cell-fill '+(isPos?'pos':'neg')+'" style="'+style+'"></div></div>'+
+        '<span class="cell-val mono">'+v.toFixed(2)+'</span>'+
+      '</div>';
+    }).join('');
+    q(containerId).innerHTML = html;
+  }
+  function renderPredict(containerId, probs){
+    var leadIdx = probs[0]>=probs[1] ? 0 : 1;
+    var html = [0,1].map(function(i){
+      var pct = Math.round(probs[i]*100);
+      var lead = i===leadIdx ? ' lead' : '';
+      return '<div class="predict-chip'+lead+'">'+
+        '<span class="pc-char">'+VOCAB[i]+'</span>'+
+        '<div class="pc-bar"><div class="pc-bar-fill" style="width:'+pct+'%;"></div></div>'+
+        '<span class="pc-pct">'+pct+'%</span>'+
+      '</div>';
+    }).join('');
+    q(containerId).innerHTML = html;
+  }
+
+  // ---------- state ----------
+  var state = { step:1 };
+  var DEMO2_SEQ = [0,2,3,2,3,2,4]; // 가 + 다라다라다(5 filler) + 마
+  var s2 = { pos:0 };
+  var s3 = { k:8 };
+  var s4 = { k:8 };
+
+  var progressFillEl, stepLabelEl, prevBtn, nextBtn;
+
+  // ---------- Step 1 ----------
+  function renderStep1(){
+    renderSeqStrip('seq1', [0,2,3,2,3,2,4]);
+  }
+
+  // ---------- Step 2 ----------
+  function renderStep2(){
+    renderSeqStrip('seq2', DEMO2_SEQ, s2.pos>0 ? s2.pos-1 : null);
+    if(s2.pos===0){
+      q('s2Stat').textContent = '시작 전 — 셀 상태가 비어있어요 (c = 0, 0, 0)';
+      renderGates('s2Gates', [0,0,0],[0,0,0],[0,0,0]);
+      renderCell('s2Cell', [0,0,0], 5);
+      q('s2Predict').innerHTML = '<p class="note">아직 예측 시점이 아니에요 — "마"가 나와야 답해요.</p>';
+    } else {
+      var seqSoFar = DEMO2_SEQ.slice(0, s2.pos);
+      var fwd = lstmForward(LSTM_TRAINED, seqSoFar);
+      var last = fwd.cache[fwd.cache.length-1];
+      var curChar = VOCAB[DEMO2_SEQ[s2.pos-1]];
+      q('s2Stat').textContent = 't='+(s2.pos-1)+' · 방금 읽은 글자: "'+curChar+'"';
+      renderGates('s2Gates', last.i, last.f, last.o);
+      renderCell('s2Cell', last.c, 5);
+      if(DEMO2_SEQ[s2.pos-1]===4){
+        q('s2Predict').innerHTML = '<p class="note" style="margin-bottom:6px;">"마"(질문)를 읽었어요 — 지금이 예측 시점이에요!</p>';
+        renderPredict('s2Predict', fwd.probs);
+      } else {
+        q('s2Predict').innerHTML = '<p class="note">아직 예측 시점이 아니에요 — "마"가 나와야 답해요.</p>';
+      }
+    }
+    q('s2NextBtn').disabled = s2.pos>=DEMO2_SEQ.length;
+    q('s2NextBtn').textContent = s2.pos>=DEMO2_SEQ.length ? '다 읽었어요' : '다음 글자 읽기 ▶';
+  }
+
+  // ---------- Step 3 ----------
+  var s3Rng = mulberry32(2100);
+  var s3Example = null;
+  function newStep3Example(){
+    var marker = s3Rng()<0.5?0:1;
+    s3Example = makeSample(s3Rng, s3.k, marker);
+  }
+  function renderStep3(){
+    q('s3KVal').textContent = s3.k+'개';
+    if(!s3Example || s3Example.length !== s3.k+2){ newStep3Example(); }
+    var fwd = lstmForward(LSTM_TRAINED, s3Example);
+    renderSeqStrip('seq3', s3Example);
+    renderPredict('s3Predict', fwd.probs);
+
+    // live batch accuracy over many random trials at this k
+    var trialRng = mulberry32(4242 + s3.k);
+    var trials = 300, correct = 0;
+    for(var t=0;t<trials;t++){
+      var marker = trialRng()<0.5?0:1;
+      var seq = makeSample(trialRng, s3.k, marker);
+      var p = lstmForward(LSTM_TRAINED, seq).probs;
+      var pred = p[0]>=p[1] ? 0 : 1;
+      if(pred===marker) correct++;
+    }
+    var acc = (correct/trials*100).toFixed(1);
+    q('s3Stat').textContent = '무작위 '+trials+'번 테스트 정확도: '+acc+'%';
+    q('s3Callout').textContent = s3.k<=5
+      ? '이 구간(잡음 '+s3.k+'개)은 학습 때 직접 본 범위예요. 정확도 '+acc+'%.'
+      : '이 구간(잡음 '+s3.k+'개)은 학습 때 한 번도 못 본, 학습 범위(1~5개)보다 훨씬 긴 간격이에요. 그런데도 정확도 '+acc+'% — 셀 상태 덕분에 훈련 때 못 본 긴 간격에도 잘 버텨요.';
+  }
+
+  // ---------- Step 4 ----------
+  function renderStep4(){
+    q('s4KVal').textContent = s4.k+'개';
+    var rng = mulberry32(9000);
+    var marker = 0;
+    var seq = makeSample(rng, s4.k, marker);
+    // use a fixed alternating filler pattern for a stable, reproducible bar as the slider moves
+    var seqFixed = [marker];
+    for(var i=0;i<s4.k;i++){ seqFixed.push(i%2===0?2:3); }
+    seqFixed.push(4);
+
+    var gl = lstmGradNorms(LSTM_FRESH, seqFixed, marker);
+    var gr = rnnGradNorms(RNN_FRESH, seqFixed, marker);
+    var pctL = gl.atOutput>0 ? (gl.atFirst/gl.atOutput*100) : 0;
+    var pctR = gr.atOutput>0 ? (gr.atFirst/gr.atOutput*100) : 0;
+
+    function fmtPct(p){
+      if(p<0.001) return '0.001% 미만';
+      if(p<1) return p.toFixed(3)+'%';
+      return p.toFixed(1)+'%';
+    }
+    function barWidth(p){
+      // sqrt scale keeps small-but-nonzero values visible while still shrinking clearly
+      var w = Math.sqrt(Math.max(p,0.0000001)/100)*100;
+      return Math.max(1.2, Math.min(100, w));
+    }
+    var html =
+      '<div class="sig-item">'+
+        '<div class="sig-item-top"><span>일반 RNN</span><b class="mono">'+fmtPct(pctR)+'</b></div>'+
+        '<div class="sig-track"><div class="sig-fill rnn" style="width:'+barWidth(pctR)+'%;"></div></div>'+
+      '</div>'+
+      '<div class="sig-item">'+
+        '<div class="sig-item-top"><span>LSTM</span><b class="mono">'+fmtPct(pctL)+'</b></div>'+
+        '<div class="sig-track"><div class="sig-fill lstm" style="width:'+barWidth(pctL)+'%;"></div></div>'+
+      '</div>';
+    q('s4Sig').innerHTML = html;
+
+    var ratio = pctR>0 ? (pctL/pctR) : null;
+    var msg;
+    if(s4.k<=2){
+      msg = '간격이 짧을 때는 둘 다 신호가 꽤 잘 남아있어요. 차이는 간격이 길어질수록 커져요 — 슬라이더를 오른쪽으로 옮겨보세요.';
+    } else {
+      msg = '맨 처음 글자까지 남은 "정답 신호"가 일반 RNN은 '+fmtPct(pctR)+', LSTM은 '+fmtPct(pctL)+'예요.'+
+        (ratio && ratio>=2 ? ' LSTM의 신호가 약 '+ratio.toFixed(1)+'배 더 많이 남아있어요.' : '') +
+        ' 이 두 신경망은 아직 학습을 전혀 하지 않았어요 — 이 차이는 학습 결과가 아니라 <b>구조 자체의 차이</b>예요. 일반 RNN은 매 글자마다 은닉 상태를 tanh로 다시 눌러 짜내는 반면, LSTM은 셀 상태를 망각문 곱셈만으로 거의 그대로 통과시킬 수 있어서, 신호가 훨씬 적게 줄어들어요. 그래서 실제로 긴 간격을 학습시킬 때 일반 RNN은 훈련 신호가 너무 약해 배우기 어렵고, LSTM은 상대적으로 훨씬 쉽게 배워요.';
+    }
+    q('s4Callout').innerHTML = msg;
+  }
+
+  // ---------- nav / lifecycle ----------
+  function updateProgress(){
+    progressFillEl.style.width = (state.step/4*100)+'%';
+    stepLabelEl.textContent = state.step+' / 4';
+  }
+  function updateNavTabs(){
+    document.querySelectorAll('.step-tab').forEach(function(btn){
+      var s=+btn.dataset.step;
+      btn.classList.toggle('active', s===state.step);
+      if(s===state.step) btn.setAttribute('aria-current','step'); else btn.removeAttribute('aria-current');
+    });
+  }
+  function updatePrevNext(){
+    prevBtn.disabled = state.step===1;
+    nextBtn.textContent = state.step===4 ? '처음부터 다시 ↺' : '다음 →';
+  }
+  function renderCurrentStep(){
+    updateProgress();
+    switch(state.step){
+      case 1: renderStep1(); break;
+      case 2: renderStep2(); break;
+      case 3: renderStep3(); break;
+      case 4: renderStep4(); break;
+    }
+  }
+  function goToStep(n){
+    if(n<1) n=1; if(n>4) n=4;
+    state.step=n;
+    for(var i=1;i<=4;i++){ q('step-'+i).hidden = (i!==n); }
+    updateNavTabs();
+    updatePrevNext();
+    renderCurrentStep();
+  }
+
+  function renderLogoGrid(){
+    var el=q('logoGrid');
+    el.innerHTML='';
+    var pattern=[0,1,1,0, 1,1,1,1, 1,1,1,1, 0,1,1,0];
+    pattern.forEach(function(v,i){
+      var d=document.createElement('i');
+      d.className = v? 'on':'';
+      d.style.animationDelay = (i*28)+'ms';
+      el.appendChild(d);
+    });
+  }
+
+  function initListeners(){
+    q('s2NextBtn').addEventListener('click', function(){
+      if(s2.pos<DEMO2_SEQ.length){ s2.pos++; renderStep2(); }
+    });
+    q('s2ResetBtn').addEventListener('click', function(){
+      s2.pos=0; renderStep2();
+    });
+
+    q('s3Slider').addEventListener('input', function(e){
+      s3.k = +e.target.value;
+      newStep3Example();
+      renderStep3();
+    });
+    q('s3NewBtn').addEventListener('click', function(){
+      newStep3Example();
+      renderStep3();
+    });
+
+    q('s4Slider').addEventListener('input', function(e){
+      s4.k = +e.target.value;
+      renderStep4();
+    });
+
+    q('stepsNav').addEventListener('click', function(e){
+      var b=e.target.closest('.step-tab'); if(!b) return;
+      goToStep(+b.dataset.step);
+    });
+    prevBtn.addEventListener('click', function(){ goToStep(state.step-1); });
+    nextBtn.addEventListener('click', function(){ if(state.step<4) goToStep(state.step+1); else goToStep(1); });
+  }
+
+  function init(){
+    progressFillEl=q('progressFill'); stepLabelEl=q('stepLabel');
+    prevBtn=q('prevBtn'); nextBtn=q('nextBtn');
+    q('s3Slider').value = s3.k;
+    q('s4Slider').value = s4.k;
+
+    renderLogoGrid();
+    initListeners();
+    updateNavTabs();
+    updatePrevNext();
+    renderCurrentStep();
+  }
+
+  try{
+    if(window.claude && window.claude.hot && window.claude.hot.ready){
+      window.claude.hot.ready(function(){ init(); });
+    } else { init(); }
+  }catch(e){ init(); }
+
+})();
+</script>

@@ -1,0 +1,845 @@
+<title>AI × GIS 융합 분석 체험 학습지</title>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+  :root{
+    --paper:#FAFAF8;
+    --paper-grid:#DCE6F5;
+    --paper-grid-strong:#C3D2EE;
+    --surface:#FFFFFF;
+    --border:#E2E6EE;
+    --ink:#1E2430;
+    --ink-soft:#63697A;
+    --pencil-blue:#2F5FD1;
+    --pencil-blue-soft:#E7EEFD;
+    --pencil-blue-ink:#1D3E96;
+    --pencil-red:#D8443A;
+    --pencil-red-soft:#FBE7E5;
+    --pencil-red-ink:#A9291F;
+    --pencil-yellow:#C98A00;
+    --pencil-yellow-soft:#FBF0D6;
+    --pencil-yellow-ink:#8A5E00;
+    --pencil-green:#2F8F5B;
+    --pencil-green-soft:#E3F3E9;
+    --pencil-green-ink:#1F6B44;
+    --pencil-brown:#8B5E34;
+    --shadow: 0 1px 2px rgba(30,36,48,0.06), 0 6px 20px rgba(30,36,48,0.05);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#161D28; --paper-grid:#2D3B52; --paper-grid-strong:#3C4E6B;
+      --surface:#1D2534; --border:#31405A; --ink:#ECEFF6; --ink-soft:#9BA6BC;
+      --pencil-blue:#7DA2FF; --pencil-blue-soft:#243257; --pencil-blue-ink:#C4D3FF;
+      --pencil-red:#FF8A7E; --pencil-red-soft:#3A2429; --pencil-red-ink:#FFC0B7;
+      --pencil-yellow:#F0C243; --pencil-yellow-soft:#3A311A; --pencil-yellow-ink:#F5D27A;
+      --pencil-green:#6FD19A; --pencil-green-soft:#1E3327; --pencil-green-ink:#B6EBCB;
+      --pencil-brown:#C79A6B;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 10px 26px rgba(0,0,0,0.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#161D28; --paper-grid:#2D3B52; --paper-grid-strong:#3C4E6B;
+    --surface:#1D2534; --border:#31405A; --ink:#ECEFF6; --ink-soft:#9BA6BC;
+    --pencil-blue:#7DA2FF; --pencil-blue-soft:#243257; --pencil-blue-ink:#C4D3FF;
+    --pencil-red:#FF8A7E; --pencil-red-soft:#3A2429; --pencil-red-ink:#FFC0B7;
+    --pencil-yellow:#F0C243; --pencil-yellow-soft:#3A311A; --pencil-yellow-ink:#F5D27A;
+    --pencil-green:#6FD19A; --pencil-green-soft:#1E3327; --pencil-green-ink:#B6EBCB;
+    --pencil-brown:#C79A6B;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 10px 26px rgba(0,0,0,0.35);
+  }
+
+  *{ box-sizing:border-box; }
+  [hidden]{ display:none !important; }
+  body{
+    margin:0;
+    background:
+      linear-gradient(var(--paper), var(--paper)),
+      repeating-linear-gradient(0deg, var(--paper-grid) 0 1px, transparent 1px 28px),
+      repeating-linear-gradient(90deg, var(--paper-grid) 0 1px, transparent 1px 28px);
+    background-color:var(--paper);
+    color:var(--ink);
+    font-family:'Noto Sans KR', 'Malgun Gothic', sans-serif;
+    line-height:1.6;
+  }
+  h1,h2,h3{ font-family:'Gowun Dodum','Noto Sans KR',sans-serif; font-weight:400; text-wrap:balance; margin:0; color:var(--ink); }
+  p{ margin:0; }
+  .mono{ font-family:'JetBrains Mono', ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+  button{ font-family:inherit; }
+  :focus-visible{ outline:3px solid var(--pencil-blue); outline-offset:2px; }
+
+  #app{ max-width:980px; margin-inline:auto; padding-inline:20px; padding-block:32px 56px; display:flex; flex-direction:column; gap:20px; }
+
+  .masthead{ display:flex; align-items:center; gap:20px; background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:22px 24px; box-shadow:var(--shadow); flex-wrap:wrap; }
+  .masthead-badge{ flex:none; width:84px; height:84px; display:grid; grid-template-columns:repeat(4,1fr); grid-template-rows:repeat(4,1fr); gap:3px; padding:8px; background:var(--paper); border:1px solid var(--border); border-radius:12px; }
+  .masthead-badge i{ background:var(--paper-grid); border-radius:2px; opacity:0; }
+  @media (prefers-reduced-motion: no-preference){ .masthead-badge i.on{ animation:inkIn 240ms ease-out forwards; } }
+  .masthead-badge i.on{ background:var(--pencil-blue); opacity:1; }
+  @keyframes inkIn{ from{ opacity:0; transform:scale(.4);} to{ opacity:1; transform:scale(1);} }
+  .masthead-text{ flex:1; min-width:220px; display:flex; flex-direction:column; gap:6px; }
+  .eyebrow{ font-size:.8rem; font-weight:700; letter-spacing:.06em; color:var(--pencil-blue); text-transform:uppercase; }
+  .masthead-text h1{ font-size:clamp(1.3rem,4vw,1.85rem); }
+  .lede{ color:var(--ink-soft); font-size:.95rem; max-width:64ch; }
+
+  .steps-nav{ display:flex; flex-wrap:wrap; gap:8px; }
+  .step-tab{ flex:1 1 auto; min-width:100px; display:flex; flex-direction:column; align-items:center; gap:2px; padding:10px 8px; border-radius:12px; border:1px solid var(--border); background:var(--surface); color:var(--ink-soft); cursor:pointer; font-size:.8rem; transition:background 150ms, color 150ms, border-color 150ms; }
+  .step-tab b{ font-family:'JetBrains Mono',monospace; font-size:.95rem; color:inherit; }
+  .step-tab.active{ background:var(--pencil-blue); border-color:var(--pencil-blue); color:#fff; }
+  .step-tab.active b{ color:#fff; }
+
+  .progress-track{ height:6px; border-radius:999px; background:var(--paper-grid); overflow:hidden; }
+  .progress-fill{ height:100%; background:var(--pencil-blue); border-radius:999px; transition:width 220ms ease; }
+
+  .sheet{ background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:26px 24px; box-shadow:var(--shadow); }
+  .step:not([hidden]){ display:flex; }
+  .step{ flex-direction:column; gap:18px; }
+  .step-head{ display:flex; flex-direction:column; gap:6px; }
+  .step-head .kicker{ font-size:.78rem; font-weight:700; color:var(--pencil-blue); letter-spacing:.04em; }
+  .step-head h2{ font-size:1.4rem; }
+  .step-head .desc{ color:var(--ink-soft); font-size:.95rem; max-width:68ch; }
+
+  .two-col{ display:grid; grid-template-columns:1fr; gap:22px; }
+  @media (min-width:680px){ .two-col{ grid-template-columns: minmax(0,260px) 1fr; align-items:start; } }
+
+  .panel{ display:flex; flex-direction:column; gap:12px; }
+  .panel-title{ font-size:.85rem; font-weight:700; color:var(--ink-soft); }
+
+  .btn{ border-radius:10px; border:1px solid var(--border); background:var(--surface); color:var(--ink); padding:9px 14px; font-size:.85rem; font-weight:500; cursor:pointer; transition:background 120ms, border-color 120ms, color 120ms; }
+  .btn:hover{ border-color:var(--pencil-blue); }
+  .btn:disabled{ opacity:.45; cursor:not-allowed; }
+  .btn-primary{ background:var(--pencil-blue); border-color:var(--pencil-blue); color:#fff; }
+  .btn-primary:hover{ opacity:.92; }
+  .btn.active{ background:var(--pencil-blue); border-color:var(--pencil-blue); color:#fff; }
+  .control-row{ display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+
+  .note{ font-size:.82rem; color:var(--ink-soft); }
+  .callout{ background:var(--paper); border:1px dashed var(--paper-grid-strong); border-radius:12px; padding:12px 14px; font-size:.88rem; color:var(--ink-soft); }
+
+  .stat-box{ font-family:'JetBrains Mono',monospace; font-weight:700; font-size:.95rem; padding:10px 14px; border-radius:12px; background:var(--paper); border:1px solid var(--border); }
+  .info-box{ background:var(--paper); border:1px solid var(--border); border-radius:12px; padding:12px 14px; font-size:.85rem; display:flex; flex-direction:column; gap:4px; }
+
+  /* ---- GIS map grid ---- */
+  .map-grid{ display:grid; grid-template-columns:repeat(9,44px); grid-template-rows:repeat(7,44px); gap:3px; }
+  .map-cell{ position:relative; border-radius:6px; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-family:'JetBrains Mono',monospace; font-size:.56rem; color:var(--ink-soft); transition:background 150ms, outline-color 150ms; }
+  .map-cell.clickable{ cursor:pointer; }
+  .map-cell.selected{ outline:3px solid var(--ink); outline-offset:1px; }
+  .map-cell.missing{ background:repeating-linear-gradient(45deg, var(--paper-grid) 0 4px, var(--surface) 4px 8px); color:var(--ink-soft); font-weight:700; }
+  .map-cell.road::after{ content:''; position:absolute; left:4px; right:4px; bottom:3px; height:3px; border-radius:2px; background:var(--ink); opacity:.5; }
+  .map-cell .val{ position:relative; z-index:1; pointer-events:none; }
+  .pin{ position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:13px; height:13px; border-radius:50%; border:2px solid #fff; box-shadow:0 0 0 1px rgba(0,0,0,.3); z-index:2; }
+  .pin.pos{ background:var(--pencil-red); }
+  .pin.neg{ background:var(--pencil-blue); }
+
+  .legend-row{ display:flex; gap:14px; flex-wrap:wrap; font-size:.8rem; color:var(--ink-soft); align-items:center; }
+  .legend-dot{ display:inline-block; width:11px; height:11px; border-radius:50%; margin-right:5px; vertical-align:middle; }
+  .legend-dot.blue{ background:var(--pencil-blue); }
+  .legend-dot.red{ background:var(--pencil-red); }
+  .legend-dot.green{ background:var(--pencil-green); }
+  .legend-swatch{ display:inline-block; width:14px; height:14px; border-radius:4px; border:1px solid var(--border); margin-right:5px; vertical-align:middle; position:relative; background:var(--paper); }
+  .legend-swatch.missing-swatch{ background:repeating-linear-gradient(45deg, var(--paper-grid) 0 3px, var(--surface) 3px 6px); }
+  .legend-swatch.road-swatch::after{ content:''; position:absolute; left:2px; right:2px; bottom:3px; height:2px; border-radius:1px; background:var(--ink); opacity:.5; }
+  .pin-legend{ display:inline-block; width:11px; height:11px; border-radius:50%; margin-right:5px; vertical-align:middle; border:2px solid #fff; box-shadow:0 0 0 1px rgba(0,0,0,.25); }
+  .pin-legend.pos{ background:var(--pencil-red); }
+  .pin-legend.neg{ background:var(--pencil-blue); }
+
+  /* ---- signed bar chart (weights / contributions) ---- */
+  .bar-row{ display:flex; align-items:center; gap:10px; font-size:.82rem; }
+  .bar-label{ width:98px; flex:none; color:var(--ink-soft); }
+  .bar-track{ flex:1; height:14px; background:var(--paper); border:1px solid var(--border); border-radius:999px; position:relative; overflow:hidden; }
+  .bar-track::before{ content:''; position:absolute; left:50%; top:0; bottom:0; width:1px; background:var(--paper-grid-strong); }
+  .bar-fill{ position:absolute; top:0; bottom:0; }
+  .bar-fill.pos{ background:var(--pencil-red); left:50%; border-radius:0 999px 999px 0; }
+  .bar-fill.neg{ background:var(--pencil-blue); right:50%; border-radius:999px 0 0 999px; }
+  .bar-value{ width:60px; flex:none; text-align:right; font-family:'JetBrains Mono',monospace; font-size:.8rem; }
+
+  .sheet-footer{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
+  .step-indicator{ font-family:'JetBrains Mono',monospace; font-size:.85rem; color:var(--ink-soft); }
+
+  @media (max-width:400px){ .masthead{ flex-direction:column; align-items:flex-start; } }
+</style>
+
+<div id="app">
+
+  <header class="masthead">
+    <div class="masthead-badge" id="logoGrid" aria-hidden="true"></div>
+    <div class="masthead-text">
+      <p class="eyebrow">완전 초보자를 위한 체험 학습지</p>
+      <h1>AI × GIS 융합 분석, 산사태 위험 지도 만들기</h1>
+      <p class="lede">위성·드론·현장 조사로 모은 지리 데이터를 AI 모델에 넣어 위험 지도를 완성하는 과정을 4단계로 직접 체험해요 — 데이터 수집부터 공간 특성 공학, AI 학습, 결과 해석까지.</p>
+    </div>
+  </header>
+
+  <nav class="steps-nav" id="stepsNav" aria-label="학습 단계">
+    <button class="step-tab" data-step="1"><b>1</b><span>데이터 수집·전처리</span></button>
+    <button class="step-tab" data-step="2"><b>2</b><span>공간 특성 공학</span></button>
+    <button class="step-tab" data-step="3"><b>3</b><span>AI 모델 학습</span></button>
+    <button class="step-tab" data-step="4"><b>4</b><span>시각화·해석</span></button>
+  </nav>
+
+  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+
+  <main class="sheet">
+
+    <!-- STEP 1 -->
+    <section id="step-1" class="step">
+      <div class="step-head">
+        <p class="kicker">STEP 1 · 데이터 수집 및 전처리</p>
+        <h2>값이 빈 칸도 있고, 단위도 들쭉날쭉해요</h2>
+        <p class="desc">산비탈 마을 지역(9×7칸, 한 칸≈30m×30m)의 표고(DEM)와 토지피복 데이터를 모았어요. 그런데 드론 센서 오류로 5개 칸은 값이 비어 있고, 표고 값은 100~600m대로 범위가 커서 AI가 그대로 쓰기 어려워요.</p>
+      </div>
+      <div class="control-row" id="layerRow1"></div>
+      <div class="control-row">
+        <button id="s1FillBtn" class="btn">① 결측치 채우기</button>
+        <button id="s1NormBtn" class="btn">② 0~1로 정규화</button>
+      </div>
+      <div class="map-grid" id="grid1"></div>
+      <div class="legend-row">
+        <span><span class="legend-swatch missing-swatch"></span>결측치(값 없음)</span>
+        <span><span class="legend-swatch road-swatch"></span>도로</span>
+      </div>
+      <div class="info-box" id="s1Info"></div>
+      <div class="callout">인공위성·드론이 촬영한 원본 데이터는 이렇게 값이 비거나 단위가 제각각인 경우가 많아요. AI 모델에 넣기 전에 결측치를 채우고 값의 범위를 맞추는 <b>전처리</b>가 꼭 필요해요.</div>
+    </section>
+
+    <!-- STEP 2 -->
+    <section id="step-2" class="step" hidden>
+      <div class="step-head">
+        <p class="kicker">STEP 2 · 공간 특성 공학</p>
+        <h2>표고 하나로 새로운 특성을 뽑아내요</h2>
+        <p class="desc">표고 값만으로는 부족해요. 옆 칸과 비교해 "경사도"를, 도로까지 몇 칸인지 세어 "도로와의 거리"를 직접 계산해요. 이렇게 원본 데이터에서 AI가 쓸 새로운 특성을 뽑아내는 과정을 <b>공간 특성 공학</b>이라고 해요.</p>
+      </div>
+      <div class="control-row" id="layerRow2"></div>
+      <div class="two-col">
+        <div class="panel">
+          <div class="stat-box mono" id="s2Stat">칸을 클릭해보세요.</div>
+          <div class="info-box" id="s2Info"></div>
+        </div>
+        <div class="panel">
+          <div class="map-grid" id="grid2"></div>
+          <div class="legend-row">
+            <span><span class="legend-swatch road-swatch"></span>도로</span>
+          </div>
+        </div>
+      </div>
+      <div class="callout" id="callout2"></div>
+    </section>
+
+    <!-- STEP 3 -->
+    <section id="step-3" class="step" hidden>
+      <div class="step-head">
+        <p class="kicker">STEP 3 · AI 모델 학습</p>
+        <h2>실제 조사 기록으로 모델을 학습시켜요</h2>
+        <p class="desc">현장 조사에서 산사태 발생/미발생을 기록한 30개 지점이 있어요(빨강=발생, 파랑=미발생). 이 지점들의 특성(표고·경사도·도로 거리·토지피복)과 결과를 놓고, 로지스틱 회귀 모델이 "어떤 조합일 때 위험한지" 스스로 찾아내도록 학습시켜요.</p>
+      </div>
+      <div class="two-col">
+        <div class="panel">
+          <div class="stat-box mono" id="s3Stat">아직 학습 전이에요.</div>
+          <div class="control-row"><button id="s3TrainBtn" class="btn btn-primary">학습 시작</button></div>
+          <p class="panel-title">학습 손실(Loss) 변화</p>
+          <div id="s3LossChart"></div>
+          <p class="panel-title">학습된 계수(가중치)</p>
+          <div id="s3Weights"><p class="note">학습이 끝나면 여기에 표시돼요.</p></div>
+        </div>
+        <div class="panel">
+          <div class="map-grid" id="grid3"></div>
+          <div class="legend-row">
+            <span><span class="pin-legend pos"></span>산사태 발생 지점</span>
+            <span><span class="pin-legend neg"></span>미발생(안전) 지점</span>
+          </div>
+        </div>
+      </div>
+      <div class="callout">손실(Loss)은 모델의 예측이 실제 기록과 얼마나 다른지를 나타내는 숫자예요. 학습이 진행될수록 이 숫자가 줄어드는 걸 직접 확인해보세요.</div>
+    </section>
+
+    <!-- STEP 4 -->
+    <section id="step-4" class="step" hidden>
+      <div class="step-head">
+        <p class="kicker">STEP 4 · 결과 시각화 및 공간 해석</p>
+        <h2>전체 지역의 위험 지도를 완성해요</h2>
+        <p class="desc">학습된 모델을 지도의 63칸 전체에 적용해서 위험도(0~100%)를 계산해요. 칸을 클릭하면 그 위험도가 어떤 요인들의 합으로 나왔는지 뜯어볼 수 있어요.</p>
+      </div>
+      <div class="two-col">
+        <div class="panel">
+          <div class="stat-box mono" id="s4Stat">칸을 클릭해보세요.</div>
+          <div class="info-box" id="s4Info"></div>
+          <div id="s4Contrib"></div>
+        </div>
+        <div class="panel">
+          <div class="map-grid" id="grid4"></div>
+          <div class="legend-row">
+            <span><span class="legend-dot green"></span>낮은 위험</span>
+            <span><span class="legend-dot red"></span>높은 위험</span>
+          </div>
+        </div>
+      </div>
+      <div class="callout" id="callout4"></div>
+    </section>
+
+  </main>
+
+  <footer class="sheet-footer">
+    <button id="prevBtn" class="btn">← 이전</button>
+    <span class="step-indicator" id="stepLabel">1 / 4</span>
+    <button id="nextBtn" class="btn btn-primary">다음 →</button>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  // ============ seeded PRNG ============
+  function mulberry32(seed){
+    return function(){
+      seed |= 0; seed = (seed + 0x6D2B79F5) | 0;
+      var t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+
+  var ROWS=7, COLS=9, GP=ROWS*COLS;
+  function midx(r,c){ return r*COLS+c; }
+  function sigmoid(z){ return 1/(1+Math.exp(-z)); }
+  function minmax(arr){ var mn=Math.min.apply(null,arr), mx=Math.max.apply(null,arr); return arr.map(function(v){ return (v-mn)/(mx-mn); }); }
+
+  // ============ build synthetic GIS world (genuine computation, seeded) ============
+  function buildWorld(seed){
+    var rng = mulberry32(seed);
+
+    var elevRaw = new Array(GP);
+    for(var r=0;r<ROWS;r++){ for(var c=0;c<COLS;c++){
+      var base = 150 + 55*c + 20*Math.sin(r*0.8+c*0.35)*Math.cos(r*0.5) + (rng()-0.5)*20;
+      elevRaw[midx(r,c)] = Math.round(base);
+    }}
+    var missingCells = [midx(1,2), midx(3,6), midx(4,1), midx(2,7), midx(5,3)];
+
+    function neighbors8(r,c){
+      var out=[];
+      for(var dr=-1;dr<=1;dr++){ for(var dc=-1;dc<=1;dc++){
+        if(dr===0&&dc===0) continue;
+        var nr=r+dr,nc=c+dc;
+        if(nr>=0&&nr<ROWS&&nc>=0&&nc<COLS) out.push(midx(nr,nc));
+      }}
+      return out;
+    }
+    var elevFilled = elevRaw.slice();
+    missingCells.forEach(function(i){
+      var r=Math.floor(i/COLS), c=i%COLS;
+      var ns = neighbors8(r,c).filter(function(j){ return missingCells.indexOf(j)===-1; }).map(function(j){ return elevRaw[j]; });
+      var avg = ns.reduce(function(a,b){ return a+b; },0)/ns.length;
+      elevFilled[i] = Math.round(avg*10)/10;
+    });
+    var elevNorm = minmax(elevFilled);
+
+    var roadRow = ROWS-1;
+    var roadCells = [];
+    for(var c2=2;c2<=6;c2++) roadCells.push(midx(roadRow,c2));
+
+    var cellSize = 30;
+    function elevAt(r,c){ r=Math.max(0,Math.min(ROWS-1,r)); c=Math.max(0,Math.min(COLS-1,c)); return elevFilled[midx(r,c)]; }
+    var slopeDeg = new Array(GP);
+    for(var r3=0;r3<ROWS;r3++){ for(var c3=0;c3<COLS;c3++){
+      var dzdx = (elevAt(r3,c3+1)-elevAt(r3,c3-1))/(2*cellSize);
+      var dzdy = (elevAt(r3+1,c3)-elevAt(r3-1,c3))/(2*cellSize);
+      slopeDeg[midx(r3,c3)] = Math.atan(Math.sqrt(dzdx*dzdx+dzdy*dzdy))*180/Math.PI;
+    }}
+    var slopeNorm = minmax(slopeDeg);
+
+    // multi-source BFS distance to road (4-neighbor)
+    var dist = new Array(GP).fill(-1);
+    var queue = roadCells.slice();
+    roadCells.forEach(function(i){ dist[i]=0; });
+    var qi=0;
+    while(qi<queue.length){
+      var cur = queue[qi++]; var r4=Math.floor(cur/COLS), c4=cur%COLS;
+      [[r4-1,c4],[r4+1,c4],[r4,c4-1],[r4,c4+1]].forEach(function(rc){
+        var nr=rc[0],nc=rc[1];
+        if(nr>=0&&nr<ROWS&&nc>=0&&nc<COLS){
+          var ni=midx(nr,nc);
+          if(dist[ni]===-1){ dist[ni]=dist[cur]+1; queue.push(ni); }
+        }
+      });
+    }
+    var distNorm = minmax(dist);
+
+    var clusters = [ {r:1,c:6,rad:1.8}, {r:4,c:2,rad:1.5} ];
+    var landcover = new Array(GP);
+    for(var r5=0;r5<ROWS;r5++){ for(var c5=0;c5<COLS;c5++){
+      var bare = clusters.some(function(cl){
+        var d = Math.sqrt((r5-cl.r)*(r5-cl.r)+(c5-cl.c)*(c5-cl.c));
+        return d<=cl.rad;
+      });
+      if(rng()<0.05) bare = !bare;
+      landcover[midx(r5,c5)] = bare?1:0;
+    }}
+
+    // hidden generative rule used only to sample realistic field-survey labels
+    var trueW = {elev:0.3, slope:2.5, dist:-2.2, land:1.8, bias:-1.6};
+    function trueLogit(i){
+      return trueW.bias + trueW.elev*elevNorm[i] + trueW.slope*slopeNorm[i] + trueW.dist*distNorm[i] + trueW.land*landcover[i];
+    }
+    var candidateCells = [];
+    for(var i=0;i<GP;i++){ var r6=Math.floor(i/COLS); if(r6!==roadRow) candidateCells.push(i); }
+    for(var k=candidateCells.length-1;k>0;k--){
+      var j = Math.floor(rng()*(k+1));
+      var tmp=candidateCells[k]; candidateCells[k]=candidateCells[j]; candidateCells[j]=tmp;
+    }
+    var surveyCells = candidateCells.slice(0,30);
+    var surveyLabels = surveyCells.map(function(i){
+      var p = sigmoid(trueLogit(i));
+      return rng() < p ? 1 : 0;
+    });
+
+    return {
+      elevFilled:elevFilled, elevNorm:elevNorm, slopeDeg:slopeDeg, slopeNorm:slopeNorm,
+      dist:dist, distNorm:distNorm, landcover:landcover, roadCells:roadCells, missingCells:missingCells,
+      surveyCells:surveyCells, surveyLabels:surveyLabels
+    };
+  }
+
+  function featuresOf(world, i){ return [world.elevNorm[i], world.slopeNorm[i], world.distNorm[i], world.landcover[i]]; }
+
+  // ============ train logistic regression via gradient descent (with L2) ============
+  function train(world, opts){
+    var X = world.surveyCells.map(function(i){ return featuresOf(world,i); });
+    var Y = world.surveyLabels;
+    var w=[0,0,0,0], b=0;
+    var lr=opts.lr, epochs=opts.epochs, l2=opts.l2;
+    var lossHistory=[];
+    for(var ep=0; ep<epochs; ep++){
+      var gradW=[0,0,0,0], gradB=0, lossSum=0;
+      for(var n=0;n<X.length;n++){
+        var z=b; for(var d=0;d<4;d++) z+=w[d]*X[n][d];
+        var pred=sigmoid(z);
+        var err=pred-Y[n];
+        for(var d2=0;d2<4;d2++) gradW[d2]+=err*X[n][d2];
+        gradB+=err;
+        var eps=1e-9;
+        lossSum += -(Y[n]*Math.log(pred+eps) + (1-Y[n])*Math.log(1-pred+eps));
+      }
+      for(var d3=0;d3<4;d3++){ gradW[d3]=gradW[d3]/X.length + l2*w[d3]; w[d3]-=lr*gradW[d3]; }
+      b -= lr*gradB/X.length;
+      lossHistory.push(lossSum/X.length);
+    }
+    return {w:w, b:b, lossHistory:lossHistory};
+  }
+
+  var WORLD = buildWorld(20240915);
+
+  // ============ dom / color helpers ============
+  function q(id){ return document.getElementById(id); }
+  function cssVar(name){ return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); }
+  function hexToRgb(hex){
+    hex = hex.replace('#','');
+    if(hex.length===3){ hex = hex.split('').map(function(c){return c+c;}).join(''); }
+    var num = parseInt(hex,16);
+    return [(num>>16)&255,(num>>8)&255,num&255];
+  }
+  function lerpColor(hexA, hexB, t){
+    var a=hexToRgb(hexA), b=hexToRgb(hexB);
+    var r=Math.round(a[0]+(b[0]-a[0])*t);
+    var g=Math.round(a[1]+(b[1]-a[1])*t);
+    var bl=Math.round(a[2]+(b[2]-a[2])*t);
+    return 'rgb('+r+','+g+','+bl+')';
+  }
+
+  function luminanceOfRgb(rgbStr){
+    var m = /rgb\((\d+),\s*(\d+),\s*(\d+)\)/.exec(rgbStr);
+    if(!m) return 1;
+    var r=+m[1]/255, g=+m[2]/255, b=+m[3]/255;
+    function lin(c){ return c<=0.03928 ? c/12.92 : Math.pow((c+0.055)/1.055, 2.4); }
+    return 0.2126*lin(r) + 0.7152*lin(g) + 0.0722*lin(b);
+  }
+
+  function renderMapGrid(containerId, opts){
+    var html='';
+    for(var i=0;i<GP;i++){
+      var cls='map-cell'+(opts.getClass?opts.getClass(i):'')+(opts.onClick?' clickable':'')+(i===opts.selectedIdx?' selected':'');
+      var bg = opts.getColor ? opts.getColor(i) : null;
+      var style = bg ? 'background:'+bg+';' : '';
+      if(bg && luminanceOfRgb(bg) < 0.45){ style += 'color:#fff;'; }
+      var styleAttr = style ? ' style="'+style+'"' : '';
+      var label = opts.getLabel ? opts.getLabel(i) : '';
+      var pinCls = opts.pins ? opts.pins[i] : null;
+      var pinHtml = pinCls ? '<span class="pin '+pinCls+'"></span>' : '';
+      html += '<div class="'+cls+'" data-i="'+i+'"'+styleAttr+'><span class="val">'+label+'</span>'+pinHtml+'</div>';
+    }
+    var el = q(containerId);
+    el.innerHTML = html;
+    if(opts.onClick){
+      el.querySelectorAll('.map-cell').forEach(function(cell){
+        cell.addEventListener('click', function(){ opts.onClick(+cell.dataset.i); });
+      });
+    }
+  }
+
+  function renderLayerTabs(containerId, layers, activeKey, onPick){
+    var html = layers.map(function(l){
+      return '<button class="btn preset-btn'+(l.key===activeKey?' active':'')+'" data-key="'+l.key+'">'+l.name+'</button>';
+    }).join('');
+    var el = q(containerId);
+    el.innerHTML = html;
+    el.querySelectorAll('.preset-btn').forEach(function(btn){
+      btn.addEventListener('click', function(){ onPick(btn.dataset.key); });
+    });
+  }
+
+  function isRoad(i){ return WORLD.roadCells.indexOf(i)>=0; }
+  function isMissing(i){ return WORLD.missingCells.indexOf(i)>=0; }
+  function rc(i){ return { r:Math.floor(i/COLS), c:i%COLS }; }
+
+  function drawWeightBars(containerId, w, labels){
+    var maxAbs = Math.max.apply(null, w.map(Math.abs)) || 1;
+    var html = w.map(function(v,i){
+      var pct = Math.min(50, Math.abs(v)/maxAbs*50);
+      var cls = v>=0?'pos':'neg';
+      return '<div class="bar-row"><span class="bar-label">'+labels[i]+'</span>'+
+        '<div class="bar-track"><div class="bar-fill '+cls+'" style="width:'+pct.toFixed(1)+'%;"></div></div>'+
+        '<span class="bar-value mono">'+(v>=0?'+':'')+v.toFixed(2)+'</span></div>';
+    }).join('');
+    q(containerId).innerHTML = html;
+  }
+
+  function drawLossChart(containerId, arr, fullLen){
+    var w=420,h=120,pad=22;
+    var plotW=w-2*pad, plotH=h-2*pad;
+    var pts = arr.map(function(v,i){
+      var x = pad + (i/(fullLen-1))*plotW;
+      var y = pad + (1 - v/0.75)*plotH;
+      return x.toFixed(1)+','+y.toFixed(1);
+    }).join(' ');
+    var border = cssVar('--border'), blue = cssVar('--pencil-blue');
+    var svg = '<svg viewBox="0 0 '+w+' '+h+'" width="100%" height="'+h+'" preserveAspectRatio="none">'+
+      '<line x1="'+pad+'" y1="'+(h-pad)+'" x2="'+(w-pad)+'" y2="'+(h-pad)+'" stroke="'+border+'" stroke-width="1"/>'+
+      '<line x1="'+pad+'" y1="'+pad+'" x2="'+pad+'" y2="'+(h-pad)+'" stroke="'+border+'" stroke-width="1"/>'+
+      (pts? '<polyline points="'+pts+'" fill="none" stroke="'+blue+'" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>':'')+
+      '</svg>';
+    q(containerId).innerHTML = svg;
+  }
+
+  // ============ state ============
+  var state = { step:1 };
+  var s1 = { layer:'elev', filled:false, normalized:false };
+  var s2 = { layer:'elev', selected:null };
+  var s4 = { selected:null };
+  var trainState = { started:false, done:false, w:null, b:null, lossHistory:null, revealCount:0, timer:null, allProb:null };
+
+  var progressFillEl, stepLabelEl, prevBtn, nextBtn;
+
+  // ---------- Step 1 ----------
+  function renderStep1(){
+    renderLayerTabs('layerRow1', [{key:'elev',name:'표고(DEM)'},{key:'landcover',name:'토지피복'}], s1.layer, function(k){ s1.layer=k; renderStep1(); });
+
+    var fillBtn=q('s1FillBtn'), normBtn=q('s1NormBtn');
+    fillBtn.disabled = (s1.layer!=='elev') || s1.filled;
+    normBtn.disabled = (s1.layer!=='elev') || !s1.filled || s1.normalized;
+    fillBtn.classList.toggle('active', s1.filled && s1.layer==='elev');
+    normBtn.classList.toggle('active', s1.normalized && s1.layer==='elev');
+
+    var paper = cssVar('--paper'), brown = cssVar('--pencil-brown');
+    var elevMin = Math.min.apply(null, WORLD.elevFilled), elevMax = Math.max.apply(null, WORLD.elevFilled);
+
+    if(s1.layer==='landcover'){
+      renderMapGrid('grid1', {
+        getColor:function(i){ return WORLD.landcover[i] ? cssVar('--pencil-yellow-soft') : cssVar('--pencil-green-soft'); },
+        getClass:function(i){ return isRoad(i) ? ' road' : ''; },
+        getLabel:function(){ return ''; }
+      });
+      q('s1Info').innerHTML =
+        '<span>초록 칸 = 산림, 노란 칸 = 나지·개발지예요.</span>'+
+        '<span>토지피복은 이미 위성영상 분류가 끝난 깨끗한 범주형 데이터라 별도 전처리가 필요 없어요.</span>';
+    } else {
+      renderMapGrid('grid1', {
+        getColor:function(i){
+          if(isMissing(i) && !s1.filled) return null;
+          var t = WORLD.elevNorm[i];
+          return lerpColor(paper, brown, t);
+        },
+        getClass:function(i){
+          var cls='';
+          if(isMissing(i) && !s1.filled) cls+=' missing';
+          if(isRoad(i)) cls+=' road';
+          return cls;
+        },
+        getLabel:function(i){
+          if(isMissing(i) && !s1.filled) return '?';
+          if(s1.normalized) return WORLD.elevNorm[i].toFixed(2);
+          return String(Math.round(WORLD.elevFilled[i]));
+        }
+      });
+
+      if(!s1.filled){
+        q('s1Info').innerHTML =
+          '<span>회색 빗금 칸 5개는 드론 센서 오류로 표고 값이 비어 있어요.</span>'+
+          '<span><b>① 결측치 채우기</b> 버튼을 누르면, 주변 8칸의 평균값으로 채워요.</span>';
+      } else if(!s1.normalized){
+        var list = WORLD.missingCells.map(function(i){ var p=rc(i); return '('+p.r+','+p.c+')='+WORLD.elevFilled[i].toFixed(1)+'m'; }).join(', ');
+        q('s1Info').innerHTML =
+          '<span>주변 칸 평균으로 채운 값: '+list+'</span>'+
+          '<span>원본 범위는 '+Math.round(elevMin)+'~'+Math.round(elevMax)+'m로 들쭉날쭉해요. <b>② 0~1로 정규화</b> 버튼을 눌러보세요.</span>';
+      } else {
+        q('s1Info').innerHTML =
+          '<span>이제 모든 값이 0(가장 낮음)~1(가장 높음) 사이로 맞춰졌어요.</span>'+
+          '<span>예: '+Math.round(elevMin)+'m → 0.00, '+Math.round(elevMax)+'m → 1.00 (색은 그대로, 숫자만 다뤄지기 쉬운 형태로 바뀌었어요)</span>';
+      }
+    }
+  }
+
+  // ---------- Step 2 ----------
+  function renderStep2(){
+    renderLayerTabs('layerRow2', [
+      {key:'elev',name:'표고(정규화)'}, {key:'slope',name:'경사도'}, {key:'dist',name:'도로와의 거리'}
+    ], s2.layer, function(k){ s2.layer=k; renderStep2(); });
+
+    var paper = cssVar('--paper'), brown=cssVar('--pencil-brown'), red=cssVar('--pencil-red'), blue=cssVar('--pencil-blue');
+
+    renderMapGrid('grid2', {
+      getColor:function(i){
+        if(s2.layer==='elev') return lerpColor(paper, brown, WORLD.elevNorm[i]);
+        if(s2.layer==='slope') return lerpColor(paper, red, WORLD.slopeNorm[i]);
+        return lerpColor(paper, blue, WORLD.distNorm[i]);
+      },
+      getClass:function(i){ return isRoad(i) ? ' road' : ''; },
+      getLabel:function(i){
+        if(s2.layer==='elev') return WORLD.elevNorm[i].toFixed(2);
+        if(s2.layer==='slope') return Math.round(WORLD.slopeDeg[i]);
+        return String(WORLD.dist[i]);
+      },
+      selectedIdx: s2.selected,
+      onClick:function(i){ s2.selected=i; renderStep2(); }
+    });
+
+    if(s2.selected===null){
+      q('s2Stat').textContent = '칸을 클릭해보세요.';
+      q('s2Info').innerHTML = '';
+    } else {
+      var p = rc(s2.selected);
+      q('s2Stat').textContent = '선택한 칸: ('+p.r+','+p.c+')';
+      q('s2Info').innerHTML =
+        '<span>표고(정규화): <b class="mono">'+WORLD.elevNorm[s2.selected].toFixed(3)+'</b> (원본 '+Math.round(WORLD.elevFilled[s2.selected])+'m)</span>'+
+        '<span>경사도: <b class="mono">'+WORLD.slopeDeg[s2.selected].toFixed(1)+'°</b></span>'+
+        '<span>도로와의 거리: <b class="mono">'+WORLD.dist[s2.selected]+'칸</b></span>'+
+        '<span>토지피복: <b class="mono">'+(WORLD.landcover[s2.selected]?'나지/개발지':'산림')+'</b></span>';
+    }
+
+    var texts = {
+      elev: '표고는 1단계에서 결측치를 채우고 0~1로 정규화한 값을 그대로 가져왔어요.',
+      slope: '경사도 = 바로 옆(좌우)과 위아래 칸의 높이 차이로 계산한 기울기예요. atan(높이차/칸거리)로 각도를 구했어요 — 값이 클수록 가파른 지역이에요.',
+      dist: '도로와의 거리 = 각 칸에서 도로 칸까지 최단 칸 수를 직접 세었어요(너비우선탐색, BFS). 도로에 가까울수록 값이 작아요.'
+    };
+    q('callout2').textContent = texts[s2.layer];
+  }
+
+  // ---------- Step 3 ----------
+  function buildPinsMap(){
+    var m = {};
+    WORLD.surveyCells.forEach(function(ci,k){ m[ci] = WORLD.surveyLabels[k] ? 'pos' : 'neg'; });
+    return m;
+  }
+
+  function renderStep3(){
+    renderMapGrid('grid3', {
+      getColor:function(i){ return WORLD.landcover[i] ? cssVar('--pencil-yellow-soft') : cssVar('--pencil-green-soft'); },
+      getClass:function(i){ return isRoad(i) ? ' road' : ''; },
+      getLabel:function(){ return ''; },
+      pins: buildPinsMap()
+    });
+    updateS3Panel();
+  }
+
+  function updateS3Panel(){
+    if(!trainState.started){
+      q('s3Stat').textContent = '아직 학습 전이에요.';
+      drawLossChart('s3LossChart', [], 400);
+      q('s3Weights').innerHTML = '<p class="note">학습이 끝나면 여기에 표시돼요.</p>';
+      return;
+    }
+    var shown = trainState.lossHistory.slice(0, trainState.revealCount);
+    var lastLoss = shown.length ? shown[shown.length-1] : trainState.lossHistory[0];
+    if(trainState.done){
+      q('s3Stat').textContent = '학습 완료 · epoch '+trainState.lossHistory.length+'/'+trainState.lossHistory.length+' · loss '+lastLoss.toFixed(3);
+      drawWeightBars('s3Weights', trainState.w, ['표고','경사도','도로 거리','토지피복']);
+    } else {
+      q('s3Stat').textContent = '학습 중… epoch '+trainState.revealCount+'/'+trainState.lossHistory.length+' · loss '+lastLoss.toFixed(3);
+    }
+    drawLossChart('s3LossChart', shown, trainState.lossHistory.length);
+  }
+
+  function startTraining(){
+    if(trainState.timer){ clearInterval(trainState.timer); }
+    var res = train(WORLD, {lr:0.5, epochs:400, l2:0.05});
+    trainState.started = true; trainState.done = false;
+    trainState.w = res.w; trainState.b = res.b; trainState.lossHistory = res.lossHistory;
+    trainState.allProb = null;
+    trainState.revealCount = 0;
+    var step = 8;
+    trainState.timer = setInterval(function(){
+      trainState.revealCount = Math.min(trainState.lossHistory.length, trainState.revealCount+step);
+      if(trainState.revealCount >= trainState.lossHistory.length){
+        trainState.done = true;
+        clearInterval(trainState.timer);
+      }
+      if(state.step===3) updateS3Panel();
+    }, 20);
+  }
+
+  function ensureTrainResult(){
+    if(trainState.done) return;
+    if(!trainState.lossHistory){
+      var res = train(WORLD, {lr:0.5, epochs:400, l2:0.05});
+      trainState.w = res.w; trainState.b = res.b; trainState.lossHistory = res.lossHistory;
+    }
+    if(trainState.timer){ clearInterval(trainState.timer); }
+    trainState.started = true;
+    trainState.revealCount = trainState.lossHistory.length;
+    trainState.done = true;
+  }
+
+  // ---------- Step 4 ----------
+  function computeAllProb(){
+    var out=[];
+    for(var i=0;i<GP;i++){
+      var f = featuresOf(WORLD,i);
+      var z = trainState.b; for(var d=0;d<4;d++) z += trainState.w[d]*f[d];
+      out.push(sigmoid(z));
+    }
+    return out;
+  }
+
+  function renderStep4(){
+    ensureTrainResult();
+    if(!trainState.allProb) trainState.allProb = computeAllProb();
+    var probs = trainState.allProb;
+    var green = cssVar('--pencil-green'), red = cssVar('--pencil-red');
+
+    renderMapGrid('grid4', {
+      getColor:function(i){ return lerpColor(green, red, probs[i]); },
+      getClass:function(i){ return isRoad(i) ? ' road' : ''; },
+      getLabel:function(i){ return Math.round(probs[i]*100); },
+      selectedIdx: s4.selected,
+      onClick:function(i){ s4.selected=i; renderStep4(); }
+    });
+
+    if(s4.selected===null){
+      q('s4Stat').textContent = '칸을 클릭해보세요.';
+      q('s4Info').innerHTML = '';
+      q('s4Contrib').innerHTML = '';
+    } else {
+      var p = rc(s4.selected);
+      var f = featuresOf(WORLD, s4.selected);
+      var labels = ['표고','경사도','도로 거리','토지피복'];
+      var contrib = f.map(function(v,d){ return trainState.w[d]*v; });
+      q('s4Stat').textContent = '선택한 칸: ('+p.r+','+p.c+') · 예측 위험도 '+Math.round(probs[s4.selected]*100)+'%';
+      q('s4Info').innerHTML = '<span>기여도 합 + 기본값(bias) → 로짓 → 시그모이드(확률) 순서로 계산돼요.</span>';
+      var barsHtml = contrib.map(function(v,i){
+        var maxAbs = Math.max.apply(null, contrib.map(Math.abs).concat([Math.abs(trainState.b)])) || 1;
+        var pct = Math.min(50, Math.abs(v)/maxAbs*50);
+        var cls = v>=0?'pos':'neg';
+        return '<div class="bar-row"><span class="bar-label">'+labels[i]+' 기여</span>'+
+          '<div class="bar-track"><div class="bar-fill '+cls+'" style="width:'+pct.toFixed(1)+'%;"></div></div>'+
+          '<span class="bar-value mono">'+(v>=0?'+':'')+v.toFixed(2)+'</span></div>';
+      }).join('');
+      var maxAbsAll = Math.max.apply(null, contrib.map(Math.abs).concat([Math.abs(trainState.b)])) || 1;
+      var bPct = Math.min(50, Math.abs(trainState.b)/maxAbsAll*50);
+      var bCls = trainState.b>=0?'pos':'neg';
+      barsHtml += '<div class="bar-row"><span class="bar-label">기본값(bias)</span>'+
+        '<div class="bar-track"><div class="bar-fill '+bCls+'" style="width:'+bPct.toFixed(1)+'%;"></div></div>'+
+        '<span class="bar-value mono">'+(trainState.b>=0?'+':'')+trainState.b.toFixed(2)+'</span></div>';
+      q('s4Contrib').innerHTML = barsHtml;
+    }
+
+    var bareProbs=[], forestProbs=[], nearProbs=[], farProbs=[];
+    for(var i2=0;i2<GP;i2++){
+      (WORLD.landcover[i2]?bareProbs:forestProbs).push(probs[i2]);
+      (WORLD.dist[i2]<=2?nearProbs:farProbs).push(probs[i2]);
+    }
+    function mean(a){ return a.reduce(function(x,y){return x+y;},0)/a.length; }
+    var mBare=mean(bareProbs)*100, mForest=mean(forestProbs)*100, mNear=mean(nearProbs)*100, mFar=mean(farProbs)*100;
+    var landSign = trainState.w[3]>=0 ? '나지/개발지일수록 위험도가 높게' : '나지/개발지일수록 위험도가 낮게';
+    var slopeSign = trainState.w[1]>=0 ? '가파를수록' : '완만할수록';
+    var distSign = trainState.w[2]>=0 ? '멀수록' : '가까울수록';
+    q('callout4').innerHTML =
+      '모델이 학습한 결과, <b>토지피복</b>의 영향이 가장 컸어요 — 나지/개발지 칸의 평균 위험도는 <b>'+mBare.toFixed(0)+'%</b>인 반면, 숲 칸은 <b>'+mForest.toFixed(0)+'%</b>였어요('+landSign+' 나왔어요). '+
+      '경사도가 '+slopeSign+', 도로에서 '+distSign+' 위험도가 소폭 높아지는 경향도 보였어요(도로 2칸 이내 평균 '+mNear.toFixed(0)+'% vs 그 밖 '+mFar.toFixed(0)+'%). '+
+      '표고 계수는 상대적으로 작거나 예상과 다른 방향으로 나올 수 있어요 — 조사점이 30개뿐이고 표고·경사도·거리가 서로 얽혀 있어서 생기는 현상으로, 적은 데이터로 학습할 때의 한계를 보여줘요.';
+  }
+
+  // ---------- nav / lifecycle ----------
+  function updateProgress(){
+    progressFillEl.style.width = (state.step/4*100)+'%';
+    stepLabelEl.textContent = state.step+' / 4';
+  }
+  function updateNavTabs(){
+    document.querySelectorAll('.step-tab').forEach(function(btn){
+      var s=+btn.dataset.step;
+      btn.classList.toggle('active', s===state.step);
+      if(s===state.step) btn.setAttribute('aria-current','step'); else btn.removeAttribute('aria-current');
+    });
+  }
+  function updatePrevNext(){
+    prevBtn.disabled = state.step===1;
+    nextBtn.textContent = state.step===4 ? '처음부터 다시 ↺' : '다음 →';
+  }
+  function renderCurrentStep(){
+    updateProgress();
+    switch(state.step){
+      case 1: renderStep1(); break;
+      case 2: renderStep2(); break;
+      case 3: renderStep3(); break;
+      case 4: renderStep4(); break;
+    }
+  }
+  function goToStep(n){
+    if(n<1) n=1; if(n>4) n=4;
+    state.step=n;
+    for(var i=1;i<=4;i++){ q('step-'+i).hidden = (i!==n); }
+    updateNavTabs();
+    updatePrevNext();
+    renderCurrentStep();
+  }
+
+  function renderLogoGrid(){
+    var el=q('logoGrid');
+    el.innerHTML='';
+    var pattern=[1,1,1,1, 1,0,0,1, 1,0,0,1, 1,1,1,1];
+    pattern.forEach(function(v,i){
+      var d=document.createElement('i');
+      d.className = v? 'on':'';
+      d.style.animationDelay = (i*28)+'ms';
+      el.appendChild(d);
+    });
+  }
+
+  function initListeners(){
+    q('s1FillBtn').addEventListener('click', function(){ s1.filled = true; renderStep1(); });
+    q('s1NormBtn').addEventListener('click', function(){ s1.normalized = true; renderStep1(); });
+    q('s3TrainBtn').addEventListener('click', startTraining);
+
+    q('stepsNav').addEventListener('click', function(e){
+      var b=e.target.closest('.step-tab'); if(!b) return;
+      goToStep(+b.dataset.step);
+    });
+    prevBtn.addEventListener('click', function(){ goToStep(state.step-1); });
+    nextBtn.addEventListener('click', function(){ if(state.step<4) goToStep(state.step+1); else goToStep(1); });
+  }
+
+  function init(){
+    progressFillEl=q('progressFill'); stepLabelEl=q('stepLabel');
+    prevBtn=q('prevBtn'); nextBtn=q('nextBtn');
+
+    renderLogoGrid();
+    initListeners();
+    updateNavTabs();
+    updatePrevNext();
+    renderCurrentStep();
+  }
+
+  try{
+    if(window.claude && window.claude.hot && window.claude.hot.ready){
+      window.claude.hot.ready(function(){ init(); });
+    } else { init(); }
+  }catch(e){ init(); }
+
+})();
+</script>

@@ -1,0 +1,684 @@
+<title>ReLU 체험 학습지</title>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+  :root{
+    --paper:#FAFAF8;
+    --paper-grid:#DCE6F5;
+    --paper-grid-strong:#C3D2EE;
+    --surface:#FFFFFF;
+    --border:#E2E6EE;
+    --ink:#1E2430;
+    --ink-soft:#63697A;
+    --pencil-blue:#2F5FD1;
+    --pencil-blue-soft:#E7EEFD;
+    --pencil-blue-ink:#1D3E96;
+    --pencil-red:#D8443A;
+    --pencil-red-soft:#FBE7E5;
+    --pencil-red-ink:#A9291F;
+    --pencil-yellow:#C98A00;
+    --pencil-yellow-soft:#FBF0D6;
+    --shadow: 0 1px 2px rgba(30,36,48,0.06), 0 6px 20px rgba(30,36,48,0.05);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#161D28;
+      --paper-grid:#2D3B52;
+      --paper-grid-strong:#3C4E6B;
+      --surface:#1D2534;
+      --border:#31405A;
+      --ink:#ECEFF6;
+      --ink-soft:#9BA6BC;
+      --pencil-blue:#7DA2FF;
+      --pencil-blue-soft:#243257;
+      --pencil-blue-ink:#C4D3FF;
+      --pencil-red:#FF8A7E;
+      --pencil-red-soft:#3A2429;
+      --pencil-red-ink:#FFC0B7;
+      --pencil-yellow:#F0C243;
+      --pencil-yellow-soft:#3A311A;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 10px 26px rgba(0,0,0,0.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#161D28;
+    --paper-grid:#2D3B52;
+    --paper-grid-strong:#3C4E6B;
+    --surface:#1D2534;
+    --border:#31405A;
+    --ink:#ECEFF6;
+    --ink-soft:#9BA6BC;
+    --pencil-blue:#7DA2FF;
+    --pencil-blue-soft:#243257;
+    --pencil-blue-ink:#C4D3FF;
+    --pencil-red:#FF8A7E;
+    --pencil-red-soft:#3A2429;
+    --pencil-red-ink:#FFC0B7;
+    --pencil-yellow:#F0C243;
+    --pencil-yellow-soft:#3A311A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 10px 26px rgba(0,0,0,0.35);
+  }
+
+  *{ box-sizing:border-box; }
+  [hidden]{ display:none !important; }
+  body{
+    margin:0;
+    background:
+      linear-gradient(var(--paper), var(--paper)),
+      repeating-linear-gradient(0deg, var(--paper-grid) 0 1px, transparent 1px 28px),
+      repeating-linear-gradient(90deg, var(--paper-grid) 0 1px, transparent 1px 28px);
+    background-color:var(--paper);
+    color:var(--ink);
+    font-family:'Noto Sans KR', 'Malgun Gothic', sans-serif;
+    line-height:1.6;
+  }
+  h1,h2,h3{ font-family:'Gowun Dodum','Noto Sans KR',sans-serif; font-weight:400; text-wrap:balance; margin:0; color:var(--ink); }
+  p{ margin:0; }
+  .mono{ font-family:'JetBrains Mono', ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+  button{ font-family:inherit; }
+  :focus-visible{ outline:3px solid var(--pencil-blue); outline-offset:2px; }
+
+  #app{
+    max-width:920px;
+    margin-inline:auto;
+    padding-inline:20px;
+    padding-block:32px 56px;
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+  }
+
+  /* ---------- masthead ---------- */
+  .masthead{
+    display:flex; align-items:center; gap:20px;
+    background:var(--surface); border:1px solid var(--border); border-radius:18px;
+    padding:22px 24px; box-shadow:var(--shadow); flex-wrap:wrap;
+  }
+  .masthead-badge{
+    flex:none; width:84px; height:84px;
+    display:grid; grid-template-columns:repeat(4,1fr); grid-template-rows:repeat(4,1fr);
+    gap:3px; padding:8px; background:var(--paper); border:1px solid var(--border); border-radius:12px;
+  }
+  .masthead-badge i{ background:var(--paper-grid); border-radius:2px; opacity:0; }
+  @media (prefers-reduced-motion: no-preference){
+    .masthead-badge i.on{ animation:inkIn 240ms ease-out forwards; }
+  }
+  .masthead-badge i.on{ background:var(--pencil-blue); opacity:1; }
+  @keyframes inkIn{ from{ opacity:0; transform:scale(.4);} to{ opacity:1; transform:scale(1);} }
+  .masthead-text{ flex:1; min-width:220px; display:flex; flex-direction:column; gap:6px; }
+  .eyebrow{ font-size:.8rem; font-weight:700; letter-spacing:.06em; color:var(--pencil-blue); text-transform:uppercase; }
+  .masthead-text h1{ font-size:clamp(1.5rem,4vw,2rem); }
+  .lede{ color:var(--ink-soft); font-size:.95rem; max-width:60ch; }
+
+  /* ---------- step nav ---------- */
+  .steps-nav{ display:flex; flex-wrap:wrap; gap:8px; }
+  .step-tab{
+    flex:1 1 auto; min-width:96px;
+    display:flex; flex-direction:column; align-items:center; gap:2px;
+    padding:10px 8px; border-radius:12px; border:1px solid var(--border); background:var(--surface);
+    color:var(--ink-soft); cursor:pointer; font-size:.8rem;
+    transition:background 150ms, color 150ms, border-color 150ms;
+  }
+  .step-tab b{ font-family:'JetBrains Mono',monospace; font-size:.95rem; color:inherit; }
+  .step-tab.active{ background:var(--pencil-blue); border-color:var(--pencil-blue); color:#fff; }
+  .step-tab.active b{ color:#fff; }
+
+  .progress-track{ height:6px; border-radius:999px; background:var(--paper-grid); overflow:hidden; }
+  .progress-fill{ height:100%; background:var(--pencil-blue); border-radius:999px; transition:width 220ms ease; }
+
+  /* ---------- sheet ---------- */
+  .sheet{ background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:26px 24px; box-shadow:var(--shadow); }
+  .step:not([hidden]){ display:flex; }
+  .step{ flex-direction:column; gap:18px; }
+  .step-head{ display:flex; flex-direction:column; gap:6px; }
+  .step-head .kicker{ font-size:.78rem; font-weight:700; color:var(--pencil-blue); letter-spacing:.04em; }
+  .step-head h2{ font-size:1.4rem; }
+  .step-head .desc{ color:var(--ink-soft); font-size:.95rem; max-width:64ch; }
+
+  .two-col{ display:grid; grid-template-columns:1fr; gap:22px; }
+  @media (min-width:680px){ .two-col{ grid-template-columns: minmax(0,280px) 1fr; align-items:start; } }
+  .two-col-even{ display:grid; grid-template-columns:1fr; gap:22px; }
+  @media (min-width:680px){ .two-col-even{ grid-template-columns: 1fr 1fr; align-items:start; } }
+
+  .panel{ display:flex; flex-direction:column; gap:12px; }
+  .panel-title{ font-size:.85rem; font-weight:700; color:var(--ink-soft); }
+
+  /* ---------- pixel / value grids ---------- */
+  .grid-wrap{ display:inline-flex; padding:8px; background:var(--paper); border:1px solid var(--border); border-radius:10px; }
+  .pixel-grid{ display:grid; gap:2px; width:min(240px, 100%); aspect-ratio:1/1; touch-action:none; user-select:none; }
+  .pixel{ background:var(--surface); border:1px solid var(--border); border-radius:2px; cursor:pointer; transition:background 100ms; }
+  .pixel.on{ background:var(--pencil-blue); border-color:var(--pencil-blue); }
+
+  .value-grid{ display:grid; gap:3px; width:min(240px, 100%); }
+  .value-cell{
+    aspect-ratio:1/1; display:flex; align-items:center; justify-content:center;
+    border-radius:4px; font-size:.72rem; border:1px solid var(--border); background:var(--surface); color:var(--ink-soft);
+  }
+  .value-cell.pos{ background:var(--pencil-blue-soft); color:var(--pencil-blue-ink); border-color:transparent; font-weight:700; }
+  .value-cell.neg{ background:var(--pencil-red-soft); color:var(--pencil-red-ink); border-color:transparent; font-weight:700; }
+  .value-cell.diff{ outline:3px solid var(--pencil-yellow); outline-offset:-2px; }
+
+  @media (prefers-reduced-motion: no-preference){
+    .value-cell.sweep{ animation:sweepIn 320ms ease-out backwards; }
+    .value-cell.wasneg{ animation:clearPulse 550ms ease-out backwards; }
+  }
+  @keyframes sweepIn{ from{ opacity:0; transform:scale(.7);} to{ opacity:1; transform:scale(1);} }
+  @keyframes clearPulse{ 0%{ background:var(--pencil-red); color:#fff; } 100%{ background:var(--surface); color:var(--ink-soft); } }
+
+  /* ---------- controls ---------- */
+  .btn{
+    border-radius:10px; border:1px solid var(--border); background:var(--surface); color:var(--ink);
+    padding:9px 14px; font-size:.85rem; font-weight:500; cursor:pointer;
+    transition:background 120ms, border-color 120ms, color 120ms;
+  }
+  .btn:hover{ border-color:var(--pencil-blue); }
+  .btn-primary{ background:var(--pencil-blue); border-color:var(--pencil-blue); color:#fff; }
+  .btn-primary:hover{ opacity:.92; }
+  .btn-sm{ padding:6px 10px; font-size:.78rem; }
+  select.btn{ appearance:auto; }
+  .control-row{ display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+  .chip{ border-radius:999px; border:1px solid var(--border); background:var(--surface); padding:7px 14px; font-size:.82rem; cursor:pointer; color:var(--ink); }
+  .chip.active{ background:var(--pencil-blue-soft); border-color:var(--pencil-blue); color:var(--pencil-blue-ink); font-weight:700; }
+  .chip.small{ padding:5px 11px; font-size:.78rem; }
+
+  .note{ font-size:.82rem; color:var(--ink-soft); }
+  .callout{ background:var(--paper); border:1px dashed var(--paper-grid-strong); border-radius:12px; padding:12px 14px; font-size:.88rem; color:var(--ink-soft); }
+
+  /* ---------- step1 slider + graph ---------- */
+  .slider-row{ display:flex; flex-direction:column; gap:10px; }
+  input[type="range"]{
+    width:100%; accent-color:var(--pencil-blue); height:6px; cursor:pointer;
+  }
+  .formula-box{
+    font-family:'JetBrains Mono',monospace; font-size:1.05rem; font-weight:700;
+    padding:12px 14px; border-radius:12px; background:var(--paper); border:1px solid var(--border);
+  }
+  .status-chip{
+    display:inline-flex; align-items:center; gap:6px; padding:6px 14px; border-radius:999px;
+    font-size:.82rem; font-weight:700; width:fit-content;
+  }
+  .status-chip.pos{ background:var(--pencil-blue-soft); color:var(--pencil-blue-ink); }
+  .status-chip.neg{ background:var(--pencil-red-soft); color:var(--pencil-red-ink); }
+  .status-chip.zero{ background:var(--pencil-yellow-soft); color:var(--pencil-yellow); }
+  .quick-chips{ display:flex; flex-wrap:wrap; gap:6px; }
+  .graph-wrap{ background:var(--paper); border:1px solid var(--border); border-radius:12px; padding:10px; }
+  .graph-wrap svg{ width:100%; height:auto; display:block; }
+
+  /* ---------- footer ---------- */
+  .sheet-footer{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
+  .step-indicator{ font-family:'JetBrains Mono',monospace; font-size:.85rem; color:var(--ink-soft); }
+
+  @media (max-width:400px){ .masthead{ flex-direction:column; align-items:flex-start; } }
+</style>
+
+<div id="app">
+
+  <header class="masthead">
+    <div class="masthead-badge" id="logoGrid" aria-hidden="true"></div>
+    <div class="masthead-text">
+      <p class="eyebrow">완전 초보자를 위한 체험 학습지</p>
+      <h1>ReLU, 지울까 남길까?</h1>
+      <p class="lede">CNN 속 ReLU(활성화 함수)가 숫자를 어떻게 다루는지 3단계로 직접 만져보며 이해해봐요. 규칙은 딱 하나뿐이에요.</p>
+    </div>
+  </header>
+
+  <nav class="steps-nav" id="stepsNav" aria-label="학습 단계">
+    <button class="step-tab" data-step="1"><b>1</b><span>규칙</span></button>
+    <button class="step-tab" data-step="2"><b>2</b><span>그림 적용</span></button>
+    <button class="step-tab" data-step="3"><b>3</b><span>왜 중요할까</span></button>
+  </nav>
+
+  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+
+  <main class="sheet">
+
+    <!-- STEP 1 -->
+    <section id="step-1" class="step">
+      <div class="step-head">
+        <p class="kicker">STEP 1 · 규칙</p>
+        <h2>규칙은 딱 하나예요</h2>
+        <p class="desc">ReLU(Rectified Linear Unit)는 숫자 하나를 보고 이렇게만 물어봐요: <b>"0보다 작아(음수)? 그럼 0으로 지워. 0 이상이야? 그럼 그대로 둬."</b> 슬라이더를 움직여서 숫자를 직접 바꿔보세요.</p>
+      </div>
+      <div class="two-col">
+        <div class="panel">
+          <p class="panel-title">숫자 고르기</p>
+          <div class="slider-row">
+            <input type="range" id="xSlider" min="-10" max="10" step="1" value="-4">
+            <div class="formula-box mono" id="formulaBox"></div>
+            <div class="status-chip" id="statusChip"></div>
+          </div>
+          <p class="panel-title" style="margin-top:6px;">빨리 이동하기</p>
+          <div class="quick-chips" id="quickChips"></div>
+        </div>
+        <div class="panel">
+          <p class="panel-title">ReLU 그래프</p>
+          <div class="graph-wrap">
+            <svg viewBox="0 0 320 200" role="img" aria-label="ReLU 함수 그래프">
+              <line x1="97" y1="34" x2="97" y2="166" stroke="var(--paper-grid)" stroke-width="1"/>
+              <line x1="223" y1="34" x2="223" y2="166" stroke="var(--paper-grid)" stroke-width="1"/>
+              <line x1="34" y1="89" x2="286" y2="89" stroke="var(--paper-grid)" stroke-width="1"/>
+              <line x1="34" y1="144" x2="286" y2="144" stroke="var(--ink-soft)" stroke-width="1.2"/>
+              <line x1="160" y1="166" x2="160" y2="34" stroke="var(--ink-soft)" stroke-width="1.2"/>
+              <line x1="34" y1="144" x2="160" y2="144" stroke="var(--pencil-red)" stroke-width="3.5" stroke-linecap="round"/>
+              <line x1="160" y1="144" x2="286" y2="34" stroke="var(--pencil-blue)" stroke-width="3.5" stroke-linecap="round"/>
+              <line id="guideV" x1="0" y1="0" x2="0" y2="0" stroke="var(--pencil-yellow)" stroke-width="1.4" stroke-dasharray="3 3"/>
+              <line id="guideH" x1="0" y1="0" x2="0" y2="0" stroke="var(--pencil-yellow)" stroke-width="1.4" stroke-dasharray="3 3"/>
+              <circle id="livePoint" cx="97" cy="144" r="7" fill="var(--pencil-yellow)" stroke="var(--surface)" stroke-width="2"/>
+              <text x="34" y="158" font-size="10" fill="var(--ink-soft)" text-anchor="middle">-10</text>
+              <text x="160" y="158" font-size="10" fill="var(--ink-soft)" text-anchor="middle">0</text>
+              <text x="286" y="158" font-size="10" fill="var(--ink-soft)" text-anchor="middle">10</text>
+              <text x="152" y="38" font-size="10" fill="var(--ink-soft)" text-anchor="end">10</text>
+              <text x="292" y="148" font-size="11" fill="var(--ink-soft)">x</text>
+              <text x="164" y="24" font-size="11" fill="var(--ink-soft)">ReLU(x)</text>
+            </svg>
+          </div>
+          <p class="note">빨간 구간(x&lt;0)은 전부 0으로 지워지고, 파란 구간(x≥0)은 값이 그대로 살아있어요.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 2 -->
+    <section id="step-2" class="step" hidden>
+      <div class="step-head">
+        <p class="kicker">STEP 2 · 그림 적용</p>
+        <h2>이제 그림 전체에 적용해봐요</h2>
+        <p class="desc">그림을 그리고 필터를 고르면 36개의 숫자(특징 지도)가 만들어져요. 그 숫자 하나하나에 방금 배운 규칙을 그대로 적용하는 거예요.</p>
+      </div>
+
+      <div class="two-col">
+        <div class="panel">
+          <p class="panel-title">그리기 도구</p>
+          <div class="control-row">
+            <select id="presetSelect" class="btn">
+              <option value="">예시 불러오기 ▾</option>
+              <option value="plus">십자가(+) 그림</option>
+              <option value="diagonal">대각선(X) 그림</option>
+              <option value="border">테두리 그림</option>
+            </select>
+            <button id="clearBtn" class="btn">지우기</button>
+          </div>
+          <p class="note">칸을 클릭하거나 드래그해서 자유롭게 그려보세요.</p>
+          <p class="panel-title" style="margin-top:6px;">필터 고르기</p>
+          <div class="control-row" id="filterButtons"></div>
+        </div>
+        <div class="panel">
+          <p class="panel-title">그림판 (8×8)</p>
+          <div class="grid-wrap"><div class="pixel-grid" id="pixelGrid" style="grid-template-columns:repeat(8,1fr); grid-template-rows:repeat(8,1fr);"></div></div>
+        </div>
+      </div>
+
+      <div class="two-col-even">
+        <div class="panel">
+          <p class="panel-title">ReLU 적용 전 (합성곱 결과)</p>
+          <div class="grid-wrap"><div class="value-grid" id="beforeGrid" style="grid-template-columns:repeat(6,1fr);"></div></div>
+        </div>
+        <div class="panel">
+          <p class="panel-title">ReLU 적용 후</p>
+          <div class="grid-wrap"><div class="value-grid" id="afterGrid" style="grid-template-columns:repeat(6,1fr);"></div></div>
+        </div>
+      </div>
+
+      <div class="control-row">
+        <button id="sweepBtn" class="btn btn-primary">ReLU 적용하기 ▶</button>
+        <p class="note" id="negCountNote"></p>
+      </div>
+    </section>
+
+    <!-- STEP 3 -->
+    <section id="step-3" class="step" hidden>
+      <div class="step-head">
+        <p class="kicker">STEP 3 · 왜 중요할까?</p>
+        <h2>ReLU를 생략하면 어떻게 될까?</h2>
+        <p class="desc">특징 지도를 줄일 때(풀링) 각 묶음에서 제일 큰 값만 남겨요. ReLU를 <b>먼저</b> 하고 풀링한 것과, ReLU 없이 <b>바로</b> 풀링한 것을 비교해볼게요. (2단계에서 그린 그림과 필터를 그대로 사용해요)</p>
+      </div>
+      <div class="two-col-even">
+        <div class="panel">
+          <p class="panel-title">ReLU 먼저 → 풀링 (정상 순서)</p>
+          <div class="grid-wrap"><div class="value-grid" id="poolWithGrid" style="grid-template-columns:repeat(3,1fr); width:150px;"></div></div>
+        </div>
+        <div class="panel">
+          <p class="panel-title">ReLU 생략 → 바로 풀링</p>
+          <div class="grid-wrap"><div class="value-grid" id="poolWithoutGrid" style="grid-template-columns:repeat(3,1fr); width:150px;"></div></div>
+        </div>
+      </div>
+      <div class="callout" id="diffCallout"></div>
+      <div class="control-row">
+        <button id="backToStep2Btn" class="btn">그림·필터 바꾸러 가기 ← 2단계</button>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="sheet-footer">
+    <button id="prevBtn" class="btn">← 이전</button>
+    <span class="step-indicator" id="stepLabel">1 / 3</span>
+    <button id="nextBtn" class="btn btn-primary">다음 →</button>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var N = 8;
+
+  function zeros(){ var g=[]; for(var r=0;r<N;r++){ g.push(new Array(N).fill(0)); } return g; }
+  function makePlus(){ var g=zeros(); for(var i=0;i<N;i++){ g[i][3]=1; g[i][4]=1; g[3][i]=1; g[4][i]=1; } return g; }
+  function makeDiagonal(){ var g=zeros(); for(var i=0;i<N;i++){ g[i][i]=1; g[i][N-1-i]=1; } return g; }
+  function makeBorder(){ var g=zeros(); for(var i=0;i<N;i++){ g[0][i]=1; g[N-1][i]=1; g[i][0]=1; g[i][N-1]=1; } return g; }
+  var PRESETS = { plus: makePlus, diagonal: makeDiagonal, border: makeBorder };
+
+  var FILTERS = {
+    horizontal: { label:'가로선 필터', kernel:[[-1,-1,-1],[0,0,0],[1,1,1]] },
+    vertical:   { label:'세로선 필터', kernel:[[-1,0,1],[-1,0,1],[-1,0,1]] },
+    blur:       { label:'흐림 필터',   kernel:[[1/9,1/9,1/9],[1/9,1/9,1/9],[1/9,1/9,1/9]] }
+  };
+
+  function convolveFull(grid, kernel){
+    var gh=grid.length, gw=grid[0].length, kh=kernel.length, kw=kernel[0].length;
+    var oh=gh-kh+1, ow=gw-kw+1, out=[];
+    for(var r=0;r<oh;r++){
+      var row=[];
+      for(var c=0;c<ow;c++){
+        var sum=0;
+        for(var i=0;i<kh;i++){ for(var j=0;j<kw;j++){ sum += grid[r+i][c+j]*kernel[i][j]; } }
+        row.push(sum);
+      }
+      out.push(row);
+    }
+    return out;
+  }
+  function relu(grid){ return grid.map(function(row){ return row.map(function(v){ return Math.max(0,v); }); }); }
+  function maxPool(grid, size, stride){
+    var gh=grid.length, gw=grid[0].length;
+    var oh=Math.floor((gh-size)/stride)+1, ow=Math.floor((gw-size)/stride)+1, out=[];
+    for(var r=0;r<oh;r++){
+      var row=[];
+      for(var c=0;c<ow;c++){
+        var m=-Infinity;
+        for(var i=0;i<size;i++){ for(var j=0;j<size;j++){ var v=grid[r*stride+i][c*stride+j]; if(v>m) m=v; } }
+        row.push(m);
+      }
+      out.push(row);
+    }
+    return out;
+  }
+  function formatNum(v){ if(Math.abs(v-Math.round(v))<0.005) return String(Math.round(v)); return v.toFixed(2); }
+  function signClass(v){ if(v>0.0001) return 'pos'; if(v<-0.0001) return 'neg'; return ''; }
+
+  var state = { grid: makeDiagonal(), filterKey:'horizontal', step:1, xVal:-4 };
+
+  function currentKernel(){ return FILTERS[state.filterKey].kernel; }
+  function getConvFull(){ return convolveFull(state.grid, currentKernel()); }
+  function getReluFull(){ return relu(getConvFull()); }
+
+  // ---------- DOM refs ----------
+  var pixelGridEl, filterButtonsEl, beforeGridEl, afterGridEl, negCountNoteEl,
+      poolWithEl, poolWithoutEl, diffCalloutEl,
+      xSliderEl, formulaBoxEl, statusChipEl, quickChipsEl, livePointEl, guideVEl, guideHEl,
+      progressFillEl, stepLabelEl, prevBtn, nextBtn;
+
+  function q(id){ return document.getElementById(id); }
+
+  // ---------- Step 1 : slider + graph ----------
+  function mapX(x){ return 34 + (x+10)*12.6; }
+  function mapY(y){ return 166 - (y+2)*11; }
+
+  function renderStep1(){
+    var x = state.xVal;
+    var y = Math.max(0,x);
+    xSliderEl.value = x;
+    formulaBoxEl.textContent = 'ReLU(' + x + ') = max(0, ' + x + ') = ' + y;
+    var cls = x>0 ? 'pos' : (x<0 ? 'neg' : 'zero');
+    var label = x>0 ? '통과 (양수라서 그대로)' : (x<0 ? '지워짐 (음수라서 0으로)' : '경계값 (0은 그대로 0)');
+    statusChipEl.className = 'status-chip ' + cls;
+    statusChipEl.textContent = label;
+
+    var cx = mapX(x), cy = mapY(y);
+    livePointEl.setAttribute('cx', cx);
+    livePointEl.setAttribute('cy', cy);
+    guideVEl.setAttribute('x1', cx); guideVEl.setAttribute('y1', mapY(0));
+    guideVEl.setAttribute('x2', cx); guideVEl.setAttribute('y2', cy);
+    guideHEl.setAttribute('x1', mapX(0)); guideHEl.setAttribute('y1', cy);
+    guideHEl.setAttribute('x2', cx); guideHEl.setAttribute('y2', cy);
+  }
+
+  function renderQuickChips(){
+    quickChipsEl.innerHTML='';
+    [-8,-3,0,4,9].forEach(function(v){
+      var b=document.createElement('button');
+      b.type='button';
+      b.className='chip small';
+      b.textContent = 'x = '+v;
+      b.addEventListener('click', function(){ state.xVal=v; renderStep1(); });
+      quickChipsEl.appendChild(b);
+    });
+  }
+
+  // ---------- Step 2 ----------
+  function renderPixelGrid(){
+    pixelGridEl.innerHTML='';
+    for(var r=0;r<N;r++){
+      for(var c=0;c<N;c++){
+        var v=state.grid[r][c];
+        var d=document.createElement('div');
+        d.className='pixel'+(v?' on':'');
+        d.setAttribute('role','button');
+        d.setAttribute('tabindex','0');
+        d.setAttribute('aria-pressed', v? 'true':'false');
+        d.setAttribute('aria-label', (r+1)+'행 '+(c+1)+'열, 값 '+v);
+        d.dataset.r=r; d.dataset.c=c;
+        pixelGridEl.appendChild(d);
+      }
+    }
+  }
+  function setPixel(r,c,v){
+    state.grid[r][c]=v;
+    renderStep2(false);
+  }
+  function renderFilterButtons(){
+    filterButtonsEl.innerHTML='';
+    Object.keys(FILTERS).forEach(function(key){
+      var b=document.createElement('button');
+      b.type='button';
+      b.className='chip'+(key===state.filterKey?' active':'');
+      b.textContent=FILTERS[key].label;
+      b.addEventListener('click', function(k){ return function(){ state.filterKey=k; renderStep2(false); }; }(key));
+      filterButtonsEl.appendChild(b);
+    });
+  }
+  function renderValueGrid(container, grid, animate, diffSet){
+    container.innerHTML='';
+    var idx=0;
+    grid.forEach(function(row){
+      row.forEach(function(v){
+        var d=document.createElement('div');
+        var cls='value-cell '+signClass(v);
+        if(diffSet && diffSet.has(idx)) cls+=' diff';
+        d.className=cls;
+        d.textContent=formatNum(v);
+        container.appendChild(d);
+        idx++;
+      });
+    });
+  }
+  function renderValueGridAnimated(container, beforeGrid, afterGrid){
+    container.innerHTML='';
+    var idx=0;
+    afterGrid.forEach(function(row,r){
+      row.forEach(function(v,c){
+        var d=document.createElement('div');
+        var wasNeg = beforeGrid[r][c] < -0.0001;
+        var cls='value-cell '+signClass(v)+' sweep'+(wasNeg?' wasneg':'');
+        d.className=cls;
+        d.style.animationDelay = (idx*22)+'ms';
+        d.textContent=formatNum(v);
+        container.appendChild(d);
+        idx++;
+      });
+    });
+  }
+  function renderStep2(animate){
+    renderPixelGrid();
+    renderFilterButtons();
+    var conv = getConvFull();
+    var relud = relu(conv);
+    renderValueGrid(beforeGridEl, conv);
+    if(animate){ renderValueGridAnimated(afterGridEl, conv, relud); }
+    else{ renderValueGrid(afterGridEl, relud); }
+    var negCount=0;
+    conv.forEach(function(row){ row.forEach(function(v){ if(v<-0.0001) negCount++; }); });
+    negCountNoteEl.textContent = '36칸 중 ' + negCount + '칸이 음수라서 0으로 지워졌어요.';
+  }
+
+  // ---------- Step 3 ----------
+  function renderStep3(){
+    var conv=getConvFull();
+    var withRelu = maxPool(relu(conv),2,2);
+    var withoutRelu = maxPool(conv,2,2);
+    var diffSet=new Set();
+    var idx=0, diffCount=0;
+    for(var r=0;r<3;r++){
+      for(var c=0;c<3;c++){
+        if(Math.abs(withRelu[r][c]-withoutRelu[r][c])>1e-9){ diffSet.add(idx); diffCount++; }
+        idx++;
+      }
+    }
+    renderValueGrid(poolWithEl, withRelu, false, diffSet);
+    renderValueGrid(poolWithoutEl, withoutRelu, false, diffSet);
+    if(diffCount>0){
+      diffCalloutEl.innerHTML = '노란 테두리 칸(' + diffCount + '개)을 보세요 — 이 묶음은 원래 전부 음수였어요. ReLU 없이 풀링하면 "그나마 덜 부정적인 값"이 살아남지만, ReLU를 먼저 적용하면 깔끔하게 0이 돼요. 음수 신호가 뒤섞이지 않게 막아주는 거예요.';
+    } else {
+      diffCalloutEl.innerHTML = '지금 그림·필터 조합에서는 두 결과가 똑같아요. 완전히 음수로만 채워진 묶음이 없기 때문이에요. 2단계로 돌아가 다른 그림이나 필터를 시도해서 차이가 나는 경우를 찾아보세요!';
+    }
+  }
+
+  // ---------- nav / lifecycle ----------
+  function updateProgress(){
+    progressFillEl.style.width = (state.step/3*100)+'%';
+    stepLabelEl.textContent = state.step+' / 3';
+  }
+  function updateNavTabs(){
+    document.querySelectorAll('.step-tab').forEach(function(btn){
+      var s=+btn.dataset.step;
+      btn.classList.toggle('active', s===state.step);
+      if(s===state.step) btn.setAttribute('aria-current','step'); else btn.removeAttribute('aria-current');
+    });
+  }
+  function updatePrevNext(){
+    prevBtn.disabled = state.step===1;
+    nextBtn.textContent = state.step===3 ? '처음부터 다시 ↺' : '다음 →';
+  }
+  function renderCurrentStep(){
+    updateProgress();
+    switch(state.step){
+      case 1: renderStep1(); break;
+      case 2: renderStep2(false); break;
+      case 3: renderStep3(); break;
+    }
+  }
+  function goToStep(n){
+    if(n<1) n=1; if(n>3) n=3;
+    state.step=n;
+    for(var i=1;i<=3;i++){ q('step-'+i).hidden = (i!==n); }
+    updateNavTabs();
+    updatePrevNext();
+    renderCurrentStep();
+  }
+
+  function renderLogoGrid(){
+    var el=q('logoGrid');
+    el.innerHTML='';
+    var pattern=[0,0,0,1, 0,0,1,0, 0,1,0,0, 1,1,1,1];
+    pattern.forEach(function(v,i){
+      var d=document.createElement('i');
+      d.className = v? 'on':'';
+      d.style.animationDelay = (i*28)+'ms';
+      el.appendChild(d);
+    });
+  }
+
+  function initListeners(){
+    pixelGridEl.addEventListener('pointerdown', function(e){
+      var cell=e.target.closest('.pixel'); if(!cell) return;
+      var r=+cell.dataset.r, c=+cell.dataset.c;
+      window.__painting = state.grid[r][c] ? 0 : 1;
+      setPixel(r,c,window.__painting);
+      e.preventDefault();
+    });
+    pixelGridEl.addEventListener('pointerover', function(e){
+      if(window.__painting===undefined) return;
+      if(e.buttons!==1) return;
+      var cell=e.target.closest('.pixel'); if(!cell) return;
+      var r=+cell.dataset.r, c=+cell.dataset.c;
+      setPixel(r,c,window.__painting);
+    });
+    document.addEventListener('pointerup', function(){ window.__painting=undefined; });
+    pixelGridEl.addEventListener('keydown', function(e){
+      var cell=e.target.closest('.pixel'); if(!cell) return;
+      if(e.key===' '||e.key==='Enter'){
+        e.preventDefault();
+        var r=+cell.dataset.r, c=+cell.dataset.c;
+        setPixel(r,c, state.grid[r][c]?0:1);
+      }
+    });
+
+    q('presetSelect').addEventListener('change', function(e){
+      var key=e.target.value;
+      if(PRESETS[key]){ state.grid=PRESETS[key](); renderStep2(false); }
+      e.target.value='';
+    });
+    q('clearBtn').addEventListener('click', function(){ state.grid=zeros(); renderStep2(false); });
+    q('sweepBtn').addEventListener('click', function(){ renderStep2(true); });
+
+    q('backToStep2Btn').addEventListener('click', function(){ goToStep(2); });
+
+    xSliderEl.addEventListener('input', function(e){ state.xVal = +e.target.value; renderStep1(); });
+
+    q('stepsNav').addEventListener('click', function(e){
+      var b=e.target.closest('.step-tab'); if(!b) return;
+      goToStep(+b.dataset.step);
+    });
+    prevBtn.addEventListener('click', function(){ goToStep(state.step-1); });
+    nextBtn.addEventListener('click', function(){ if(state.step<3) goToStep(state.step+1); else goToStep(1); });
+  }
+
+  function init(){
+    pixelGridEl=q('pixelGrid');
+    filterButtonsEl=q('filterButtons');
+    beforeGridEl=q('beforeGrid');
+    afterGridEl=q('afterGrid');
+    negCountNoteEl=q('negCountNote');
+    poolWithEl=q('poolWithGrid');
+    poolWithoutEl=q('poolWithoutGrid');
+    diffCalloutEl=q('diffCallout');
+    xSliderEl=q('xSlider');
+    formulaBoxEl=q('formulaBox');
+    statusChipEl=q('statusChip');
+    quickChipsEl=q('quickChips');
+    livePointEl=q('livePoint');
+    guideVEl=q('guideV');
+    guideHEl=q('guideH');
+    progressFillEl=q('progressFill');
+    stepLabelEl=q('stepLabel');
+    prevBtn=q('prevBtn');
+    nextBtn=q('nextBtn');
+
+    renderLogoGrid();
+    renderQuickChips();
+    initListeners();
+    updateNavTabs();
+    updatePrevNext();
+    renderCurrentStep();
+  }
+
+  try{
+    if(window.claude && window.claude.hot && window.claude.hot.ready){
+      window.claude.hot.ready(function(){ init(); });
+    } else {
+      init();
+    }
+  }catch(e){ init(); }
+
+})();
+</script>

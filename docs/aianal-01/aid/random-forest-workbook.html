@@ -1,0 +1,734 @@
+<title>랜덤 포레스트 체험 학습지</title>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+  :root{
+    --paper:#FAFAF8;
+    --paper-grid:#DCE6F5;
+    --paper-grid-strong:#C3D2EE;
+    --surface:#FFFFFF;
+    --border:#E2E6EE;
+    --ink:#1E2430;
+    --ink-soft:#63697A;
+    --pencil-blue:#2F5FD1;
+    --pencil-blue-soft:#E7EEFD;
+    --pencil-blue-ink:#1D3E96;
+    --pencil-red:#D8443A;
+    --pencil-red-soft:#FBE7E5;
+    --pencil-red-ink:#A9291F;
+    --pencil-yellow:#C98A00;
+    --pencil-yellow-soft:#FBF0D6;
+    --shadow: 0 1px 2px rgba(30,36,48,0.06), 0 6px 20px rgba(30,36,48,0.05);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#161D28; --paper-grid:#2D3B52; --paper-grid-strong:#3C4E6B;
+      --surface:#1D2534; --border:#31405A; --ink:#ECEFF6; --ink-soft:#9BA6BC;
+      --pencil-blue:#7DA2FF; --pencil-blue-soft:#243257; --pencil-blue-ink:#C4D3FF;
+      --pencil-red:#FF8A7E; --pencil-red-soft:#3A2429; --pencil-red-ink:#FFC0B7;
+      --pencil-yellow:#F0C243; --pencil-yellow-soft:#3A311A;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 10px 26px rgba(0,0,0,0.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#161D28; --paper-grid:#2D3B52; --paper-grid-strong:#3C4E6B;
+    --surface:#1D2534; --border:#31405A; --ink:#ECEFF6; --ink-soft:#9BA6BC;
+    --pencil-blue:#7DA2FF; --pencil-blue-soft:#243257; --pencil-blue-ink:#C4D3FF;
+    --pencil-red:#FF8A7E; --pencil-red-soft:#3A2429; --pencil-red-ink:#FFC0B7;
+    --pencil-yellow:#F0C243; --pencil-yellow-soft:#3A311A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 10px 26px rgba(0,0,0,0.35);
+  }
+
+  *{ box-sizing:border-box; }
+  [hidden]{ display:none !important; }
+  body{
+    margin:0;
+    background:
+      linear-gradient(var(--paper), var(--paper)),
+      repeating-linear-gradient(0deg, var(--paper-grid) 0 1px, transparent 1px 28px),
+      repeating-linear-gradient(90deg, var(--paper-grid) 0 1px, transparent 1px 28px);
+    background-color:var(--paper);
+    color:var(--ink);
+    font-family:'Noto Sans KR', 'Malgun Gothic', sans-serif;
+    line-height:1.6;
+  }
+  h1,h2,h3{ font-family:'Gowun Dodum','Noto Sans KR',sans-serif; font-weight:400; text-wrap:balance; margin:0; color:var(--ink); }
+  p{ margin:0; }
+  .mono{ font-family:'JetBrains Mono', ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+  button{ font-family:inherit; }
+  :focus-visible{ outline:3px solid var(--pencil-blue); outline-offset:2px; }
+
+  #app{ max-width:960px; margin-inline:auto; padding-inline:20px; padding-block:32px 56px; display:flex; flex-direction:column; gap:20px; }
+
+  .masthead{ display:flex; align-items:center; gap:20px; background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:22px 24px; box-shadow:var(--shadow); flex-wrap:wrap; }
+  .masthead-badge{ flex:none; width:84px; height:84px; display:grid; grid-template-columns:repeat(4,1fr); grid-template-rows:repeat(4,1fr); gap:3px; padding:8px; background:var(--paper); border:1px solid var(--border); border-radius:12px; }
+  .masthead-badge i{ background:var(--paper-grid); border-radius:2px; opacity:0; }
+  @media (prefers-reduced-motion: no-preference){ .masthead-badge i.on{ animation:inkIn 240ms ease-out forwards; } }
+  .masthead-badge i.on{ background:var(--pencil-blue); opacity:1; }
+  @keyframes inkIn{ from{ opacity:0; transform:scale(.4);} to{ opacity:1; transform:scale(1);} }
+  .masthead-text{ flex:1; min-width:220px; display:flex; flex-direction:column; gap:6px; }
+  .eyebrow{ font-size:.8rem; font-weight:700; letter-spacing:.06em; color:var(--pencil-blue); text-transform:uppercase; }
+  .masthead-text h1{ font-size:clamp(1.5rem,4vw,2rem); }
+  .lede{ color:var(--ink-soft); font-size:.95rem; max-width:60ch; }
+
+  .steps-nav{ display:flex; flex-wrap:wrap; gap:8px; }
+  .step-tab{ flex:1 1 auto; min-width:100px; display:flex; flex-direction:column; align-items:center; gap:2px; padding:10px 8px; border-radius:12px; border:1px solid var(--border); background:var(--surface); color:var(--ink-soft); cursor:pointer; font-size:.8rem; transition:background 150ms, color 150ms, border-color 150ms; }
+  .step-tab b{ font-family:'JetBrains Mono',monospace; font-size:.95rem; color:inherit; }
+  .step-tab.active{ background:var(--pencil-blue); border-color:var(--pencil-blue); color:#fff; }
+  .step-tab.active b{ color:#fff; }
+
+  .progress-track{ height:6px; border-radius:999px; background:var(--paper-grid); overflow:hidden; }
+  .progress-fill{ height:100%; background:var(--pencil-blue); border-radius:999px; transition:width 220ms ease; }
+
+  .sheet{ background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:26px 24px; box-shadow:var(--shadow); }
+  .step:not([hidden]){ display:flex; }
+  .step{ flex-direction:column; gap:18px; }
+  .step-head{ display:flex; flex-direction:column; gap:6px; }
+  .step-head .kicker{ font-size:.78rem; font-weight:700; color:var(--pencil-blue); letter-spacing:.04em; }
+  .step-head h2{ font-size:1.4rem; }
+  .step-head .desc{ color:var(--ink-soft); font-size:.95rem; max-width:66ch; }
+
+  .two-col{ display:grid; grid-template-columns:1fr; gap:22px; }
+  @media (min-width:680px){ .two-col{ grid-template-columns: minmax(0,270px) 1fr; align-items:start; } }
+
+  .panel{ display:flex; flex-direction:column; gap:12px; }
+  .panel-title{ font-size:.85rem; font-weight:700; color:var(--ink-soft); }
+
+  .btn{ border-radius:10px; border:1px solid var(--border); background:var(--surface); color:var(--ink); padding:9px 14px; font-size:.85rem; font-weight:500; cursor:pointer; transition:background 120ms, border-color 120ms, color 120ms; }
+  .btn:hover{ border-color:var(--pencil-blue); }
+  .btn-primary{ background:var(--pencil-blue); border-color:var(--pencil-blue); color:#fff; }
+  .btn-primary:hover{ opacity:.92; }
+  .control-row{ display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+  .chip{ border-radius:999px; border:1px solid var(--border); background:var(--surface); padding:7px 14px; font-size:.82rem; cursor:pointer; color:var(--ink); }
+  .chip.active{ background:var(--pencil-blue-soft); border-color:var(--pencil-blue); color:var(--pencil-blue-ink); font-weight:700; }
+
+  .note{ font-size:.82rem; color:var(--ink-soft); }
+  .callout{ background:var(--paper); border:1px dashed var(--paper-grid-strong); border-radius:12px; padding:12px 14px; font-size:.88rem; color:var(--ink-soft); }
+
+  input[type="range"]{ width:100%; accent-color:var(--pencil-blue); height:6px; cursor:pointer; }
+
+  .stat-box{ font-family:'JetBrains Mono',monospace; font-weight:700; font-size:1.02rem; padding:10px 14px; border-radius:12px; background:var(--paper); border:1px solid var(--border); width:fit-content; }
+
+  /* charts */
+  .chart-wrap{ position:relative; width:100%; max-width:440px; aspect-ratio:320/200; background:var(--paper); border:1px solid var(--border); border-radius:12px; overflow:hidden; }
+  .chart-wrap.clickable{ cursor:crosshair; }
+  .chart-wrap canvas{ position:absolute; inset:0; width:100%; height:100%; image-rendering:pixelated; }
+  .chart-wrap svg{ position:absolute; inset:0; width:100%; height:100%; }
+  svg circle.pt.apple{ fill:var(--pencil-blue); }
+  svg circle.pt.orange{ fill:var(--pencil-yellow); }
+
+  .legend-row{ display:flex; gap:16px; flex-wrap:wrap; font-size:.8rem; color:var(--ink-soft); align-items:center; }
+  .legend-dot{ display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:5px; vertical-align:middle; }
+  .legend-dot.apple{ background:var(--pencil-blue); }
+  .legend-dot.orange{ background:var(--pencil-yellow); }
+  .legend-dot.new{ background:var(--pencil-red); }
+
+  .tree-ascii{ font-family:'JetBrains Mono',monospace; font-size:.76rem; white-space:pre; background:var(--paper); border:1px solid var(--border); border-radius:12px; padding:14px 16px; overflow-x:auto; line-height:1.55; }
+
+  .history-chips{ display:flex; gap:6px; flex-wrap:wrap; }
+  .history-chip{ font-family:'JetBrains Mono',monospace; font-size:.74rem; padding:4px 9px; border-radius:999px; background:var(--paper); border:1px solid var(--border); color:var(--ink-soft); }
+  .history-chip.latest{ background:var(--pencil-blue-soft); color:var(--pencil-blue-ink); border-color:transparent; font-weight:700; }
+
+  .vote-row{ display:flex; gap:6px; flex-wrap:wrap; }
+  .vote-chip{ display:flex; flex-direction:column; align-items:center; gap:4px; padding:8px 10px; border-radius:10px; background:var(--paper); border:1px solid var(--border); font-size:.7rem; color:var(--ink-soft); min-width:50px; }
+  .vote-chip .dot{ width:13px; height:13px; border-radius:50%; }
+  .vote-chip.apple .dot{ background:var(--pencil-blue); }
+  .vote-chip.orange .dot{ background:var(--pencil-yellow); }
+
+  .verdict-box{ padding:16px; border-radius:14px; }
+  .verdict-box.apple{ background:var(--pencil-blue-soft); color:var(--pencil-blue-ink); }
+  .verdict-box.orange{ background:var(--pencil-yellow-soft); color:var(--pencil-yellow); }
+  .verdict-box b{ font-size:1.15rem; }
+
+  .sheet-footer{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
+  .step-indicator{ font-family:'JetBrains Mono',monospace; font-size:.85rem; color:var(--ink-soft); }
+
+  @media (max-width:400px){ .masthead{ flex-direction:column; align-items:flex-start; } }
+</style>
+
+<div id="app">
+
+  <header class="masthead">
+    <div class="masthead-badge" id="logoGrid" aria-hidden="true"></div>
+    <div class="masthead-text">
+      <p class="eyebrow">완전 초보자를 위한 체험 학습지</p>
+      <h1>랜덤 포레스트, 나무들에게 물어보기</h1>
+      <p class="lede">사과와 오렌지 데이터로 결정 트리 하나를 길러보고, 그 한계를 확인한 다음, 여러 그루를 모아 "숲"을 만들어 다수결로 더 믿을 만한 답을 얻는 과정을 4단계로 체험해요.</p>
+    </div>
+  </header>
+
+  <nav class="steps-nav" id="stepsNav" aria-label="학습 단계">
+    <button class="step-tab" data-step="1"><b>1</b><span>나무 하나</span></button>
+    <button class="step-tab" data-step="2"><b>2</b><span>나무의 한계</span></button>
+    <button class="step-tab" data-step="3"><b>3</b><span>숲 만들기</span></button>
+    <button class="step-tab" data-step="4"><b>4</b><span>내 과일 예측</span></button>
+  </nav>
+
+  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+
+  <main class="sheet">
+
+    <!-- STEP 1 -->
+    <section id="step-1" class="step">
+      <div class="step-head">
+        <p class="kicker">STEP 1 · 결정 트리 하나</p>
+        <h2>질문 하나로 사과와 오렌지를 나눠볼까요?</h2>
+        <p class="desc">아래는 과일 20개의 무게와 빨간 정도예요. 파란 점은 사과🔵, 노란 점은 오렌지🟡예요. 기준(질문)을 하나 만들어서 얼마나 잘 나뉘는지 확인해보세요.</p>
+      </div>
+      <div class="two-col">
+        <div class="panel">
+          <p class="panel-title">내 질문 만들기</p>
+          <div class="control-row" id="featureChips"></div>
+          <input type="range" id="threshSlider">
+          <div class="stat-box mono" id="formulaBox"></div>
+          <div class="stat-box mono" id="accBox"></div>
+        </div>
+        <div class="panel">
+          <div class="chart-wrap" id="stumpChart"></div>
+          <div class="legend-row"><span><span class="legend-dot apple"></span>사과</span><span><span class="legend-dot orange"></span>오렌지</span><span>· 노란 점선 = 내 기준선</span></div>
+        </div>
+      </div>
+      <div class="callout">
+        <p style="margin-bottom:8px;">실제 결정 트리는 질문을 한 번 더 이어가요. 이 데이터로 컴퓨터가 실제로 기른 2단계 트리예요:</p>
+        <div class="tree-ascii mono" id="tree2Ascii"></div>
+        <p class="note" id="tree2Acc" style="margin-top:8px;"></p>
+      </div>
+    </section>
+
+    <!-- STEP 2 -->
+    <section id="step-2" class="step" hidden>
+      <div class="step-head">
+        <p class="kicker">STEP 2 · 나무 하나의 한계</p>
+        <h2>같은 데이터인데, 나무는 왜 자꾸 바뀔까요?</h2>
+        <p class="desc">원래 데이터 20개에서 무작위로 (중복 허용해서) 다시 뽑으면 조금 다른 데이터셋이 만들어져요. 그걸로 나무를 다시 기르면 질문도, 정확도도 매번 달라져요.</p>
+      </div>
+      <div class="two-col">
+        <div class="panel">
+          <p class="panel-title" id="cycleLabel"></p>
+          <button id="cycleBtn" class="btn btn-primary">다음 나무 보기 →</button>
+          <div class="stat-box mono" id="cycleAcc"></div>
+          <p class="panel-title" style="margin-top:6px;">지금까지 본 정확도</p>
+          <div class="history-chips" id="historyChips2"></div>
+        </div>
+        <div class="panel">
+          <div class="chart-wrap" id="cycleChart"></div>
+          <div class="legend-row"><span><span class="legend-dot apple"></span>사과</span><span><span class="legend-dot orange"></span>오렌지</span></div>
+        </div>
+      </div>
+      <div class="tree-ascii mono" id="cycleAscii"></div>
+      <div class="callout">나무 하나만 믿고 결정하면, 어떤 데이터를 뽑았는지에 따라 결과가 크게 흔들려요. 여러 그루를 같이 보면 어떨까요? 다음 단계로 가볼게요.</div>
+    </section>
+
+    <!-- STEP 3 -->
+    <section id="step-3" class="step" hidden>
+      <div class="step-head">
+        <p class="kicker">STEP 3 · 숲 만들기</p>
+        <h2>여러 그루를 모아 다수결로 결정해요</h2>
+        <p class="desc">나무 개수를 늘려보고, "다시 섞기"로 완전히 새 숲을 만들어보세요. 나무가 적을 때는 다시 섞을 때마다 정확도가 꽤 흔들리지만, 나무가 많아지면 흔들림이 줄어드는 걸 확인할 수 있어요.</p>
+      </div>
+      <div class="two-col">
+        <div class="panel">
+          <p class="panel-title">나무 개수: <span id="nTreesVal" class="mono"></span></p>
+          <input type="range" id="nTreesSlider" min="1" max="15" step="1">
+          <button id="reshuffleBtn" class="btn btn-primary">숲 다시 섞기 🎲</button>
+          <div class="stat-box mono" id="forestAcc"></div>
+          <p class="panel-title" style="margin-top:6px;">다시 섞을 때마다 정확도</p>
+          <div class="history-chips" id="historyChips3"></div>
+        </div>
+        <div class="panel">
+          <div class="chart-wrap" id="forestChart"></div>
+          <div class="legend-row"><span><span class="legend-dot apple"></span>사과</span><span><span class="legend-dot orange"></span>오렌지</span></div>
+        </div>
+      </div>
+      <div class="callout">배경색은 "이 숲이라면 이 위치의 과일을 뭐라고 부를지"를 보여줘요. 나무 개수를 1그루로 줄였다가 15그루로 늘려보면서 배경 경계가 어떻게 달라지는지 비교해보세요.</div>
+    </section>
+
+    <!-- STEP 4 -->
+    <section id="step-4" class="step" hidden>
+      <div class="step-head">
+        <p class="kicker">STEP 4 · 내 과일 예측</p>
+        <h2>새 과일을 하나 그려보면?</h2>
+        <p class="desc" id="forestInfo"></p>
+        <p class="desc">아래 그래프를 클릭해서 "정체를 모르는 과일" 하나를 놓아보세요. 숲 안의 나무들이 각자 투표하고, 다수결로 최종 답을 정해요.</p>
+      </div>
+      <div class="two-col">
+        <div class="panel">
+          <p class="panel-title">나무들의 투표</p>
+          <div class="vote-row" id="voteRow"></div>
+          <div class="verdict-box" id="verdictBox" hidden></div>
+        </div>
+        <div class="panel">
+          <div class="chart-wrap clickable" id="predictChart"></div>
+          <div class="legend-row"><span><span class="legend-dot apple"></span>사과</span><span><span class="legend-dot orange"></span>오렌지</span><span><span class="legend-dot new"></span>내가 찍은 점</span></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="sheet-footer">
+    <button id="prevBtn" class="btn">← 이전</button>
+    <span class="step-indicator" id="stepLabel">1 / 4</span>
+    <button id="nextBtn" class="btn btn-primary">다음 →</button>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  // ---------- toy dataset ----------
+  var DATA = [
+   {w:195,r:8,label:'apple'},{w:180,r:7,label:'apple'},{w:170,r:9,label:'apple'},{w:160,r:6,label:'apple'},
+   {w:205,r:8,label:'apple'},{w:150,r:7,label:'apple'},{w:190,r:9,label:'apple'},{w:165,r:5,label:'apple'},
+   {w:120,r:6,label:'apple'},{w:140,r:4,label:'apple'},
+   {w:90,r:2,label:'orange'},{w:110,r:3,label:'orange'},{w:75,r:1,label:'orange'},{w:130,r:4,label:'orange'},
+   {w:95,r:2,label:'orange'},{w:115,r:3,label:'orange'},{w:85,r:1,label:'orange'},{w:105,r:4,label:'orange'},
+   {w:150,r:5,label:'orange'},{w:170,r:6,label:'orange'}
+  ];
+  var LABELKOR = { apple:'사과', orange:'오렌지' };
+  var CYCLE_SEEDS = [11,22,33,44,55,66];
+
+  // ---------- ML core ----------
+  function gini(points){
+    if(points.length===0) return 0;
+    var counts={};
+    points.forEach(function(p){ counts[p.label]=(counts[p.label]||0)+1; });
+    var n=points.length, sum=0;
+    Object.keys(counts).forEach(function(k){ var pr=counts[k]/n; sum+=pr*pr; });
+    return 1-sum;
+  }
+  function majorityLabel(points){
+    var counts={};
+    points.forEach(function(p){ counts[p.label]=(counts[p.label]||0)+1; });
+    var best=null, bestCount=-1;
+    Object.keys(counts).sort().forEach(function(k){ if(counts[k]>bestCount){ bestCount=counts[k]; best=k; } });
+    if(best===null) best='apple';
+    return { label:best, counts:counts, n:points.length };
+  }
+  function bestSplit(points, features){
+    var n=points.length, parentGini=gini(points), best=null;
+    features.forEach(function(feat){
+      var vals=points.map(function(p){ return p[feat]; }).sort(function(a,b){ return a-b; });
+      var uniq=Array.from(new Set(vals));
+      for(var i=0;i<uniq.length-1;i++){
+        var thresh=(uniq[i]+uniq[i+1])/2;
+        var left=points.filter(function(p){ return p[feat]<=thresh; });
+        var right=points.filter(function(p){ return p[feat]>thresh; });
+        if(left.length===0||right.length===0) continue;
+        var wgini=(left.length/n)*gini(left)+(right.length/n)*gini(right);
+        if(!best||wgini<best.wgini){ best={feat:feat, thresh:thresh, wgini:wgini, left:left, right:right}; }
+      }
+    });
+    if(!best) return null;
+    if(best.wgini>=parentGini-1e-9) return null;
+    return best;
+  }
+  function buildTree(points, depth, maxDepth){
+    var maj=majorityLabel(points);
+    if(depth>=maxDepth || gini(points)===0 || points.length<2){
+      return { leaf:true, label:maj.label, n:points.length, counts:maj.counts };
+    }
+    var split=bestSplit(points, ['w','r']);
+    if(!split){ return { leaf:true, label:maj.label, n:points.length, counts:maj.counts }; }
+    return {
+      leaf:false, feat:split.feat, thresh:split.thresh,
+      left: buildTree(split.left, depth+1, maxDepth),
+      right: buildTree(split.right, depth+1, maxDepth),
+      n: points.length
+    };
+  }
+  function predictTree(tree, p){
+    var node=tree;
+    while(!node.leaf){ node = (p[node.feat]<=node.thresh) ? node.left : node.right; }
+    return node.label;
+  }
+  function accuracy(predictFn, points){
+    var correct=0;
+    points.forEach(function(p){ if(predictFn(p)===p.label) correct++; });
+    return correct/points.length;
+  }
+  function mulberry32(seed){
+    return function(){
+      seed |= 0; seed = seed + 0x6D2B79F5 | 0;
+      var t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+      t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    };
+  }
+  function bootstrapSample(points, rng){
+    var out=[];
+    for(var i=0;i<points.length;i++){ out.push(points[Math.floor(rng()*points.length)]); }
+    return out;
+  }
+  function buildForest(nTrees, seedBase, maxDepth){
+    var trees=[];
+    for(var i=0;i<nTrees;i++){
+      var rng=mulberry32(seedBase+i*1000+7);
+      trees.push(buildTree(bootstrapSample(DATA, rng), 0, maxDepth));
+    }
+    return trees;
+  }
+  function forestPredict(forest, p){
+    var votes={};
+    forest.forEach(function(t){ var l=predictTree(t,p); votes[l]=(votes[l]||0)+1; });
+    var best=null, bestCount=-1;
+    Object.keys(votes).sort().forEach(function(k){ if(votes[k]>bestCount){ bestCount=votes[k]; best=k; } });
+    return { label:best, votes:votes };
+  }
+  function stumpPredictor(feature, threshold){
+    var left=DATA.filter(function(p){ return p[feature]<=threshold; });
+    var right=DATA.filter(function(p){ return p[feature]>threshold; });
+    var leftMaj=majorityLabel(left).label;
+    var rightMaj=majorityLabel(right).label;
+    return { predict:function(p){ return (p[feature]<=threshold) ? leftMaj : rightMaj; } };
+  }
+  function treeToLines(node, indent){
+    if(node.leaf){
+      var total=node.n, top=node.counts[node.label]||0;
+      return [indent+'→ '+LABELKOR[node.label]+' ('+top+'/'+total+')'];
+    }
+    var qtext=(node.feat==='w') ? ('무게 ≤ '+node.thresh+'g ?') : ('빨간정도 ≤ '+node.thresh+' ?');
+    var lines=[indent+qtext];
+    var leftLines=treeToLines(node.left, indent+'    ');
+    var rightLines=treeToLines(node.right, indent+'    ');
+    lines.push(indent+'├─ 예');
+    leftLines.forEach(function(l){ lines.push(l); });
+    lines.push(indent+'└─ 아니오');
+    rightLines.forEach(function(l){ lines.push(l); });
+    return lines;
+  }
+  var TREE2 = buildTree(DATA, 0, 2);
+
+  // ---------- chart coordinate system ----------
+  var PAD=34, PW=252, PH=132;
+  var WMIN=60, WMAX=220, RMIN=0, RMAX=10;
+  function mapX(w){ return PAD + (w-WMIN)/(WMAX-WMIN)*PW; }
+  function mapY(r){ return PAD+PH - (r-RMIN)/(RMAX-RMIN)*PH; }
+  function invX(px){ return WMIN + (px-PAD)/PW*(WMAX-WMIN); }
+  function invY(py){ return RMIN + (PAD+PH-py)/PH*(RMAX-RMIN); }
+
+  var AXES_MARKUP =
+    '<rect x="34" y="34" width="252" height="132" fill="none" stroke="var(--ink-soft)" stroke-width="1.2"/>' +
+    '<line x1="97" y1="34" x2="97" y2="166" stroke="var(--paper-grid)" stroke-width="1"/>' +
+    '<line x1="160" y1="34" x2="160" y2="166" stroke="var(--paper-grid)" stroke-width="1"/>' +
+    '<line x1="223" y1="34" x2="223" y2="166" stroke="var(--paper-grid)" stroke-width="1"/>' +
+    '<line x1="34" y1="100" x2="286" y2="100" stroke="var(--paper-grid)" stroke-width="1"/>' +
+    '<text x="34" y="180" font-size="9" fill="var(--ink-soft)" text-anchor="middle">60</text>' +
+    '<text x="97" y="180" font-size="9" fill="var(--ink-soft)" text-anchor="middle">100</text>' +
+    '<text x="160" y="180" font-size="9" fill="var(--ink-soft)" text-anchor="middle">140</text>' +
+    '<text x="223" y="180" font-size="9" fill="var(--ink-soft)" text-anchor="middle">180</text>' +
+    '<text x="286" y="180" font-size="9" fill="var(--ink-soft)" text-anchor="middle">220</text>' +
+    '<text x="26" y="169" font-size="9" fill="var(--ink-soft)" text-anchor="end">0</text>' +
+    '<text x="26" y="103" font-size="9" fill="var(--ink-soft)" text-anchor="end">5</text>' +
+    '<text x="26" y="37" font-size="9" fill="var(--ink-soft)" text-anchor="end">10</text>' +
+    '<text x="160" y="193" font-size="10" fill="var(--ink-soft)" text-anchor="middle">무게(g)</text>' +
+    '<text x="10" y="20" font-size="10" fill="var(--ink-soft)">빨간정도</text>';
+
+  function pointsMarkup(){
+    var s='';
+    DATA.forEach(function(p){
+      s += '<circle class="pt '+p.label+'" cx="'+mapX(p.w)+'" cy="'+mapY(p.r)+'" r="5" stroke="var(--surface)" stroke-width="1.5"/>';
+    });
+    return s;
+  }
+
+  function buildChartDom(id){
+    var wrap=document.getElementById(id);
+    wrap.innerHTML='';
+    var canvas=document.createElement('canvas');
+    canvas.width=320; canvas.height=200;
+    wrap.appendChild(canvas);
+    var svgNS='http://www.w3.org/2000/svg';
+    var svg=document.createElementNS(svgNS,'svg');
+    svg.setAttribute('viewBox','0 0 320 200');
+    svg.innerHTML = AXES_MARKUP + '<g class="points">'+pointsMarkup()+'</g>' + '<g id="'+id+'-extra"></g>';
+    wrap.appendChild(svg);
+    return canvas;
+  }
+
+  function cssVar(name){ return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); }
+
+  function drawBoundary(canvas, predictFn){
+    var ctx=canvas.getContext('2d');
+    ctx.clearRect(0,0,320,200);
+    var colors={ apple:cssVar('--pencil-blue-soft'), orange:cssVar('--pencil-yellow-soft') };
+    var block=8;
+    for(var py=PAD; py<PAD+PH; py+=block){
+      for(var px=PAD; px<PAD+PW; px+=block){
+        var w=invX(px+block/2), r=invY(py+block/2);
+        var label=predictFn({w:w, r:r});
+        ctx.fillStyle = colors[label] || colors.apple;
+        ctx.fillRect(px,py,block,block);
+      }
+    }
+  }
+
+  function renderHistoryChips(container, arr){
+    container.innerHTML='';
+    arr.forEach(function(v,i){
+      var span=document.createElement('span');
+      span.className='history-chip'+(i===arr.length-1?' latest':'');
+      span.textContent=v+'%';
+      container.appendChild(span);
+    });
+  }
+
+  // ---------- state ----------
+  var state = {
+    splitFeature:'w', splitThreshold:118,
+    cycleIndex:0, history2:[],
+    nTrees:7, forestSeedBase:42, history3:[],
+    newPoint:null,
+    step:1
+  };
+
+  function q(id){ return document.getElementById(id); }
+  function getCurrentForest(){ return buildForest(state.nTrees, state.forestSeedBase, 2); }
+
+  // ---------- DOM refs ----------
+  var stumpCanvas, cycleCanvas, forestCanvas, predictCanvas;
+  var featureChipsEl, threshSliderEl, formulaBoxEl, accBoxEl, tree2AsciiEl, tree2AccEl;
+  var cycleLabelEl, cycleAccEl, cycleAsciiEl, historyChips2El;
+  var nTreesSliderEl, nTreesValEl, forestAccEl, historyChips3El;
+  var forestInfoEl, voteRowEl, verdictBoxEl;
+  var progressFillEl, stepLabelEl, prevBtn, nextBtn;
+
+  // ---------- Step 1 ----------
+  function renderFeatureChips(){
+    featureChipsEl.innerHTML='';
+    [['w','무게 기준'],['r','빨간정도 기준']].forEach(function(pair){
+      var b=document.createElement('button');
+      b.type='button';
+      b.className='chip'+(state.splitFeature===pair[0]?' active':'');
+      b.textContent=pair[1];
+      b.addEventListener('click', function(){
+        if(state.splitFeature!==pair[0]){
+          state.splitFeature=pair[0];
+          state.splitThreshold = pair[0]==='w' ? 140 : 5;
+          renderStep1();
+        }
+      });
+      featureChipsEl.appendChild(b);
+    });
+  }
+  function renderStep1(){
+    renderFeatureChips();
+    var isW = state.splitFeature==='w';
+    threshSliderEl.min = isW?WMIN:RMIN;
+    threshSliderEl.max = isW?WMAX:RMAX;
+    threshSliderEl.step = isW?1:0.5;
+    threshSliderEl.value = state.splitThreshold;
+
+    var sp = stumpPredictor(state.splitFeature, state.splitThreshold);
+    var acc = accuracy(sp.predict, DATA);
+    formulaBoxEl.textContent = (isW?'무게 ≤ ':'빨간정도 ≤ ') + state.splitThreshold + (isW?'g':'') + ' ?';
+    accBoxEl.textContent = '정확도: '+Math.round(acc*DATA.length)+'/'+DATA.length+' ('+Math.round(acc*100)+'%)';
+
+    drawBoundary(stumpCanvas, sp.predict);
+    var extra = q('stumpChart-extra');
+    if(isW){
+      var x=mapX(state.splitThreshold);
+      extra.innerHTML = '<line x1="'+x+'" y1="34" x2="'+x+'" y2="166" stroke="var(--pencil-yellow)" stroke-width="2.5" stroke-dasharray="5 3"/>';
+    } else {
+      var y=mapY(state.splitThreshold);
+      extra.innerHTML = '<line x1="34" y1="'+y+'" x2="286" y2="'+y+'" stroke="var(--pencil-yellow)" stroke-width="2.5" stroke-dasharray="5 3"/>';
+    }
+
+    var acc2 = accuracy(function(p){ return predictTree(TREE2,p); }, DATA);
+    tree2AsciiEl.textContent = treeToLines(TREE2,'').join('\n');
+    tree2AccEl.textContent = '이 트리의 정확도: '+Math.round(acc2*DATA.length)+'/'+DATA.length+' ('+Math.round(acc2*100)+'%)';
+  }
+
+  // ---------- Step 2 ----------
+  function renderStep2(){
+    var seed = CYCLE_SEEDS[state.cycleIndex];
+    var rng = mulberry32(seed);
+    var sample = bootstrapSample(DATA, rng);
+    var tree = buildTree(sample, 0, 2);
+    var acc = accuracy(function(p){ return predictTree(tree,p); }, DATA);
+
+    drawBoundary(cycleCanvas, function(p){ return predictTree(tree,p); });
+    cycleLabelEl.textContent = '나무 #'+(state.cycleIndex+1)+' / '+CYCLE_SEEDS.length;
+    cycleAccEl.textContent = '원본 20개 기준 정확도: '+Math.round(acc*DATA.length)+'/'+DATA.length+' ('+Math.round(acc*100)+'%)';
+    cycleAsciiEl.textContent = treeToLines(tree,'').join('\n');
+  }
+
+  // ---------- Step 3 ----------
+  function renderStep3(){
+    nTreesSliderEl.value = state.nTrees;
+    nTreesValEl.textContent = state.nTrees+'그루';
+    var forest = getCurrentForest();
+    var predictFn = function(p){ return forestPredict(forest,p).label; };
+    var acc = accuracy(predictFn, DATA);
+    drawBoundary(forestCanvas, predictFn);
+    forestAccEl.textContent = '숲 전체 정확도: '+Math.round(acc*DATA.length)+'/'+DATA.length+' ('+Math.round(acc*100)+'%)';
+  }
+
+  // ---------- Step 4 ----------
+  function renderVoteChips(forest, point){
+    voteRowEl.innerHTML='';
+    forest.forEach(function(t,i){
+      var label=predictTree(t,point);
+      var chip=document.createElement('div');
+      chip.className='vote-chip '+label;
+      chip.innerHTML = '<span class="dot"></span><span>나무 '+(i+1)+'</span>';
+      voteRowEl.appendChild(chip);
+    });
+  }
+  function renderStep4(){
+    forestInfoEl.textContent = '3단계에서 만든 숲을 그대로 사용해요 (나무 '+state.nTrees+'그루).';
+    var forest = getCurrentForest();
+    var predictFn = function(p){ return forestPredict(forest,p).label; };
+    drawBoundary(predictCanvas, predictFn);
+
+    var extra = q('predictChart-extra');
+    if(state.newPoint){
+      var cx=mapX(state.newPoint.w), cy=mapY(state.newPoint.r);
+      extra.innerHTML = '<circle cx="'+cx+'" cy="'+cy+'" r="7" fill="var(--pencil-red)" stroke="var(--surface)" stroke-width="2"/>';
+      var res = forestPredict(forest, state.newPoint);
+      renderVoteChips(forest, state.newPoint);
+      verdictBoxEl.hidden=false;
+      verdictBoxEl.className='verdict-box '+res.label;
+      verdictBoxEl.innerHTML = '무게 '+state.newPoint.w+'g, 빨간정도 '+state.newPoint.r+' → '+forest.length+'그루 중 <b>'+res.votes[res.label]+'그루</b>가 "'+LABELKOR[res.label]+'"라고 했어요.<br>최종 예측: <b>'+LABELKOR[res.label]+'</b>';
+    } else {
+      extra.innerHTML='';
+      voteRowEl.innerHTML='<p class="note">오른쪽 그래프를 클릭해서 과일을 하나 놓아보세요.</p>';
+      verdictBoxEl.hidden=true;
+    }
+  }
+
+  // ---------- nav / lifecycle ----------
+  function updateProgress(){
+    progressFillEl.style.width = (state.step/4*100)+'%';
+    stepLabelEl.textContent = state.step+' / 4';
+  }
+  function updateNavTabs(){
+    document.querySelectorAll('.step-tab').forEach(function(btn){
+      var s=+btn.dataset.step;
+      btn.classList.toggle('active', s===state.step);
+      if(s===state.step) btn.setAttribute('aria-current','step'); else btn.removeAttribute('aria-current');
+    });
+  }
+  function updatePrevNext(){
+    prevBtn.disabled = state.step===1;
+    nextBtn.textContent = state.step===4 ? '처음부터 다시 ↺' : '다음 →';
+  }
+  function renderCurrentStep(){
+    updateProgress();
+    switch(state.step){
+      case 1: renderStep1(); break;
+      case 2: renderStep2(); break;
+      case 3: renderStep3(); break;
+      case 4: renderStep4(); break;
+    }
+  }
+  function goToStep(n){
+    if(n<1) n=1; if(n>4) n=4;
+    state.step=n;
+    for(var i=1;i<=4;i++){ q('step-'+i).hidden = (i!==n); }
+    updateNavTabs();
+    updatePrevNext();
+    renderCurrentStep();
+  }
+
+  function renderLogoGrid(){
+    var el=q('logoGrid');
+    el.innerHTML='';
+    var pattern=[1,0,0,1, 0,1,1,0, 0,0,1,0, 0,1,1,0];
+    pattern.forEach(function(v,i){
+      var d=document.createElement('i');
+      d.className = v? 'on':'';
+      d.style.animationDelay = (i*28)+'ms';
+      el.appendChild(d);
+    });
+  }
+
+  function initListeners(){
+    threshSliderEl.addEventListener('input', function(e){
+      state.splitThreshold = +e.target.value;
+      renderStep1();
+    });
+
+    q('cycleBtn').addEventListener('click', function(){
+      state.cycleIndex = (state.cycleIndex+1) % CYCLE_SEEDS.length;
+      renderStep2();
+      var seed = CYCLE_SEEDS[state.cycleIndex];
+      var tree = buildTree(bootstrapSample(DATA, mulberry32(seed)), 0, 2);
+      var acc = accuracy(function(p){ return predictTree(tree,p); }, DATA);
+      state.history2.push(Math.round(acc*100));
+      if(state.history2.length>8) state.history2.shift();
+      renderHistoryChips(historyChips2El, state.history2);
+    });
+
+    nTreesSliderEl.addEventListener('input', function(e){
+      state.nTrees = +e.target.value;
+      renderStep3();
+    });
+    q('reshuffleBtn').addEventListener('click', function(){
+      state.forestSeedBase += 137;
+      renderStep3();
+      var forest = getCurrentForest();
+      var acc = accuracy(function(p){ return forestPredict(forest,p).label; }, DATA);
+      state.history3.push(Math.round(acc*100));
+      if(state.history3.length>8) state.history3.shift();
+      renderHistoryChips(historyChips3El, state.history3);
+    });
+
+    q('predictChart').addEventListener('click', function(e){
+      var rect = e.currentTarget.getBoundingClientRect();
+      var px = (e.clientX-rect.left) * (320/rect.width);
+      var py = (e.clientY-rect.top) * (200/rect.height);
+      if(px<PAD || px>PAD+PW || py<PAD || py>PAD+PH) return;
+      var w = invX(px), r = invY(py);
+      w = Math.max(WMIN, Math.min(WMAX, Math.round(w)));
+      r = Math.max(RMIN, Math.min(RMAX, Math.round(r*10)/10));
+      state.newPoint = { w:w, r:r };
+      renderStep4();
+    });
+
+    q('stepsNav').addEventListener('click', function(e){
+      var b=e.target.closest('.step-tab'); if(!b) return;
+      goToStep(+b.dataset.step);
+    });
+    prevBtn.addEventListener('click', function(){ goToStep(state.step-1); });
+    nextBtn.addEventListener('click', function(){ if(state.step<4) goToStep(state.step+1); else goToStep(1); });
+  }
+
+  function init(){
+    stumpCanvas = buildChartDom('stumpChart');
+    cycleCanvas = buildChartDom('cycleChart');
+    forestCanvas = buildChartDom('forestChart');
+    predictCanvas = buildChartDom('predictChart');
+
+    featureChipsEl=q('featureChips'); threshSliderEl=q('threshSlider');
+    formulaBoxEl=q('formulaBox'); accBoxEl=q('accBox');
+    tree2AsciiEl=q('tree2Ascii'); tree2AccEl=q('tree2Acc');
+
+    cycleLabelEl=q('cycleLabel'); cycleAccEl=q('cycleAcc');
+    cycleAsciiEl=q('cycleAscii'); historyChips2El=q('historyChips2');
+
+    nTreesSliderEl=q('nTreesSlider'); nTreesValEl=q('nTreesVal');
+    forestAccEl=q('forestAcc'); historyChips3El=q('historyChips3');
+
+    forestInfoEl=q('forestInfo'); voteRowEl=q('voteRow'); verdictBoxEl=q('verdictBox');
+
+    progressFillEl=q('progressFill'); stepLabelEl=q('stepLabel');
+    prevBtn=q('prevBtn'); nextBtn=q('nextBtn');
+
+    renderLogoGrid();
+    initListeners();
+    updateNavTabs();
+    updatePrevNext();
+    renderCurrentStep();
+  }
+
+  try{
+    if(window.claude && window.claude.hot && window.claude.hot.ready){
+      window.claude.hot.ready(function(){ init(); });
+    } else { init(); }
+  }catch(e){ init(); }
+
+})();
+</script>

@@ -1,0 +1,933 @@
+<title>CNN 그림 학습지</title>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+  :root{
+    --paper:#FAFAF8;
+    --paper-grid:#DCE6F5;
+    --paper-grid-strong:#C3D2EE;
+    --surface:#FFFFFF;
+    --border:#E2E6EE;
+    --ink:#1E2430;
+    --ink-soft:#63697A;
+    --pencil-blue:#2F5FD1;
+    --pencil-blue-soft:#E7EEFD;
+    --pencil-blue-ink:#1D3E96;
+    --pencil-red:#D8443A;
+    --pencil-red-soft:#FBE7E5;
+    --pencil-red-ink:#A9291F;
+    --pencil-yellow:#C98A00;
+    --pencil-yellow-soft:#FBF0D6;
+    --shadow: 0 1px 2px rgba(30,36,48,0.06), 0 6px 20px rgba(30,36,48,0.05);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#161D28;
+      --paper-grid:#2D3B52;
+      --paper-grid-strong:#3C4E6B;
+      --surface:#1D2534;
+      --border:#31405A;
+      --ink:#ECEFF6;
+      --ink-soft:#9BA6BC;
+      --pencil-blue:#7DA2FF;
+      --pencil-blue-soft:#243257;
+      --pencil-blue-ink:#C4D3FF;
+      --pencil-red:#FF8A7E;
+      --pencil-red-soft:#3A2429;
+      --pencil-red-ink:#FFC0B7;
+      --pencil-yellow:#F0C243;
+      --pencil-yellow-soft:#3A311A;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 10px 26px rgba(0,0,0,0.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#161D28;
+    --paper-grid:#2D3B52;
+    --paper-grid-strong:#3C4E6B;
+    --surface:#1D2534;
+    --border:#31405A;
+    --ink:#ECEFF6;
+    --ink-soft:#9BA6BC;
+    --pencil-blue:#7DA2FF;
+    --pencil-blue-soft:#243257;
+    --pencil-blue-ink:#C4D3FF;
+    --pencil-red:#FF8A7E;
+    --pencil-red-soft:#3A2429;
+    --pencil-red-ink:#FFC0B7;
+    --pencil-yellow:#F0C243;
+    --pencil-yellow-soft:#3A311A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 10px 26px rgba(0,0,0,0.35);
+  }
+
+  *{ box-sizing:border-box; }
+  [hidden]{ display:none !important; }
+  body{
+    margin:0;
+    background:
+      linear-gradient(var(--paper), var(--paper)),
+      repeating-linear-gradient(0deg, var(--paper-grid) 0 1px, transparent 1px 28px),
+      repeating-linear-gradient(90deg, var(--paper-grid) 0 1px, transparent 1px 28px);
+    background-color:var(--paper);
+    color:var(--ink);
+    font-family:'Noto Sans KR', 'Malgun Gothic', sans-serif;
+    line-height:1.6;
+  }
+  h1,h2,h3{ font-family:'Gowun Dodum','Noto Sans KR',sans-serif; font-weight:400; text-wrap:balance; margin:0; color:var(--ink); }
+  p{ margin:0; }
+  .mono{ font-family:'JetBrains Mono', ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+  button{ font-family:inherit; }
+  :focus-visible{ outline:3px solid var(--pencil-blue); outline-offset:2px; }
+
+  #app{
+    max-width:920px;
+    margin-inline:auto;
+    padding-inline:20px;
+    padding-block:32px 56px;
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+  }
+
+  /* ---------- masthead ---------- */
+  .masthead{
+    display:flex;
+    align-items:center;
+    gap:20px;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:22px 24px;
+    box-shadow:var(--shadow);
+    flex-wrap:wrap;
+  }
+  .masthead-badge{
+    flex:none;
+    width:84px; height:84px;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    grid-template-rows:repeat(4,1fr);
+    gap:3px;
+    padding:8px;
+    background:var(--paper-grid-soft, var(--paper));
+    border:1px solid var(--border);
+    border-radius:12px;
+  }
+  .masthead-badge i{
+    background:var(--paper-grid);
+    border-radius:2px;
+    opacity:0;
+    animation:none;
+  }
+  @media (prefers-reduced-motion: no-preference){
+    .masthead-badge i.on{ animation:inkIn 240ms ease-out forwards; }
+  }
+  .masthead-badge i.on{ background:var(--pencil-blue); opacity:1; }
+  @keyframes inkIn{ from{ opacity:0; transform:scale(.4);} to{ opacity:1; transform:scale(1);} }
+  .masthead-text{ flex:1; min-width:220px; display:flex; flex-direction:column; gap:6px; }
+  .eyebrow{ font-size:.8rem; font-weight:700; letter-spacing:.06em; color:var(--pencil-blue); text-transform:uppercase; }
+  .masthead-text h1{ font-size:clamp(1.5rem,4vw,2rem); }
+  .lede{ color:var(--ink-soft); font-size:.95rem; max-width:60ch; }
+
+  /* ---------- step nav ---------- */
+  .steps-nav{ display:flex; flex-wrap:wrap; gap:8px; }
+  .step-tab{
+    flex:1 1 auto;
+    min-width:88px;
+    display:flex; flex-direction:column; align-items:center; gap:2px;
+    padding:10px 8px;
+    border-radius:12px;
+    border:1px solid var(--border);
+    background:var(--surface);
+    color:var(--ink-soft);
+    cursor:pointer;
+    font-size:.8rem;
+    transition:background 150ms, color 150ms, border-color 150ms;
+  }
+  .step-tab b{ font-family:'JetBrains Mono',monospace; font-size:.95rem; color:inherit; }
+  .step-tab.active{ background:var(--pencil-blue); border-color:var(--pencil-blue); color:#fff; }
+  .step-tab.active b{ color:#fff; }
+
+  .progress-track{ height:6px; border-radius:999px; background:var(--paper-grid); overflow:hidden; }
+  .progress-fill{ height:100%; background:var(--pencil-blue); border-radius:999px; transition:width 220ms ease; }
+
+  /* ---------- sheet ---------- */
+  .sheet{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:26px 24px;
+    box-shadow:var(--shadow);
+  }
+  .step{ display:flex; flex-direction:column; gap:18px; }
+  .step-head{ display:flex; flex-direction:column; gap:6px; }
+  .step-head .kicker{ font-size:.78rem; font-weight:700; color:var(--pencil-blue); letter-spacing:.04em; }
+  .step-head h2{ font-size:1.4rem; }
+  .step-head .desc{ color:var(--ink-soft); font-size:.95rem; max-width:64ch; }
+
+  .two-col{ display:grid; grid-template-columns:1fr; gap:22px; }
+  @media (min-width:680px){ .two-col{ grid-template-columns: minmax(0,260px) 1fr; align-items:start; } }
+
+  .panel{ display:flex; flex-direction:column; gap:12px; }
+  .panel-title{ font-size:.85rem; font-weight:700; color:var(--ink-soft); }
+
+  /* ---------- grids ---------- */
+  .grid-wrap{ display:inline-flex; padding:8px; background:var(--paper); border:1px solid var(--border); border-radius:10px; }
+  .pixel-grid{ display:grid; gap:2px; width:min(272px, 100%); aspect-ratio:1/1; touch-action:none; user-select:none; }
+  .pixel{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:2px;
+    cursor:pointer;
+    transition:background 100ms;
+  }
+  .pixel.readonly{ cursor:default; }
+  .pixel.on{ background:var(--pencil-blue); border-color:var(--pencil-blue); }
+  .pixel.window{ outline:3px solid var(--pencil-yellow); outline-offset:-2px; z-index:1; }
+
+  .value-grid{ display:grid; gap:3px; width:min(272px, 100%); }
+  .value-cell{
+    aspect-ratio:1/1;
+    display:flex; align-items:center; justify-content:center;
+    border-radius:4px;
+    font-size:.72rem;
+    border:1px solid var(--border);
+    background:var(--surface);
+    color:var(--ink-soft);
+  }
+  .value-cell.pos{ background:var(--pencil-blue-soft); color:var(--pencil-blue-ink); border-color:transparent; font-weight:700; }
+  .value-cell.neg{ background:var(--pencil-red-soft); color:var(--pencil-red-ink); border-color:transparent; font-weight:700; }
+  .value-cell.dim{ color:var(--ink-soft); opacity:.4; }
+  .value-cell.blockalt{ background:var(--paper-grid); }
+  .value-cell.blockalt.pos{ background:var(--pencil-blue-soft); }
+  .value-cell.blockalt.neg{ background:var(--pencil-red-soft); }
+
+  .mini-grid{ display:grid; gap:2px; width:74px; }
+  .mini-cell{
+    aspect-ratio:1/1;
+    display:flex; align-items:center; justify-content:center;
+    font-size:.62rem;
+    border-radius:3px;
+    border:1px solid var(--border);
+    background:var(--surface);
+  }
+  .mini-cell.on{ background:var(--pencil-blue-soft); color:var(--pencil-blue-ink); font-weight:700; border-color:transparent; }
+  .mini-cell.kneg{ background:var(--pencil-red-soft); color:var(--pencil-red-ink); border-color:transparent; }
+  .mini-cell.kpos{ background:var(--pencil-blue-soft); color:var(--pencil-blue-ink); border-color:transparent; }
+  .mini-cell.kzero{ color:var(--ink-soft); }
+
+  /* ---------- controls ---------- */
+  .btn{
+    border-radius:10px;
+    border:1px solid var(--border);
+    background:var(--surface);
+    color:var(--ink);
+    padding:9px 14px;
+    font-size:.85rem;
+    font-weight:500;
+    cursor:pointer;
+    transition:background 120ms, border-color 120ms, color 120ms;
+  }
+  .btn:hover{ border-color:var(--pencil-blue); }
+  .btn:disabled{ opacity:.45; cursor:not-allowed; }
+  .btn-primary{ background:var(--pencil-blue); border-color:var(--pencil-blue); color:#fff; }
+  .btn-primary:hover{ opacity:.92; border-color:var(--pencil-blue); }
+  .btn-sm{ padding:6px 10px; font-size:.78rem; }
+  select.btn{ appearance:auto; }
+
+  .control-row{ display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+  .chip{
+    border-radius:999px; border:1px solid var(--border); background:var(--surface);
+    padding:7px 14px; font-size:.82rem; cursor:pointer; color:var(--ink);
+  }
+  .chip.active{ background:var(--pencil-blue-soft); border-color:var(--pencil-blue); color:var(--pencil-blue-ink); font-weight:700; }
+
+  .formula-row{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .op{ font-size:1.1rem; color:var(--ink-soft); }
+  .sum-box{
+    font-family:'JetBrains Mono',monospace; font-size:1.3rem; font-weight:700;
+    padding:8px 14px; border-radius:10px; background:var(--paper); border:1px solid var(--border);
+    min-width:64px; text-align:center;
+  }
+  .sum-box.pos{ color:var(--pencil-blue-ink); background:var(--pencil-blue-soft); border-color:transparent; }
+  .sum-box.neg{ color:var(--pencil-red-ink); background:var(--pencil-red-soft); border-color:transparent; }
+
+  .note{ font-size:.82rem; color:var(--ink-soft); }
+  .callout{
+    background:var(--paper); border:1px dashed var(--paper-grid-strong); border-radius:12px;
+    padding:12px 14px; font-size:.88rem; color:var(--ink-soft);
+  }
+
+  /* ---------- layer diagram (step 5) ---------- */
+  .layer-diagram{ display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
+  .layer-box{
+    flex:1 1 130px;
+    text-align:left;
+    border-radius:12px; border:1px solid var(--border); background:var(--paper);
+    padding:14px; cursor:pointer; color:var(--ink);
+  }
+  .layer-box b{ display:block; font-size:.86rem; }
+  .layer-box span{ display:block; font-size:.75rem; color:var(--ink-soft); margin-top:2px; }
+  .layer-box.active{ background:var(--pencil-blue-soft); border-color:var(--pencil-blue); }
+  .layer-arrow{ color:var(--ink-soft); font-size:1.1rem; }
+  .layer-detail{ margin-top:4px; }
+
+  /* ---------- classify bars (step 6) ---------- */
+  .flatten-row{ display:flex; gap:3px; flex-wrap:wrap; }
+  .flatten-cell{
+    width:40px; height:40px; display:flex; align-items:center; justify-content:center;
+    border-radius:6px; border:1px solid var(--border); background:var(--surface); font-size:.72rem;
+  }
+  .bar-row{ display:flex; flex-direction:column; gap:10px; }
+  .bar-item{ display:flex; flex-direction:column; gap:4px; }
+  .bar-label{ display:flex; justify-content:space-between; font-size:.86rem; }
+  .bar-track{ height:14px; background:var(--paper); border:1px solid var(--border); border-radius:999px; overflow:hidden; }
+  .bar-fill{ height:100%; background:var(--pencil-blue); border-radius:999px; transition:width 260ms ease; }
+  .bar-item.winner .bar-fill{ background:var(--pencil-yellow); }
+  .bar-item.winner .bar-label b{ color:var(--pencil-yellow); }
+
+  /* ---------- footer ---------- */
+  .sheet-footer{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
+  .step-indicator{ font-family:'JetBrains Mono',monospace; font-size:.85rem; color:var(--ink-soft); }
+
+  @media (max-width:400px){
+    .masthead{ flex-direction:column; align-items:flex-start; }
+  }
+</style>
+
+<div id="app">
+
+  <header class="masthead">
+    <div class="masthead-badge" id="logoGrid" aria-hidden="true"></div>
+    <div class="masthead-text">
+      <p class="eyebrow">완전 초보자를 위한 체험 학습지</p>
+      <h1>CNN, 그림 그리며 이해하기</h1>
+      <p class="lede">컴퓨터가 그림을 어떻게 "보는지" 6단계로 직접 실험해봐요. 어려운 수식은 몰라도 괜찮아요 — 손으로 그리고 버튼을 눌러보면서 감을 잡으면 충분해요.</p>
+    </div>
+  </header>
+
+  <nav class="steps-nav" id="stepsNav" aria-label="학습 단계">
+    <button class="step-tab" data-step="1"><b>1</b><span>그림→숫자</span></button>
+    <button class="step-tab" data-step="2"><b>2</b><span>합성곱</span></button>
+    <button class="step-tab" data-step="3"><b>3</b><span>ReLU</span></button>
+    <button class="step-tab" data-step="4"><b>4</b><span>풀링</span></button>
+    <button class="step-tab" data-step="5"><b>5</b><span>층 쌓기</span></button>
+    <button class="step-tab" data-step="6"><b>6</b><span>분류 결과</span></button>
+  </nav>
+
+  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+
+  <main class="sheet">
+
+    <!-- STEP 1 -->
+    <section id="step-1" class="step">
+      <div class="step-head">
+        <p class="kicker">STEP 1 · 입력</p>
+        <h2>컴퓨터에게 그림은 숫자예요</h2>
+        <p class="desc">우리 눈에는 그림이지만, 컴퓨터는 칸마다 적힌 숫자(0 또는 1)만 봐요. 아래 8×8 칸을 클릭하거나 드래그해서 원하는 그림을 그려보세요.</p>
+      </div>
+      <div class="two-col">
+        <div class="panel">
+          <p class="panel-title">도구</p>
+          <div class="control-row">
+            <select id="presetSelect" class="btn">
+              <option value="">예시 불러오기 ▾</option>
+              <option value="plus">십자가(+) 그림</option>
+              <option value="diagonal">대각선(X) 그림</option>
+              <option value="border">테두리 그림</option>
+            </select>
+            <button id="clearBtn" class="btn">지우기</button>
+          </div>
+          <p class="note">칸을 누르면 색이 칠해져요(1). 다시 누르면 지워져요(0). 누른 채로 드래그하면 쭉 칠할 수 있어요.</p>
+        </div>
+        <div class="panel">
+          <p class="panel-title">그림판 (8×8)</p>
+          <div class="grid-wrap"><div class="pixel-grid" id="pixelGrid" style="grid-template-columns:repeat(8,1fr); grid-template-rows:repeat(8,1fr);"></div></div>
+        </div>
+      </div>
+      <div class="callout">칠해진 칸은 <b>1</b>, 빈 칸은 <b>0</b>이에요. 다음 단계에서 이 숫자들을 가지고 "특징 찾기"를 해볼게요.</div>
+    </section>
+
+    <!-- STEP 2 -->
+    <section id="step-2" class="step" hidden>
+      <div class="step-head">
+        <p class="kicker">STEP 2 · 합성곱 (Convolution)</p>
+        <h2>필터라는 돋보기로 특징을 찾아요</h2>
+        <p class="desc">작은 필터(3×3 숫자판)가 그림 위를 이동하면서, 겹치는 부분끼리 곱해서 더해요. 그 결과가 높을수록 "이 필터가 찾는 무늬"와 닮았다는 뜻이에요.</p>
+      </div>
+
+      <div class="panel">
+        <p class="panel-title">필터 고르기</p>
+        <div class="control-row" id="filterButtons"></div>
+      </div>
+
+      <div class="two-col">
+        <div class="panel">
+          <p class="panel-title">원본 그림 — 노란 테두리가 지금 보는 위치예요</p>
+          <div class="grid-wrap"><div class="pixel-grid" id="sourceOverlayGrid" style="grid-template-columns:repeat(8,1fr); grid-template-rows:repeat(8,1fr);"></div></div>
+        </div>
+        <div class="panel">
+          <p class="panel-title">지금 위치에서 하는 계산</p>
+          <div class="formula-row">
+            <div class="mini-grid" id="windowGrid" style="grid-template-columns:repeat(3,1fr);"></div>
+            <span class="op">×</span>
+            <div class="mini-grid" id="kernelGridB" style="grid-template-columns:repeat(3,1fr);"></div>
+            <span class="op">=</span>
+            <div class="sum-box mono" id="sumResult">0</div>
+          </div>
+          <p class="note">겹치는 칸끼리 곱한 다음, 9개 값을 모두 더한 값이 오른쪽 결과예요.</p>
+        </div>
+      </div>
+
+      <div class="panel">
+        <p class="panel-title">특징 지도 (Feature Map, 6×6) — <span id="convProgressText" class="mono"></span></p>
+        <div class="grid-wrap"><div class="value-grid" id="convGrid" style="grid-template-columns:repeat(6,1fr);"></div></div>
+        <div class="control-row">
+          <button id="stepOnceBtn" class="btn btn-sm">한 칸씩 계산 →</button>
+          <button id="autoBtn" class="btn btn-sm">▶ 자동재생</button>
+          <button id="fillAllBtn" class="btn btn-sm">전체 계산</button>
+          <button id="resetRevealBtn" class="btn btn-sm">처음부터</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 3 -->
+    <section id="step-3" class="step" hidden>
+      <div class="step-head">
+        <p class="kicker">STEP 3 · ReLU (활성화 함수)</p>
+        <h2>애매한 값은 과감히 0으로 지워요</h2>
+        <p class="desc">ReLU 규칙은 아주 단순해요: <b>"0보다 작으면(음수) 0으로 바꾸고, 0 이상이면 그대로 둔다."</b> 특징이 뚜렷하지 않은 부분을 지워서 중요한 신호만 남기는 거예요.</p>
+        <p class="note" id="reluFilterNote"></p>
+      </div>
+      <div class="two-col">
+        <div class="panel">
+          <p class="panel-title">합성곱 결과 (변경 전)</p>
+          <div class="grid-wrap"><div class="value-grid" id="reluBeforeGrid" style="grid-template-columns:repeat(6,1fr);"></div></div>
+        </div>
+        <div class="panel">
+          <p class="panel-title">ReLU 적용 후</p>
+          <div class="grid-wrap"><div class="value-grid" id="reluAfterGrid" style="grid-template-columns:repeat(6,1fr);"></div></div>
+        </div>
+      </div>
+      <div class="callout">빨간 칸(음수)이 전부 흰색(0)으로 바뀐 게 보이나요? 파란 칸(양수)은 그대로예요.</div>
+    </section>
+
+    <!-- STEP 4 -->
+    <section id="step-4" class="step" hidden>
+      <div class="step-head">
+        <p class="kicker">STEP 4 · 풀링 (Pooling)</p>
+        <h2>비슷한 것끼리 묶어 요약해요</h2>
+        <p class="desc">2×2 칸을 한 묶음으로 보고, 그 안에서 가장 큰 값 하나만 남겨요(최대 풀링). 그림 크기는 작아지지만 중요한 특징은 그대로 살아남아요.</p>
+      </div>
+      <div class="two-col">
+        <div class="panel">
+          <p class="panel-title">ReLU 결과 — 색이 다른 묶음이 2×2예요</p>
+          <div class="grid-wrap"><div class="value-grid" id="poolBeforeGrid" style="grid-template-columns:repeat(6,1fr);"></div></div>
+        </div>
+        <div class="panel">
+          <p class="panel-title">풀링 결과 (3×3, 각 묶음의 최댓값)</p>
+          <div class="grid-wrap"><div class="value-grid" id="poolAfterGrid" style="grid-template-columns:repeat(3,1fr); width:150px;"></div></div>
+        </div>
+      </div>
+      <div class="callout">6×6이던 특징 지도가 3×3으로 줄었어요. 크기는 줄었지만 "어디에 특징이 있었는지"는 그대로 남아있어요.</div>
+    </section>
+
+    <!-- STEP 5 -->
+    <section id="step-5" class="step" hidden>
+      <div class="step-head">
+        <p class="kicker">STEP 5 · 층 쌓기</p>
+        <h2>이 과정을 여러 번 반복하면?</h2>
+        <p class="desc">실제 CNN은 [합성곱 → ReLU → 풀링]을 한 번이 아니라 수십 번 반복해요. 반복할수록 컴퓨터가 보는 특징이 점점 더 복잡해져요. 아래 상자를 눌러보세요.</p>
+      </div>
+      <div class="layer-diagram" id="layerDiagram">
+        <button class="layer-box active" data-desc="맨 처음 필터는 아주 단순한 무늬만 찾아요. 예를 들어 가로선, 세로선, 밝고 어두운 경계선 같은 것들이에요.">
+          <b>1층</b><span>선 · 모서리</span>
+        </button>
+        <span class="layer-arrow">→</span>
+        <button class="layer-box" data-desc="선과 모서리가 모이면 곡선이나 모서리 조합, 간단한 도형 같은 조금 더 복잡한 무늬가 돼요.">
+          <b>2층</b><span>곡선 · 도형</span>
+        </button>
+        <span class="layer-arrow">→</span>
+        <button class="layer-box" data-desc="도형들이 모이면 '눈', '바퀴', '창문'처럼 의미 있는 부분 조각을 알아볼 수 있게 돼요.">
+          <b>3층</b><span>사물의 부분</span>
+        </button>
+        <span class="layer-arrow">→</span>
+        <button class="layer-box" data-desc="부분 조각들을 종합하면 마침내 '고양이', '자동차'처럼 전체 사물을 구분할 수 있게 돼요.">
+          <b>종합</b><span>전체 사물 인식</span>
+        </button>
+      </div>
+      <div class="callout layer-detail" id="layerDetail">맨 처음 필터는 아주 단순한 무늬만 찾아요. 예를 들어 가로선, 세로선, 밝고 어두운 경계선 같은 것들이에요.</div>
+    </section>
+
+    <!-- STEP 6 -->
+    <section id="step-6" class="step" hidden>
+      <div class="step-head">
+        <p class="kicker">STEP 6 · 완전연결층 & 분류</p>
+        <h2>모은 특징으로 최종 답을 골라요</h2>
+        <p class="desc">3×3으로 줄인 특징 지도를 한 줄로 펼친 다음, "내가 알고 있는 모양들"과 얼마나 비슷한지 비교해서 확률로 보여줘요.</p>
+      </div>
+      <div class="panel">
+        <p class="panel-title">펼친 특징 벡터 (9개 숫자)</p>
+        <div class="flatten-row mono" id="flattenRow"></div>
+      </div>
+      <div class="panel">
+        <p class="panel-title">AI의 예측</p>
+        <div class="bar-row" id="classifyBars"></div>
+        <p class="note" id="classifyNote"></p>
+      </div>
+      <div class="callout">* 실제로 학습된 AI가 아니라, CNN이 특징을 이용해 최종 답을 고르는 방식을 간단히 흉내 낸 예시예요.</div>
+      <div class="control-row">
+        <button id="redrawBtn" class="btn btn-primary">다시 그려서 실험하기 ↺</button>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="sheet-footer">
+    <button id="prevBtn" class="btn">← 이전</button>
+    <span class="step-indicator" id="stepLabel">1 / 6</span>
+    <button id="nextBtn" class="btn btn-primary">다음 →</button>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var N = 8;
+
+  function zeros(){ var g=[]; for(var r=0;r<N;r++){ g.push(new Array(N).fill(0)); } return g; }
+  function makePlus(){ var g=zeros(); for(var i=0;i<N;i++){ g[i][3]=1; g[i][4]=1; g[3][i]=1; g[4][i]=1; } return g; }
+  function makeDiagonal(){ var g=zeros(); for(var i=0;i<N;i++){ g[i][i]=1; g[i][N-1-i]=1; } return g; }
+  function makeBorder(){ var g=zeros(); for(var i=0;i<N;i++){ g[0][i]=1; g[N-1][i]=1; g[i][0]=1; g[i][N-1]=1; } return g; }
+
+  var PRESETS = { plus: makePlus, diagonal: makeDiagonal, border: makeBorder, blank: zeros };
+  var SHAPE_LABELS = { plus:'십자가 모양', diagonal:'대각선 모양', border:'테두리 모양' };
+
+  var FILTERS = {
+    horizontal: { label:'가로선 필터', kernel:[[-1,-1,-1],[0,0,0],[1,1,1]] },
+    vertical:   { label:'세로선 필터', kernel:[[-1,0,1],[-1,0,1],[-1,0,1]] },
+    blur:       { label:'흐림 필터',   kernel:[[1/9,1/9,1/9],[1/9,1/9,1/9],[1/9,1/9,1/9]] }
+  };
+
+  function convolveFull(grid, kernel){
+    var gh=grid.length, gw=grid[0].length, kh=kernel.length, kw=kernel[0].length;
+    var oh=gh-kh+1, ow=gw-kw+1, out=[];
+    for(var r=0;r<oh;r++){
+      var row=[];
+      for(var c=0;c<ow;c++){
+        var sum=0;
+        for(var i=0;i<kh;i++){ for(var j=0;j<kw;j++){ sum += grid[r+i][c+j]*kernel[i][j]; } }
+        row.push(sum);
+      }
+      out.push(row);
+    }
+    return out;
+  }
+  function relu(grid){ return grid.map(function(row){ return row.map(function(v){ return Math.max(0,v); }); }); }
+  function maxPool(grid, size, stride){
+    var gh=grid.length, gw=grid[0].length;
+    var oh=Math.floor((gh-size)/stride)+1, ow=Math.floor((gw-size)/stride)+1, out=[];
+    for(var r=0;r<oh;r++){
+      var row=[];
+      for(var c=0;c<ow;c++){
+        var m=-Infinity;
+        for(var i=0;i<size;i++){ for(var j=0;j<size;j++){ var v=grid[r*stride+i][c*stride+j]; if(v>m) m=v; } }
+        row.push(m);
+      }
+      out.push(row);
+    }
+    return out;
+  }
+  function flatten(g){ var out=[]; g.forEach(function(row){ out=out.concat(row); }); return out; }
+  function dot(a,b){ var s=0; for(var i=0;i<a.length;i++){ s+=a[i]*b[i]; } return s; }
+  function vnorm(a){ return Math.sqrt(dot(a,a)); }
+  function cosineSim(a,b){ var na=vnorm(a), nb=vnorm(b); if(na===0||nb===0) return 0; return dot(a,b)/(na*nb); }
+  function softmax(arr, temp){
+    var max=Math.max.apply(null, arr);
+    var exps=arr.map(function(v){ return Math.exp((v-max)/temp); });
+    var sum=exps.reduce(function(a,b){ return a+b; },0);
+    return exps.map(function(v){ return v/sum; });
+  }
+  function formatNum(v){
+    if(Math.abs(v-Math.round(v))<0.005) return String(Math.round(v));
+    return v.toFixed(2);
+  }
+  function signClass(v){ if(v>0.0001) return 'pos'; if(v<-0.0001) return 'neg'; return ''; }
+
+  var state = { grid: makePlus(), filterKey:'horizontal', revealCount:0, autoTimer:null, step:1 };
+
+  function currentKernel(){ return FILTERS[state.filterKey].kernel; }
+  function getConvFull(){ return convolveFull(state.grid, currentKernel()); }
+  function getReluFull(){ return relu(getConvFull()); }
+  function getPooledFull(){ return maxPool(getReluFull(),2,2); }
+  function getFlatFull(){ return flatten(getPooledFull()); }
+  function flatFor(grid){ return flatten(maxPool(relu(convolveFull(grid, currentKernel())),2,2)); }
+
+  function classifyDynamic(userFlat){
+    var maxAbs=0; for(var i=0;i<userFlat.length;i++){ if(Math.abs(userFlat[i])>maxAbs) maxAbs=Math.abs(userFlat[i]); }
+    if(maxAbs<1e-9) return null;
+    var labels=[], sims=[];
+    Object.keys(PRESETS).forEach(function(key){
+      if(key==='blank') return;
+      var refFlat = flatFor(PRESETS[key]());
+      labels.push(SHAPE_LABELS[key]);
+      sims.push(cosineSim(userFlat, refFlat));
+    });
+    var probs=softmax(sims, 0.15);
+    var ranked=labels.map(function(l,i){ return {label:l, prob:probs[i]}; });
+    ranked.sort(function(a,b){ return b.prob-a.prob; });
+    return ranked;
+  }
+
+  // ---------- DOM refs ----------
+  var pixelGridEl, sourceOverlayEl, filterButtonsEl, windowGridEl, kernelGridBEl, sumResultEl,
+      convGridEl, convProgressTextEl, reluFilterNoteEl, reluBeforeEl, reluAfterEl,
+      poolBeforeEl, poolAfterEl, flattenRowEl, classifyBarsEl, classifyNoteEl, progressFillEl,
+      stepLabelEl, prevBtn, nextBtn;
+
+  function q(id){ return document.getElementById(id); }
+
+  function renderMiniGrid(container, cells, cls){
+    container.innerHTML='';
+    cells.forEach(function(c){
+      var d=document.createElement('div');
+      d.className='mini-cell '+(c.cls||'');
+      d.textContent=c.text;
+      container.appendChild(d);
+    });
+  }
+
+  function renderKernelCells(container){
+    var k=currentKernel();
+    var cells=[];
+    for(var i=0;i<3;i++){ for(var j=0;j<3;j++){
+      var v=k[i][j];
+      cells.push({ text: v===0? '0' : formatNum(v), cls: v>0.0001?'kpos':(v<-0.0001?'kneg':'kzero') });
+    } }
+    renderMiniGrid(container, cells);
+  }
+
+  // ---------- Step 1 ----------
+  function renderPixelGrid(){
+    pixelGridEl.innerHTML='';
+    for(var r=0;r<N;r++){
+      for(var c=0;c<N;c++){
+        var v=state.grid[r][c];
+        var d=document.createElement('div');
+        d.className='pixel'+(v?' on':'');
+        d.setAttribute('role','button');
+        d.setAttribute('tabindex','0');
+        d.setAttribute('aria-pressed', v? 'true':'false');
+        d.setAttribute('aria-label', (r+1)+'행 '+(c+1)+'열, 값 '+v);
+        d.dataset.r=r; d.dataset.c=c;
+        pixelGridEl.appendChild(d);
+      }
+    }
+  }
+  function setPixel(r,c,v){
+    state.grid[r][c]=v;
+    state.revealCount=0;
+    renderCurrentStep();
+  }
+
+  // ---------- Step 2 ----------
+  function renderFilterButtons(){
+    filterButtonsEl.innerHTML='';
+    Object.keys(FILTERS).forEach(function(key){
+      var b=document.createElement('button');
+      b.type='button';
+      b.className='chip'+(key===state.filterKey?' active':'');
+      b.textContent=FILTERS[key].label;
+      b.addEventListener('click', function(k){ return function(){
+        state.filterKey=k; state.revealCount=0; renderCurrentStep();
+      }; }(key));
+      filterButtonsEl.appendChild(b);
+    });
+  }
+  function renderSourceOverlay(){
+    var idx=Math.min(state.revealCount,35);
+    var wr=Math.floor(idx/6), wc=idx%6;
+    sourceOverlayEl.innerHTML='';
+    for(var r=0;r<N;r++){
+      for(var c=0;c<N;c++){
+        var v=state.grid[r][c];
+        var d=document.createElement('div');
+        var inWin = r>=wr && r<wr+3 && c>=wc && c<wc+3;
+        d.className='pixel readonly'+(v?' on':'')+(inWin?' window':'');
+        sourceOverlayEl.appendChild(d);
+      }
+    }
+    return {wr:wr, wc:wc};
+  }
+  function renderWindowAndKernel(wr,wc){
+    var cells=[];
+    for(var i=0;i<3;i++){ for(var j=0;j<3;j++){
+      var v=state.grid[wr+i][wc+j];
+      cells.push({ text:String(v), cls: v? 'on':'' });
+    } }
+    renderMiniGrid(windowGridEl, cells);
+    renderKernelCells(kernelGridBEl);
+    var patch=flatten([[state.grid[wr][wc],state.grid[wr][wc+1],state.grid[wr][wc+2]],
+                        [state.grid[wr+1][wc],state.grid[wr+1][wc+1],state.grid[wr+1][wc+2]],
+                        [state.grid[wr+2][wc],state.grid[wr+2][wc+1],state.grid[wr+2][wc+2]]]);
+    var kflat=flatten(currentKernel());
+    var sum=dot(patch,kflat);
+    sumResultEl.textContent=formatNum(sum);
+    sumResultEl.className='sum-box mono '+signClass(sum);
+  }
+  function renderConvGrid(){
+    var conv=getConvFull();
+    convGridEl.innerHTML='';
+    var i=0;
+    conv.forEach(function(row){
+      row.forEach(function(v){
+        var d=document.createElement('div');
+        var revealed = i<state.revealCount;
+        d.className='value-cell'+(revealed? ' '+signClass(v) : ' dim');
+        d.textContent = revealed? formatNum(v) : '·';
+        convGridEl.appendChild(d);
+        i++;
+      });
+    });
+    convProgressTextEl.textContent = Math.min(state.revealCount,36)+' / 36칸 계산함';
+  }
+  function updateConvControls(){
+    var done = state.revealCount>=36;
+    q('stepOnceBtn').disabled = done;
+    q('fillAllBtn').disabled = done;
+    q('autoBtn').textContent = state.autoTimer ? '⏸ 정지' : '▶ 자동재생';
+  }
+  function renderStep2(){
+    renderFilterButtons();
+    var win = renderSourceOverlay();
+    renderWindowAndKernel(win.wr, win.wc);
+    renderConvGrid();
+    updateConvControls();
+  }
+  function stopAutoplay(){ if(state.autoTimer){ clearInterval(state.autoTimer); state.autoTimer=null; } }
+  function startAutoplay(){
+    if(state.revealCount>=36) state.revealCount=0;
+    state.autoTimer=setInterval(function(){
+      state.revealCount++;
+      if(state.revealCount>=36){ stopAutoplay(); }
+      renderStep2();
+    }, 350);
+    renderStep2();
+  }
+
+  // ---------- Step 3 ----------
+  function renderValueGrid(container, grid){
+    container.innerHTML='';
+    grid.forEach(function(row){
+      row.forEach(function(v){
+        var d=document.createElement('div');
+        d.className='value-cell '+signClass(v);
+        d.textContent=formatNum(v);
+        container.appendChild(d);
+      });
+    });
+  }
+  function renderStep3(){
+    reluFilterNoteEl.textContent = '지금 필터: '+FILTERS[state.filterKey].label;
+    var conv=getConvFull();
+    renderValueGrid(reluBeforeEl, conv);
+    renderValueGrid(reluAfterEl, relu(conv));
+  }
+
+  // ---------- Step 4 ----------
+  function renderGroupedGrid(container, grid){
+    container.innerHTML='';
+    grid.forEach(function(row,r){
+      row.forEach(function(v,c){
+        var d=document.createElement('div');
+        var blockIdx = Math.floor(r/2)*3+Math.floor(c/2);
+        var cls='value-cell '+signClass(v)+(blockIdx%2? ' blockalt':'');
+        d.className=cls;
+        d.textContent=formatNum(v);
+        container.appendChild(d);
+      });
+    });
+  }
+  function renderStep4(){
+    var relud=getReluFull();
+    var pooled=maxPool(relud,2,2);
+    renderGroupedGrid(poolBeforeEl, relud);
+    renderValueGrid(poolAfterEl, pooled);
+  }
+
+  // ---------- Step 6 ----------
+  function renderStep6(){
+    var flat=getFlatFull();
+    flattenRowEl.innerHTML='';
+    flat.forEach(function(v){
+      var d=document.createElement('div');
+      d.className='flatten-cell '+signClass(v);
+      d.textContent=formatNum(v);
+      flattenRowEl.appendChild(d);
+    });
+    var ranked=classifyDynamic(flat);
+    classifyBarsEl.innerHTML='';
+    if(!ranked){
+      classifyNoteEl.textContent='아직 그림이 비어있어요. 1단계로 가서 그림을 그려보세요!';
+      return;
+    }
+    ranked.forEach(function(item,i){
+      var wrap=document.createElement('div');
+      wrap.className='bar-item'+(i===0?' winner':'');
+      var pct=(item.prob*100).toFixed(1);
+      wrap.innerHTML =
+        '<div class="bar-label"><span>'+item.label+'</span><b class="mono">'+pct+'%</b></div>'+
+        '<div class="bar-track"><div class="bar-fill" style="width:'+pct+'%"></div></div>';
+      classifyBarsEl.appendChild(wrap);
+    });
+    classifyNoteEl.textContent = 'AI의 예측: '+ranked[0].label+' ('+(ranked[0].prob*100).toFixed(1)+'%)';
+  }
+
+  // ---------- nav / lifecycle ----------
+  function updateProgress(){
+    progressFillEl.style.width = (state.step/6*100)+'%';
+    stepLabelEl.textContent = state.step+' / 6';
+  }
+  function updateNavTabs(){
+    document.querySelectorAll('.step-tab').forEach(function(btn){
+      var s=+btn.dataset.step;
+      btn.classList.toggle('active', s===state.step);
+      if(s===state.step) btn.setAttribute('aria-current','step'); else btn.removeAttribute('aria-current');
+    });
+  }
+  function updatePrevNext(){
+    prevBtn.disabled = state.step===1;
+    nextBtn.textContent = state.step===6 ? '처음부터 다시 ↺' : '다음 →';
+  }
+  function renderCurrentStep(){
+    updateProgress();
+    switch(state.step){
+      case 1: renderPixelGrid(); break;
+      case 2: renderStep2(); break;
+      case 3: renderStep3(); break;
+      case 4: renderStep4(); break;
+      case 5: break;
+      case 6: renderStep6(); break;
+    }
+  }
+  function goToStep(n){
+    if(n<1) n=1; if(n>6) n=6;
+    stopAutoplay();
+    state.step=n;
+    for(var i=1;i<=6;i++){ q('step-'+i).hidden = (i!==n); }
+    updateNavTabs();
+    updatePrevNext();
+    renderCurrentStep();
+  }
+
+  function renderLogoGrid(){
+    var el=q('logoGrid');
+    el.innerHTML='';
+    var pattern=[0,0,1,0, 0,1,1,0, 1,1,1,1, 0,1,1,0];
+    pattern.forEach(function(v,i){
+      var d=document.createElement('i');
+      d.className = v? 'on':'';
+      d.style.animationDelay = (i*28)+'ms';
+      el.appendChild(d);
+    });
+  }
+
+  function initListeners(){
+    pixelGridEl.addEventListener('pointerdown', function(e){
+      var cell=e.target.closest('.pixel'); if(!cell) return;
+      var r=+cell.dataset.r, c=+cell.dataset.c;
+      window.__painting = state.grid[r][c] ? 0 : 1;
+      setPixel(r,c,window.__painting);
+      e.preventDefault();
+    });
+    pixelGridEl.addEventListener('pointerover', function(e){
+      if(window.__painting===undefined) return;
+      var cell=e.target.closest('.pixel'); if(!cell) return;
+      var r=+cell.dataset.r, c=+cell.dataset.c;
+      if(e.buttons!==1) return;
+      setPixel(r,c,window.__painting);
+    });
+    document.addEventListener('pointerup', function(){ window.__painting=undefined; });
+    pixelGridEl.addEventListener('keydown', function(e){
+      var cell=e.target.closest('.pixel'); if(!cell) return;
+      if(e.key===' '||e.key==='Enter'){
+        e.preventDefault();
+        var r=+cell.dataset.r, c=+cell.dataset.c;
+        setPixel(r,c, state.grid[r][c]?0:1);
+      }
+    });
+
+    q('presetSelect').addEventListener('change', function(e){
+      var key=e.target.value;
+      if(PRESETS[key]){ state.grid=PRESETS[key](); state.revealCount=0; renderCurrentStep(); }
+      e.target.value='';
+    });
+    q('clearBtn').addEventListener('click', function(){
+      state.grid=zeros(); state.revealCount=0; renderCurrentStep();
+    });
+
+    q('stepOnceBtn').addEventListener('click', function(){
+      if(state.revealCount<36){ state.revealCount++; renderStep2(); }
+    });
+    q('fillAllBtn').addEventListener('click', function(){ state.revealCount=36; renderStep2(); });
+    q('resetRevealBtn').addEventListener('click', function(){ state.revealCount=0; stopAutoplay(); renderStep2(); });
+    q('autoBtn').addEventListener('click', function(){
+      if(state.autoTimer){ stopAutoplay(); renderStep2(); } else { startAutoplay(); }
+    });
+
+    q('layerDiagram').addEventListener('click', function(e){
+      var box=e.target.closest('.layer-box'); if(!box) return;
+      document.querySelectorAll('#layerDiagram .layer-box').forEach(function(b){ b.classList.remove('active'); });
+      box.classList.add('active');
+      q('layerDetail').textContent = box.dataset.desc;
+    });
+
+    q('redrawBtn').addEventListener('click', function(){ goToStep(1); });
+
+    q('stepsNav').addEventListener('click', function(e){
+      var b=e.target.closest('.step-tab'); if(!b) return;
+      goToStep(+b.dataset.step);
+    });
+    prevBtn.addEventListener('click', function(){ goToStep(state.step-1); });
+    nextBtn.addEventListener('click', function(){ if(state.step<6) goToStep(state.step+1); else goToStep(1); });
+  }
+
+  function init(){
+    pixelGridEl=q('pixelGrid');
+    sourceOverlayEl=q('sourceOverlayGrid');
+    filterButtonsEl=q('filterButtons');
+    windowGridEl=q('windowGrid');
+    kernelGridBEl=q('kernelGridB');
+    sumResultEl=q('sumResult');
+    convGridEl=q('convGrid');
+    convProgressTextEl=q('convProgressText');
+    reluFilterNoteEl=q('reluFilterNote');
+    reluBeforeEl=q('reluBeforeGrid');
+    reluAfterEl=q('reluAfterGrid');
+    poolBeforeEl=q('poolBeforeGrid');
+    poolAfterEl=q('poolAfterGrid');
+    flattenRowEl=q('flattenRow');
+    classifyBarsEl=q('classifyBars');
+    classifyNoteEl=q('classifyNote');
+    progressFillEl=q('progressFill');
+    stepLabelEl=q('stepLabel');
+    prevBtn=q('prevBtn');
+    nextBtn=q('nextBtn');
+
+    renderLogoGrid();
+    initListeners();
+    updateNavTabs();
+    updatePrevNext();
+    renderCurrentStep();
+  }
+
+  try{
+    if(window.claude && window.claude.hot && window.claude.hot.ready){
+      window.claude.hot.ready(function(){ init(); });
+    } else {
+      init();
+    }
+  }catch(e){ init(); }
+
+})();
+</script>

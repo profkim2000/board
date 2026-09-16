@@ -15,8 +15,8 @@
         <link rel="icon" href="../favicon-de23e50b.svg">
         <link rel="shortcut icon" href="../favicon-8114d1fc.png">
         <link rel="stylesheet" href="../css/variables-8adf115d.css">
-        <link rel="stylesheet" href="../css/general-2459343d.css">
-        <link rel="stylesheet" href="../css/chrome-ae938929.css">
+        <link rel="stylesheet" href="../css/general-e96d0476.css">
+        <link rel="stylesheet" href="../css/chrome-d279d366.css">
         <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
 
         <!-- Fonts -->
@@ -36,10 +36,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-53e32cd1.js";
+            window.path_to_searchindex_js = "../searchindex-1863c1ef.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-f84ea98b.js"></script>
+        <script src="../toc-8e285d6c.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -177,7 +177,7 @@
                     <main>
                         <h1 id="차-잘-잠궜나-확인-추가"><a class="header" href="#차-잘-잠궜나-확인-추가">차 잘 잠궜나 확인 추가</a></h1>
 <p>차 잘 잠궜나 확인하는 기능도 추가해서 다음과 같은 모양이 되게 하고 싶다.</p>
-<p><img src="img/20250611215428.png" alt=""></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="img/20250611215428.png" alt=""><span class="img-wrapper"><img src="img/20250611215428.png" alt=""></span></label></p>
 <p>이렇게 하려면 아래와 같이</p>
 <pre><code class="language-jsx">return (
     &lt;&gt;
@@ -208,16 +208,16 @@
 <p>이렇게 키보드의 키처럼 똑같이 생겼지만 정해준 값에 따라 다르게 일하는 녀석들을 부품, 컴퍼넌트라고 한다.</p>
 <p>지금까지 만든 걸 컴퍼넌트 형태로 바꾸고 그 컴퍼넌트를 이용하는 형태로 바꿔보자.</p>
 <p>지금까지 만든 걸 컴퍼넌트로 바꾸면 버튼 하나, 그 밑에 시간 정보 표시 하나가 있는 그런 모양의 컴퍼넌트가 된다.</p>
-<p><img src="img/20250611220511.png" alt=""></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="img/20250611220511.png" alt=""><span class="img-wrapper"><img src="img/20250611220511.png" alt=""></span></label></p>
 <p>이런 컴퍼넌트가 되는거다. 만약 ‘차 잠궜나’ 같은 기능이 필요하면</p>
-<p><img src="img/20250611220607.png" alt="">
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="img/20250611220607.png" alt=""><span class="img-wrapper"><img src="img/20250611220607.png" alt=""></span></label>
 <br />
-<img src="img/20250611220656.png" alt=""></p>
+<label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="img/20250611220656.png" alt=""><span class="img-wrapper"><img src="img/20250611220656.png" alt=""></span></label></p>
 <p>와 같이 컴퍼넌트를 2개 놓으면 된다.</p>
 <h2 id="컴퍼넌트의-생성"><a class="header" href="#컴퍼넌트의-생성">컴퍼넌트의 생성</a></h2>
 <p>DidTime이라는 이름의 컴퍼넌트를 만들자.</p>
 <p>vscode에서</p>
-<p><img src="img/20250611221854.png" alt=""></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="img/20250611221854.png" alt=""><span class="img-wrapper"><img src="img/20250611221854.png" alt=""></span></label></p>
 <p>마우스를 위쪽으로 가져가면 저렇게 생긴 아이콘이 나타난다. 저 파일을 누르면 새 파일이 생성된다.</p>
 <p>src\DidTime.jsx 파일을 만들고 그 파일의 내용을 다음과 같이 한다.</p>
 <p>만드는 방법은 간단한데, App.jsx 파일의 내용을 그대로 복사해서 붙여넣고 App만 DidTime으로 2군데 고친다. 3번째 줄과 맨 마지막 줄.</p>
@@ -256,7 +256,7 @@ function DidTime() {
 export default DidTime
 </code></pre>
 <p>이렇게 하면</p>
-<p><img src="img/20250611220607.png" alt=""></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="img/20250611220607.png" alt=""><span class="img-wrapper"><img src="img/20250611220607.png" alt=""></span></label></p>
 <p>이런 컴퍼넌트가 하나 생긴거다. 컴퍼넌트 이름은 DidTime이고.</p>
 <p>이제 App.jsx 파일을 수정해서 이 컴퍼넌트를 사용하도록 해보자.</p>
 <p>우선 App.jsx의 기능을 전부 DidTime 컴퍼넌트에게 줬으니 이제 App.jsx에서는 불필요하게 된 부분은 싹 지워보자.</p>
@@ -289,7 +289,7 @@ function App() {
 
 export default App
 </code></pre>
-<p><img src="img/20250611223158.png" alt=""></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="img/20250611223158.png" alt=""><span class="img-wrapper"><img src="img/20250611223158.png" alt=""></span></label></p>
 <p>쉽게 컴퍼넌트 형태로 고쳤고, 그 컴퍼넌트를 사용하는 형태로 고쳤는데 이전과 똑같이 잘 동작하고 있다.</p>
 <p>컴퍼넌트 하나 더 추가해서 차 잠궛는지 확인해 보자.</p>
 <pre><code class="language-jsx">// src/App.jsx
@@ -308,7 +308,7 @@ function App() {
 
 export default App
 </code></pre>
-<p><img src="img/20250611223317.png" alt=""></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="img/20250611223317.png" alt=""><span class="img-wrapper"><img src="img/20250611223317.png" alt=""></span></label></p>
 <p>두 개의 컴퍼넌트가 각각 따로 동작하는 건 확인할 수 있다. 각각의 컴퍼넌트는 각각 상태를 관리하기 때문이다.</p>
 <p>그런데 큰 문제가 2개 있다.</p>
 <p>하나는 위아래가 너무 붙은 거고,</p>
@@ -348,7 +348,7 @@ function App() {
 
 export default App
 </code></pre>
-<p><img src="img/20250611223841.png" alt=""></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="img/20250611223841.png" alt=""><span class="img-wrapper"><img src="img/20250611223841.png" alt=""></span></label></p>
 <p>2개의 컴퍼넌트들간의 세로 간격이 30픽셀만큼 벌어졌다.</p>
 <h2 id="컴퍼넌트에-값-전달"><a class="header" href="#컴퍼넌트에-값-전달">컴퍼넌트에 값 전달</a></h2>
 <p>버튼의 이름을 컴퍼넌트마다 다르게 해야 한다.</p>
@@ -423,7 +423,7 @@ function DidTime( {title }) {
 
 export default DidTime
 </code></pre>
-<p><img src="img/20250611224818.png" alt=""></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="img/20250611224818.png" alt=""><span class="img-wrapper"><img src="img/20250611224818.png" alt=""></span></label></p>
 
                     </main>
 
@@ -469,11 +469,11 @@ export default DidTime
 
         <script src="../elasticlunr-ef4e11c1.min.js"></script>
         <script src="../mark-09e88c2c.min.js"></script>
-        <script src="../searcher-c2a407aa.js"></script>
+        <script src="../searcher-09f2665d.js"></script>
 
         <script src="../clipboard-1626706a.min.js"></script>
         <script src="../highlight-abc7f01d.js"></script>
-        <script src="../book-a0b12cfe.js"></script>
+        <script src="../book-609e4cb8.js"></script>
 
         <!-- Custom JS scripts -->
 

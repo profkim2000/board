@@ -1,0 +1,493 @@
+<title>활성화 함수 체험 학습지</title>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+  :root{
+    --paper:#FAFAF8;
+    --paper-grid:#DCE6F5;
+    --paper-grid-strong:#C3D2EE;
+    --surface:#FFFFFF;
+    --border:#E2E6EE;
+    --ink:#1E2430;
+    --ink-soft:#63697A;
+    --pencil-blue:#2F5FD1;
+    --pencil-blue-soft:#E7EEFD;
+    --pencil-blue-ink:#1D3E96;
+    --pencil-red:#D8443A;
+    --pencil-red-soft:#FBE7E5;
+    --pencil-red-ink:#A9291F;
+    --pencil-yellow:#C98A00;
+    --pencil-yellow-soft:#FBF0D6;
+    --pencil-yellow-ink:#8A5E00;
+    --shadow: 0 1px 2px rgba(30,36,48,0.06), 0 6px 20px rgba(30,36,48,0.05);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#161D28; --paper-grid:#2D3B52; --paper-grid-strong:#3C4E6B;
+      --surface:#1D2534; --border:#31405A; --ink:#ECEFF6; --ink-soft:#9BA6BC;
+      --pencil-blue:#7DA2FF; --pencil-blue-soft:#243257; --pencil-blue-ink:#C4D3FF;
+      --pencil-red:#FF8A7E; --pencil-red-soft:#3A2429; --pencil-red-ink:#FFC0B7;
+      --pencil-yellow:#F0C243; --pencil-yellow-soft:#3A311A; --pencil-yellow-ink:#F5D27A;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 10px 26px rgba(0,0,0,0.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#161D28; --paper-grid:#2D3B52; --paper-grid-strong:#3C4E6B;
+    --surface:#1D2534; --border:#31405A; --ink:#ECEFF6; --ink-soft:#9BA6BC;
+    --pencil-blue:#7DA2FF; --pencil-blue-soft:#243257; --pencil-blue-ink:#C4D3FF;
+    --pencil-red:#FF8A7E; --pencil-red-soft:#3A2429; --pencil-red-ink:#FFC0B7;
+    --pencil-yellow:#F0C243; --pencil-yellow-soft:#3A311A; --pencil-yellow-ink:#F5D27A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 10px 26px rgba(0,0,0,0.35);
+  }
+
+  *{ box-sizing:border-box; }
+  [hidden]{ display:none !important; }
+  body{
+    margin:0;
+    background:
+      linear-gradient(var(--paper), var(--paper)),
+      repeating-linear-gradient(0deg, var(--paper-grid) 0 1px, transparent 1px 28px),
+      repeating-linear-gradient(90deg, var(--paper-grid) 0 1px, transparent 1px 28px);
+    background-color:var(--paper);
+    color:var(--ink);
+    font-family:'Noto Sans KR', 'Malgun Gothic', sans-serif;
+    line-height:1.6;
+  }
+  h1,h2,h3{ font-family:'Gowun Dodum','Noto Sans KR',sans-serif; font-weight:400; text-wrap:balance; margin:0; color:var(--ink); }
+  p{ margin:0; }
+  .mono{ font-family:'JetBrains Mono', ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+  button{ font-family:inherit; }
+  :focus-visible{ outline:3px solid var(--pencil-blue); outline-offset:2px; }
+
+  #app{ max-width:960px; margin-inline:auto; padding-inline:20px; padding-block:32px 56px; display:flex; flex-direction:column; gap:20px; }
+
+  .masthead{ display:flex; align-items:center; gap:20px; background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:22px 24px; box-shadow:var(--shadow); flex-wrap:wrap; }
+  .masthead-badge{ flex:none; width:84px; height:84px; display:grid; grid-template-columns:repeat(4,1fr); grid-template-rows:repeat(4,1fr); gap:3px; padding:8px; background:var(--paper); border:1px solid var(--border); border-radius:12px; }
+  .masthead-badge i{ background:var(--paper-grid); border-radius:2px; opacity:0; }
+  @media (prefers-reduced-motion: no-preference){ .masthead-badge i.on{ animation:inkIn 240ms ease-out forwards; } }
+  .masthead-badge i.on{ background:var(--pencil-blue); opacity:1; }
+  @keyframes inkIn{ from{ opacity:0; transform:scale(.4);} to{ opacity:1; transform:scale(1);} }
+  .masthead-text{ flex:1; min-width:220px; display:flex; flex-direction:column; gap:6px; }
+  .eyebrow{ font-size:.8rem; font-weight:700; letter-spacing:.06em; color:var(--pencil-blue); text-transform:uppercase; }
+  .masthead-text h1{ font-size:clamp(1.4rem,4vw,2rem); }
+  .lede{ color:var(--ink-soft); font-size:.95rem; max-width:60ch; }
+
+  .steps-nav{ display:flex; flex-wrap:wrap; gap:8px; }
+  .step-tab{ flex:1 1 auto; min-width:100px; display:flex; flex-direction:column; align-items:center; gap:2px; padding:10px 8px; border-radius:12px; border:1px solid var(--border); background:var(--surface); color:var(--ink-soft); cursor:pointer; font-size:.8rem; transition:background 150ms, color 150ms, border-color 150ms; }
+  .step-tab b{ font-family:'JetBrains Mono',monospace; font-size:.95rem; color:inherit; }
+  .step-tab.active{ background:var(--pencil-blue); border-color:var(--pencil-blue); color:#fff; }
+  .step-tab.active b{ color:#fff; }
+
+  .progress-track{ height:6px; border-radius:999px; background:var(--paper-grid); overflow:hidden; }
+  .progress-fill{ height:100%; background:var(--pencil-blue); border-radius:999px; transition:width 220ms ease; }
+
+  .sheet{ background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:26px 24px; box-shadow:var(--shadow); }
+  .step:not([hidden]){ display:flex; }
+  .step{ flex-direction:column; gap:18px; }
+  .step-head{ display:flex; flex-direction:column; gap:6px; }
+  .step-head .kicker{ font-size:.78rem; font-weight:700; color:var(--pencil-blue); letter-spacing:.04em; }
+  .step-head h2{ font-size:1.4rem; }
+  .step-head .desc{ color:var(--ink-soft); font-size:.95rem; max-width:66ch; }
+
+  .two-col{ display:grid; grid-template-columns:1fr; gap:22px; }
+  @media (min-width:680px){ .two-col{ grid-template-columns: minmax(0,260px) 1fr; align-items:start; } }
+
+  .panel{ display:flex; flex-direction:column; gap:12px; }
+  .panel-title{ font-size:.85rem; font-weight:700; color:var(--ink-soft); }
+
+  .btn{ border-radius:10px; border:1px solid var(--border); background:var(--surface); color:var(--ink); padding:9px 14px; font-size:.85rem; font-weight:500; cursor:pointer; transition:background 120ms, border-color 120ms, color 120ms; }
+  .btn:hover{ border-color:var(--pencil-blue); }
+  .btn:disabled{ opacity:.45; cursor:not-allowed; }
+  .btn-primary{ background:var(--pencil-blue); border-color:var(--pencil-blue); color:#fff; }
+  .btn-primary:hover{ opacity:.92; }
+  .btn.active{ background:var(--pencil-blue); border-color:var(--pencil-blue); color:#fff; }
+  .control-row{ display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+
+  .note{ font-size:.82rem; color:var(--ink-soft); }
+  .callout{ background:var(--paper); border:1px dashed var(--paper-grid-strong); border-radius:12px; padding:12px 14px; font-size:.88rem; color:var(--ink-soft); }
+
+  .stat-box{ font-family:'JetBrains Mono',monospace; font-weight:700; font-size:1rem; padding:10px 14px; border-radius:12px; background:var(--paper); border:1px solid var(--border); }
+  .info-box{ background:var(--paper); border:1px solid var(--border); border-radius:12px; padding:12px 14px; font-size:.85rem; display:flex; flex-direction:column; gap:4px; }
+
+  input[type="range"]{ width:100%; accent-color:var(--pencil-blue); height:6px; cursor:pointer; }
+
+  .formula-box{ background:var(--paper); border:1px solid var(--border); border-radius:12px; padding:12px 14px; font-family:'JetBrains Mono',monospace; font-size:.82rem; color:var(--ink); display:flex; flex-direction:column; gap:6px; line-height:1.7; overflow-x:auto; }
+  .formula-box .muted{ color:var(--ink-soft); }
+
+  .chart-wrap{ position:relative; width:100%; max-width:340px; aspect-ratio:1/1; background:var(--paper); border:1px solid var(--border); border-radius:12px; overflow:hidden; }
+  .chart-wrap canvas{ position:absolute; inset:0; width:100%; height:100%; display:block; image-rendering:pixelated; }
+  .chart-wrap svg{ position:absolute; inset:0; width:100%; height:100%; }
+  .pt{ stroke:var(--surface); stroke-width:2; }
+  .pt.wrong{ stroke:var(--pencil-red); stroke-width:3; }
+
+  .legend-row{ display:flex; gap:14px; flex-wrap:wrap; font-size:.8rem; color:var(--ink-soft); align-items:center; }
+  .legend-dot{ display:inline-block; width:11px; height:11px; border-radius:50%; margin-right:5px; vertical-align:middle; }
+  .legend-dot.blue{ background:var(--pencil-blue); }
+  .legend-dot.yellow{ background:var(--pencil-yellow); }
+  .legend-line{ display:inline-block; width:16px; height:0; border-top:2.5px dashed var(--ink-soft); margin-right:5px; vertical-align:middle; }
+
+  .toggle-row{ display:flex; align-items:center; gap:12px; }
+  .toggle-btn{ border-radius:999px; border:2px solid var(--border); background:var(--surface); padding:10px 20px; font-weight:700; font-size:.95rem; cursor:pointer; transition:background 150ms,border-color 150ms,color 150ms; }
+  .toggle-btn.on{ background:var(--pencil-blue); border-color:var(--pencil-blue); color:#fff; }
+  .toggle-btn.off{ background:var(--pencil-red-soft); border-color:var(--pencil-red); color:var(--pencil-red-ink); }
+
+  .sheet-footer{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
+  .step-indicator{ font-family:'JetBrains Mono',monospace; font-size:.85rem; color:var(--ink-soft); }
+
+  @media (max-width:400px){ .masthead{ flex-direction:column; align-items:flex-start; } }
+</style>
+
+<div id="app">
+
+  <header class="masthead">
+    <div class="masthead-badge" id="logoGrid" aria-hidden="true"></div>
+    <div class="masthead-text">
+      <p class="eyebrow">완전 초보자를 위한 체험 학습지</p>
+      <h1>활성화 함수, 왜 꼭 있어야 할까요?</h1>
+      <p class="lede">직선 하나로는 절대 나눌 수 없는 데이터를 직접 만져보면서, 신경망 층을 아무리 쌓아도 활성화 함수가 없으면 여전히 "직선 하나"에 불과하다는 사실을 4단계로 체험해요.</p>
+    </div>
+  </header>
+
+  <nav class="steps-nav" id="stepsNav" aria-label="학습 단계">
+    <button class="step-tab" data-step="1"><b>1</b><span>못 나누는 데이터</span></button>
+    <button class="step-tab" data-step="2"><b>2</b><span>쌓아도 직선</span></button>
+    <button class="step-tab" data-step="3"><b>3</b><span>ReLU로 꺾기</span></button>
+    <button class="step-tab" data-step="4"><b>4</b><span>켜고 끄기</span></button>
+  </nav>
+
+  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+
+  <main class="sheet">
+
+    <!-- STEP 1 -->
+    <section id="step-1" class="step">
+      <div class="step-head">
+        <p class="kicker">STEP 1 · 선 하나로 나눌 수 없는 데이터</p>
+        <h2>직선을 움직여서 완벽하게 나눠보세요</h2>
+        <p class="desc">파란 점과 노란 점이 대각선으로 서로 엇갈려 있어요(이런 배치를 XOR 패턴이라고 불러요). 각도와 위치를 슬라이더로 움직여서, 파란/노란 점을 완벽히 나눠보세요.</p>
+      </div>
+      <div class="two-col">
+        <div class="panel">
+          <p class="panel-title">각도: <span id="s1ThetaVal" class="mono"></span></p>
+          <input type="range" id="s1Theta" min="0" max="179" step="1">
+          <p class="panel-title">위치: <span id="s1CVal" class="mono"></span></p>
+          <input type="range" id="s1C" min="-150" max="150" step="1">
+          <button id="s1FlipBtn" class="btn">색 뒤집기</button>
+          <div class="stat-box mono" id="s1Stat"></div>
+          <div class="stat-box mono" id="s1Best"></div>
+        </div>
+        <div class="panel">
+          <div class="chart-wrap" id="chart1"><canvas width="150" height="150"></canvas><svg viewBox="0 0 150 150"></svg></div>
+          <div class="legend-row">
+            <span><span class="legend-dot blue"></span>파랑</span>
+            <span><span class="legend-dot yellow"></span>노랑</span>
+          </div>
+        </div>
+      </div>
+      <div class="callout">아무리 각도와 위치를 바꿔봐도, 이 데이터에서 직선 하나가 낼 수 있는 정확도는 최대 <b>75%</b>예요(가능한 모든 각도·위치를 다 계산해봐도 그래요). 한쪽 구석의 점 무리 하나는 포기해야만 나머지를 최대한 맞힐 수 있어요.</div>
+    </section>
+
+    <!-- STEP 2 -->
+    <section id="step-2" class="step" hidden>
+      <div class="step-head">
+        <p class="kicker">STEP 2 · 활성화 함수 없이 층 쌓기</p>
+        <h2>층을 2개 쌓아도, 계산해보면 여전히 직선 하나</h2>
+        <p class="desc">아래처럼 입력 2개 → 은닉 유닛 2개 → 출력 1개짜리 신경망을 만들었어요. 활성화 함수 없이(그냥 곱하고 더하기만) 두 층을 쌓으면 무슨 일이 벌어지는지 계산해볼게요.</p>
+      </div>
+      <div class="formula-box">
+        <span>은닉층 (활성화 없음): <span class="muted">h1 = x1 + x2</span>,  <span class="muted">h2 = x1 + x2 − 1</span></span>
+        <span>출력층: <span class="muted">out = h1 − 2·h2</span></span>
+        <span>대입해서 풀면: out = (x1+x2) − 2(x1+x2−1) = <b>−x1 − x2 + 2</b></span>
+        <span class="muted">→ 두 층을 거쳤지만, 결국 x1·x2에 대한 "직선 하나"의 공식으로 합쳐져요.</span>
+      </div>
+      <div class="two-col">
+        <div class="panel">
+          <div class="stat-box mono" id="s2Stat"></div>
+          <p class="note">이 직선은 1단계에서 손으로 움직여봤던 "직선 하나"와 성질이 완전히 같아요 — 아무리 층수를 늘려도, 활성화 함수가 없으면 결과는 항상 하나의 직선(선형 함수)으로 뭉쳐져요.</p>
+        </div>
+        <div class="panel">
+          <div class="chart-wrap" id="chart2"><canvas width="150" height="150"></canvas><svg viewBox="0 0 150 150"></svg></div>
+          <div class="legend-row">
+            <span><span class="legend-dot blue"></span>파랑 예측</span>
+            <span><span class="legend-dot yellow"></span>노랑 예측</span>
+            <span>✕ 표시 = 틀린 점</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 3 -->
+    <section id="step-3" class="step" hidden>
+      <div class="step-head">
+        <p class="kicker">STEP 3 · ReLU 하나로 규칙을 꺾기</p>
+        <h2>ReLU를 넣으면 규칙이 둘로 쪼개져요</h2>
+        <p class="desc">같은 신경망에 ReLU(음수는 0으로) 활성화 함수만 추가해볼게요. h2 = ReLU(x1+x2−1)는 점선 아래에서는 0으로 뚝 끊기고, 위에서만 값을 가져요 — 이 "꺾임" 하나가 전체 규칙을 둘로 쪼개요.</p>
+      </div>
+      <div class="formula-box">
+        <span>점선 아래 (x1+x2 &lt; 1, h2=0): <span class="muted">out = x1 + x2</span></span>
+        <span>점선 위 (x1+x2 ≥ 1, h2 활성화): <span class="muted">out = −x1 − x2 + 2</span></span>
+        <span class="muted">→ 규칙이 두 개로 나뉘니까, "가운데는 노랑, 양 끝은 파랑" 같은 직선 하나로는 불가능한 규칙도 만들 수 있어요.</span>
+      </div>
+      <div class="two-col">
+        <div class="panel">
+          <div class="stat-box mono" id="s3Stat"></div>
+          <p class="note">점선은 규칙이 바뀌는 "꺾이는 지점"(x1+x2=1)이에요.</p>
+        </div>
+        <div class="panel">
+          <div class="chart-wrap" id="chart3"><canvas width="150" height="150"></canvas><svg viewBox="0 0 150 150"></svg></div>
+          <div class="legend-row">
+            <span><span class="legend-dot blue"></span>파랑 예측</span>
+            <span><span class="legend-dot yellow"></span>노랑 예측</span>
+            <span><span class="legend-line"></span>꺾이는 지점</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 4 -->
+    <section id="step-4" class="step" hidden>
+      <div class="step-head">
+        <p class="kicker">STEP 4 · 켜고 끄기 비교</p>
+        <h2>같은 가중치, 스위치 하나 차이</h2>
+        <p class="desc">weight는 전혀 안 바꾸고, ReLU 활성화 함수만 켰다 껐다 해보세요. 숫자 계산은 완전히 똑같은데 결과가 얼마나 달라지는지 확인해보세요.</p>
+      </div>
+      <div class="toggle-row">
+        <button id="s4Toggle" class="toggle-btn on">활성화 함수 켜짐 (ReLU)</button>
+      </div>
+      <div class="two-col">
+        <div class="panel">
+          <div class="stat-box mono" id="s4Stat"></div>
+          <div class="info-box" id="s4Info"></div>
+        </div>
+        <div class="panel">
+          <div class="chart-wrap" id="chart4"><canvas width="150" height="150"></canvas><svg viewBox="0 0 150 150"></svg></div>
+          <div class="legend-row">
+            <span><span class="legend-dot blue"></span>파랑 예측</span>
+            <span><span class="legend-dot yellow"></span>노랑 예측</span>
+            <span>✕ 표시 = 틀린 점</span>
+          </div>
+        </div>
+      </div>
+      <div class="callout" id="callout4"></div>
+    </section>
+
+  </main>
+
+  <footer class="sheet-footer">
+    <button id="prevBtn" class="btn">← 이전</button>
+    <span class="step-indicator" id="stepLabel">1 / 4</span>
+    <button id="nextBtn" class="btn btn-primary">다음 →</button>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  // XOR-pattern dataset (20 points, jittered around 4 corners of the unit square).
+  // label 0 = blue, 1 = yellow. Generated offline with a seeded PRNG (mulberry32, seed 777).
+  var POINTS = [[0.0522,0,0],[0,0,0],[0.0372,0,0],[0,0.068,0],[0.0332,0.0766,0],
+    [1,1,0],[0.8986,1,0],[1,1,0],[1,0.884,0],[1,1,0],
+    [0.135,0.8946,1],[0,0.8732,1],[0.0792,1,1],[0.0375,1,1],[0,1,1],
+    [0.8676,0,1],[1,0,1],[0.8833,0,1],[1,0,1],[1,0,1]];
+
+  function q(id){ return document.getElementById(id); }
+  function cssVar(name){ return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); }
+
+  // ---------- classifiers ----------
+  function classifyLine(x,y,thetaDeg,c,flip){
+    var th = thetaDeg*Math.PI/180;
+    var proj = x*Math.cos(th) + y*Math.sin(th);
+    var pred = proj>c ? 1 : 0;
+    return flip ? 1-pred : pred;
+  }
+  function netOut(x,y,useAct){
+    var z1 = x+y, z2 = x+y-1;
+    var h1 = useAct ? Math.max(0,z1) : z1;
+    var h2 = useAct ? Math.max(0,z2) : z2;
+    return h1 - 2*h2;
+  }
+  function classifyNet(x,y,useAct){ return netOut(x,y,useAct)>=0.5 ? 1 : 0; }
+
+  function accuracyOf(classifyFn){
+    var correct=0;
+    POINTS.forEach(function(p){ if(classifyFn(p[0],p[1])===p[2]) correct++; });
+    return correct/POINTS.length;
+  }
+
+  // ---------- chart rendering ----------
+  function drawDecision(containerId, classifyFn, foldLine){
+    var wrap = q(containerId);
+    var canvas = wrap.querySelector('canvas');
+    var svg = wrap.querySelector('svg');
+    var ctx = canvas.getContext('2d');
+    var Wc = canvas.width, Hc = canvas.height;
+    var G = 24;
+    var blueSoft = cssVar('--pencil-blue-soft');
+    var yellowSoft = cssVar('--pencil-yellow-soft');
+    ctx.clearRect(0,0,Wc,Hc);
+    for(var gy=0; gy<G; gy++){
+      for(var gx=0; gx<G; gx++){
+        var cx = (gx+0.5)/G, cy = (gy+0.5)/G;
+        var cls = classifyFn(cx,cy);
+        ctx.fillStyle = cls===0 ? blueSoft : yellowSoft;
+        ctx.fillRect(gx*Wc/G, gy*Hc/G, Wc/G+1, Hc/G+1);
+      }
+    }
+
+    var svgNS='http://www.w3.org/2000/svg';
+    var s='';
+    if(foldLine){
+      s += '<line x1="'+foldLine[0][0]+'" y1="'+foldLine[0][1]+'" x2="'+foldLine[1][0]+'" y2="'+foldLine[1][1]+'" stroke="var(--ink-soft)" stroke-width="2.5" stroke-dasharray="6 4"/>';
+    }
+    POINTS.forEach(function(p){
+      var px = p[0]*150, py = p[1]*150;
+      var trueLabel = p[2];
+      var pred = classifyFn(p[0],p[1]);
+      var wrong = pred!==trueLabel;
+      var color = trueLabel===0 ? 'var(--pencil-blue)' : 'var(--pencil-yellow)';
+      s += '<circle class="pt'+(wrong?' wrong':'')+'" cx="'+px+'" cy="'+py+'" r="6" fill="'+color+'"/>';
+      if(wrong){
+        s += '<line x1="'+(px-5)+'" y1="'+(py-5)+'" x2="'+(px+5)+'" y2="'+(py+5)+'" stroke="var(--pencil-red)" stroke-width="2"/>';
+        s += '<line x1="'+(px-5)+'" y1="'+(py+5)+'" x2="'+(px+5)+'" y2="'+(py-5)+'" stroke="var(--pencil-red)" stroke-width="2"/>';
+      }
+    });
+    svg.innerHTML = s;
+  }
+
+  // ---------- state ----------
+  var state = { step:1 };
+  var s1 = { theta:135, c:35, flip:false, best:0 }; // c stored *100 for integer slider
+  var s4 = { useAct:true };
+
+  var progressFillEl, stepLabelEl, prevBtn, nextBtn;
+
+  // ---------- Step 1 ----------
+  function renderStep1(){
+    q('s1ThetaVal').textContent = s1.theta+'°';
+    q('s1CVal').textContent = (s1.c/100).toFixed(2);
+    var fn = function(x,y){ return classifyLine(x,y,s1.theta,s1.c/100,s1.flip); };
+    var acc = accuracyOf(fn);
+    if(acc>s1.best) s1.best = acc;
+    q('s1Stat').textContent = '지금 정확도: '+Math.round(acc*100)+'% ('+Math.round(acc*20)+' / 20)';
+    q('s1Best').textContent = '이번 시도 중 최고 기록: '+Math.round(s1.best*100)+'%';
+    drawDecision('chart1', fn, null);
+  }
+
+  // ---------- Step 2 ----------
+  function renderStep2(){
+    var fn = function(x,y){ return classifyNet(x,y,false); };
+    var acc = accuracyOf(fn);
+    q('s2Stat').textContent = '정확도: '+Math.round(acc*100)+'% ('+Math.round(acc*20)+' / 20) — 1단계와 같은 75% 한계';
+    drawDecision('chart2', fn, null);
+  }
+
+  // ---------- Step 3 ----------
+  function renderStep3(){
+    var fn = function(x,y){ return classifyNet(x,y,true); };
+    var acc = accuracyOf(fn);
+    q('s3Stat').textContent = '정확도: '+Math.round(acc*100)+'% ('+Math.round(acc*20)+' / 20)';
+    // fold line x1+x2=1 goes exactly from (1,0) to (0,1) in unit square -> pixel coords
+    drawDecision('chart3', fn, [[150,0],[0,150]]);
+  }
+
+  // ---------- Step 4 ----------
+  function renderStep4(){
+    var fn = function(x,y){ return classifyNet(x,y,s4.useAct); };
+    var acc = accuracyOf(fn);
+    var btn = q('s4Toggle');
+    btn.textContent = s4.useAct ? '활성화 함수 켜짐 (ReLU)' : '활성화 함수 꺼짐 (선형)';
+    btn.className = 'toggle-btn '+(s4.useAct?'on':'off');
+    q('s4Stat').textContent = '정확도: '+Math.round(acc*100)+'% ('+Math.round(acc*20)+' / 20)';
+    q('s4Info').innerHTML = s4.useAct
+      ? '<span>h1 = ReLU(x1+x2)</span><span>h2 = ReLU(x1+x2−1)</span><span>out = h1 − 2·h2</span>'
+      : '<span>h1 = x1+x2</span><span>h2 = x1+x2−1</span><span>out = h1 − 2·h2 = −x1−x2+2</span>';
+    drawDecision('chart4', fn, s4.useAct ? [[150,0],[0,150]] : null);
+    q('callout4').textContent = s4.useAct
+      ? 'ReLU를 켜니 정확도 '+Math.round(acc*100)+'% — 모든 점을 정확히 구분해요. 활성화 함수가 만든 "꺾인 규칙" 덕분이에요.'
+      : 'ReLU를 끄니 정확도 '+Math.round(acc*100)+'%로 뚝 떨어져요. weight는 그대로인데, 활성화 함수 하나가 빠졌을 뿐인데 결과가 이렇게 달라져요 — 이게 바로 활성화 함수가 꼭 필요한 이유예요.';
+  }
+
+  // ---------- nav / lifecycle ----------
+  function updateProgress(){
+    progressFillEl.style.width = (state.step/4*100)+'%';
+    stepLabelEl.textContent = state.step+' / 4';
+  }
+  function updateNavTabs(){
+    document.querySelectorAll('.step-tab').forEach(function(btn){
+      var s=+btn.dataset.step;
+      btn.classList.toggle('active', s===state.step);
+      if(s===state.step) btn.setAttribute('aria-current','step'); else btn.removeAttribute('aria-current');
+    });
+  }
+  function updatePrevNext(){
+    prevBtn.disabled = state.step===1;
+    nextBtn.textContent = state.step===4 ? '처음부터 다시 ↺' : '다음 →';
+  }
+  function renderCurrentStep(){
+    updateProgress();
+    switch(state.step){
+      case 1: renderStep1(); break;
+      case 2: renderStep2(); break;
+      case 3: renderStep3(); break;
+      case 4: renderStep4(); break;
+    }
+  }
+  function goToStep(n){
+    if(n<1) n=1; if(n>4) n=4;
+    state.step=n;
+    for(var i=1;i<=4;i++){ q('step-'+i).hidden = (i!==n); }
+    updateNavTabs();
+    updatePrevNext();
+    renderCurrentStep();
+  }
+
+  function renderLogoGrid(){
+    var el=q('logoGrid');
+    el.innerHTML='';
+    var pattern=[1,0,0,1, 0,0,0,0, 0,0,0,0, 1,0,0,1];
+    pattern.forEach(function(v,i){
+      var d=document.createElement('i');
+      d.className = v? 'on':'';
+      d.style.animationDelay = (i*28)+'ms';
+      el.appendChild(d);
+    });
+  }
+
+  function initListeners(){
+    q('s1Theta').addEventListener('input', function(e){ s1.theta=+e.target.value; renderStep1(); });
+    q('s1C').addEventListener('input', function(e){ s1.c=+e.target.value; renderStep1(); });
+    q('s1FlipBtn').addEventListener('click', function(){ s1.flip=!s1.flip; renderStep1(); });
+
+    q('s4Toggle').addEventListener('click', function(){ s4.useAct=!s4.useAct; renderStep4(); });
+
+    q('stepsNav').addEventListener('click', function(e){
+      var b=e.target.closest('.step-tab'); if(!b) return;
+      goToStep(+b.dataset.step);
+    });
+    prevBtn.addEventListener('click', function(){ goToStep(state.step-1); });
+    nextBtn.addEventListener('click', function(){ if(state.step<4) goToStep(state.step+1); else goToStep(1); });
+  }
+
+  function init(){
+    progressFillEl=q('progressFill'); stepLabelEl=q('stepLabel');
+    prevBtn=q('prevBtn'); nextBtn=q('nextBtn');
+    q('s1Theta').value = s1.theta;
+    q('s1C').value = s1.c;
+
+    renderLogoGrid();
+    initListeners();
+    updateNavTabs();
+    updatePrevNext();
+    renderCurrentStep();
+  }
+
+  try{
+    if(window.claude && window.claude.hot && window.claude.hot.ready){
+      window.claude.hot.ready(function(){ init(); });
+    } else { init(); }
+  }catch(e){ init(); }
+
+})();
+</script>

@@ -1,0 +1,621 @@
+<title>GNN 체험 학습지</title>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+  :root{
+    --paper:#FAFAF8;
+    --paper-grid:#DCE6F5;
+    --paper-grid-strong:#C3D2EE;
+    --surface:#FFFFFF;
+    --border:#E2E6EE;
+    --ink:#1E2430;
+    --ink-soft:#63697A;
+    --pencil-blue:#2F5FD1;
+    --pencil-blue-soft:#E7EEFD;
+    --pencil-blue-ink:#1D3E96;
+    --pencil-red:#D8443A;
+    --pencil-red-soft:#FBE7E5;
+    --pencil-red-ink:#A9291F;
+    --pencil-yellow:#C98A00;
+    --pencil-yellow-soft:#FBF0D6;
+    --shadow: 0 1px 2px rgba(30,36,48,0.06), 0 6px 20px rgba(30,36,48,0.05);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#161D28; --paper-grid:#2D3B52; --paper-grid-strong:#3C4E6B;
+      --surface:#1D2534; --border:#31405A; --ink:#ECEFF6; --ink-soft:#9BA6BC;
+      --pencil-blue:#7DA2FF; --pencil-blue-soft:#243257; --pencil-blue-ink:#C4D3FF;
+      --pencil-red:#FF8A7E; --pencil-red-soft:#3A2429; --pencil-red-ink:#FFC0B7;
+      --pencil-yellow:#F0C243; --pencil-yellow-soft:#3A311A;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 10px 26px rgba(0,0,0,0.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#161D28; --paper-grid:#2D3B52; --paper-grid-strong:#3C4E6B;
+    --surface:#1D2534; --border:#31405A; --ink:#ECEFF6; --ink-soft:#9BA6BC;
+    --pencil-blue:#7DA2FF; --pencil-blue-soft:#243257; --pencil-blue-ink:#C4D3FF;
+    --pencil-red:#FF8A7E; --pencil-red-soft:#3A2429; --pencil-red-ink:#FFC0B7;
+    --pencil-yellow:#F0C243; --pencil-yellow-soft:#3A311A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 10px 26px rgba(0,0,0,0.35);
+  }
+
+  *{ box-sizing:border-box; }
+  [hidden]{ display:none !important; }
+  body{
+    margin:0;
+    background:
+      linear-gradient(var(--paper), var(--paper)),
+      repeating-linear-gradient(0deg, var(--paper-grid) 0 1px, transparent 1px 28px),
+      repeating-linear-gradient(90deg, var(--paper-grid) 0 1px, transparent 1px 28px);
+    background-color:var(--paper);
+    color:var(--ink);
+    font-family:'Noto Sans KR', 'Malgun Gothic', sans-serif;
+    line-height:1.6;
+  }
+  h1,h2,h3{ font-family:'Gowun Dodum','Noto Sans KR',sans-serif; font-weight:400; text-wrap:balance; margin:0; color:var(--ink); }
+  p{ margin:0; }
+  .mono{ font-family:'JetBrains Mono', ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+  button{ font-family:inherit; }
+  :focus-visible{ outline:3px solid var(--pencil-blue); outline-offset:2px; }
+
+  #app{ max-width:960px; margin-inline:auto; padding-inline:20px; padding-block:32px 56px; display:flex; flex-direction:column; gap:20px; }
+
+  .masthead{ display:flex; align-items:center; gap:20px; background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:22px 24px; box-shadow:var(--shadow); flex-wrap:wrap; }
+  .masthead-badge{ flex:none; width:84px; height:84px; display:grid; grid-template-columns:repeat(4,1fr); grid-template-rows:repeat(4,1fr); gap:3px; padding:8px; background:var(--paper); border:1px solid var(--border); border-radius:12px; }
+  .masthead-badge i{ background:var(--paper-grid); border-radius:2px; opacity:0; }
+  @media (prefers-reduced-motion: no-preference){ .masthead-badge i.on{ animation:inkIn 240ms ease-out forwards; } }
+  .masthead-badge i.on{ background:var(--pencil-blue); opacity:1; }
+  @keyframes inkIn{ from{ opacity:0; transform:scale(.4);} to{ opacity:1; transform:scale(1);} }
+  .masthead-text{ flex:1; min-width:220px; display:flex; flex-direction:column; gap:6px; }
+  .eyebrow{ font-size:.8rem; font-weight:700; letter-spacing:.06em; color:var(--pencil-blue); text-transform:uppercase; }
+  .masthead-text h1{ font-size:clamp(1.4rem,4vw,2rem); }
+  .lede{ color:var(--ink-soft); font-size:.95rem; max-width:60ch; }
+
+  .steps-nav{ display:flex; flex-wrap:wrap; gap:8px; }
+  .step-tab{ flex:1 1 auto; min-width:100px; display:flex; flex-direction:column; align-items:center; gap:2px; padding:10px 8px; border-radius:12px; border:1px solid var(--border); background:var(--surface); color:var(--ink-soft); cursor:pointer; font-size:.8rem; transition:background 150ms, color 150ms, border-color 150ms; }
+  .step-tab b{ font-family:'JetBrains Mono',monospace; font-size:.95rem; color:inherit; }
+  .step-tab.active{ background:var(--pencil-blue); border-color:var(--pencil-blue); color:#fff; }
+  .step-tab.active b{ color:#fff; }
+
+  .progress-track{ height:6px; border-radius:999px; background:var(--paper-grid); overflow:hidden; }
+  .progress-fill{ height:100%; background:var(--pencil-blue); border-radius:999px; transition:width 220ms ease; }
+
+  .sheet{ background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:26px 24px; box-shadow:var(--shadow); }
+  .step:not([hidden]){ display:flex; }
+  .step{ flex-direction:column; gap:18px; }
+  .step-head{ display:flex; flex-direction:column; gap:6px; }
+  .step-head .kicker{ font-size:.78rem; font-weight:700; color:var(--pencil-blue); letter-spacing:.04em; }
+  .step-head h2{ font-size:1.4rem; }
+  .step-head .desc{ color:var(--ink-soft); font-size:.95rem; max-width:66ch; }
+
+  .two-col{ display:grid; grid-template-columns:1fr; gap:22px; }
+  @media (min-width:680px){ .two-col{ grid-template-columns: minmax(0,270px) 1fr; align-items:start; } }
+
+  .panel{ display:flex; flex-direction:column; gap:12px; }
+  .panel-title{ font-size:.85rem; font-weight:700; color:var(--ink-soft); }
+
+  .btn{ border-radius:10px; border:1px solid var(--border); background:var(--surface); color:var(--ink); padding:9px 14px; font-size:.85rem; font-weight:500; cursor:pointer; transition:background 120ms, border-color 120ms, color 120ms; }
+  .btn:hover{ border-color:var(--pencil-blue); }
+  .btn:disabled{ opacity:.45; cursor:not-allowed; }
+  .btn-primary{ background:var(--pencil-blue); border-color:var(--pencil-blue); color:#fff; }
+  .btn-primary:hover{ opacity:.92; }
+  .control-row{ display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+  .chip{ border-radius:999px; border:1px solid var(--border); background:var(--surface); padding:6px 13px; font-size:.8rem; color:var(--ink); }
+  .chip.on{ background:var(--pencil-red-soft); border-color:var(--pencil-red); color:var(--pencil-red-ink); font-weight:700; }
+
+  .note{ font-size:.82rem; color:var(--ink-soft); }
+  .callout{ background:var(--paper); border:1px dashed var(--paper-grid-strong); border-radius:12px; padding:12px 14px; font-size:.88rem; color:var(--ink-soft); }
+
+  input[type="range"]{ width:100%; accent-color:var(--pencil-blue); height:6px; cursor:pointer; }
+
+  .stat-box{ font-family:'JetBrains Mono',monospace; font-weight:700; font-size:1rem; padding:10px 14px; border-radius:12px; background:var(--paper); border:1px solid var(--border); }
+  .info-box{ background:var(--paper); border:1px solid var(--border); border-radius:12px; padding:12px 14px; font-size:.85rem; display:flex; flex-direction:column; gap:4px; }
+  .info-box .name{ font-weight:700; font-size:.95rem; }
+
+  .chart-wrap{ position:relative; width:100%; max-width:460px; aspect-ratio:320/200; background:var(--paper); border:1px solid var(--border); border-radius:12px; overflow:hidden; }
+  .chart-wrap.clickable{ cursor:pointer; }
+  .chart-wrap svg{ position:absolute; inset:0; width:100%; height:100%; }
+  .node-circle{ cursor:pointer; transition:fill 450ms ease, stroke-width 150ms ease; }
+  @media (prefers-reduced-motion: reduce){ .node-circle{ transition:none; } }
+  .node-label{ font-size:9px; font-weight:700; fill:var(--surface); pointer-events:none; text-anchor:middle; dominant-baseline:central; }
+  .edge-line{ stroke:var(--paper-grid-strong); stroke-width:2; }
+  .edge-line.highlight{ stroke:var(--ink-soft); stroke-width:3; }
+  .edge-new{ stroke:var(--pencil-red); stroke-width:2.5; stroke-dasharray:5 3; }
+
+  .legend-row{ display:flex; gap:14px; flex-wrap:wrap; font-size:.8rem; color:var(--ink-soft); align-items:center; }
+  .legend-dot{ display:inline-block; width:11px; height:11px; border-radius:50%; margin-right:5px; vertical-align:middle; }
+  .legend-dot.blue{ background:var(--pencil-blue); }
+  .legend-dot.yellow{ background:var(--pencil-yellow); }
+  .legend-dot.gray{ background:var(--ink-soft); }
+  .legend-line{ display:inline-block; width:16px; height:0; border-top:2.5px dashed var(--pencil-red); margin-right:5px; vertical-align:middle; }
+
+  .friend-chip-row{ display:flex; flex-wrap:wrap; gap:6px; }
+  .friend-chip{ border-radius:999px; background:var(--paper); border:1px solid var(--border); padding:5px 11px; font-size:.78rem; color:var(--ink-soft); }
+
+  .sheet-footer{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
+  .step-indicator{ font-family:'JetBrains Mono',monospace; font-size:.85rem; color:var(--ink-soft); }
+
+  @media (max-width:400px){ .masthead{ flex-direction:column; align-items:flex-start; } }
+</style>
+
+<div id="app">
+
+  <header class="masthead">
+    <div class="masthead-badge" id="logoGrid" aria-hidden="true"></div>
+    <div class="masthead-text">
+      <p class="eyebrow">완전 초보자를 위한 체험 학습지</p>
+      <h1>GNN, 친구 따라 정보가 퍼져요</h1>
+      <p class="lede">친구 관계로 연결된 사람들 중 몇 명만 뭘 좋아하는지 알고 있을 때, 그 정보가 친구 관계를 타고 퍼져나가 나머지 사람들의 취향까지 짐작하는 과정을 4단계로 체험해요.</p>
+    </div>
+  </header>
+
+  <nav class="steps-nav" id="stepsNav" aria-label="학습 단계">
+    <button class="step-tab" data-step="1"><b>1</b><span>그래프란</span></button>
+    <button class="step-tab" data-step="2"><b>2</b><span>메시지 한 번</span></button>
+    <button class="step-tab" data-step="3"><b>3</b><span>소문처럼 퍼지기</span></button>
+    <button class="step-tab" data-step="4"><b>4</b><span>새 친구 추가</span></button>
+  </nav>
+
+  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+
+  <main class="sheet">
+
+    <!-- STEP 1 -->
+    <section id="step-1" class="step">
+      <div class="step-head">
+        <p class="kicker">STEP 1 · 그래프 데이터</p>
+        <h2>이번엔 표가 아니라 친구 관계예요</h2>
+        <p class="desc">아래는 11명의 친구 관계예요. 파란/노란 사람은 이미 뭘 좋아하는지 알아요(축구파🔵 / 농구파🟡). 회색은 아직 몰라요. 사람을 클릭하면 정보를 볼 수 있어요.</p>
+      </div>
+      <div class="two-col">
+        <div class="panel">
+          <p class="panel-title">선택한 사람</p>
+          <div class="info-box" id="infoBox">사람을 클릭해보세요.</div>
+        </div>
+        <div class="panel">
+          <div class="chart-wrap" id="graph1"></div>
+          <div class="legend-row">
+            <span><span class="legend-dot blue"></span>축구파(확정)</span>
+            <span><span class="legend-dot yellow"></span>농구파(확정)</span>
+            <span><span class="legend-dot gray"></span>모름</span>
+          </div>
+        </div>
+      </div>
+      <div class="callout">CNN의 픽셀은 이웃이 항상 격자 모양으로 고정돼 있었어요. 하지만 친구 관계는 사람마다 이웃(친구) 수가 다르고 모양도 불규칙해요. GNN은 이런 울퉁불퉁한 연결 구조에서도 정보를 모으는 방법이에요.</div>
+    </section>
+
+    <!-- STEP 2 -->
+    <section id="step-2" class="step" hidden>
+      <div class="step-head">
+        <p class="kicker">STEP 2 · 메시지 패싱 1회</p>
+        <h2>모르는 사람은 친구 의견을 살짝 받아들여요</h2>
+        <p class="desc">규칙은 간단해요: <b>아직 모르는 사람</b>은 자기 확신도를 <b>친구들 확신도의 평균</b>과 절반씩 섞어요. <b>이미 아는 사람(파랑/노랑)</b>은 그대로 고정돼요.</p>
+      </div>
+      <div class="two-col">
+        <div class="panel">
+          <div class="control-row">
+            <button id="step2RunBtn" class="btn btn-primary">1라운드 전파하기 ▶</button>
+            <button id="step2ResetBtn" class="btn">초기화</button>
+          </div>
+          <div class="stat-box mono" id="step2Stat"></div>
+          <p class="note">준서·지호의 <b>바로 옆 친구</b>만 살짝 색이 변해요. 아직 멀리 있는 사람들은 그대로 회색이에요.</p>
+        </div>
+        <div class="panel">
+          <div class="chart-wrap" id="graph2"></div>
+          <div class="legend-row">
+            <span><span class="legend-dot blue"></span>축구파쪽</span>
+            <span><span class="legend-dot yellow"></span>농구파쪽</span>
+            <span><span class="legend-dot gray"></span>모름</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 3 -->
+    <section id="step-3" class="step" hidden>
+      <div class="step-head">
+        <p class="kicker">STEP 3 · 반복 전파</p>
+        <h2>여러 번 반복하면 소문처럼 퍼져요</h2>
+        <p class="desc">같은 과정을 여러 라운드 반복해요. 라운드가 늘어날수록 정보가 친구의 친구, 그 친구의 친구에게까지 점점 멀리 퍼져나가요.</p>
+      </div>
+      <div class="two-col">
+        <div class="panel">
+          <p class="panel-title">라운드 수: <span id="roundsVal" class="mono"></span></p>
+          <input type="range" id="roundsSlider" min="0" max="8" step="1">
+          <div class="stat-box mono" id="step3Stat"></div>
+        </div>
+        <div class="panel">
+          <div class="chart-wrap" id="graph3"></div>
+          <div class="legend-row">
+            <span><span class="legend-dot blue"></span>축구파쪽</span>
+            <span><span class="legend-dot yellow"></span>농구파쪽</span>
+            <span><span class="legend-dot gray"></span>모름</span>
+          </div>
+        </div>
+      </div>
+      <div class="callout">가운데 있는 "유나"는 양쪽 친구가 다 있어서 라운드를 아무리 늘려도 딱 절반(회색)에 머물러요 — 친구가 양쪽에 골고루 있으면 판단하기 애매해지는 것도 자연스러운 현상이에요.</div>
+    </section>
+
+    <!-- STEP 4 -->
+    <section id="step-4" class="step" hidden>
+      <div class="step-head">
+        <p class="kicker">STEP 4 · 새 친구 추가</p>
+        <h2>새로 들어온 사람은 뭘 좋아할까요?</h2>
+        <p class="desc" id="modelInfo"></p>
+        <p class="desc">오른쪽 그래프에서 기존 사람들을 클릭해 "새 친구"와 친구를 맺어보세요(다시 클릭하면 취소돼요). 3단계에서 정한 라운드 수만큼 전파해서 예측해요.</p>
+      </div>
+      <div class="two-col">
+        <div class="panel">
+          <p class="panel-title">지금 연결된 친구</p>
+          <div class="friend-chip-row" id="friendChips"></div>
+          <div class="stat-box mono" id="step4Stat"></div>
+        </div>
+        <div class="panel">
+          <div class="chart-wrap clickable" id="graph4"></div>
+          <div class="legend-row">
+            <span><span class="legend-dot blue"></span>축구파쪽</span>
+            <span><span class="legend-dot yellow"></span>농구파쪽</span>
+            <span><span class="legend-line"></span>내가 만든 친구관계</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="sheet-footer">
+    <button id="prevBtn" class="btn">← 이전</button>
+    <span class="step-indicator" id="stepLabel">1 / 4</span>
+    <button id="nextBtn" class="btn btn-primary">다음 →</button>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  // ---------- graph data ----------
+  var NODES = [
+    { id:0, name:'준서', x:70,  y:45,  seed:'blue' },
+    { id:1, name:'하은', x:118, y:32,  seed:null },
+    { id:2, name:'도윤', x:98,  y:82,  seed:null },
+    { id:3, name:'서연', x:158, y:62,  seed:null },
+    { id:9, name:'민준', x:190, y:22,  seed:null },
+    { id:4, name:'지호', x:252, y:152, seed:'yellow' },
+    { id:5, name:'수아', x:212, y:168, seed:null },
+    { id:6, name:'예준', x:226, y:118, seed:null },
+    { id:7, name:'채원', x:168, y:132, seed:null },
+    { id:10,name:'시우', x:142, y:176, seed:null },
+    { id:8, name:'유나', x:163, y:97,  seed:null }
+  ];
+  var EDGES = [
+    [0,1],[0,2],[1,2],[1,3],[2,3],
+    [4,5],[4,6],[5,6],[5,7],[6,7],
+    [3,9],[7,10],
+    [3,8],[7,8]
+  ];
+  var NEW_ID = 11;
+  var NEW_POS = { x:282, y:88 };
+  var N = NODES.length;
+  function nodeById(id){ for(var i=0;i<NODES.length;i++){ if(NODES[i].id===id) return NODES[i]; } return null; }
+
+  function adjacency(edges, extraCount){
+    var adj = {};
+    NODES.forEach(function(n){ adj[n.id]=[]; });
+    for(var i=0;i<extraCount;i++){ adj[NEW_ID]=adj[NEW_ID]||[]; }
+    edges.forEach(function(e){
+      adj[e[0]] = adj[e[0]]||[]; adj[e[1]] = adj[e[1]]||[];
+      adj[e[0]].push(e[1]); adj[e[1]].push(e[0]);
+    });
+    return adj;
+  }
+
+  function initBeliefs(extraIds){
+    var b = {};
+    NODES.forEach(function(n){
+      b[n.id] = n.seed==='blue' ? [1,0] : (n.seed==='yellow' ? [0,1] : [0.5,0.5]);
+    });
+    (extraIds||[]).forEach(function(id){ b[id]=[0.5,0.5]; });
+    return b;
+  }
+  function stepOnce(beliefs, adj, alpha){
+    var next = {};
+    Object.keys(beliefs).forEach(function(k){ next[k]=beliefs[k].slice(); });
+    Object.keys(beliefs).forEach(function(k){
+      var id = +k;
+      var n = nodeById(id);
+      if(n && n.seed) return; // clamped
+      var neigh = adj[id]||[];
+      if(neigh.length===0) return;
+      var avg=[0,0];
+      neigh.forEach(function(j){ avg[0]+=beliefs[j][0]; avg[1]+=beliefs[j][1]; });
+      avg[0]/=neigh.length; avg[1]/=neigh.length;
+      next[id] = [ alpha*beliefs[id][0]+(1-alpha)*avg[0], alpha*beliefs[id][1]+(1-alpha)*avg[1] ];
+    });
+    return next;
+  }
+  function propagate(edges, rounds, alpha, extraIds){
+    var adj = adjacency(edges, (extraIds||[]).length);
+    var b = initBeliefs(extraIds);
+    for(var r=0;r<rounds;r++){ b = stepOnce(b, adj, alpha); }
+    return b;
+  }
+
+  // ---------- color ----------
+  function cssVar(name){ return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); }
+  function hexToRgb(hex){
+    hex = hex.replace('#','');
+    if(hex.length===3){ hex = hex.split('').map(function(c){return c+c;}).join(''); }
+    var num = parseInt(hex,16);
+    return [(num>>16)&255,(num>>8)&255,num&255];
+  }
+  function lerpColor(hexA, hexB, t){
+    var a=hexToRgb(hexA), b=hexToRgb(hexB);
+    var r=Math.round(a[0]+(b[0]-a[0])*t);
+    var g=Math.round(a[1]+(b[1]-a[1])*t);
+    var bl=Math.round(a[2]+(b[2]-a[2])*t);
+    return 'rgb('+r+','+g+','+bl+')';
+  }
+  function beliefColor(pBlue){
+    var gray=cssVar('--ink-soft'), blue=cssVar('--pencil-blue'), yellow=cssVar('--pencil-yellow');
+    if(pBlue>=0.5) return lerpColor(gray, blue, (pBlue-0.5)/0.5);
+    return lerpColor(gray, yellow, (0.5-pBlue)/0.5);
+  }
+
+  // ---------- chart dom ----------
+  function buildGraphDom(id, withNewNode){
+    var wrap=document.getElementById(id);
+    wrap.innerHTML='';
+    var svgNS='http://www.w3.org/2000/svg';
+    var svg=document.createElementNS(svgNS,'svg');
+    svg.setAttribute('viewBox','0 0 320 200');
+    var s='<g id="'+id+'-edges">';
+    EDGES.forEach(function(e){
+      var a=nodeById(e[0]), b=nodeById(e[1]);
+      s += '<line class="edge-line" data-a="'+e[0]+'" data-b="'+e[1]+'" x1="'+a.x+'" y1="'+a.y+'" x2="'+b.x+'" y2="'+b.y+'"/>';
+    });
+    s += '</g>';
+    if(withNewNode){ s += '<g id="'+id+'-newedges"></g>'; }
+    s += '<g id="'+id+'-nodes">';
+    NODES.forEach(function(n){
+      s += '<circle class="node-circle" data-id="'+n.id+'" cx="'+n.x+'" cy="'+n.y+'" r="'+(n.seed?15:13)+'" stroke="var(--surface)" stroke-width="'+(n.seed?3:2)+'" tabindex="0" role="button" aria-label="'+n.name+'"/>';
+      s += '<text class="node-label" x="'+n.x+'" y="'+n.y+'">'+n.name.charAt(0)+'</text>';
+    });
+    if(withNewNode){
+      s += '<circle class="node-circle" data-id="'+NEW_ID+'" cx="'+NEW_POS.x+'" cy="'+NEW_POS.y+'" r="13" stroke="var(--surface)" stroke-width="2" stroke-dasharray="3 2" tabindex="0" role="button" aria-label="새 친구"/>';
+      s += '<text class="node-label" x="'+NEW_POS.x+'" y="'+NEW_POS.y+'">?</text>';
+    }
+    s += '</g>';
+    svg.innerHTML=s;
+    wrap.appendChild(svg);
+  }
+  function renderNodeColors(id, beliefs){
+    var g=document.getElementById(id+'-nodes');
+    g.querySelectorAll('circle.node-circle').forEach(function(c){
+      var nid=+c.dataset.id;
+      var bel = beliefs[nid] || [0.5,0.5];
+      c.style.fill = beliefColor(bel[0]);
+    });
+  }
+
+  // ---------- state ----------
+  var state = { selectedNode:0, step2Round:0, rounds:4, newNodeEdges:[], step:1 };
+  function q(id){ return document.getElementById(id); }
+
+  var infoBoxEl, step2StatEl, roundsSliderEl, roundsValEl, step3StatEl;
+  var modelInfoEl, friendChipsEl, step4StatEl;
+  var progressFillEl, stepLabelEl, prevBtn, nextBtn;
+
+  // ---------- Step 1 ----------
+  function neighborNamesOf(id){
+    var names=[];
+    EDGES.forEach(function(e){
+      if(e[0]===id) names.push(nodeById(e[1]).name);
+      if(e[1]===id) names.push(nodeById(e[0]).name);
+    });
+    return names;
+  }
+  function renderStep1(){
+    var beliefs = initBeliefs();
+    renderNodeColors('graph1', beliefs);
+    var eg = q('graph1-edges');
+    eg.querySelectorAll('.edge-line').forEach(function(l){
+      var a=+l.dataset.a, b=+l.dataset.b;
+      l.classList.toggle('highlight', state.selectedNode!==null && (a===state.selectedNode||b===state.selectedNode));
+    });
+    var ng = q('graph1-nodes');
+    ng.querySelectorAll('circle.node-circle').forEach(function(c){
+      c.style.strokeWidth = (+c.dataset.id===state.selectedNode) ? '4' : (nodeById(+c.dataset.id).seed?'3':'2');
+      c.setAttribute('stroke', (+c.dataset.id===state.selectedNode) ? 'var(--ink)' : 'var(--surface)');
+    });
+    if(state.selectedNode===null){
+      infoBoxEl.textContent = '사람을 클릭해보세요.';
+    } else {
+      var n = nodeById(state.selectedNode);
+      var status = n.seed==='blue' ? '축구파로 확정 🔵' : (n.seed==='yellow' ? '농구파로 확정 🟡' : '아직 모름 (회색)');
+      infoBoxEl.innerHTML = '<span class="name">'+n.name+'</span><span>상태: '+status+'</span><span>친구('+neighborNamesOf(n.id).length+'명): '+neighborNamesOf(n.id).join(', ')+'</span>';
+    }
+  }
+
+  // ---------- Step 2 ----------
+  function renderStep2(){
+    var beliefs = propagate(EDGES, state.step2Round, 0.5);
+    renderNodeColors('graph2', beliefs);
+    var b1=beliefs[1], b5=beliefs[5];
+    if(state.step2Round===0){
+      step2StatEl.textContent = '하은: 50% · 수아: 50% (아직 전파 전)';
+    } else {
+      step2StatEl.textContent = '하은(준서 옆): '+Math.round(b1[0]*100)+'% 축구파 · 수아(지호 옆): '+Math.round(b5[1]*100)+'% 농구파';
+    }
+    q('step2RunBtn').disabled = state.step2Round>=1;
+  }
+
+  // ---------- Step 3 ----------
+  function unsureCount(beliefs){
+    var c=0;
+    NODES.forEach(function(n){
+      if(n.seed) return;
+      if(Math.abs(beliefs[n.id][0]-0.5)<0.03) c++;
+    });
+    return c;
+  }
+  function renderStep3(){
+    roundsSliderEl.value = state.rounds;
+    roundsValEl.textContent = state.rounds+'라운드';
+    var beliefs = propagate(EDGES, state.rounds, 0.5);
+    renderNodeColors('graph3', beliefs);
+    var unsure = unsureCount(beliefs);
+    step3StatEl.textContent = '아직 회색(불확실)인 사람: '+unsure+'명 / 9명';
+  }
+
+  // ---------- Step 4 ----------
+  function renderStep4(){
+    modelInfoEl.textContent = '3단계에서 정한 라운드 수('+state.rounds+'라운드)를 그대로 사용해요.';
+    var extraEdges = state.newNodeEdges.map(function(id){ return [id, NEW_ID]; });
+    var allEdges = EDGES.concat(extraEdges);
+    var beliefs = propagate(allEdges, state.rounds, 0.5, [NEW_ID]);
+    renderNodeColors('graph4', beliefs);
+
+    var neg = q('graph4-newedges');
+    neg.innerHTML = extraEdges.map(function(e){
+      var a=nodeById(e[0]);
+      return '<line class="edge-new" x1="'+a.x+'" y1="'+a.y+'" x2="'+NEW_POS.x+'" y2="'+NEW_POS.y+'"/>';
+    }).join('');
+
+    friendChipsEl.innerHTML='';
+    if(state.newNodeEdges.length===0){
+      friendChipsEl.innerHTML = '<p class="note">아직 친구가 없어요 — 사람을 클릭해보세요.</p>';
+    } else {
+      state.newNodeEdges.forEach(function(id){
+        var chip=document.createElement('span');
+        chip.className='friend-chip';
+        chip.textContent=nodeById(id).name;
+        friendChipsEl.appendChild(chip);
+      });
+    }
+    var nb = beliefs[NEW_ID];
+    if(state.newNodeEdges.length===0){
+      step4StatEl.textContent = '새 친구: 아직 판단할 정보가 없어요 (50% / 50%)';
+    } else {
+      var pct = Math.round(nb[0]*100);
+      var lead = pct>=50 ? '축구파일 확률 '+pct+'%' : '농구파일 확률 '+(100-pct)+'%';
+      step4StatEl.textContent = '새 친구는 '+lead;
+    }
+  }
+
+  // ---------- nav / lifecycle ----------
+  function updateProgress(){
+    progressFillEl.style.width = (state.step/4*100)+'%';
+    stepLabelEl.textContent = state.step+' / 4';
+  }
+  function updateNavTabs(){
+    document.querySelectorAll('.step-tab').forEach(function(btn){
+      var s=+btn.dataset.step;
+      btn.classList.toggle('active', s===state.step);
+      if(s===state.step) btn.setAttribute('aria-current','step'); else btn.removeAttribute('aria-current');
+    });
+  }
+  function updatePrevNext(){
+    prevBtn.disabled = state.step===1;
+    nextBtn.textContent = state.step===4 ? '처음부터 다시 ↺' : '다음 →';
+  }
+  function renderCurrentStep(){
+    updateProgress();
+    switch(state.step){
+      case 1: renderStep1(); break;
+      case 2: renderStep2(); break;
+      case 3: renderStep3(); break;
+      case 4: renderStep4(); break;
+    }
+  }
+  function goToStep(n){
+    if(n<1) n=1; if(n>4) n=4;
+    state.step=n;
+    for(var i=1;i<=4;i++){ q('step-'+i).hidden = (i!==n); }
+    updateNavTabs();
+    updatePrevNext();
+    renderCurrentStep();
+  }
+
+  function renderLogoGrid(){
+    var el=q('logoGrid');
+    el.innerHTML='';
+    var pattern=[1,0,0,1, 0,1,1,0, 0,1,1,0, 1,0,0,1];
+    pattern.forEach(function(v,i){
+      var d=document.createElement('i');
+      d.className = v? 'on':'';
+      d.style.animationDelay = (i*28)+'ms';
+      el.appendChild(d);
+    });
+  }
+
+  function initListeners(){
+    q('graph1-nodes').addEventListener('click', function(e){
+      var c=e.target.closest('.node-circle'); if(!c) return;
+      state.selectedNode = +c.dataset.id;
+      renderStep1();
+    });
+    q('graph1-nodes').addEventListener('keydown', function(e){
+      var c=e.target.closest('.node-circle'); if(!c) return;
+      if(e.key===' '||e.key==='Enter'){ e.preventDefault(); state.selectedNode=+c.dataset.id; renderStep1(); }
+    });
+
+    q('step2RunBtn').addEventListener('click', function(){
+      state.step2Round = 1;
+      renderStep2();
+    });
+    q('step2ResetBtn').addEventListener('click', function(){
+      state.step2Round = 0;
+      renderStep2();
+    });
+
+    roundsSliderEl.addEventListener('input', function(e){
+      state.rounds = +e.target.value;
+      renderStep3();
+    });
+
+    q('graph4-nodes').addEventListener('click', function(e){
+      var c=e.target.closest('.node-circle'); if(!c) return;
+      var id=+c.dataset.id;
+      if(id===NEW_ID) return;
+      var idx=state.newNodeEdges.indexOf(id);
+      if(idx>=0){ state.newNodeEdges.splice(idx,1); } else { state.newNodeEdges.push(id); }
+      renderStep4();
+    });
+
+    q('stepsNav').addEventListener('click', function(e){
+      var b=e.target.closest('.step-tab'); if(!b) return;
+      goToStep(+b.dataset.step);
+    });
+    prevBtn.addEventListener('click', function(){ goToStep(state.step-1); });
+    nextBtn.addEventListener('click', function(){ if(state.step<4) goToStep(state.step+1); else goToStep(1); });
+  }
+
+  function init(){
+    buildGraphDom('graph1', false);
+    buildGraphDom('graph2', false);
+    buildGraphDom('graph3', false);
+    buildGraphDom('graph4', true);
+
+    infoBoxEl=q('infoBox'); step2StatEl=q('step2Stat');
+    roundsSliderEl=q('roundsSlider'); roundsValEl=q('roundsVal'); step3StatEl=q('step3Stat');
+    modelInfoEl=q('modelInfo'); friendChipsEl=q('friendChips'); step4StatEl=q('step4Stat');
+    progressFillEl=q('progressFill'); stepLabelEl=q('stepLabel');
+    prevBtn=q('prevBtn'); nextBtn=q('nextBtn');
+
+    renderLogoGrid();
+    initListeners();
+    updateNavTabs();
+    updatePrevNext();
+    renderCurrentStep();
+  }
+
+  try{
+    if(window.claude && window.claude.hot && window.claude.hot.ready){
+      window.claude.hot.ready(function(){ init(); });
+    } else { init(); }
+  }catch(e){ init(); }
+
+})();
+</script>

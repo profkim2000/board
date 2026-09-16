@@ -1,0 +1,549 @@
+<title>Vision Transformer 체험 학습지</title>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+  :root{
+    --paper:#FAFAF8;
+    --paper-grid:#DCE6F5;
+    --paper-grid-strong:#C3D2EE;
+    --surface:#FFFFFF;
+    --border:#E2E6EE;
+    --ink:#1E2430;
+    --ink-soft:#63697A;
+    --pencil-blue:#2F5FD1;
+    --pencil-blue-soft:#E7EEFD;
+    --pencil-blue-ink:#1D3E96;
+    --pencil-red:#D8443A;
+    --pencil-red-soft:#FBE7E5;
+    --pencil-red-ink:#A9291F;
+    --pencil-yellow:#C98A00;
+    --pencil-yellow-soft:#FBF0D6;
+    --pencil-yellow-ink:#8A5E00;
+    --shadow: 0 1px 2px rgba(30,36,48,0.06), 0 6px 20px rgba(30,36,48,0.05);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#161D28; --paper-grid:#2D3B52; --paper-grid-strong:#3C4E6B;
+      --surface:#1D2534; --border:#31405A; --ink:#ECEFF6; --ink-soft:#9BA6BC;
+      --pencil-blue:#7DA2FF; --pencil-blue-soft:#243257; --pencil-blue-ink:#C4D3FF;
+      --pencil-red:#FF8A7E; --pencil-red-soft:#3A2429; --pencil-red-ink:#FFC0B7;
+      --pencil-yellow:#F0C243; --pencil-yellow-soft:#3A311A; --pencil-yellow-ink:#F5D27A;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 10px 26px rgba(0,0,0,0.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#161D28; --paper-grid:#2D3B52; --paper-grid-strong:#3C4E6B;
+    --surface:#1D2534; --border:#31405A; --ink:#ECEFF6; --ink-soft:#9BA6BC;
+    --pencil-blue:#7DA2FF; --pencil-blue-soft:#243257; --pencil-blue-ink:#C4D3FF;
+    --pencil-red:#FF8A7E; --pencil-red-soft:#3A2429; --pencil-red-ink:#FFC0B7;
+    --pencil-yellow:#F0C243; --pencil-yellow-soft:#3A311A; --pencil-yellow-ink:#F5D27A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 10px 26px rgba(0,0,0,0.35);
+  }
+
+  *{ box-sizing:border-box; }
+  [hidden]{ display:none !important; }
+  body{
+    margin:0;
+    background:
+      linear-gradient(var(--paper), var(--paper)),
+      repeating-linear-gradient(0deg, var(--paper-grid) 0 1px, transparent 1px 28px),
+      repeating-linear-gradient(90deg, var(--paper-grid) 0 1px, transparent 1px 28px);
+    background-color:var(--paper);
+    color:var(--ink);
+    font-family:'Noto Sans KR', 'Malgun Gothic', sans-serif;
+    line-height:1.6;
+  }
+  h1,h2,h3{ font-family:'Gowun Dodum','Noto Sans KR',sans-serif; font-weight:400; text-wrap:balance; margin:0; color:var(--ink); }
+  p{ margin:0; }
+  .mono{ font-family:'JetBrains Mono', ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+  button{ font-family:inherit; }
+  :focus-visible{ outline:3px solid var(--pencil-blue); outline-offset:2px; }
+
+  #app{ max-width:980px; margin-inline:auto; padding-inline:20px; padding-block:32px 56px; display:flex; flex-direction:column; gap:20px; }
+
+  .masthead{ display:flex; align-items:center; gap:20px; background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:22px 24px; box-shadow:var(--shadow); flex-wrap:wrap; }
+  .masthead-badge{ flex:none; width:84px; height:84px; display:grid; grid-template-columns:repeat(4,1fr); grid-template-rows:repeat(4,1fr); gap:3px; padding:8px; background:var(--paper); border:1px solid var(--border); border-radius:12px; }
+  .masthead-badge i{ background:var(--paper-grid); border-radius:2px; opacity:0; }
+  @media (prefers-reduced-motion: no-preference){ .masthead-badge i.on{ animation:inkIn 240ms ease-out forwards; } }
+  .masthead-badge i.on{ background:var(--pencil-blue); opacity:1; }
+  @keyframes inkIn{ from{ opacity:0; transform:scale(.4);} to{ opacity:1; transform:scale(1);} }
+  .masthead-text{ flex:1; min-width:220px; display:flex; flex-direction:column; gap:6px; }
+  .eyebrow{ font-size:.8rem; font-weight:700; letter-spacing:.06em; color:var(--pencil-blue); text-transform:uppercase; }
+  .masthead-text h1{ font-size:clamp(1.4rem,4vw,2rem); }
+  .lede{ color:var(--ink-soft); font-size:.95rem; max-width:60ch; }
+
+  .steps-nav{ display:flex; flex-wrap:wrap; gap:8px; }
+  .step-tab{ flex:1 1 auto; min-width:100px; display:flex; flex-direction:column; align-items:center; gap:2px; padding:10px 8px; border-radius:12px; border:1px solid var(--border); background:var(--surface); color:var(--ink-soft); cursor:pointer; font-size:.8rem; transition:background 150ms, color 150ms, border-color 150ms; }
+  .step-tab b{ font-family:'JetBrains Mono',monospace; font-size:.95rem; color:inherit; }
+  .step-tab.active{ background:var(--pencil-blue); border-color:var(--pencil-blue); color:#fff; }
+  .step-tab.active b{ color:#fff; }
+
+  .progress-track{ height:6px; border-radius:999px; background:var(--paper-grid); overflow:hidden; }
+  .progress-fill{ height:100%; background:var(--pencil-blue); border-radius:999px; transition:width 220ms ease; }
+
+  .sheet{ background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:26px 24px; box-shadow:var(--shadow); }
+  .step:not([hidden]){ display:flex; }
+  .step{ flex-direction:column; gap:18px; }
+  .step-head{ display:flex; flex-direction:column; gap:6px; }
+  .step-head .kicker{ font-size:.78rem; font-weight:700; color:var(--pencil-blue); letter-spacing:.04em; }
+  .step-head h2{ font-size:1.4rem; }
+  .step-head .desc{ color:var(--ink-soft); font-size:.95rem; max-width:66ch; }
+
+  .two-col{ display:grid; grid-template-columns:1fr; gap:22px; }
+  @media (min-width:680px){ .two-col{ grid-template-columns: minmax(0,250px) 1fr; align-items:start; } }
+
+  .panel{ display:flex; flex-direction:column; gap:12px; }
+  .panel-title{ font-size:.85rem; font-weight:700; color:var(--ink-soft); }
+
+  .btn{ border-radius:10px; border:1px solid var(--border); background:var(--surface); color:var(--ink); padding:9px 14px; font-size:.85rem; font-weight:500; cursor:pointer; transition:background 120ms, border-color 120ms, color 120ms; }
+  .btn:hover{ border-color:var(--pencil-blue); }
+  .btn:disabled{ opacity:.45; cursor:not-allowed; }
+  .btn-primary{ background:var(--pencil-blue); border-color:var(--pencil-blue); color:#fff; }
+  .btn-primary:hover{ opacity:.92; }
+  .btn.active{ background:var(--pencil-blue); border-color:var(--pencil-blue); color:#fff; }
+  .control-row{ display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+
+  .note{ font-size:.82rem; color:var(--ink-soft); }
+  .callout{ background:var(--paper); border:1px dashed var(--paper-grid-strong); border-radius:12px; padding:12px 14px; font-size:.88rem; color:var(--ink-soft); }
+
+  .stat-box{ font-family:'JetBrains Mono',monospace; font-weight:700; font-size:1rem; padding:10px 14px; border-radius:12px; background:var(--paper); border:1px solid var(--border); }
+  .info-box{ background:var(--paper); border:1px solid var(--border); border-radius:12px; padding:12px 14px; font-size:.85rem; display:flex; flex-direction:column; gap:4px; }
+
+  .patch-grid{ display:grid; grid-template-columns:repeat(5,40px); grid-template-rows:repeat(5,40px); gap:4px; }
+  .patch-cell{ position:relative; border-radius:8px; border:1px solid var(--border); background:var(--paper); transition:background 150ms, outline-color 150ms; display:flex; align-items:center; justify-content:center; font-family:'JetBrains Mono',monospace; font-size:.62rem; color:var(--ink-soft); }
+  .patch-cell.on{ background:var(--pencil-blue); }
+  .patch-cell.clickable{ cursor:pointer; }
+  .patch-cell.selected{ outline:3px solid var(--ink); outline-offset:2px; }
+  .patch-cell.contentOn{ box-shadow: inset 0 0 0 2px var(--pencil-yellow); }
+  .patch-cell.contentOn .val{ color:#fff; font-weight:700; }
+
+  .toggle-row{ display:flex; align-items:center; gap:12px; }
+  .toggle-btn{ border-radius:999px; border:2px solid var(--border); background:var(--surface); padding:10px 20px; font-weight:700; font-size:.95rem; cursor:pointer; transition:background 150ms,border-color 150ms,color 150ms; }
+  .toggle-btn.on{ background:var(--pencil-blue); border-color:var(--pencil-blue); color:#fff; }
+  .toggle-btn.off{ background:var(--pencil-red-soft); border-color:var(--pencil-red); color:var(--pencil-red-ink); }
+
+  .legend-row{ display:flex; gap:14px; flex-wrap:wrap; font-size:.8rem; color:var(--ink-soft); align-items:center; }
+  .legend-dot{ display:inline-block; width:11px; height:11px; border-radius:50%; margin-right:5px; vertical-align:middle; }
+  .legend-dot.blue{ background:var(--pencil-blue); }
+  .legend-ring{ display:inline-block; width:11px; height:11px; border-radius:3px; margin-right:5px; vertical-align:middle; box-shadow: inset 0 0 0 2px var(--pencil-yellow); }
+
+  .sheet-footer{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
+  .step-indicator{ font-family:'JetBrains Mono',monospace; font-size:.85rem; color:var(--ink-soft); }
+
+  @media (max-width:400px){ .masthead{ flex-direction:column; align-items:flex-start; } }
+</style>
+
+<div id="app">
+
+  <header class="masthead">
+    <div class="masthead-badge" id="logoGrid" aria-hidden="true"></div>
+    <div class="masthead-text">
+      <p class="eyebrow">완전 초보자를 위한 체험 학습지</p>
+      <h1>Vision Transformer, 패치끼리 서로 주목해요</h1>
+      <p class="lede">CNN은 작은 커널이 이미지 위를 미끄러지며 훑었어요. ViT는 이미지를 조각(패치)으로 잘라서, 멀리 떨어진 조각끼리도 한 번에 서로 "주목(attention)"하게 해요. 이 핵심 아이디어를 4단계로 체험해요.</p>
+    </div>
+  </header>
+
+  <nav class="steps-nav" id="stepsNav" aria-label="학습 단계">
+    <button class="step-tab" data-step="1"><b>1</b><span>패치로 자르기</span></button>
+    <button class="step-tab" data-step="2"><b>2</b><span>서로 주목하기</span></button>
+    <button class="step-tab" data-step="3"><b>3</b><span>위치 정보</span></button>
+    <button class="step-tab" data-step="4"><b>4</b><span>멀리까지 한 번에</span></button>
+  </nav>
+
+  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+
+  <main class="sheet">
+
+    <!-- STEP 1 -->
+    <section id="step-1" class="step">
+      <div class="step-head">
+        <p class="kicker">STEP 1 · 이미지를 패치로 잘라요</p>
+        <h2>커널로 훑는 대신, 조각으로 잘라요</h2>
+        <p class="desc">아래 5×5 이미지를 볼까요. CNN은 3×3 같은 작은 커널이 이 위를 한 칸씩 미끄러지며 지나갔어요. ViT(Vision Transformer)는 다르게 접근해요 — 이미지 전체를 25개의 작은 조각(패치)으로 잘라서, 각 패치를 하나의 "토큰"처럼 다뤄요.</p>
+      </div>
+      <div class="control-row" id="presetRow1"></div>
+      <div class="patch-grid" id="grid1"></div>
+      <div class="callout">CNN 학습지에서는 커널이 이웃한 픽셀만 한 번에 볼 수 있었어요. ViT는 일단 이미지를 25개의 패치로 잘라 늘어놓은 다음, 다음 단계에서 이 패치들이 서로 "누구를 봐야 할지" 직접 계산해요 — 이웃이든 아니든 상관없이요.</div>
+    </section>
+
+    <!-- STEP 2 -->
+    <section id="step-2" class="step" hidden>
+      <div class="step-head">
+        <p class="kicker">STEP 2 · Self-Attention</p>
+        <h2>패치를 하나 골라서, 어디에 주목하는지 보기</h2>
+        <p class="desc">각 패치는 Query("나는 무엇을 찾고 있나"), Key("나는 어떤 내용인가"), Value("나는 어떤 정보를 줄까") 세 벡터를 가져요. 아래 패치를 하나 클릭하면, 그 패치가 나머지 24개 패치에 얼마나 주목(%)하는지 실제로 계산해서 보여줘요.</p>
+      </div>
+      <div class="control-row" id="presetRow2"></div>
+      <div class="two-col">
+        <div class="panel">
+          <div class="stat-box mono" id="s2Stat">패치를 클릭해보세요.</div>
+          <div class="info-box" id="s2Info"></div>
+        </div>
+        <div class="panel">
+          <div class="patch-grid" id="grid2"></div>
+          <div class="legend-row">
+            <span><span class="legend-dot blue"></span>주목(진할수록 큼)</span>
+            <span><span class="legend-ring"></span>내용 켜짐 패치</span>
+          </div>
+        </div>
+      </div>
+      <div class="callout">숫자는 그 패치로부터 각 패치로 향하는 주목 비율(%)이에요(전체 합=100%). 내용이 같은(켜짐/꺼짐) 패치끼리 서로 훨씬 강하게 주목한다는 걸 확인해보세요 — 옆에 붙어 있는지는 전혀 상관없어요.</div>
+    </section>
+
+    <!-- STEP 3 -->
+    <section id="step-3" class="step" hidden>
+      <div class="step-head">
+        <p class="kicker">STEP 3 · 위치 정보(Position Embedding)</p>
+        <h2>위치를 안 알려주면, 모양을 구분 못 해요</h2>
+        <p class="desc">내용(켜짐/꺼짐)이 똑같이 9개씩 켜져 있지만 배치가 다른 두 이미지예요 — "플러스"모양과 "무작위로 흩어진" 모양. 위치 정보 없이 내용만으로 계산하면 어떻게 될까요?</p>
+      </div>
+      <div class="control-row" id="presetRow3"></div>
+      <div class="toggle-row">
+        <button id="s3Toggle" class="toggle-btn off">위치 정보 꺼짐</button>
+      </div>
+      <div class="two-col">
+        <div class="panel">
+          <p class="panel-title">플러스 모양</p>
+          <div class="patch-grid" id="grid3a"></div>
+        </div>
+        <div class="panel">
+          <p class="panel-title">무작위로 흩어진 모양</p>
+          <div class="patch-grid" id="grid3b"></div>
+        </div>
+      </div>
+      <div class="callout" id="callout3"></div>
+    </section>
+
+    <!-- STEP 4 -->
+    <section id="step-4" class="step" hidden>
+      <div class="step-head">
+        <p class="kicker">STEP 4 · CNN과 다른 점</p>
+        <h2>한 번에, 아무리 멀리 떨어져 있어도</h2>
+        <p class="desc">테두리 모양이에요. 모서리 패치 하나를 클릭해서, 바로 옆 칸과 정반대편 모서리에 각각 얼마나 주목하는지 비교해보세요.</p>
+      </div>
+      <div class="two-col">
+        <div class="panel">
+          <div class="stat-box mono" id="s4Stat">모서리 패치를 클릭해보세요.</div>
+          <div class="info-box" id="s4Info"></div>
+        </div>
+        <div class="panel">
+          <div class="patch-grid" id="grid4"></div>
+          <div class="legend-row">
+            <span><span class="legend-dot blue"></span>주목(진할수록 큼)</span>
+            <span><span class="legend-ring"></span>테두리(내용 켜짐)</span>
+          </div>
+        </div>
+      </div>
+      <div class="callout">CNN의 3×3 커널은 한 번에 바로 옆 칸까지만 볼 수 있어요. 반대편 모서리를 보려면 여러 층을 거쳐야 해요. ViT의 self-attention은 단 한 번의 계산으로 바로 옆 칸과 반대편 모서리에 <b>똑같은 크기</b>로 주목할 수 있어요 — 거리가 전혀 문제되지 않아요.</div>
+    </section>
+
+  </main>
+
+  <footer class="sheet-footer">
+    <button id="prevBtn" class="btn">← 이전</button>
+    <span class="step-indicator" id="stepLabel">1 / 4</span>
+    <button id="nextBtn" class="btn btn-primary">다음 →</button>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var N = 5, P = N*N;
+  function idx(r,c){ return r*N+c; }
+
+  var PRESETS = [
+    { key:'diag', name:'대각선', cells:(function(){ var a=[]; for(var i=0;i<N;i++) a.push([i,i]); return a; })() },
+    { key:'border', name:'테두리', cells:(function(){ var a=[]; for(var r=0;r<N;r++){ for(var c=0;c<N;c++){ if(r===0||r===N-1||c===0||c===N-1) a.push([r,c]); } } return a; })() },
+    { key:'checker', name:'체크무늬', cells:(function(){ var a=[]; for(var r=0;r<N;r++){ for(var c=0;c<N;c++){ if((r+c)%2===0) a.push([r,c]); } } return a; })() },
+    { key:'plus', name:'플러스', cells:(function(){ var a=[]; for(var c=0;c<N;c++) a.push([2,c]); for(var r=0;r<N;r++){ if(r!==2) a.push([r,2]); } return a; })() },
+    { key:'blank', name:'빈칸', cells:[] }
+  ];
+  var SCATTERED = [[0,0],[0,4],[4,0],[4,4],[1,1],[1,3],[3,1],[3,3],[0,2]];
+
+  function presetByKey(k){ for(var i=0;i<PRESETS.length;i++){ if(PRESETS[i].key===k) return PRESETS[i]; } return PRESETS[0]; }
+  function contentOf(cells){
+    var x=[]; for(var i=0;i<P;i++) x.push(0);
+    cells.forEach(function(rc){ x[idx(rc[0],rc[1])]=1; });
+    return x;
+  }
+
+  function softmax(logits){
+    var mx = Math.max.apply(null, logits);
+    var exps = logits.map(function(v){ return Math.exp(v-mx); });
+    var sum = exps.reduce(function(a,b){return a+b;},0);
+    return exps.map(function(v){ return v/sum; });
+  }
+  // Self-attention over 25 patches. Q=K=[content, 1-content, (position terms if usePos)]. V=content.
+  function computeAttention(x, usePos, beta, temp){
+    var Q=[], K=[], V=[];
+    for(var i=0;i<P;i++){
+      var r=Math.floor(i/N), c=i%N;
+      var rowN=(r-2)/2, colN=(c-2)/2;
+      var vec = usePos ? [x[i],1-x[i],beta*rowN,beta*colN] : [x[i],1-x[i]];
+      Q.push(vec); K.push(vec); V.push(x[i]);
+    }
+    var attn=[], outputs=[];
+    for(var i2=0;i2<P;i2++){
+      var logits=[];
+      for(var j=0;j<P;j++){
+        var s=0;
+        for(var d=0; d<Q[i2].length; d++){ s+=Q[i2][d]*K[j][d]; }
+        logits.push(s*temp);
+      }
+      var a = softmax(logits);
+      attn.push(a);
+      var out=0;
+      for(var j2=0;j2<P;j2++){ out += a[j2]*V[j2]; }
+      outputs.push(out);
+    }
+    return { attn:attn, outputs:outputs };
+  }
+
+  function q(id){ return document.getElementById(id); }
+  function cssVar(name){ return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); }
+  function hexToRgb(hex){
+    hex = hex.replace('#','');
+    if(hex.length===3){ hex = hex.split('').map(function(c){return c+c;}).join(''); }
+    var num = parseInt(hex,16);
+    return [(num>>16)&255,(num>>8)&255,num&255];
+  }
+  function lerpColor(hexA, hexB, t){
+    var a=hexToRgb(hexA), b=hexToRgb(hexB);
+    var r=Math.round(a[0]+(b[0]-a[0])*t);
+    var g=Math.round(a[1]+(b[1]-a[1])*t);
+    var bl=Math.round(a[2]+(b[2]-a[2])*t);
+    return 'rgb('+r+','+g+','+bl+')';
+  }
+
+  // ---------- render: plain content grid (step1) ----------
+  function renderContentGrid(containerId, cells){
+    var x = contentOf(cells);
+    var html='';
+    for(var i=0;i<P;i++){ html += '<div class="patch-cell'+(x[i]?' on':'')+'"></div>'; }
+    q(containerId).innerHTML = html;
+  }
+
+  // ---------- render: heatmap grid with attention weights (step2/step4) ----------
+  function renderHeatGrid(containerId, x, attnRow, selectedIdx, onClick){
+    var paper = cssVar('--paper'), blue = cssVar('--pencil-blue');
+    var html='';
+    for(var i=0;i<P;i++){
+      var w = attnRow ? attnRow[i] : 0;
+      var t = Math.min(1, w/0.15); // 15%+ = full intensity
+      var bg = lerpColor(paper, blue, t);
+      var cls = 'patch-cell clickable'+(x[i]?' contentOn':'')+(i===selectedIdx?' selected':'');
+      var label = attnRow ? Math.round(w*100) : '';
+      html += '<div class="'+cls+'" data-i="'+i+'" style="background:'+bg+';"><span class="val">'+label+'</span></div>';
+    }
+    var el = q(containerId);
+    el.innerHTML = html;
+    if(onClick){
+      el.querySelectorAll('.patch-cell').forEach(function(cell){
+        cell.addEventListener('click', function(){ onClick(+cell.dataset.i); });
+      });
+    }
+  }
+
+  // ---------- render: value grid (step3, shows output value per cell) ----------
+  function renderValueGrid(containerId, x, outputs){
+    var paper = cssVar('--paper'), blue = cssVar('--pencil-blue');
+    var html='';
+    for(var i=0;i<P;i++){
+      var v = outputs[i];
+      var bg = lerpColor(paper, blue, Math.min(1,Math.max(0,v)));
+      var cls = 'patch-cell'+(x[i]?' contentOn':'');
+      var label = x[i] ? v.toFixed(2) : '';
+      html += '<div class="'+cls+'" style="background:'+bg+';"><span class="val">'+label+'</span></div>';
+    }
+    q(containerId).innerHTML = html;
+  }
+
+  function renderPresetRow(containerId, activeKey, onPick){
+    var html = PRESETS.map(function(p){
+      return '<button class="btn preset-btn'+(p.key===activeKey?' active':'')+'" data-key="'+p.key+'">'+p.name+'</button>';
+    }).join('');
+    var el = q(containerId);
+    el.innerHTML = html;
+    el.querySelectorAll('.preset-btn').forEach(function(btn){
+      btn.addEventListener('click', function(){ onPick(btn.dataset.key); });
+    });
+  }
+
+  // ---------- state ----------
+  var state = { step:1 };
+  var s1 = { preset:'diag' };
+  var s2 = { preset:'diag', selected:null };
+  var s3 = { usePos:false };
+  var s4 = { selected:null };
+
+  var progressFillEl, stepLabelEl, prevBtn, nextBtn;
+
+  // ---------- Step 1 ----------
+  function renderStep1(){
+    renderPresetRow('presetRow1', s1.preset, function(k){ s1.preset=k; renderStep1(); });
+    renderContentGrid('grid1', presetByKey(s1.preset).cells);
+  }
+
+  // ---------- Step 2 ----------
+  function renderStep2(){
+    renderPresetRow('presetRow2', s2.preset, function(k){ s2.preset=k; s2.selected=null; renderStep2(); });
+    var cells = presetByKey(s2.preset).cells;
+    var x = contentOf(cells);
+    var res = computeAttention(x, false, 0, 4);
+    var attnRow = s2.selected!==null ? res.attn[s2.selected] : null;
+    renderHeatGrid('grid2', x, attnRow, s2.selected, function(i){ s2.selected=i; renderStep2(); });
+
+    if(s2.selected===null){
+      q('s2Stat').textContent = '패치를 클릭해보세요.';
+      q('s2Info').innerHTML = '';
+    } else {
+      var r=Math.floor(s2.selected/N), c=s2.selected%N;
+      q('s2Stat').textContent = '선택한 패치: ('+r+','+c+') · 내용: '+(x[s2.selected]?'켜짐':'꺼짐');
+      var out = res.outputs[s2.selected];
+      var sameCount = x.filter(function(v,i){return v===x[s2.selected];}).length;
+      q('s2Info').innerHTML =
+        '<span>같은 내용을 가진 패치: '+sameCount+'개 (자기 자신 포함)</span>'+
+        '<span>이 패치가 최종적으로 받은 값(output): <b class="mono">'+out.toFixed(3)+'</b></span>';
+    }
+  }
+
+  // ---------- Step 3 ----------
+  function renderStep3(){
+    var btn = q('s3Toggle');
+    btn.textContent = s3.usePos ? '위치 정보 켜짐' : '위치 정보 꺼짐';
+    btn.className = 'toggle-btn '+(s3.usePos?'on':'off');
+
+    var xPlus = contentOf(presetByKey('plus').cells);
+    var xScat = contentOf(SCATTERED);
+    var beta = 0.9, temp = 4;
+    var resPlus = computeAttention(xPlus, s3.usePos, s3.usePos?beta:0, temp);
+    var resScat = computeAttention(xScat, s3.usePos, s3.usePos?beta:0, temp);
+
+    renderValueGrid('grid3a', xPlus, resPlus.outputs);
+    renderValueGrid('grid3b', xScat, resScat.outputs);
+
+    var onPlus = resPlus.outputs.filter(function(v,i){ return xPlus[i]===1; });
+    var onScat = resScat.outputs.filter(function(v,i){ return xScat[i]===1; });
+    var minP=Math.min.apply(null,onPlus), maxP=Math.max.apply(null,onPlus);
+    var minS=Math.min.apply(null,onScat), maxS=Math.max.apply(null,onScat);
+
+    if(!s3.usePos){
+      q('callout3').innerHTML = '위치 정보 없이는, "켜진" 패치 9개가 <b>플러스 모양이든 무작위 모양이든 정확히 똑같은 값</b>('+onPlus[0].toFixed(3)+')을 받아요. 각 칸에 적힌 숫자를 비교해보세요 — 모양이 완전히 다른데 결과는 하나도 다르지 않아요. 내용(켜짐/꺼짐)만 보고 계산하니, <b>어디에 있는지는 통째로 무시</b>되는 거예요.';
+    } else {
+      q('callout3').innerHTML = '위치 정보를 더하니 값이 달라져요! 플러스 모양의 켜진 패치들은 '+minP.toFixed(3)+'~'+maxP.toFixed(3)+' 사이로, 흩어진 모양은 '+minS.toFixed(3)+'~'+maxS.toFixed(3)+' 사이로 <b>서로 다른 패턴</b>을 보여요. 위치 정보가 있어야 모델이 "이건 플러스 모양"이라는 걸 구분할 수 있어요.';
+    }
+  }
+
+  // ---------- Step 4 ----------
+  function renderStep4(){
+    var cells = presetByKey('border').cells;
+    var x = contentOf(cells);
+    var res = computeAttention(x, false, 0, 4);
+    var attnRow = s4.selected!==null ? res.attn[s4.selected] : null;
+    renderHeatGrid('grid4', x, attnRow, s4.selected, function(i){
+      var r=Math.floor(i/N), c=i%N;
+      var isBorder = (r===0||r===N-1||c===0||c===N-1);
+      if(!isBorder) return;
+      s4.selected=i; renderStep4();
+    });
+
+    if(s4.selected===null){
+      q('s4Stat').textContent = '모서리 패치를 클릭해보세요.';
+      q('s4Info').innerHTML = '';
+    } else {
+      var r=Math.floor(s4.selected/N), c=s4.selected%N;
+      var oppR=N-1-r, oppC=N-1-c;
+      var oppIdx = idx(oppR,oppC);
+      var neighbors = [];
+      [[r-1,c],[r+1,c],[r,c-1],[r,c+1]].forEach(function(rc){
+        if(rc[0]>=0&&rc[0]<N&&rc[1]>=0&&rc[1]<N && x[idx(rc[0],rc[1])]===1){ neighbors.push(idx(rc[0],rc[1])); }
+      });
+      q('s4Stat').textContent = '선택한 패치: ('+r+','+c+')';
+      var neighborText = neighbors.length ? (attnRow[neighbors[0]]*100).toFixed(1)+'%' : '해당 없음';
+      q('s4Info').innerHTML =
+        '<span>바로 옆 테두리 칸 주목도: <b class="mono">'+neighborText+'</b></span>'+
+        '<span>정반대편 모서리 ('+oppR+','+oppC+') 주목도: <b class="mono">'+(attnRow[oppIdx]*100).toFixed(1)+'%</b></span>'+
+        '<span class="note">두 값이 거의 같다는 걸 확인해보세요 — 거리는 상관없어요.</span>';
+    }
+  }
+
+  // ---------- nav / lifecycle ----------
+  function updateProgress(){
+    progressFillEl.style.width = (state.step/4*100)+'%';
+    stepLabelEl.textContent = state.step+' / 4';
+  }
+  function updateNavTabs(){
+    document.querySelectorAll('.step-tab').forEach(function(btn){
+      var s=+btn.dataset.step;
+      btn.classList.toggle('active', s===state.step);
+      if(s===state.step) btn.setAttribute('aria-current','step'); else btn.removeAttribute('aria-current');
+    });
+  }
+  function updatePrevNext(){
+    prevBtn.disabled = state.step===1;
+    nextBtn.textContent = state.step===4 ? '처음부터 다시 ↺' : '다음 →';
+  }
+  function renderCurrentStep(){
+    updateProgress();
+    switch(state.step){
+      case 1: renderStep1(); break;
+      case 2: renderStep2(); break;
+      case 3: renderStep3(); break;
+      case 4: renderStep4(); break;
+    }
+  }
+  function goToStep(n){
+    if(n<1) n=1; if(n>4) n=4;
+    state.step=n;
+    for(var i=1;i<=4;i++){ q('step-'+i).hidden = (i!==n); }
+    updateNavTabs();
+    updatePrevNext();
+    renderCurrentStep();
+  }
+
+  function renderLogoGrid(){
+    var el=q('logoGrid');
+    el.innerHTML='';
+    var pattern=[1,1,1,1, 1,0,0,1, 1,0,0,1, 1,1,1,1];
+    pattern.forEach(function(v,i){
+      var d=document.createElement('i');
+      d.className = v? 'on':'';
+      d.style.animationDelay = (i*28)+'ms';
+      el.appendChild(d);
+    });
+  }
+
+  function initListeners(){
+    q('s3Toggle').addEventListener('click', function(){ s3.usePos=!s3.usePos; renderStep3(); });
+
+    q('stepsNav').addEventListener('click', function(e){
+      var b=e.target.closest('.step-tab'); if(!b) return;
+      goToStep(+b.dataset.step);
+    });
+    prevBtn.addEventListener('click', function(){ goToStep(state.step-1); });
+    nextBtn.addEventListener('click', function(){ if(state.step<4) goToStep(state.step+1); else goToStep(1); });
+  }
+
+  function init(){
+    progressFillEl=q('progressFill'); stepLabelEl=q('stepLabel');
+    prevBtn=q('prevBtn'); nextBtn=q('nextBtn');
+
+    renderLogoGrid();
+    initListeners();
+    updateNavTabs();
+    updatePrevNext();
+    renderCurrentStep();
+  }
+
+  try{
+    if(window.claude && window.claude.hot && window.claude.hot.ready){
+      window.claude.hot.ready(function(){ init(); });
+    } else { init(); }
+  }catch(e){ init(); }
+
+})();
+</script>

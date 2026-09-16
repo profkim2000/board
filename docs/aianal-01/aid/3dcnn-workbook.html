@@ -1,0 +1,533 @@
+<title>3D-CNN 체험 학습지</title>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+  :root{
+    --paper:#FAFAF8;
+    --paper-grid:#DCE6F5;
+    --paper-grid-strong:#C3D2EE;
+    --surface:#FFFFFF;
+    --border:#E2E6EE;
+    --ink:#1E2430;
+    --ink-soft:#63697A;
+    --pencil-blue:#2F5FD1;
+    --pencil-blue-soft:#E7EEFD;
+    --pencil-blue-ink:#1D3E96;
+    --pencil-red:#D8443A;
+    --pencil-red-soft:#FBE7E5;
+    --pencil-red-ink:#A9291F;
+    --pencil-yellow:#C98A00;
+    --pencil-yellow-soft:#FBF0D6;
+    --pencil-yellow-ink:#8A5E00;
+    --shadow: 0 1px 2px rgba(30,36,48,0.06), 0 6px 20px rgba(30,36,48,0.05);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#161D28; --paper-grid:#2D3B52; --paper-grid-strong:#3C4E6B;
+      --surface:#1D2534; --border:#31405A; --ink:#ECEFF6; --ink-soft:#9BA6BC;
+      --pencil-blue:#7DA2FF; --pencil-blue-soft:#243257; --pencil-blue-ink:#C4D3FF;
+      --pencil-red:#FF8A7E; --pencil-red-soft:#3A2429; --pencil-red-ink:#FFC0B7;
+      --pencil-yellow:#F0C243; --pencil-yellow-soft:#3A311A; --pencil-yellow-ink:#F5D27A;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 10px 26px rgba(0,0,0,0.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#161D28; --paper-grid:#2D3B52; --paper-grid-strong:#3C4E6B;
+    --surface:#1D2534; --border:#31405A; --ink:#ECEFF6; --ink-soft:#9BA6BC;
+    --pencil-blue:#7DA2FF; --pencil-blue-soft:#243257; --pencil-blue-ink:#C4D3FF;
+    --pencil-red:#FF8A7E; --pencil-red-soft:#3A2429; --pencil-red-ink:#FFC0B7;
+    --pencil-yellow:#F0C243; --pencil-yellow-soft:#3A311A; --pencil-yellow-ink:#F5D27A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 10px 26px rgba(0,0,0,0.35);
+  }
+
+  *{ box-sizing:border-box; }
+  [hidden]{ display:none !important; }
+  body{
+    margin:0;
+    background:
+      linear-gradient(var(--paper), var(--paper)),
+      repeating-linear-gradient(0deg, var(--paper-grid) 0 1px, transparent 1px 28px),
+      repeating-linear-gradient(90deg, var(--paper-grid) 0 1px, transparent 1px 28px);
+    background-color:var(--paper);
+    color:var(--ink);
+    font-family:'Noto Sans KR', 'Malgun Gothic', sans-serif;
+    line-height:1.6;
+  }
+  h1,h2,h3{ font-family:'Gowun Dodum','Noto Sans KR',sans-serif; font-weight:400; text-wrap:balance; margin:0; color:var(--ink); }
+  p{ margin:0; }
+  .mono{ font-family:'JetBrains Mono', ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+  button{ font-family:inherit; }
+  :focus-visible{ outline:3px solid var(--pencil-blue); outline-offset:2px; }
+
+  #app{ max-width:980px; margin-inline:auto; padding-inline:20px; padding-block:32px 56px; display:flex; flex-direction:column; gap:20px; }
+
+  .masthead{ display:flex; align-items:center; gap:20px; background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:22px 24px; box-shadow:var(--shadow); flex-wrap:wrap; }
+  .masthead-badge{ flex:none; width:84px; height:84px; display:grid; grid-template-columns:repeat(4,1fr); grid-template-rows:repeat(4,1fr); gap:3px; padding:8px; background:var(--paper); border:1px solid var(--border); border-radius:12px; }
+  .masthead-badge i{ background:var(--paper-grid); border-radius:2px; opacity:0; }
+  @media (prefers-reduced-motion: no-preference){ .masthead-badge i.on{ animation:inkIn 240ms ease-out forwards; } }
+  .masthead-badge i.on{ background:var(--pencil-blue); opacity:1; }
+  @keyframes inkIn{ from{ opacity:0; transform:scale(.4);} to{ opacity:1; transform:scale(1);} }
+  .masthead-text{ flex:1; min-width:220px; display:flex; flex-direction:column; gap:6px; }
+  .eyebrow{ font-size:.8rem; font-weight:700; letter-spacing:.06em; color:var(--pencil-blue); text-transform:uppercase; }
+  .masthead-text h1{ font-size:clamp(1.4rem,4vw,2rem); }
+  .lede{ color:var(--ink-soft); font-size:.95rem; max-width:60ch; }
+
+  .steps-nav{ display:flex; flex-wrap:wrap; gap:8px; }
+  .step-tab{ flex:1 1 auto; min-width:100px; display:flex; flex-direction:column; align-items:center; gap:2px; padding:10px 8px; border-radius:12px; border:1px solid var(--border); background:var(--surface); color:var(--ink-soft); cursor:pointer; font-size:.8rem; transition:background 150ms, color 150ms, border-color 150ms; }
+  .step-tab b{ font-family:'JetBrains Mono',monospace; font-size:.95rem; color:inherit; }
+  .step-tab.active{ background:var(--pencil-blue); border-color:var(--pencil-blue); color:#fff; }
+  .step-tab.active b{ color:#fff; }
+
+  .progress-track{ height:6px; border-radius:999px; background:var(--paper-grid); overflow:hidden; }
+  .progress-fill{ height:100%; background:var(--pencil-blue); border-radius:999px; transition:width 220ms ease; }
+
+  .sheet{ background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:26px 24px; box-shadow:var(--shadow); }
+  .step:not([hidden]){ display:flex; }
+  .step{ flex-direction:column; gap:18px; }
+  .step-head{ display:flex; flex-direction:column; gap:6px; }
+  .step-head .kicker{ font-size:.78rem; font-weight:700; color:var(--pencil-blue); letter-spacing:.04em; }
+  .step-head h2{ font-size:1.4rem; }
+  .step-head .desc{ color:var(--ink-soft); font-size:.95rem; max-width:66ch; }
+
+  .two-col{ display:grid; grid-template-columns:1fr; gap:22px; }
+  @media (min-width:680px){ .two-col{ grid-template-columns: minmax(0,230px) 1fr; align-items:start; } }
+
+  .panel{ display:flex; flex-direction:column; gap:12px; }
+  .panel-title{ font-size:.85rem; font-weight:700; color:var(--ink-soft); }
+
+  .btn{ border-radius:10px; border:1px solid var(--border); background:var(--surface); color:var(--ink); padding:9px 14px; font-size:.85rem; font-weight:500; cursor:pointer; transition:background 120ms, border-color 120ms, color 120ms; }
+  .btn:hover{ border-color:var(--pencil-blue); }
+  .btn:disabled{ opacity:.45; cursor:not-allowed; }
+  .btn-primary{ background:var(--pencil-blue); border-color:var(--pencil-blue); color:#fff; }
+  .btn-primary:hover{ opacity:.92; }
+  .btn.active{ background:var(--pencil-blue); border-color:var(--pencil-blue); color:#fff; }
+  .control-row{ display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+
+  .note{ font-size:.82rem; color:var(--ink-soft); }
+  .callout{ background:var(--paper); border:1px dashed var(--paper-grid-strong); border-radius:12px; padding:12px 14px; font-size:.88rem; color:var(--ink-soft); }
+
+  .stat-box{ font-family:'JetBrains Mono',monospace; font-weight:700; font-size:1rem; padding:10px 14px; border-radius:12px; background:var(--paper); border:1px solid var(--border); }
+  .info-box{ background:var(--paper); border:1px solid var(--border); border-radius:12px; padding:12px 14px; font-size:.85rem; display:flex; flex-direction:column; gap:4px; }
+
+  /* film strip of mini 5x5 frame grids */
+  .film-strip{ display:flex; flex-wrap:wrap; gap:16px; }
+  .frame-block{ display:flex; flex-direction:column; align-items:center; gap:6px; }
+  .frame-block .frame-label{ font-family:'JetBrains Mono',monospace; font-size:.75rem; color:var(--ink-soft); }
+  .mini-grid{ display:grid; grid-template-columns:repeat(5,18px); grid-template-rows:repeat(5,18px); gap:2px; padding:5px; background:var(--paper); border:1px solid var(--border); border-radius:8px; }
+  .mini-grid.selected{ outline:3px solid var(--pencil-blue); outline-offset:2px; }
+  .mini-cell{ border-radius:3px; background:var(--surface); border:1px solid var(--paper-grid-strong); }
+  .mini-cell.on{ background:var(--pencil-blue); border-color:var(--pencil-blue); }
+  .frame-arrow{ align-self:center; color:var(--ink-soft); font-size:1rem; }
+
+  /* 3x3 conv output heatmap */
+  .heat-grid{ display:grid; grid-template-columns:repeat(3,54px); grid-template-rows:repeat(3,54px); gap:4px; }
+  .heat-cell{ display:flex; align-items:center; justify-content:center; border-radius:8px; border:1px solid var(--border); font-family:'JetBrains Mono',monospace; font-weight:700; font-size:1rem; color:var(--ink-soft); background:var(--paper); transition:background 150ms, color 150ms; }
+  .heat-cell.v1{ background:var(--pencil-blue-soft); color:var(--pencil-blue-ink); }
+  .heat-cell.v2{ background:var(--pencil-blue); color:#fff; }
+
+  /* bar chart (5 direction detectors) */
+  .bars-row{ display:flex; flex-direction:column; gap:10px; }
+  .bar-item{ display:flex; align-items:center; gap:10px; }
+  .bar-label{ width:44px; font-size:.8rem; color:var(--ink-soft); flex:none; }
+  .bar-track{ flex:1; height:20px; background:var(--paper); border:1px solid var(--border); border-radius:6px; overflow:hidden; }
+  .bar-fill{ height:100%; background:var(--pencil-blue); border-radius:6px; transition:width 220ms ease; }
+  .bar-fill.lead{ background:var(--pencil-yellow); }
+  .bar-val{ width:28px; text-align:right; font-family:'JetBrains Mono',monospace; font-size:.78rem; color:var(--ink-soft); flex:none; }
+
+  /* 5-way prediction chips */
+  .predict-row{ display:flex; gap:8px; flex-wrap:wrap; }
+  .predict-chip{ flex:1 1 90px; border-radius:12px; border:1px solid var(--border); background:var(--paper); padding:8px 10px; display:flex; flex-direction:column; gap:4px; align-items:center; text-align:center; }
+  .predict-chip .pc-name{ font-size:.85rem; font-weight:700; }
+  .predict-chip .pc-bar{ width:100%; height:7px; border-radius:999px; background:var(--paper-grid); overflow:hidden; }
+  .predict-chip .pc-bar-fill{ height:100%; background:var(--ink-soft); border-radius:999px; transition:width 220ms ease; }
+  .predict-chip.lead{ border-color:var(--pencil-blue); }
+  .predict-chip.lead .pc-bar-fill{ background:var(--pencil-blue); }
+  .predict-chip .pc-pct{ font-family:'JetBrains Mono',monospace; font-size:.75rem; color:var(--ink-soft); }
+
+  .sheet-footer{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
+  .step-indicator{ font-family:'JetBrains Mono',monospace; font-size:.85rem; color:var(--ink-soft); }
+
+  @media (max-width:400px){ .masthead{ flex-direction:column; align-items:flex-start; } }
+</style>
+
+<div id="app">
+
+  <header class="masthead">
+    <div class="masthead-badge" id="logoGrid" aria-hidden="true"></div>
+    <div class="masthead-text">
+      <p class="eyebrow">완전 초보자를 위한 체험 학습지</p>
+      <h1>3D-CNN, 여러 장의 사진에서 움직임을 봐요</h1>
+      <p class="lede">사진 한 장이 아니라, 연속된 여러 프레임(작은 동영상)을 한꺼번에 훑어보는 3D 합성곱을 4단계로 체험해요. 첫 번째 CNN 학습지의 2D 커널이 가로·세로만 훑었다면, 이번엔 가로·세로·시간까지 3방향을 동시에 훑어요.</p>
+    </div>
+  </header>
+
+  <nav class="steps-nav" id="stepsNav" aria-label="학습 단계">
+    <button class="step-tab" data-step="1"><b>1</b><span>영상=여러 프레임</span></button>
+    <button class="step-tab" data-step="2"><b>2</b><span>3D 커널</span></button>
+    <button class="step-tab" data-step="3"><b>3</b><span>움직임 감지기 5개</span></button>
+    <button class="step-tab" data-step="4"><b>4</b><span>어느 방향?</span></button>
+  </nav>
+
+  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+
+  <main class="sheet">
+
+    <!-- STEP 1 -->
+    <section id="step-1" class="step">
+      <div class="step-head">
+        <p class="kicker">STEP 1 · 영상은 프레임(사진)의 연속</p>
+        <h2>점 하나가 어디로 움직이는지 볼까요?</h2>
+        <p class="desc">아래 5×5 칸 영상은 4장의 프레임으로 이루어져 있어요. 움직임을 골라보고, 프레임을 하나씩 봐서는 방향을 알 수 없다는 걸 확인해보세요.</p>
+      </div>
+      <div class="control-row" id="presetRow1"></div>
+      <div class="film-strip" id="film1"></div>
+      <div class="callout">첫 번째 CNN 학습지의 2D 커널은 사진 한 장(가로·세로)만 훑어봤어요. 프레임을 한 장씩 따로 보면 "점이 있다"는 것만 알 뿐, 바로 다음 순간 어디로 움직였는지는 알 수 없어요. 그래서 3D-CNN은 <b>가로·세로·시간</b> 3방향을 동시에 훑는 입체 커널을 사용해요.</div>
+    </section>
+
+    <!-- STEP 2 -->
+    <section id="step-2" class="step" hidden>
+      <div class="step-head">
+        <p class="kicker">STEP 2 · 입체(3D) 커널 들여다보기</p>
+        <h2>두 프레임을 동시에 겹쳐서 훑어요</h2>
+        <p class="desc">아래 감지기 하나를 골라보세요. 이 커널은 3×3칸(가로·세로) × 2프레임(시간) 크기예요. "이전 프레임의 이 위치에 점이 있었고, 다음 프레임엔 정해진 방향으로 옮겨간 위치에 점이 있으면" 값이 커져요(최대 2).</p>
+      </div>
+      <div class="control-row" id="presetRow2"></div>
+      <div class="control-row" id="kernelRow2"></div>
+      <div class="control-row" id="pairRow2"></div>
+      <div class="two-col">
+        <div class="panel">
+          <p class="panel-title">이 커널의 반응 지도 (3×3)</p>
+          <div class="heat-grid" id="heat2"></div>
+          <p class="note">숫자가 클수록(진한 파랑) 이 커널이 찾는 움직임과 잘 맞는다는 뜻이에요. 최댓값 2가 뜬 칸이, 실제로 점이 그 방향으로 움직인 자리예요.</p>
+        </div>
+        <div class="panel">
+          <p class="panel-title">겹쳐 보는 두 프레임</p>
+          <div class="film-strip" id="film2"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 3 -->
+    <section id="step-3" class="step" hidden>
+      <div class="step-head">
+        <p class="kicker">STEP 3 · 감지기를 5개 동시에 돌리기</p>
+        <h2>어떤 감지기가 가장 크게 반응할까요?</h2>
+        <p class="desc">정지·오른쪽·왼쪽·아래·위, 5개의 움직임 감지기를 영상 전체(모든 위치 × 모든 프레임 쌍)에 돌려서 각각 가장 크게 반응한 값을 모아봤어요.</p>
+      </div>
+      <div class="control-row" id="presetRow3"></div>
+      <div class="bars-row" id="bars3"></div>
+    </section>
+
+    <!-- STEP 4 -->
+    <section id="step-4" class="step" hidden>
+      <div class="step-head">
+        <p class="kicker">STEP 4 · 최종 분류</p>
+        <h2>이 영상은 어느 방향으로 움직였을까요?</h2>
+        <p class="desc">5개 감지기의 반응 값을 확률로 바꿔서, 가장 확신하는 방향을 답으로 골라요. '대각선'을 눌러서 감지기가 준비되지 않은 움직임엔 어떻게 반응하는지도 확인해보세요.</p>
+      </div>
+      <div class="control-row" id="presetRow4"></div>
+      <div class="predict-row" id="predict4"></div>
+      <div class="callout" id="callout4"></div>
+    </section>
+
+  </main>
+
+  <footer class="sheet-footer">
+    <button id="prevBtn" class="btn">← 이전</button>
+    <span class="step-indicator" id="stepLabel">1 / 4</span>
+    <button id="nextBtn" class="btn btn-primary">다음 →</button>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var H=5, W=5, T=4;
+
+  var PRESETS = [
+    { key:'stay',  name:'정지',  traj:[[2,1],[2,1],[2,1],[2,1]] },
+    { key:'right', name:'오른쪽', traj:[[2,1],[2,2],[2,3],[2,4]] },
+    { key:'left',  name:'왼쪽',  traj:[[2,3],[2,2],[2,1],[2,0]] },
+    { key:'down',  name:'아래',  traj:[[1,2],[2,2],[3,2],[4,2]] },
+    { key:'up',    name:'위',   traj:[[3,2],[2,2],[1,2],[0,2]] },
+    { key:'diag',  name:'대각선', traj:[[1,1],[2,2],[3,3],[4,4]] }
+  ];
+  var DIRS = [
+    { key:'stay',  name:'정지',  dy:0, dx:0 },
+    { key:'right', name:'오른쪽', dy:0, dx:1 },
+    { key:'left',  name:'왼쪽',  dy:0, dx:-1 },
+    { key:'down',  name:'아래',  dy:1, dx:0 },
+    { key:'up',    name:'위',   dy:-1, dx:0 }
+  ];
+
+  function presetByKey(k){ for(var i=0;i<PRESETS.length;i++){ if(PRESETS[i].key===k) return PRESETS[i]; } return PRESETS[0]; }
+  function dirByKey(k){ for(var i=0;i<DIRS.length;i++){ if(DIRS[i].key===k) return DIRS[i]; } return DIRS[0]; }
+
+  function makeVideo(traj){
+    var vid=[];
+    for(var t=0;t<T;t++){
+      var frame=[];
+      for(var r=0;r<H;r++){ frame.push(new Array(W).fill(0)); }
+      frame[traj[t][0]][traj[t][1]]=1;
+      vid.push(frame);
+    }
+    return vid;
+  }
+  // genuine 3D convolution: kernel has two taps — "was here" (dt=0, center) and
+  // "now here after moving (dy,dx)" (dt=1, offset). Slides over all valid (oy,ox,ot).
+  function conv3d(vid, dir){
+    var out=[];
+    for(var ot=0; ot<T-1; ot++){
+      var plane=[];
+      for(var oy=0; oy<H-2; oy++){
+        var row=[];
+        for(var ox=0; ox<W-2; ox++){
+          var centerVal = vid[ot][oy+1][ox+1];
+          var ny=oy+1+dir.dy, nx=ox+1+dir.dx;
+          var nextVal = (ny>=0&&ny<H&&nx>=0&&nx<W) ? vid[ot+1][ny][nx] : 0;
+          row.push(centerVal+nextVal);
+        }
+        plane.push(row);
+      }
+      out.push(plane);
+    }
+    return out;
+  }
+  function maxOf3d(out){
+    var m=0;
+    out.forEach(function(plane){ plane.forEach(function(row){ row.forEach(function(v){ if(v>m) m=v; }); }); });
+    return m;
+  }
+  function softmax(scores, temp){
+    var logits = scores.map(function(s){ return s*temp; });
+    var mx = Math.max.apply(null, logits);
+    var exps = logits.map(function(v){ return Math.exp(v-mx); });
+    var sum = exps.reduce(function(a,b){return a+b;},0);
+    return exps.map(function(v){ return v/sum; });
+  }
+
+  function q(id){ return document.getElementById(id); }
+
+  // ---------- render helpers ----------
+  function renderMiniGrid(traj, t, selected){
+    var frame = traj[t];
+    var html='';
+    for(var r=0;r<H;r++){
+      for(var c=0;c<W;c++){
+        var on = (frame[0]===r && frame[1]===c);
+        html += '<div class="mini-cell'+(on?' on':'')+'"></div>';
+      }
+    }
+    return '<div class="mini-grid'+(selected?' selected':'')+'">'+html+'</div>';
+  }
+  function renderFilmStrip(containerId, traj, highlightPair){
+    var html='';
+    for(var t=0;t<T;t++){
+      var sel = highlightPair && (t===highlightPair[0] || t===highlightPair[1]);
+      html += '<div class="frame-block">'+renderMiniGrid(traj, t, sel)+'<span class="frame-label">t='+t+'</span></div>';
+    }
+    q(containerId).innerHTML = html;
+  }
+  // shows only the two frames of the selected pair (used in step 2)
+  function renderFilmStripPair(containerId, traj, pairStart){
+    var html='';
+    [pairStart, pairStart+1].forEach(function(t){
+      html += '<div class="frame-block">'+renderMiniGrid(traj, t, true)+'<span class="frame-label">t='+t+'</span></div>';
+    });
+    q(containerId).innerHTML = html;
+  }
+  function renderPresetRow(containerId, activeKey, onPick){
+    var html = PRESETS.map(function(p){
+      return '<button class="btn preset-btn'+(p.key===activeKey?' active':'')+'" data-key="'+p.key+'">'+p.name+'</button>';
+    }).join('');
+    var el = q(containerId);
+    el.innerHTML = html;
+    el.querySelectorAll('.preset-btn').forEach(function(btn){
+      btn.addEventListener('click', function(){ onPick(btn.dataset.key); });
+    });
+  }
+  function renderHeat(containerId, plane){
+    var html='';
+    plane.forEach(function(row){
+      row.forEach(function(v){
+        var cls = v>=2 ? 'v2' : (v>=1 ? 'v1' : '');
+        html += '<div class="heat-cell '+cls+'">'+v+'</div>';
+      });
+    });
+    q(containerId).innerHTML = html;
+  }
+
+  // ---------- state ----------
+  var state = { step:1 };
+  var s1 = { preset:'right' };
+  var s2 = { preset:'right', kernel:'right', pair:0 };
+  var s3 = { preset:'right' };
+  var s4 = { preset:'right' };
+
+  var progressFillEl, stepLabelEl, prevBtn, nextBtn;
+
+  // ---------- Step 1 ----------
+  function renderStep1(){
+    renderPresetRow('presetRow1', s1.preset, function(k){ s1.preset=k; renderStep1(); });
+    var traj = presetByKey(s1.preset).traj;
+    renderFilmStrip('film1', traj, null);
+  }
+
+  // ---------- Step 2 ----------
+  function renderStep2(){
+    renderPresetRow('presetRow2', s2.preset, function(k){ s2.preset=k; renderStep2(); });
+    var kernelHtml = DIRS.map(function(d){
+      return '<button class="btn kernel-btn'+(d.key===s2.kernel?' active':'')+'" data-key="'+d.key+'">'+d.name+' 감지기</button>';
+    }).join('');
+    var kEl = q('kernelRow2');
+    kEl.innerHTML = kernelHtml;
+    kEl.querySelectorAll('.kernel-btn').forEach(function(btn){
+      btn.addEventListener('click', function(){ s2.kernel=btn.dataset.key; renderStep2(); });
+    });
+
+    var pairHtml = [0,1,2].map(function(p){
+      return '<button class="btn pair-btn'+(p===s2.pair?' active':'')+'" data-p="'+p+'">프레임 '+p+'→'+(p+1)+'</button>';
+    }).join('');
+    var pEl = q('pairRow2');
+    pEl.innerHTML = pairHtml;
+    pEl.querySelectorAll('.pair-btn').forEach(function(btn){
+      btn.addEventListener('click', function(){ s2.pair=+btn.dataset.p; renderStep2(); });
+    });
+
+    var traj = presetByKey(s2.preset).traj;
+    renderFilmStripPair('film2', traj, s2.pair);
+
+    var vid = makeVideo(traj);
+    var dir = dirByKey(s2.kernel);
+    var out = conv3d(vid, dir);
+    renderHeat('heat2', out[s2.pair]);
+  }
+
+  // ---------- Step 3 ----------
+  function renderStep3(){
+    renderPresetRow('presetRow3', s3.preset, function(k){ s3.preset=k; renderStep3(); });
+    var traj = presetByKey(s3.preset).traj;
+    var vid = makeVideo(traj);
+    var scores = DIRS.map(function(d){ return { name:d.name, key:d.key, max: maxOf3d(conv3d(vid,d)) }; });
+    var maxScore = Math.max.apply(null, scores.map(function(s){return s.max;}));
+    var html = scores.map(function(s){
+      var pct = (s.max/2*100);
+      var lead = s.max===maxScore && maxScore>0;
+      return '<div class="bar-item">'+
+        '<span class="bar-label">'+s.name+'</span>'+
+        '<div class="bar-track"><div class="bar-fill'+(lead?' lead':'')+'" style="width:'+pct+'%;"></div></div>'+
+        '<span class="bar-val mono">'+s.max+'</span>'+
+      '</div>';
+    }).join('');
+    q('bars3').innerHTML = html;
+  }
+
+  // ---------- Step 4 ----------
+  function renderStep4(){
+    renderPresetRow('presetRow4', s4.preset, function(k){ s4.preset=k; renderStep4(); });
+    var traj = presetByKey(s4.preset).traj;
+    var vid = makeVideo(traj);
+    var scores = DIRS.map(function(d){ return maxOf3d(conv3d(vid,d)); });
+    var probs = softmax(scores, 4);
+    var leadIdx = 0;
+    for(var i=1;i<probs.length;i++){ if(probs[i]>probs[leadIdx]) leadIdx=i; }
+    var maxProb = probs[leadIdx];
+    var isTie = probs.every(function(p){ return Math.abs(p-probs[0])<1e-6; });
+
+    var html = DIRS.map(function(d,i){
+      var pct = Math.round(probs[i]*100);
+      var lead = (i===leadIdx && !isTie) ? ' lead' : '';
+      return '<div class="predict-chip'+lead+'">'+
+        '<span class="pc-name">'+d.name+'</span>'+
+        '<div class="pc-bar"><div class="pc-bar-fill" style="width:'+pct+'%;"></div></div>'+
+        '<span class="pc-pct">'+pct+'%</span>'+
+      '</div>';
+    }).join('');
+    q('predict4').innerHTML = html;
+
+    var msg;
+    if(isTie){
+      msg = '5개 감지기 모두 똑같이 20%씩 반응해서, 어느 쪽도 확신하지 못해요. "대각선"은 정지·상하좌우 중 어디에도 맞지 않는 움직임이라서예요 — 감지기가 준비되지 않은 패턴을 만나면 이렇게 애매해져요.';
+    } else {
+      var name = DIRS[leadIdx].name;
+      msg = '가장 크게 반응한 건 "'+name+'" 감지기(확신도 '+Math.round(maxProb*100)+'%)예요. 5개의 3D 커널이 각각 프레임 사이의 위치 변화를 계산해서, 이 영상이 어느 방향으로 움직였는지 알아냈어요.';
+    }
+    q('callout4').textContent = msg;
+  }
+
+  // ---------- nav / lifecycle ----------
+  function updateProgress(){
+    progressFillEl.style.width = (state.step/4*100)+'%';
+    stepLabelEl.textContent = state.step+' / 4';
+  }
+  function updateNavTabs(){
+    document.querySelectorAll('.step-tab').forEach(function(btn){
+      var s=+btn.dataset.step;
+      btn.classList.toggle('active', s===state.step);
+      if(s===state.step) btn.setAttribute('aria-current','step'); else btn.removeAttribute('aria-current');
+    });
+  }
+  function updatePrevNext(){
+    prevBtn.disabled = state.step===1;
+    nextBtn.textContent = state.step===4 ? '처음부터 다시 ↺' : '다음 →';
+  }
+  function renderCurrentStep(){
+    updateProgress();
+    switch(state.step){
+      case 1: renderStep1(); break;
+      case 2: renderStep2(); break;
+      case 3: renderStep3(); break;
+      case 4: renderStep4(); break;
+    }
+  }
+  function goToStep(n){
+    if(n<1) n=1; if(n>4) n=4;
+    state.step=n;
+    for(var i=1;i<=4;i++){ q('step-'+i).hidden = (i!==n); }
+    updateNavTabs();
+    updatePrevNext();
+    renderCurrentStep();
+  }
+
+  function renderLogoGrid(){
+    var el=q('logoGrid');
+    el.innerHTML='';
+    var pattern=[1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1];
+    pattern.forEach(function(v,i){
+      var d=document.createElement('i');
+      d.className = v? 'on':'';
+      d.style.animationDelay = (i*28)+'ms';
+      el.appendChild(d);
+    });
+  }
+
+  function initListeners(){
+    q('stepsNav').addEventListener('click', function(e){
+      var b=e.target.closest('.step-tab'); if(!b) return;
+      goToStep(+b.dataset.step);
+    });
+    prevBtn.addEventListener('click', function(){ goToStep(state.step-1); });
+    nextBtn.addEventListener('click', function(){ if(state.step<4) goToStep(state.step+1); else goToStep(1); });
+  }
+
+  function init(){
+    progressFillEl=q('progressFill'); stepLabelEl=q('stepLabel');
+    prevBtn=q('prevBtn'); nextBtn=q('nextBtn');
+
+    renderLogoGrid();
+    initListeners();
+    updateNavTabs();
+    updatePrevNext();
+    renderCurrentStep();
+  }
+
+  try{
+    if(window.claude && window.claude.hot && window.claude.hot.ready){
+      window.claude.hot.ready(function(){ init(); });
+    } else { init(); }
+  }catch(e){ init(); }
+
+})();
+</script>

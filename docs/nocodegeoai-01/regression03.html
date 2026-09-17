@@ -15,8 +15,8 @@
         <link rel="icon" href="../favicon-de23e50b.svg">
         <link rel="shortcut icon" href="../favicon-8114d1fc.png">
         <link rel="stylesheet" href="../css/variables-8adf115d.css">
-        <link rel="stylesheet" href="../css/general-2459343d.css">
-        <link rel="stylesheet" href="../css/chrome-ae938929.css">
+        <link rel="stylesheet" href="../css/general-e96d0476.css">
+        <link rel="stylesheet" href="../css/chrome-d279d366.css">
         <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
 
         <!-- Fonts -->
@@ -36,10 +36,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-f6d968be.js";
+            window.path_to_searchindex_js = "../searchindex-15dc103c.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-9c764b0b.js"></script>
+        <script src="../toc-8b83278d.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -178,7 +178,7 @@
                         <h1 id="실습-7---decision-tree"><a class="header" href="#실습-7---decision-tree">실습 7 - Decision Tree</a></h1>
 <h2 id="데이터-만들기"><a class="header" href="#데이터-만들기">데이터 만들기</a></h2>
 <p>금리에 따른 측량횟수라는 데이터를 가상으로 만들어 사용한다. 이번 실습에서는 금리가 낮을수록 측량횟수가 많다는 가정으로 데이터를 만들어 사용하자.</p>
-<p><img src="attachments/20260617144057.png" alt=""></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="attachments/20260617144057.png" alt=""><span class="img-wrapper"><img src="attachments/20260617144057.png" alt=""></span></label></p>
 <ol>
 <li>
 <p>Data에서 “Paint Data” 위젯을 추가하고 더블클릭한다.</p>
@@ -195,7 +195,7 @@
 <p>Paint Data 위젯은 x축과 y축이 모두 0 ~ 1.0 사이의 값을 갖도록 되어 있다.</p>
 <p>우리의 데이터 자체가 가상의 데이터이긴 하지만 현실감을 주기 위해,</p>
 <p>X축은 금리이니 0 ~ 1 사이의 값이 1.0 ~ 3.0 사이의 값을 갖도록 조정하고,<br>Y축은 측량횟수이니 0 ~ 1 사이의 값이 100 ~ 500 사이의 값을 갖도록 조정하자.</p>
-<p><img src="attachments/20260617145438.png" alt=""></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="attachments/20260617145438.png" alt=""><span class="img-wrapper"><img src="attachments/20260617145438.png" alt=""></span></label></p>
 <ol>
 <li>
 <p>Transform에서 “Formula” 위젯을 추가한다.</p>
@@ -206,7 +206,7 @@
 </ol>
 <br />
 <p>Formula 설정 창에서 X축과 Y축의 값을 조정한다.</p>
-<p><img src="attachments/20260617150136.png" alt=""></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="attachments/20260617150136.png" alt=""><span class="img-wrapper"><img src="attachments/20260617150136.png" alt=""></span></label></p>
 <ol>
 <li>
 <p>“Formula” 노드를 더블클릭한다.</p>
@@ -220,7 +220,7 @@
 </ol>
 <br />
 <h3 id="금리-필드-값-조정"><a class="header" href="#금리-필드-값-조정">“금리” 필드 값 조정</a></h3>
-<p><img src="attachments/20260617150421.png" alt=""></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="attachments/20260617150421.png" alt=""><span class="img-wrapper"><img src="attachments/20260617150421.png" alt=""></span></label></p>
 <ol>
 <li>
 <p>우리가 만든 “금리”, “측량횟수” 필드 중 먼저 “금리” 필드의 값을 조정하기 위해 “금리“를 입력한다.</p>
@@ -237,7 +237,7 @@
 </blockquote>
 <br />
 <h3 id="측량횟수-필드-값-조정"><a class="header" href="#측량횟수-필드-값-조정">“측량횟수” 필드 값 조정</a></h3>
-<p><img src="attachments/20260617151525.png" alt=""></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="attachments/20260617151525.png" alt=""><span class="img-wrapper"><img src="attachments/20260617151525.png" alt=""></span></label></p>
 <ol>
 <li>
 <p>“New” 버튼을 누르고 “Numeric“을 선택한다.</p>
@@ -263,7 +263,7 @@
 </blockquote>
 <br />
 <h3 id="조정된-데이터-확인"><a class="header" href="#조정된-데이터-확인">조정된 데이터 확인</a></h3>
-<p><img src="attachments/20260617151617.png" alt=""></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="attachments/20260617151617.png" alt=""><span class="img-wrapper"><img src="attachments/20260617151617.png" alt=""></span></label></p>
 <ol>
 <li>
 <p>Data 에서 “Data Table” 위젯을 추가한다. 그리고 “Formula” 노드와 “Data Table” 노드를 연결한다. 그리고 “Data Table” 노드를 더블클릭한다.</p>
@@ -274,7 +274,7 @@
 </ol>
 <br />
 <h3 id="feature와-target-정리"><a class="header" href="#feature와-target-정리">feature와 target 정리</a></h3>
-<p><img src="attachments/20260617152203.png" alt=""></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="attachments/20260617152203.png" alt=""><span class="img-wrapper"><img src="attachments/20260617152203.png" alt=""></span></label></p>
 <ol>
 <li>
 <p>Transform에서 “Select Columns” 위젯을 추가한다. “Data Table” 위젯과 연결한다. “Select Columns” 위젯을 더블클릭한다.</p>
@@ -286,7 +286,7 @@
 <p>이제 금리는 feature = 독립변수가 되었고,<br>측량횟수는 target = 종속변수가 되었다.</p>
 <br />
 <h3 id="데이터-시각화"><a class="header" href="#데이터-시각화">데이터 시각화</a></h3>
-<p><img src="attachments/20260617152609.png" alt=""></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="attachments/20260617152609.png" alt=""><span class="img-wrapper"><img src="attachments/20260617152609.png" alt=""></span></label></p>
 <ol>
 <li>
 <p>Visualize 에서 “Scatter Plot” 위젯을 추가한다. “Select Columns” 노드와 연결한다. “Scatter Plot” 노드를 더블클릭한다.</p>
@@ -298,13 +298,13 @@
 <p>확인이 끝나면 Scatter Plot는 삭제한다.</p>
 <br />
 <h3 id="decision-tree-모델-추가"><a class="header" href="#decision-tree-모델-추가">Decision Tree 모델 추가</a></h3>
-<p><img src="attachments/20260617152922.png" alt=""></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="attachments/20260617152922.png" alt=""><span class="img-wrapper"><img src="attachments/20260617152922.png" alt=""></span></label></p>
 <ol>
 <li>Model 에서 “Tree” 위젯을 추가한다. 그리고 “Select Columns” 노드와 연결한다.</li>
 </ol>
 <br />
 <h3 id="decision-tree-모델-성능-테스트"><a class="header" href="#decision-tree-모델-성능-테스트">Decision Tree 모델 성능 테스트</a></h3>
-<p><img src="attachments/20260617153426.png" alt=""></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="attachments/20260617153426.png" alt=""><span class="img-wrapper"><img src="attachments/20260617153426.png" alt=""></span></label></p>
 <ol>
 <li>
 <p>Evaluate 에서 “Test and Score” 위젯을 추가한다.</p>
@@ -324,7 +324,7 @@
 </ol>
 <br />
 <h3 id="decision-tree-성능-조정"><a class="header" href="#decision-tree-성능-조정">Decision Tree 성능 조정</a></h3>
-<p><img src="attachments/20260617153930.png" alt=""></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="attachments/20260617153930.png" alt=""><span class="img-wrapper"><img src="attachments/20260617153930.png" alt=""></span></label></p>
 <ol>
 <li>
 <p>“Tree” 노드를 더블클릭한다.</p>
@@ -341,14 +341,14 @@
 <h4 id="tree-모델의-depth-줄이기"><a class="header" href="#tree-모델의-depth-줄이기">“Tree” 모델의 Depth 줄이기</a></h4>
 <p>Decesion Tree 모델의 depth는 이 모델이 몇 단계나 깊이 들어가며 계속 가지를 쳐 나갈건지에 대한 옵션값이다.</p>
 <p>Depth를 줄이면 세밀하게 정리하는 단계가 줄어들어 정확도가 떨어진다.</p>
-<p><img src="attachments/20260617154554.png" alt=""></p>
-<p><img src="attachments/20260617154641.png" alt=""></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="attachments/20260617154554.png" alt=""><span class="img-wrapper"><img src="attachments/20260617154554.png" alt=""></span></label></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="attachments/20260617154641.png" alt=""><span class="img-wrapper"><img src="attachments/20260617154641.png" alt=""></span></label></p>
 <p>R2의 값이 depth가 기본값인 5일때는 0.994였는데, 2로 줄이니 0.943으로 떨어진 것을 확인할 수 있다.</p>
 <br />
 <h4 id="tree-모델의-depth-늘리기"><a class="header" href="#tree-모델의-depth-늘리기">“Tree” 모델의 Depth 늘리기</a></h4>
 <p>depth를 늘리면 더 많은 가지를 치며 세밀하게 정리해 정확도가 높아지지만 너무 높이면 과적합이 될 수 있다.</p>
-<p><img src="attachments/20260617154853.png" alt=""></p>
-<p><img src="attachments/20260617154928.png" alt=""></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="attachments/20260617154853.png" alt=""><span class="img-wrapper"><img src="attachments/20260617154853.png" alt=""></span></label></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="attachments/20260617154928.png" alt=""><span class="img-wrapper"><img src="attachments/20260617154928.png" alt=""></span></label></p>
 <p>depth를 10으로 올리니 R2의 값이 0.996으로 depth=5일 때(0.994)보다 높아진 것을 볼 수 있다.</p>
 
                     </main>
@@ -395,11 +395,11 @@
 
         <script src="../elasticlunr-ef4e11c1.min.js"></script>
         <script src="../mark-09e88c2c.min.js"></script>
-        <script src="../searcher-c2a407aa.js"></script>
+        <script src="../searcher-09f2665d.js"></script>
 
         <script src="../clipboard-1626706a.min.js"></script>
         <script src="../highlight-abc7f01d.js"></script>
-        <script src="../book-a0b12cfe.js"></script>
+        <script src="../book-609e4cb8.js"></script>
 
         <!-- Custom JS scripts -->
 

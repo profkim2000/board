@@ -15,8 +15,8 @@
         <link rel="icon" href="../../favicon-de23e50b.svg">
         <link rel="shortcut icon" href="../../favicon-8114d1fc.png">
         <link rel="stylesheet" href="../../css/variables-8adf115d.css">
-        <link rel="stylesheet" href="../../css/general-2459343d.css">
-        <link rel="stylesheet" href="../../css/chrome-ae938929.css">
+        <link rel="stylesheet" href="../../css/general-e96d0476.css">
+        <link rel="stylesheet" href="../../css/chrome-d279d366.css">
         <link rel="stylesheet" href="../../css/print-9e4910d8.css" media="print">
 
         <!-- Fonts -->
@@ -36,10 +36,10 @@
             const path_to_root = "../../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../../searchindex-f6d968be.js";
+            window.path_to_searchindex_js = "../../searchindex-15dc103c.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../../toc-9c764b0b.js"></script>
+        <script src="../../toc-8b83278d.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -184,7 +184,7 @@
 </thead>
 <tbody>
 <tr><td>2026. 1. 1. 촬영본</td><td>2026. 1. 16. 촬영본</td></tr>
-<tr><td><img src="./attachments/land-2026.01.01.png" alt=""></td><td><img src="./attachments/land-2026.01.16.png" alt=""></td></tr>
+<tr><td><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="./attachments/land-2026.01.01.png" alt=""><span class="img-wrapper"><img src="./attachments/land-2026.01.01.png" alt=""></span></label></td><td><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="./attachments/land-2026.01.16.png" alt=""><span class="img-wrapper"><img src="./attachments/land-2026.01.16.png" alt=""></span></label></td></tr>
 </tbody>
 </table>
 </div>
@@ -195,10 +195,10 @@
 <p><a href="https://github.com/dmtrKovalenko/odiff">https://github.com/dmtrKovalenko/odiff</a> 에 접속</p>
 </li>
 <li>
-<p>Release 아래의 version 부분을 클릭한다.<br><img src="attachments/20260407170740.png" alt=""></p>
+<p>Release 아래의 version 부분을 클릭한다.<br><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="attachments/20260407170740.png" alt=""><span class="img-wrapper"><img src="attachments/20260407170740.png" alt=""></span></label></p>
 </li>
 <li>
-<p>odiff-windows-x64.exe 파일을 클릭해 다운로드 받는다.<br><img src="attachments/20260407170910.png" alt=""></p>
+<p>odiff-windows-x64.exe 파일을 클릭해 다운로드 받는다.<br><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="attachments/20260407170910.png" alt=""><span class="img-wrapper"><img src="attachments/20260407170910.png" alt=""></span></label></p>
 </li>
 </ol>
 <h4 id="2-샘플-이미지-준비"><a class="header" href="#2-샘플-이미지-준비">2. 샘플 이미지 준비</a></h4>
@@ -206,7 +206,7 @@
 <li>위 이미지 파일 2개를 다운로드 받는다.</li>
 </ol>
 <h4 id="3-파일-한-곳에-모으고-powershell-실행하기"><a class="header" href="#3-파일-한-곳에-모으고-powershell-실행하기">3. 파일 한 곳에 모으고 powershell 실행하기</a></h4>
-<p><img src="attachments/20260407171615.png" alt=""></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="attachments/20260407171615.png" alt=""><span class="img-wrapper"><img src="attachments/20260407171615.png" alt=""></span></label></p>
 <p>land-2026.01.01.png, land-2026.01.16.png, odiff-windows-x64.exe, 총 3개의 파일을 한 폴더에 모은다. 웹브라우저로 다운로드 받았기 때문에 “다운로드” 폴더에 이미 모여 있을 것이다.(여기서는 d:\test\odiff 폴더 사용)</p>
 <ol>
 <li>
@@ -217,12 +217,12 @@
 </li>
 </ol>
 <h4 id="4-odiff-실행"><a class="header" href="#4-odiff-실행">4. odiff 실행</a></h4>
-<p><img src="attachments/20260407172030.png" alt=""></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="attachments/20260407172030.png" alt=""><span class="img-wrapper"><img src="attachments/20260407172030.png" alt=""></span></label></p>
 <pre><code class="language-ps">.\odiff-windows-x64.exe .\land-2026.01.01.png .\land-2026.01.16.png .\land-diff.png
 </code></pre>
 <h4 id="5-odiff-실행결과"><a class="header" href="#5-odiff-실행결과">5. odiff 실행결과</a></h4>
 <p><strong>land-diff.png 파일 내용</strong></p>
-<p><img src="./land-diff.png" alt=""></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="./land-diff.png" alt=""><span class="img-wrapper"><img src="./land-diff.png" alt=""></span></label></p>
 <h2 id="위-방법의-문제점"><a class="header" href="#위-방법의-문제점">위 방법의 문제점</a></h2>
 <p>위 방법은 사진이 아주 완벽하게 똑같은 위치, 똑같은 각도에서 찍은 경우에만 비교 가능하다는 문제가 있다.</p>
 <p>드론을 이용해 찍은 사진은 위와 같이 촬영되는 경우가 없다.</p>
@@ -240,13 +240,13 @@
 </div>
 <p>위 두 이미지는 같은 지역을 촬영했지만, 드론으로 여러 번 촬영할 때처럼 촬영 위치와 각도가 다르다.</p>
 <h3 id="실행방법-2---ai-나노-바나나2-이용"><a class="header" href="#실행방법-2---ai-나노-바나나2-이용">실행방법 2 - AI, 나노 바나나2 이용</a></h3>
-<p><img src="attachments/20260407180749.png" alt=""></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="attachments/20260407180749.png" alt=""><span class="img-wrapper"><img src="attachments/20260407180749.png" alt=""></span></label></p>
 <p>제미나이에서 위와 같이 2개의 이미지 파일을 업로드한다.</p>
-<p><img src="attachments/20260407181128.png" alt=""></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="attachments/20260407181128.png" alt=""><span class="img-wrapper"><img src="attachments/20260407181128.png" alt=""></span></label></p>
 <pre><code>두 이미지는 드론에서 시간차를 두고 촬영한 사진이야. 이 사진을 보고 증축되거나 없어진 것들을 두번째 사진 위에 마스킹을 오버레이해서 보여줘
 </code></pre>
 <h4 id="결과"><a class="header" href="#결과">결과</a></h4>
-<p><img src="attachments/20260407181211.png" alt=""></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="attachments/20260407181211.png" alt=""><span class="img-wrapper"><img src="attachments/20260407181211.png" alt=""></span></label></p>
 <h2 id="건물-증축-파악"><a class="header" href="#건물-증축-파악">건물 증축 파악</a></h2>
 <div class="table-wrapper">
 <table>
@@ -259,9 +259,9 @@
 </tbody>
 </table>
 </div>
-<p><img src="attachments/20260408133733.png" alt=""></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="attachments/20260408133733.png" alt=""><span class="img-wrapper"><img src="attachments/20260408133733.png" alt=""></span></label></p>
 <h4 id="결과-1"><a class="header" href="#결과-1">결과</a></h4>
-<p><img src="attachments/20260408134101.png" alt=""></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="attachments/20260408134101.png" alt=""><span class="img-wrapper"><img src="attachments/20260408134101.png" alt=""></span></label></p>
 
                     </main>
 
@@ -307,11 +307,11 @@
 
         <script src="../../elasticlunr-ef4e11c1.min.js"></script>
         <script src="../../mark-09e88c2c.min.js"></script>
-        <script src="../../searcher-c2a407aa.js"></script>
+        <script src="../../searcher-09f2665d.js"></script>
 
         <script src="../../clipboard-1626706a.min.js"></script>
         <script src="../../highlight-abc7f01d.js"></script>
-        <script src="../../book-a0b12cfe.js"></script>
+        <script src="../../book-609e4cb8.js"></script>
 
         <!-- Custom JS scripts -->
 

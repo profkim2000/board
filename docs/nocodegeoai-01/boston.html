@@ -15,8 +15,8 @@
         <link rel="icon" href="../favicon-de23e50b.svg">
         <link rel="shortcut icon" href="../favicon-8114d1fc.png">
         <link rel="stylesheet" href="../css/variables-8adf115d.css">
-        <link rel="stylesheet" href="../css/general-2459343d.css">
-        <link rel="stylesheet" href="../css/chrome-ae938929.css">
+        <link rel="stylesheet" href="../css/general-e96d0476.css">
+        <link rel="stylesheet" href="../css/chrome-d279d366.css">
         <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
 
         <!-- Fonts -->
@@ -36,10 +36,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-f6d968be.js";
+            window.path_to_searchindex_js = "../searchindex-15dc103c.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-9c764b0b.js"></script>
+        <script src="../toc-8b83278d.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -180,7 +180,7 @@
 <p>다양한 요인들에 의해 형성된 주택의 가격 데이터를 학습하고, 새로운 집에 대해 기존 학습한 데이터에 의하면 이 집의 가격은 어떻게 될지 예측하는 AI 모델을 만든다.</p>
 <br />
 <h2 id="데이터-추가"><a class="header" href="#데이터-추가">데이터 추가</a></h2>
-<p><img src="attachments/20260615204215.png" alt=""></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="attachments/20260615204215.png" alt=""><span class="img-wrapper"><img src="attachments/20260615204215.png" alt=""></span></label></p>
 <ol>
 <li>
 <p>Data 에서 “File” 위젯을 클릭한다.</p>
@@ -213,7 +213,7 @@
 <li>MEDV: 주택가격(단위: $1,000)</li>
 </ul>
 <br />
-<p><img src="attachments/20260615205857.png" alt=""></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="attachments/20260615205857.png" alt=""><span class="img-wrapper"><img src="attachments/20260615205857.png" alt=""></span></label></p>
 <ol>
 <li>
 <p>Data에서 “Edit Domain” 위젯을 클릭한다.</p>
@@ -233,7 +233,7 @@
 </ol>
 <br />
 <h2 id="scatter-plot로-값-보기"><a class="header" href="#scatter-plot로-값-보기">Scatter Plot로 값 보기</a></h2>
-<p><img src="attachments/20260615210353.png" alt=""></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="attachments/20260615210353.png" alt=""><span class="img-wrapper"><img src="attachments/20260615210353.png" alt=""></span></label></p>
 <ol>
 <li>
 <p>Data Table 위젯을 추가하고 선을 연결한다.</p>
@@ -243,13 +243,13 @@
 </li>
 </ol>
 <br />
-<p><img src="attachments/20260615211109.png" alt=""></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="attachments/20260615211109.png" alt=""><span class="img-wrapper"><img src="attachments/20260615211109.png" alt=""></span></label></p>
 <p>위와 같이 범죄율과 주택가격 등의 상관관계 등을 확인할 수 있다.</p>
 <p>범죄율이 낮을수록 주택의 가격이 높고, 범죄율이 높은 곳은 비싼 주택이 전무한 것을 볼 수 있다.</p>
 <br />
 <h2 id="ai-모델-학습시키기"><a class="header" href="#ai-모델-학습시키기">AI 모델 학습시키기</a></h2>
 <p>여기서는 Linear Regression을 사용하겠다.</p>
-<p><img src="attachments/20260615212248.png" alt=""></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="attachments/20260615212248.png" alt=""><span class="img-wrapper"><img src="attachments/20260615212248.png" alt=""></span></label></p>
 <ol>
 <li>
 <p>Model에서 “Linear Regression” 위젯을 추가하고 “Data Table” 노드와 연결한다.</p>
@@ -259,7 +259,7 @@
 </li>
 </ol>
 <br />
-<p><img src="attachments/20260615212629.png" alt=""></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="attachments/20260615212629.png" alt=""><span class="img-wrapper"><img src="attachments/20260615212629.png" alt=""></span></label></p>
 <p>학습 결과가 바로 나타난다.</p>
 <h3 id="linear-regression-결과창-지표-설명"><a class="header" href="#linear-regression-결과창-지표-설명">Linear Regression 결과창 지표 설명</a></h3>
 <p>보통은 R2와 RMSE 지표를 우선 본다.</p>
@@ -307,7 +307,7 @@
 </ul>
 <br />
 <h2 id="ai-모델에게-예측-준비"><a class="header" href="#ai-모델에게-예측-준비">AI 모델에게 예측 준비</a></h2>
-<p><img src="attachments/20260615215108.png" alt=""></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="attachments/20260615215108.png" alt=""><span class="img-wrapper"><img src="attachments/20260615215108.png" alt=""></span></label></p>
 <ol>
 <li>
 <p>Transform의 “Create Instance” 위젯 추가하고 “Data Table“과 연결하기</p>
@@ -324,7 +324,7 @@
 </ol>
 <br />
 <h2 id="ai-모델에게-값-넘겨주며-예측시키기"><a class="header" href="#ai-모델에게-값-넘겨주며-예측시키기">AI 모델에게 값 넘겨주며 예측시키기</a></h2>
-<p><img src="attachments/20260615215626.png" alt=""></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="attachments/20260615215626.png" alt=""><span class="img-wrapper"><img src="attachments/20260615215626.png" alt=""></span></label></p>
 <ol>
 <li>
 <p>“Create Instance” 노드를 더블클릭한다.</p>
@@ -333,7 +333,7 @@
 <p>Boston Housing 데이터 양식에 맞게 입력할 수 있는 창이 나타나면 값을 다양하게 바꿔본다. 이 때 주택가격은 가장 낮은 가격인 5로 바꿔둔다.</p>
 </li>
 </ol>
-<p><img src="attachments/20260615220233.png" alt=""></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="attachments/20260615220233.png" alt=""><span class="img-wrapper"><img src="attachments/20260615220233.png" alt=""></span></label></p>
 <ol start="3">
 <li>
 <p>“Predictions” 노드를 더블클릭한다.</p>
@@ -387,11 +387,11 @@
 
         <script src="../elasticlunr-ef4e11c1.min.js"></script>
         <script src="../mark-09e88c2c.min.js"></script>
-        <script src="../searcher-c2a407aa.js"></script>
+        <script src="../searcher-09f2665d.js"></script>
 
         <script src="../clipboard-1626706a.min.js"></script>
         <script src="../highlight-abc7f01d.js"></script>
-        <script src="../book-a0b12cfe.js"></script>
+        <script src="../book-609e4cb8.js"></script>
 
         <!-- Custom JS scripts -->
 

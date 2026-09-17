@@ -15,8 +15,8 @@
         <link rel="icon" href="../../favicon-de23e50b.svg">
         <link rel="shortcut icon" href="../../favicon-8114d1fc.png">
         <link rel="stylesheet" href="../../css/variables-8adf115d.css">
-        <link rel="stylesheet" href="../../css/general-2459343d.css">
-        <link rel="stylesheet" href="../../css/chrome-ae938929.css">
+        <link rel="stylesheet" href="../../css/general-e96d0476.css">
+        <link rel="stylesheet" href="../../css/chrome-d279d366.css">
         <link rel="stylesheet" href="../../css/print-9e4910d8.css" media="print">
 
         <!-- Fonts -->
@@ -36,10 +36,10 @@
             const path_to_root = "../../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../../searchindex-f6d968be.js";
+            window.path_to_searchindex_js = "../../searchindex-15dc103c.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../../toc-9c764b0b.js"></script>
+        <script src="../../toc-8b83278d.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -177,7 +177,7 @@
                     <main>
                         <h1 id="공간데이터베이스-연습문제"><a class="header" href="#공간데이터베이스-연습문제">공간데이터베이스 연습문제</a></h1>
 <h3 id="q-다음과-같은-food-테이블을-sql문을-이용해-생성"><a class="header" href="#q-다음과-같은-food-테이블을-sql문을-이용해-생성">Q. 다음과 같은 food 테이블을 SQL문을 이용해 생성</a></h3>
-<p><img src="img/20240722210944.png" alt=""></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="img/20240722210944.png" alt=""><span class="img-wrapper"><img src="img/20240722210944.png" alt=""></span></label></p>
 <p>A.</p>
 <pre><code class="language-sql">create table food
 (
@@ -195,73 +195,73 @@ insert into food (name, price) values ('고등어구이', 12000);
 insert into food (name, price) values ('짬뽕', 7000);
 </code></pre>
 <h3 id="q-다음과-같이-점이-지도에-표시되도록-자료-입력"><a class="header" href="#q-다음과-같이-점이-지도에-표시되도록-자료-입력">Q. 다음과 같이 점이 지도에 표시되도록 자료 입력</a></h3>
-<p><img src="img/crop_20240723_141222.png" alt="alt text"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="img/crop_20240723_141222.png" alt="alt text"><span class="img-wrapper"><img src="img/crop_20240723_141222.png" alt="alt text"></span></label></p>
 <p>A.</p>
 <pre><code class="language-sql">insert into point_test (location, name) values 
 ('point( 5 4 )', '금 묻은 곳');
 </code></pre>
 <h3 id="q-다음과-같이-점이-지도에-표시되도록-자료-입력-1"><a class="header" href="#q-다음과-같이-점이-지도에-표시되도록-자료-입력-1">Q. 다음과 같이 점이 지도에 표시되도록 자료 입력</a></h3>
-<p><img src="img/crop_20240723_141254.png" alt="alt text"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="img/crop_20240723_141254.png" alt="alt text"><span class="img-wrapper"><img src="img/crop_20240723_141254.png" alt="alt text"></span></label></p>
 <p>A.</p>
 <pre><code class="language-sql">insert into point_test (location, name) values 
 ('point( -5 -4 )', '은 묻은 곳');
 </code></pre>
 <h3 id="q-다음과-같이-점들이-지도에-표시되도록-1개의-자료-입력"><a class="header" href="#q-다음과-같이-점들이-지도에-표시되도록-1개의-자료-입력">Q. 다음과 같이 점들이 지도에 표시되도록 1개의 자료 입력</a></h3>
-<p><img src="img/crop_20240723_141318.png" alt="alt text"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="img/crop_20240723_141318.png" alt="alt text"><span class="img-wrapper"><img src="img/crop_20240723_141318.png" alt="alt text"></span></label></p>
 <p>A.</p>
 <pre><code class="language-sql">insert into multi_point_test (location, name) values 
 ('multipoint( -5 -4, 5 4 )', '해상 공원');
 </code></pre>
 <h3 id="q-다음과-같이-점들이-지도에-표시되도록-1개의-자료-입력-1"><a class="header" href="#q-다음과-같이-점들이-지도에-표시되도록-1개의-자료-입력-1">Q. 다음과 같이 점들이 지도에 표시되도록 1개의 자료 입력</a></h3>
-<p><img src="img/crop_20240723_141416.png" alt="alt text"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="img/crop_20240723_141416.png" alt="alt text"><span class="img-wrapper"><img src="img/crop_20240723_141416.png" alt="alt text"></span></label></p>
 <p>A.</p>
 <pre><code class="language-sql">insert into multi_point_test (location, name) values 
 ('multipoint( -10 -11.5, 10 3 )', '석유 매장 추정지');
 </code></pre>
 <h3 id="q-다음과-같이-선이-지도에-표시되도록-1개의-자료-입력"><a class="header" href="#q-다음과-같이-선이-지도에-표시되도록-1개의-자료-입력">Q. 다음과 같이 선이 지도에 표시되도록 1개의 자료 입력</a></h3>
-<p><img src="img/crop_20240723_141915.png" alt="alt text"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="img/crop_20240723_141915.png" alt="alt text"><span class="img-wrapper"><img src="img/crop_20240723_141915.png" alt="alt text"></span></label></p>
 <p>A.</p>
 <pre><code class="language-sql">insert into line_test (location, name) values 
 ('lineString(-10 12.7, 10 11.5  )', '이동 최단거리');
 </code></pre>
 <h3 id="q-다음과-같이-선이-지도에-표시되도록-1개의-자료-입력-1"><a class="header" href="#q-다음과-같이-선이-지도에-표시되도록-1개의-자료-입력-1">Q. 다음과 같이 선이 지도에 표시되도록 1개의 자료 입력</a></h3>
-<p><img src="img/crop_20240723_141750.png" alt="alt text"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="img/crop_20240723_141750.png" alt="alt text"><span class="img-wrapper"><img src="img/crop_20240723_141750.png" alt="alt text"></span></label></p>
 <p>A.</p>
 <pre><code class="language-sql">insert into line_test (location, name) values 
 ('lineString(-20 -12.7, -10 -11.5, 5 3.7  )', '이동 최단거리');
 </code></pre>
 <h3 id="q-다음과-같이-여러-선이-지도에-표시되도록-1개의-자료-입력"><a class="header" href="#q-다음과-같이-여러-선이-지도에-표시되도록-1개의-자료-입력">Q. 다음과 같이 여러 선이 지도에 표시되도록 1개의 자료 입력</a></h3>
-<p><img src="img/crop_20240723_142400.png" alt="alt text"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="img/crop_20240723_142400.png" alt="alt text"><span class="img-wrapper"><img src="img/crop_20240723_142400.png" alt="alt text"></span></label></p>
 <p>A.</p>
 <pre><code class="language-sql">insert into multi_line_test (location, name) values
 ('MultiLineString( (20.5 0.5, 20.6 0.6  ), (20.8 0.6, 20.95 0.61) )', '등산로');
 </code></pre>
 <h3 id="q-다음과-같이-여러-선이-지도에-표시되도록-1개의-자료-입력-1"><a class="header" href="#q-다음과-같이-여러-선이-지도에-표시되도록-1개의-자료-입력-1">Q. 다음과 같이 여러 선이 지도에 표시되도록 1개의 자료 입력</a></h3>
-<p><img src="img/crop_20240723_142936.png" alt="alt text"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="img/crop_20240723_142936.png" alt="alt text"><span class="img-wrapper"><img src="img/crop_20240723_142936.png" alt="alt text"></span></label></p>
 <p>A.</p>
 <pre><code class="language-sql">insert into multi_line_test (location, name) values
 ('MultiLineString( (3 4, 3 5, 4 6, 5 4  ), (0 1, 1 1, 2 2, 3 1, 1 0) )', '등산로');
 </code></pre>
 <h3 id="q-다음과-같이-면이-지도에-표시되도록-1개의-자료-입력"><a class="header" href="#q-다음과-같이-면이-지도에-표시되도록-1개의-자료-입력">Q. 다음과 같이 면이 지도에 표시되도록 1개의 자료 입력</a></h3>
-<p><img src="img/crop_20240723_143210.png" alt="alt text"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="img/crop_20240723_143210.png" alt="alt text"><span class="img-wrapper"><img src="img/crop_20240723_143210.png" alt="alt text"></span></label></p>
 <p>A.</p>
 <pre><code class="language-sql">insert into polygon_test (location, name) values 
 ('polygon( (3 4, 3 5, 4 6, 3 4 ) )', '어장1');
 </code></pre>
 <h3 id="q-다음과-같이-면이-지도에-표시되도록-1개의-자료-입력-1"><a class="header" href="#q-다음과-같이-면이-지도에-표시되도록-1개의-자료-입력-1">Q. 다음과 같이 면이 지도에 표시되도록 1개의 자료 입력</a></h3>
-<p><img src="img/crop_20240723_143650.png" alt="alt text"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="img/crop_20240723_143650.png" alt="alt text"><span class="img-wrapper"><img src="img/crop_20240723_143650.png" alt="alt text"></span></label></p>
 <p>A.</p>
 <pre><code class="language-sql">insert into polygon_test (location, name) values 
 ('polygon( (3.5 4, 3.3 5.2, 4.7 6.1, 5.0 3.5, 5.3 3.2, 3.5 4 ) )', '어장 2');
 </code></pre>
 <h3 id="q-다음과-같이-여러-면이-지도에-표시되도록-1개의-자료-입력"><a class="header" href="#q-다음과-같이-여러-면이-지도에-표시되도록-1개의-자료-입력">Q. 다음과 같이 여러 면이 지도에 표시되도록 1개의 자료 입력</a></h3>
-<p><img src="img/crop_20240723_144555.png" alt="alt text"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="img/crop_20240723_144555.png" alt="alt text"><span class="img-wrapper"><img src="img/crop_20240723_144555.png" alt="alt text"></span></label></p>
 <p>A.</p>
 <pre><code class="language-sql">insert into multi_polygon_test (location, name) values 
 ('Polygon( (3 -5, 4 -5, 2 -6, 3 -5 ), (2.5 -7, 5 -8, 4 -9, 2.5 -7) )', '석유 매장지');
 </code></pre>
 <h3 id="q-다음과-같이-여러-면이-지도에-표시되도록-1개의-자료-입력-1"><a class="header" href="#q-다음과-같이-여러-면이-지도에-표시되도록-1개의-자료-입력-1">Q. 다음과 같이 여러 면이 지도에 표시되도록 1개의 자료 입력</a></h3>
-<p><img src="img/crop_20240723_144248.png" alt="alt text"></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="img/crop_20240723_144248.png" alt="alt text"><span class="img-wrapper"><img src="img/crop_20240723_144248.png" alt="alt text"></span></label></p>
 <p>A.</p>
 <pre><code class="language-sql">insert into multi_polygon_test (location, name) values 
 ('Polygon( (1 4, 1 5, 2 6, 1 4 ), (3.5 4, 3.3 5.2, 4.7 6.1, 5.0 3.5, 5.3 3.2, 3.5 4 ) )', '어장들');
@@ -311,11 +311,11 @@ insert into food (name, price) values ('짬뽕', 7000);
 
         <script src="../../elasticlunr-ef4e11c1.min.js"></script>
         <script src="../../mark-09e88c2c.min.js"></script>
-        <script src="../../searcher-c2a407aa.js"></script>
+        <script src="../../searcher-09f2665d.js"></script>
 
         <script src="../../clipboard-1626706a.min.js"></script>
         <script src="../../highlight-abc7f01d.js"></script>
-        <script src="../../book-a0b12cfe.js"></script>
+        <script src="../../book-609e4cb8.js"></script>
 
         <!-- Custom JS scripts -->
 

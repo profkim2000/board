@@ -36,10 +36,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-3c632eb7.js";
+            window.path_to_searchindex_js = "../searchindex-7b26d32a.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-5eee1117.js"></script>
+        <script src="../toc-9a4b09c5.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -189,7 +189,116 @@
 <p>“QWen Image Edit 2511 int8: 이미지 편집” 선택</p>
 </li>
 </ol>
-<h2 id=""><a class="header" href="#"></a></h2>
+<h2 id="사용할-이미지"><a class="header" href="#사용할-이미지">사용할 이미지</a></h2>
+<p><img src="attachments/landy01.png" width="200"><br />
+3D 그래픽으로 만든 바이크 랜디</p>
+<br />
+<p><img src="attachments/z-image-turbo_00006_.png" width="200"><br />
+Z-Image를 이용해 만든 이미지<br />
+(프롬프트: a cute girl eating an apple)</p>
+<br />
+<p><img src="attachments/k_michels-alps-10445555.jpg" width="200"><br />
+<a href="https://pixabay.com/photos/alps-mountains-valley-nature-lake-10445555">pixabay</a>에서 다운로드<br /></p>
+<h2 id="변환"><a class="header" href="#변환">변환</a></h2>
+<p><img src="attachments/20260916234858.png" alt=""></p>
+<h3 id="수채화-스타일"><a class="header" href="#수채화-스타일">수채화 스타일</a></h3>
+<ul>
+<li>prompt: Convert this image to soft <strong>watercolor</strong> style</li>
+</ul>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>원본</th><th>수채화 스타일</th></tr>
+</thead>
+<tbody>
+<tr><td><img src="attachments/landy01.png" width="200"></td><td><img src="attachments/20260916235157.png" width="200"></td></tr>
+<tr><td><img src="attachments/z-image-turbo_00006_.png" width="200"></td><td><img src="attachments/Qwen_Edit_2511_00004.png" width="200"></td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="연필로-그린-스타일"><a class="header" href="#연필로-그린-스타일">연필로 그린 스타일</a></h3>
+<ul>
+<li>prompt: Convert this image to <strong>pencil drawing</strong> style</li>
+</ul>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>원본</th><th>연필 스타일</th></tr>
+</thead>
+<tbody>
+<tr><td><img src="attachments/landy01.png" width="200"></td><td><img src="attachments/20260917001624.png" width="200"></td></tr>
+<tr><td><img src="attachments/z-image-turbo_00006_.png" width="200"></td><td><img src="attachments/Qwen_Edit_2511_00003.png" width="200"></td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="팝아트-포스터-스타일"><a class="header" href="#팝아트-포스터-스타일">팝아트 포스터 스타일</a></h3>
+<ul>
+<li>prompt: Convert this image to <strong>pop art poster</strong> style</li>
+</ul>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>원본</th><th>팝아트 포스터 스타일</th></tr>
+</thead>
+<tbody>
+<tr><td><img src="attachments/z-image-turbo_00006_.png" width="200"></td><td><img src="attachments/Qwen_Edit_2511_00001.png" width="200"></td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="유화-스타일"><a class="header" href="#유화-스타일">유화 스타일</a></h3>
+<ul>
+<li>prompt: Convert this image to <strong>oil paint</strong> style</li>
+</ul>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>원본</th><th>유화 스타일</th></tr>
+</thead>
+<tbody>
+<tr><td><img src="attachments/ComfyUI_00005.png" width="200"></td><td><img src="attachments/ComfyUI_00006.png" width="200"></td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="웹툰-스타일"><a class="header" href="#웹툰-스타일">웹툰 스타일</a></h3>
+<ul>
+<li>prompt: Convert this image to <strong>webtoon</strong> style</li>
+</ul>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>원본</th><th>웹툰 스타일</th></tr>
+</thead>
+<tbody>
+<tr><td><img src="attachments/ComfyUI_00005.png" width="200"></td><td><img src="attachments/ComfyUI_00009.png" width="200"></td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="합성이미지-3개까지-가능"><a class="header" href="#합성이미지-3개까지-가능">합성(이미지 3개까지 가능)</a></h2>
+<h3 id="이미지1-인물-이미지2-배경"><a class="header" href="#이미지1-인물-이미지2-배경">이미지1: 인물, 이미지2: 배경</a></h3>
+<p><img src="attachments/20260917002237.png" alt=""></p>
+<ul>
+<li>prompt: seamlessly composite the person from Image 1 onto the background of Image 2, making it look like they are driving along the road.<br>(이미지 2의 배경 위에 이미지 1의 인물이 도로 위를 운전해 가는 모습을 자연스럽게 합성해 줘.)</li>
+</ul>
+<p><strong>결과</strong>
+<img src="attachments/ComfyUI_00005.png" alt=""></p>
+<h3 id="이미지1-인물-이미지2-배경-이미지3-꽃"><a class="header" href="#이미지1-인물-이미지2-배경-이미지3-꽃">이미지1: 인물, 이미지2: 배경, 이미지3: 꽃</a></h3>
+<ul>
+<li>prompt: Seamlessly composite the person from image1 onto the background of image2. Then, naturally place the flower from image3 behind the person’s ear.<br>(image2의 배경 위에 image1의 인물을 자연스럽게 합성해. 그리고 image1의 인물의 귀에 image3의 꽃을 자연스럽게 꽂아줘)</li>
+</ul>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>이미지1</th><th>이미지2</th><th>이미지3</th></tr>
+</thead>
+<tbody>
+<tr><td>Z-Image로 만든 이미지</td><td><a href="https://pixabay.com/photos/alps-mountains-valley-nature-lake-10445555"><img src="attachments/k_michels-alps-10445555.jpg" width="200"></a></td><td><a href="https://pixabay.com/photos/daisy-flower-meadow-nature-summer-10382823/"><img src="attachments/nennieinszweidrei-daisy-10382823.jpg" width="200"></a></td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>결과</strong></p>
+<p><img src="attachments/ComfyUI_temp_zvhbk_00004_.png" alt=""></p>
+<p><strong>위 결과를 수채화 스타일로 변환</strong></p>
+<p><img src="attachments/Qwen_Edit_2511_00012.png" alt=""></p>
 
                     </main>
 
@@ -199,7 +308,7 @@
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="../aiuu-01/comfyui-004.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../aiuu-01/comfyui-050.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -213,7 +322,7 @@
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="../aiuu-01/comfyui-004.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../aiuu-01/comfyui-050.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

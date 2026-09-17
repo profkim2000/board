@@ -36,10 +36,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-3c632eb7.js";
+            window.path_to_searchindex_js = "../searchindex-7b26d32a.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-5eee1117.js"></script>
+        <script src="../toc-9a4b09c5.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -177,16 +177,71 @@
                     <main>
                         <h1 id="comfyui의-노드-편집"><a class="header" href="#comfyui의-노드-편집">comfyUI의 노드 편집</a></h1>
 <h2 id="이미지-생성-결과를-동영상-시작-화면으로-넣어주기"><a class="header" href="#이미지-생성-결과를-동영상-시작-화면으로-넣어주기">이미지 생성 결과를 동영상 시작 화면으로 넣어주기</a></h2>
+<p>netayume 모델을 추가하고 저장하는 것까지 해 본다.</p>
+<p><img src="attachments/20260916225809.png" alt=""></p>
+<ol>
+<li>
+<p>탭에서 “+” 를 클릭해 새로운 워크플로를 연다.</p>
+</li>
+<li>
+<p>왼쪽 메뉴에서 “노드“를 선택한다.</p>
+</li>
+<li>
+<p>모델 목록에서 찾아도 되지만, “netayume“를 검색해 빠르게 찾아보자.</p>
+</li>
+<li>
+<p>“Text To Image(NetaYume)” 를 찾아 클릭한다.</p>
+</li>
+<li>
+<p>캔버스 부분을 클릭하면 그 자리에 NetaYume 모델 노드가 붙는다.</p>
+</li>
+</ol>
+<br />
+<p><img src="attachments/20260916230607.png" alt=""></p>
+<ol>
+<li>
+<p>NetaYume 모델의 오른쪽 위에 out 핀인 “Image” 핀을 왼쪽 마우스 버튼을 누른 채로 바깥으로 잡아 뺸다.</p>
+</li>
+<li>
+<p>적당히 잡아 뺐으면 마우스 버튼을 놓는다.</p>
+</li>
+</ol>
+<br />
+<p><img src="attachments/20260916230824.png" alt=""></p>
+<ol>
+<li>
+<p>위에서 마우스 버튼을 놓는 순간 이렇게 “Image” out 핀과 연결할 수 있는 노드 들의 목록이 나타난다.</p>
+</li>
+<li>
+<p>노드 목록에서 “이미지 저장(고급)” 을 선택, 클릭한다.</p>
+</li>
+</ol>
+<br />
+<p><img src="attachments/20260916231106.png" alt=""></p>
+<p>노드 목록이 닫히며 마우스를 따라 “이미지 저장(고급)” 노드가 움직이는데, 이 때 클릭하면 그 위치에 노드가 고정된다.</p>
+<br />
+<p><img src="attachments/20260916231505.png" alt=""></p>
+<ol>
+<li>
+<p>모델에 그림 그리기 위한 프롬프트를 입력한다.</p>
+</li>
+<li>
+<p>“실행” 버튼을 누른다.</p>
+</li>
+<li>
+<p>그림 그려진 결과를 확인한다.</p>
+</li>
+</ol>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../aiuu-01/comfyui-008.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../aiuu-01/comfyui-006.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="../aianal-01/aianal-01.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../aiuu-01/comfyui-002.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -196,11 +251,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../aiuu-01/comfyui-008.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../aiuu-01/comfyui-006.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="../aianal-01/aianal-01.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../aiuu-01/comfyui-002.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

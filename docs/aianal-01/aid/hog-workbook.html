@@ -1,0 +1,642 @@
+<meta charset="utf-8">
+<title>HOG</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+  :root{
+    --paper:#FAFAF8;
+    --paper-grid:#DCE6F5;
+    --paper-grid-strong:#C3D2EE;
+    --surface:#FFFFFF;
+    --border:#E2E6EE;
+    --ink:#1E2430;
+    --ink-soft:#63697A;
+    --pencil-blue:#2F5FD1;
+    --pencil-blue-soft:#E7EEFD;
+    --pencil-blue-ink:#1D3E96;
+    --pencil-red:#D8443A;
+    --pencil-red-soft:#FBE7E5;
+    --pencil-red-ink:#A9291F;
+    --pencil-yellow:#C98A00;
+    --pencil-yellow-soft:#FBF0D6;
+    --pencil-yellow-ink:#8A5E00;
+    --shadow: 0 1px 2px rgba(30,36,48,0.06), 0 6px 20px rgba(30,36,48,0.05);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#161D28; --paper-grid:#2D3B52; --paper-grid-strong:#3C4E6B;
+      --surface:#1D2534; --border:#31405A; --ink:#ECEFF6; --ink-soft:#9BA6BC;
+      --pencil-blue:#7DA2FF; --pencil-blue-soft:#243257; --pencil-blue-ink:#C4D3FF;
+      --pencil-red:#FF8A7E; --pencil-red-soft:#3A2429; --pencil-red-ink:#FFC0B7;
+      --pencil-yellow:#F0C243; --pencil-yellow-soft:#3A311A; --pencil-yellow-ink:#F5D27A;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 10px 26px rgba(0,0,0,0.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#161D28; --paper-grid:#2D3B52; --paper-grid-strong:#3C4E6B;
+    --surface:#1D2534; --border:#31405A; --ink:#ECEFF6; --ink-soft:#9BA6BC;
+    --pencil-blue:#7DA2FF; --pencil-blue-soft:#243257; --pencil-blue-ink:#C4D3FF;
+    --pencil-red:#FF8A7E; --pencil-red-soft:#3A2429; --pencil-red-ink:#FFC0B7;
+    --pencil-yellow:#F0C243; --pencil-yellow-soft:#3A311A; --pencil-yellow-ink:#F5D27A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 10px 26px rgba(0,0,0,0.35);
+  }
+
+  *{ box-sizing:border-box; }
+  [hidden]{ display:none !important; }
+  body{
+    margin:0;
+    background:
+      linear-gradient(var(--paper), var(--paper)),
+      repeating-linear-gradient(0deg, var(--paper-grid) 0 1px, transparent 1px 28px),
+      repeating-linear-gradient(90deg, var(--paper-grid) 0 1px, transparent 1px 28px);
+    background-color:var(--paper);
+    color:var(--ink);
+    font-family:'Noto Sans KR', 'Malgun Gothic', sans-serif;
+    line-height:1.6;
+  }
+  h1,h2,h3{ font-family:'Gowun Dodum','Noto Sans KR',sans-serif; font-weight:400; text-wrap:balance; margin:0; color:var(--ink); }
+  p{ margin:0; }
+  .mono{ font-family:'JetBrains Mono', ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+  button{ font-family:inherit; }
+  :focus-visible{ outline:3px solid var(--pencil-blue); outline-offset:2px; }
+
+  #app{ max-width:980px; margin-inline:auto; padding-inline:20px; padding-block:32px 56px; display:flex; flex-direction:column; gap:20px; }
+
+  .masthead{ display:flex; align-items:center; gap:20px; background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:22px 24px; box-shadow:var(--shadow); flex-wrap:wrap; }
+  .masthead-badge{ flex:none; width:84px; height:84px; display:grid; grid-template-columns:repeat(4,1fr); grid-template-rows:repeat(4,1fr); gap:3px; padding:8px; background:var(--paper); border:1px solid var(--border); border-radius:12px; }
+  .masthead-badge i{ background:var(--paper-grid); border-radius:2px; opacity:0; }
+  @media (prefers-reduced-motion: no-preference){ .masthead-badge i.on{ animation:inkIn 240ms ease-out forwards; } }
+  .masthead-badge i.on{ background:var(--pencil-blue); opacity:1; }
+  @keyframes inkIn{ from{ opacity:0; transform:scale(.4);} to{ opacity:1; transform:scale(1);} }
+  .masthead-text{ flex:1; min-width:220px; display:flex; flex-direction:column; gap:6px; }
+  .eyebrow{ font-size:.8rem; font-weight:700; letter-spacing:.06em; color:var(--pencil-blue); text-transform:uppercase; }
+  .masthead-text h1{ font-size:clamp(1.3rem,4vw,1.9rem); }
+  .lede{ color:var(--ink-soft); font-size:.95rem; max-width:64ch; }
+
+  .steps-nav{ display:flex; flex-wrap:wrap; gap:8px; }
+  .step-tab{ flex:1 1 auto; min-width:100px; display:flex; flex-direction:column; align-items:center; gap:2px; padding:10px 8px; border-radius:12px; border:1px solid var(--border); background:var(--surface); color:var(--ink-soft); cursor:pointer; font-size:.8rem; transition:background 150ms, color 150ms, border-color 150ms; }
+  .step-tab b{ font-family:'JetBrains Mono',monospace; font-size:.95rem; color:inherit; }
+  .step-tab.active{ background:var(--pencil-blue); border-color:var(--pencil-blue); color:#fff; }
+  .step-tab.active b{ color:#fff; }
+
+  .progress-track{ height:6px; border-radius:999px; background:var(--paper-grid); overflow:hidden; }
+  .progress-fill{ height:100%; background:var(--pencil-blue); border-radius:999px; transition:width 220ms ease; }
+
+  .sheet{ background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:26px 24px; box-shadow:var(--shadow); }
+  .step:not([hidden]){ display:flex; }
+  .step{ flex-direction:column; gap:18px; }
+  .step-head{ display:flex; flex-direction:column; gap:6px; }
+  .step-head .kicker{ font-size:.78rem; font-weight:700; color:var(--pencil-blue); letter-spacing:.04em; }
+  .step-head h2{ font-size:1.4rem; }
+  .step-head .desc{ color:var(--ink-soft); font-size:.95rem; max-width:68ch; }
+
+  .two-col{ display:grid; grid-template-columns:1fr; gap:22px; }
+  @media (min-width:680px){ .two-col{ grid-template-columns: minmax(0,250px) 1fr; align-items:start; } }
+
+  .panel{ display:flex; flex-direction:column; gap:12px; }
+  .panel-title{ font-size:.85rem; font-weight:700; color:var(--ink-soft); }
+
+  .btn{ border-radius:10px; border:1px solid var(--border); background:var(--surface); color:var(--ink); padding:9px 14px; font-size:.85rem; font-weight:500; cursor:pointer; transition:background 120ms, border-color 120ms, color 120ms; }
+  .btn:hover{ border-color:var(--pencil-blue); }
+  .btn:disabled{ opacity:.45; cursor:not-allowed; }
+  .btn-primary{ background:var(--pencil-blue); border-color:var(--pencil-blue); color:#fff; }
+  .btn-primary:hover{ opacity:.92; }
+  .btn.active{ background:var(--pencil-blue); border-color:var(--pencil-blue); color:#fff; }
+  .control-row{ display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+
+  .note{ font-size:.82rem; color:var(--ink-soft); }
+  .callout{ background:var(--paper); border:1px dashed var(--paper-grid-strong); border-radius:12px; padding:12px 14px; font-size:.88rem; color:var(--ink-soft); }
+
+  .stat-box{ font-family:'JetBrains Mono',monospace; font-weight:700; font-size:.92rem; padding:10px 14px; border-radius:12px; background:var(--paper); border:1px solid var(--border); }
+  .info-box{ background:var(--paper); border:1px solid var(--border); border-radius:12px; padding:12px 14px; font-size:.85rem; display:flex; flex-direction:column; gap:4px; }
+
+  .formula-box{ background:var(--paper); border:1px solid var(--border); border-radius:12px; padding:12px 14px; font-family:'JetBrains Mono',monospace; font-size:.82rem; color:var(--ink); display:flex; flex-direction:column; gap:6px; line-height:1.7; overflow-x:auto; }
+  .formula-box .muted{ color:var(--ink-soft); }
+
+  /* ---- pixel image grid ---- */
+  .pixel-wrap{ position:relative; width:max-content; }
+  .pixel-grid{ display:grid; grid-template-columns:repeat(16,24px); grid-template-rows:repeat(16,24px); gap:0; border-radius:8px; overflow:hidden; border:1px solid var(--border); }
+  .pixel-cell{ position:relative; }
+  .pixel-cell.clickable{ cursor:pointer; }
+  .pixel-cell.selected{ outline:2px solid var(--pencil-blue); outline-offset:-2px; z-index:2; }
+  .pixel-overlay{ position:absolute; inset:1px; width:calc(100% - 2px); height:calc(100% - 2px); pointer-events:none; }
+
+  .pixel-wrap.small .pixel-grid{ grid-template-columns:repeat(16,11px); grid-template-rows:repeat(16,11px); }
+
+  /* ---- HOG cell histogram grid ---- */
+  .cell-wrap{ position:relative; width:max-content; }
+  .cell-grid{ display:grid; grid-template-columns:repeat(4,92px); grid-template-rows:repeat(4,92px); gap:3px; }
+  .cell-box{ position:relative; background:var(--paper); border:1px solid var(--border); border-radius:6px; cursor:pointer; }
+  .cell-box.selected{ outline:3px solid var(--ink); outline-offset:1px; }
+  .cell-overlay{ position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
+
+  /* ---- 9-bin histogram bar chart ---- */
+  .hist-chart{ display:flex; align-items:flex-end; gap:4px; height:130px; padding:10px 10px 6px; background:var(--paper); border:1px solid var(--border); border-radius:12px; }
+  .hist-bar-col{ flex:1; display:flex; flex-direction:column; align-items:center; gap:4px; height:100%; justify-content:flex-end; }
+  .hist-bar-fill{ width:100%; background:var(--pencil-blue); border-radius:3px 3px 0 0; min-height:2px; }
+  .hist-bar-label{ font-size:.6rem; color:var(--ink-soft); white-space:nowrap; }
+
+  .triple-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .triple-grid .panel{ align-items:center; text-align:center; }
+
+  /* ---- simple unsigned comparison bars ---- */
+  .cbar-row{ display:flex; align-items:center; gap:10px; font-size:.82rem; }
+  .cbar-label{ width:190px; flex:none; color:var(--ink-soft); }
+  .cbar-track{ flex:1; height:14px; background:var(--paper); border:1px solid var(--border); border-radius:999px; position:relative; overflow:hidden; }
+  .cbar-fill{ position:absolute; top:0; left:0; bottom:0; background:var(--pencil-blue); border-radius:999px; }
+  .cbar-value{ width:64px; flex:none; text-align:right; font-family:'JetBrains Mono',monospace; font-size:.8rem; }
+
+  .sheet-footer{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
+  .step-indicator{ font-family:'JetBrains Mono',monospace; font-size:.85rem; color:var(--ink-soft); }
+
+  @media (max-width:400px){ .masthead{ flex-direction:column; align-items:flex-start; } }
+</style>
+
+<div id="app">
+
+  <header class="masthead">
+    <div class="masthead-badge" id="logoGrid" aria-hidden="true"></div>
+    <div class="masthead-text">
+      <p class="eyebrow">완전 초보자를 위한 체험 학습지</p>
+      <h1>HOG, 그래디언트 방향으로 모양을 읽어요</h1>
+      <p class="lede">이미지의 밝기 자체가 아니라 "밝기가 어떻게 변하는지"(그래디언트)를 보고 모양을 파악하는 HOG(Histogram of Oriented Gradients)를 4단계로 체험해요 — 그래디언트 계산부터 셀 히스토그램, 블록 정규화까지.</p>
+    </div>
+  </header>
+
+  <nav class="steps-nav" id="stepsNav" aria-label="학습 단계">
+    <button class="step-tab" data-step="1"><b>1</b><span>이미지와 밝기</span></button>
+    <button class="step-tab" data-step="2"><b>2</b><span>그래디언트 계산</span></button>
+    <button class="step-tab" data-step="3"><b>3</b><span>셀 히스토그램</span></button>
+    <button class="step-tab" data-step="4"><b>4</b><span>정규화와 비교</span></button>
+  </nav>
+
+  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+
+  <main class="sheet">
+
+    <!-- STEP 1 -->
+    <section id="step-1" class="step">
+      <div class="step-head">
+        <p class="kicker">STEP 1 · 이미지는 밝기의 격자예요</p>
+        <h2>16×16 흑백 이미지를 살펴봐요</h2>
+        <p class="desc">아래는 밝기(0~255)로만 이루어진 16×16 이미지예요. 한 칸을 클릭하면 그 칸의 정확한 밝기 값을 볼 수 있어요. HOG는 이 밝기 값 자체가 아니라, 다음 단계에서 "밝기가 옆 칸과 비교해 얼마나 달라지는지"를 계산해요.</p>
+      </div>
+      <div class="control-row" id="shapeRow1"></div>
+      <div class="two-col">
+        <div class="panel">
+          <div class="stat-box mono" id="s1Stat">칸을 클릭해보세요.</div>
+        </div>
+        <div class="panel">
+          <div class="pixel-wrap" id="pixelWrap1"><div class="pixel-grid" id="grid1"></div></div>
+        </div>
+      </div>
+      <div class="callout">검은 칸(밝기 30)은 배경, 흰 칸(밝기 220)은 사람 또는 물체 모양이에요. 사람 눈에는 "모양"이 보이지만, 컴퓨터에게는 그냥 256개의 숫자일 뿐이에요.</div>
+    </section>
+
+    <!-- STEP 2 -->
+    <section id="step-2" class="step" hidden>
+      <div class="step-head">
+        <p class="kicker">STEP 2 · 그래디언트: 방향과 크기</p>
+        <h2>옆 칸과 비교해서 "변화의 화살표"를 구해요</h2>
+        <p class="desc">각 칸마다 오른쪽-왼쪽 밝기 차이(Gx), 아래쪽-위쪽 밝기 차이(Gy)를 계산해요. 이 둘을 합치면 "밝기가 가장 급격히 변하는 방향과 크기", 즉 그래디언트가 나와요. 배경은 화살표가 없고(변화 없음), 모양의 경계에서만 화살표가 강하게 나타나요.</p>
+      </div>
+      <div class="formula-box">
+        <span>Gx(x,y) = I(x+1,y) − I(x−1,y)  &nbsp; Gy(x,y) = I(x,y+1) − I(x,y−1)</span>
+        <span>크기 |G| = √(Gx² + Gy²) &nbsp; 방향(부호 있음) θ = atan2(Gy, Gx)</span>
+        <span class="muted">색이 진할수록 그 칸의 밝기 변화(경계)가 강하다는 뜻이에요.</span>
+      </div>
+      <div class="control-row" id="shapeRow2"></div>
+      <div class="two-col">
+        <div class="panel">
+          <div class="stat-box mono" id="s2Stat">칸을 클릭해보세요.</div>
+          <div class="info-box" id="s2Info"></div>
+        </div>
+        <div class="panel">
+          <div class="pixel-wrap" id="pixelWrap2"><div class="pixel-grid" id="grid2"></div><svg class="pixel-overlay" id="grid2Arrow" viewBox="0 0 16 16"></svg></div>
+        </div>
+      </div>
+      <div class="callout">파란 화살표는 그 칸에서 밝기가 어두운 쪽 → 밝은 쪽으로 가장 빠르게 증가하는 방향이에요. 배경 한가운데나 물체 안쪽을 클릭하면 화살표가 거의 없고(변화 없음), 경계를 클릭하면 화살표가 뚜렷하게 나타나요.</div>
+    </section>
+
+    <!-- STEP 3 -->
+    <section id="step-3" class="step" hidden>
+      <div class="step-head">
+        <p class="kicker">STEP 3 · 셀 히스토그램</p>
+        <h2>4×4 픽셀씩 묶어서, 방향별로 세어요</h2>
+        <p class="desc">16×16 이미지를 4×4 픽셀짜리 셀 16개로 나눠요. 각 셀 안의 모든 픽셀의 그래디언트를, 방향 구간(0°~180°를 20°씩 9개 구간) 중 하나에 크기만큼 더해서 "이 셀은 어떤 방향의 경계가 많은가"를 히스토그램으로 만들어요. 이게 바로 HOG(방향 그래디언트 히스토그램)예요.</p>
+      </div>
+      <div class="formula-box">
+        <span>셀 크기 4×4 픽셀, 방향 구간(bin) 9개 — 이때 방향은 <b>부호 없이(0°~180°)</b> 다뤄요(화살표 머리/꼬리는 구분하지 않아요).</span>
+        <span class="muted">각 픽셀의 그래디언트 크기를, 그 픽셀의 방향이 속한 구간에 더해요.</span>
+      </div>
+      <div class="control-row" id="shapeRow3"></div>
+      <div class="two-col">
+        <div class="panel">
+          <div class="stat-box mono" id="s3Stat">셀을 클릭해보세요.</div>
+          <div id="s3Hist"></div>
+        </div>
+        <div class="panel">
+          <div class="cell-wrap" id="cellWrap3"><div class="cell-grid" id="grid3"></div><svg class="cell-overlay" id="grid3Overlay" viewBox="0 0 4 4"></svg></div>
+        </div>
+      </div>
+      <div class="callout">각 셀 위의 작은 선들이 그 셀의 방향 히스토그램이에요 — 선이 길수록 그 방향의 경계가 많다는 뜻이에요. 몸통 옆쪽 셀은 세로(수직) 방향이, 어깨나 머리 위쪽 셀은 가로(수평) 방향이 강하게 나타나는 걸 확인해보세요.</div>
+    </section>
+
+    <!-- STEP 4 -->
+    <section id="step-4" class="step" hidden>
+      <div class="step-head">
+        <p class="kicker">STEP 4 · 블록 정규화와 비교</p>
+        <h2>밝기에는 둔감하게, 모양에는 예민하게</h2>
+        <p class="desc">셀 4개(2×2)를 블록으로 묶어서, 전체 크기(L2 norm)로 나누는 게 "블록 정규화"예요. 이러면 조명이 바뀌어 밝기가 통째로 달라져도 히스토그램의 "비율"은 그대로 유지돼요. 원본 사람, 어둡게 한 사람, 모양이 다른 가로막대를 비교해볼게요.</p>
+      </div>
+      <div class="formula-box">
+        <span>블록 정규화: 셀 4개의 히스토그램(9×4=36개 숫자)을 이어붙인 뒤, v → v / √(‖v‖² + 1)로 나눠요.</span>
+      </div>
+      <div class="triple-grid">
+        <div class="panel">
+          <p class="panel-title">원본 사람</p>
+          <div class="pixel-wrap small"><div class="pixel-grid" id="grid4a"></div></div>
+        </div>
+        <div class="panel">
+          <p class="panel-title">어둡게 한 사람(×0.4)</p>
+          <div class="pixel-wrap small"><div class="pixel-grid" id="grid4b"></div></div>
+        </div>
+        <div class="panel">
+          <p class="panel-title">가로막대(다른 모양)</p>
+          <div class="pixel-wrap small"><div class="pixel-grid" id="grid4c"></div></div>
+        </div>
+      </div>
+      <div class="info-box" id="s4RawInfo"></div>
+      <div class="panel">
+        <p class="panel-title">HOG 특성 공간에서의 거리 (정규화된 144차원 벡터끼리 비교)</p>
+        <div id="s4HogBars"></div>
+      </div>
+      <div class="callout" id="callout4"></div>
+    </section>
+
+  </main>
+
+  <footer class="sheet-footer">
+    <button id="prevBtn" class="btn">← 이전</button>
+    <span class="step-indicator" id="stepLabel">1 / 4</span>
+    <button id="nextBtn" class="btn btn-primary">다음 →</button>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  // ============ image construction (deterministic, geometric) ============
+  var N = 16;
+  function idx(r,c){ return r*N+c; }
+
+  function buildPerson(){
+    var img = new Array(N*N).fill(30);
+    for(var r=0;r<N;r++){ for(var c=0;c<N;c++){
+      var dr=r-4, dc=c-8;
+      if(Math.sqrt(dr*dr+dc*dc)<=2.2) img[idx(r,c)]=220;
+    }}
+    for(var r2=6;r2<=12;r2++){ for(var c2=6;c2<=10;c2++){ img[idx(r2,c2)]=220; } }
+    for(var r3=13;r3<=15;r3++){
+      img[idx(r3,6)]=220; img[idx(r3,7)]=220;
+      img[idx(r3,9)]=220; img[idx(r3,10)]=220;
+    }
+    return img;
+  }
+  function buildBar(){
+    var img = new Array(N*N).fill(30);
+    for(var r=6;r<=10;r++){ for(var c=2;c<=14;c++){ img[idx(r,c)]=220; } }
+    return img;
+  }
+  function dimImage(img, factor){ return img.map(function(v){ return Math.round(v*factor); }); }
+
+  var IMAGES = { person: buildPerson(), bar: buildBar() };
+  var PERSON_DIM = dimImage(IMAGES.person, 0.4);
+
+  // ============ gradients ============
+  function clampIdx(v){ return Math.max(0, Math.min(N-1, v)); }
+  function pixAt(img,r,c){ return img[idx(clampIdx(r),clampIdx(c))]; }
+
+  function computeGradients(img){
+    var Gx=[], Gy=[], mag=[], angSigned=[], angUnsigned=[];
+    for(var r=0;r<N;r++){ for(var c=0;c<N;c++){
+      var gx = pixAt(img,r,c+1)-pixAt(img,r,c-1);
+      var gy = pixAt(img,r+1,c)-pixAt(img,r-1,c);
+      Gx.push(gx); Gy.push(gy);
+      mag.push(Math.sqrt(gx*gx+gy*gy));
+      var a = Math.atan2(gy,gx)*180/Math.PI;
+      angSigned.push(a);
+      var au = ((a % 180) + 180) % 180;
+      angUnsigned.push(au);
+    }}
+    return {Gx:Gx,Gy:Gy,mag:mag,angSigned:angSigned,angUnsigned:angUnsigned};
+  }
+
+  var CELL=4, NBINS=9, BINW=180/NBINS, CELLS_PER_SIDE=N/CELL;
+
+  function cellHistogram(grad, cr, cc){
+    var hist = new Array(NBINS).fill(0);
+    for(var r=cr*CELL; r<cr*CELL+CELL; r++){
+      for(var c=cc*CELL; c<cc*CELL+CELL; c++){
+        var i = idx(r,c);
+        var bin = Math.min(NBINS-1, Math.floor(grad.angUnsigned[i]/BINW));
+        hist[bin]+=grad.mag[i];
+      }
+    }
+    return hist;
+  }
+  function allCellHistograms(grad){
+    var cells=[];
+    for(var cr=0;cr<CELLS_PER_SIDE;cr++){ for(var cc=0;cc<CELLS_PER_SIDE;cc++){ cells.push(cellHistogram(grad,cr,cc)); } }
+    return cells;
+  }
+  function blockNormalize(cells){
+    var BPS = CELLS_PER_SIDE/2, eps=1, vec=[];
+    for(var br=0;br<BPS;br++){ for(var bc=0;bc<BPS;bc++){
+      var concat=[];
+      [[0,0],[0,1],[1,0],[1,1]].forEach(function(off){
+        var cr=br*2+off[0], cc=bc*2+off[1];
+        concat = concat.concat(cells[cr*CELLS_PER_SIDE+cc]);
+      });
+      var normSq = concat.reduce(function(s,v){return s+v*v;},0);
+      var norm = Math.sqrt(normSq+eps*eps);
+      vec = vec.concat(concat.map(function(v){ return v/norm; }));
+    }}
+    return vec;
+  }
+  function hogFeature(img){ return blockNormalize(allCellHistograms(computeGradients(img))); }
+  function dist(a,b){ var s=0; for(var i=0;i<a.length;i++){ var d=a[i]-b[i]; s+=d*d; } return Math.sqrt(s); }
+
+  // precompute everything once (genuine, in-browser)
+  var GRADS = { person:computeGradients(IMAGES.person), bar:computeGradients(IMAGES.bar) };
+  var CELLHISTS = { person:allCellHistograms(GRADS.person), bar:allCellHistograms(GRADS.bar) };
+  var HOGVEC = { person:hogFeature(IMAGES.person), personDim:hogFeature(PERSON_DIM), bar:hogFeature(IMAGES.bar) };
+  var RAW_DIST_DIM = dist(IMAGES.person, PERSON_DIM);
+  var HOG_DIST_DIM = dist(HOGVEC.person, HOGVEC.personDim);
+  var HOG_DIST_BAR = dist(HOGVEC.person, HOGVEC.bar);
+
+  // ============ dom helpers ============
+  function q(id){ return document.getElementById(id); }
+
+  function renderShapeTabs(containerId, activeKey, onPick){
+    var shapes=[{key:'person',name:'사람 모양'},{key:'bar',name:'가로막대 모양'}];
+    var html = shapes.map(function(s){
+      return '<button class="btn preset-btn'+(s.key===activeKey?' active':'')+'" data-key="'+s.key+'">'+s.name+'</button>';
+    }).join('');
+    var el=q(containerId); el.innerHTML=html;
+    el.querySelectorAll('.preset-btn').forEach(function(btn){
+      btn.addEventListener('click', function(){ onPick(btn.dataset.key); });
+    });
+  }
+
+  function renderPixelGrid(containerId, img, selectedIdx, onClick){
+    var html='';
+    for(var i=0;i<N*N;i++){
+      var v = img[i];
+      var cls='pixel-cell'+(onClick?' clickable':'')+(i===selectedIdx?' selected':'');
+      html += '<div class="'+cls+'" data-i="'+i+'" style="background:rgb('+v+','+v+','+v+');"></div>';
+    }
+    var el=q(containerId); el.innerHTML=html;
+    if(onClick){
+      el.querySelectorAll('.pixel-cell').forEach(function(cell){
+        cell.addEventListener('click', function(){ onClick(+cell.dataset.i); });
+      });
+    }
+  }
+
+  function drawArrowOverlay(svgId, selectedIdx, grad){
+    if(selectedIdx===null){ q(svgId).innerHTML=''; return; }
+    var r=Math.floor(selectedIdx/N), c=selectedIdx%N;
+    var maxMag = Math.max.apply(null, grad.mag) || 1;
+    var half = 0.44 * Math.min(1, grad.mag[selectedIdx]/maxMag);
+    var rad = grad.angSigned[selectedIdx]*Math.PI/180;
+    var cx=c+0.5, cy=r+0.5;
+    var dx=Math.cos(rad)*half, dy=Math.sin(rad)*half;
+    var x1=cx-dx, y1=cy-dy, x2=cx+dx, y2=cy+dy;
+    var s = '<line x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'" stroke="var(--pencil-blue)" stroke-width="0.16" stroke-linecap="round"/>'+
+      '<circle cx="'+x2+'" cy="'+y2+'" r="0.14" fill="var(--pencil-blue)"/>';
+    q(svgId).innerHTML = s;
+  }
+
+  function renderCellGrid(containerId, img, selectedIdx){
+    var html='';
+    for(var cr=0;cr<CELLS_PER_SIDE;cr++){ for(var cc=0;cc<CELLS_PER_SIDE;cc++){
+      var i = cr*CELLS_PER_SIDE+cc;
+      var sum=0, n=0;
+      for(var r=cr*CELL;r<cr*CELL+CELL;r++){ for(var c=cc*CELL;c<cc*CELL+CELL;c++){ sum+=img[idx(r,c)]; n++; } }
+      var avg = Math.round(sum/n);
+      var cls='cell-box'+(i===selectedIdx?' selected':'');
+      html += '<div class="'+cls+'" data-i="'+i+'" style="background:rgb('+avg+','+avg+','+avg+');"></div>';
+    }}
+    var el=q(containerId); el.innerHTML=html;
+    el.querySelectorAll('.cell-box').forEach(function(cell){
+      cell.addEventListener('click', function(){ q(containerId).dispatchEvent(new CustomEvent('cellpick', {detail:+cell.dataset.i})); });
+    });
+  }
+
+  function drawStarburstOverlay(svgId, cellHists, selectedIdx){
+    var maxVal = 1;
+    cellHists.forEach(function(h){ h.forEach(function(v){ if(v>maxVal) maxVal=v; }); });
+    var s='';
+    for(var cr=0;cr<CELLS_PER_SIDE;cr++){ for(var cc=0;cc<CELLS_PER_SIDE;cc++){
+      var i = cr*CELLS_PER_SIDE+cc;
+      var hist = cellHists[i];
+      var cx=cc+0.5, cy=cr+0.5;
+      var isSel = i===selectedIdx;
+      for(var b=0;b<NBINS;b++){
+        var val = hist[b];
+        if(val<=0) continue;
+        var half = 0.46 * (val/maxVal);
+        var angDeg = (b+0.5)*BINW;
+        var rad = angDeg*Math.PI/180;
+        var dx=Math.cos(rad)*half, dy=Math.sin(rad)*half;
+        var color = isSel ? 'var(--pencil-blue)' : 'var(--pencil-blue-ink)';
+        var op = isSel ? 1 : 0.55;
+        s += '<line x1="'+(cx-dx)+'" y1="'+(cy-dy)+'" x2="'+(cx+dx)+'" y2="'+(cy+dy)+'" stroke="'+color+'" stroke-width="0.05" stroke-linecap="round" opacity="'+op+'"/>';
+      }
+    }}
+    q(svgId).innerHTML = s;
+  }
+
+  function renderHistChart(containerId, hist){
+    var maxVal = Math.max.apply(null, hist) || 1;
+    var html = hist.map(function(v,b){
+      var pct = Math.max(2, v/maxVal*100);
+      var label = Math.round(b*BINW)+'°';
+      return '<div class="hist-bar-col"><div class="hist-bar-fill" style="height:'+pct+'%;"></div><span class="hist-bar-label">'+label+'</span></div>';
+    }).join('');
+    q(containerId).innerHTML = '<div class="hist-chart">'+html+'</div>';
+  }
+
+  // ============ state ============
+  var state = { step:1, shape:'person' };
+  var s1 = { selected:null };
+  var s2 = { selected:null };
+  var s3 = { selected:null };
+
+  var progressFillEl, stepLabelEl, prevBtn, nextBtn;
+
+  function curImg(){ return state.shape==='person' ? IMAGES.person : IMAGES.bar; }
+  function curGrad(){ return state.shape==='person' ? GRADS.person : GRADS.bar; }
+  function curCells(){ return state.shape==='person' ? CELLHISTS.person : CELLHISTS.bar; }
+
+  // ---------- Step 1 ----------
+  function renderStep1(){
+    renderShapeTabs('shapeRow1', state.shape, function(k){ state.shape=k; s1.selected=null; renderStep1(); });
+    renderPixelGrid('grid1', curImg(), s1.selected, function(i){ s1.selected=i; renderStep1(); });
+    if(s1.selected===null){
+      q('s1Stat').textContent = '칸을 클릭해보세요.';
+    } else {
+      var r=Math.floor(s1.selected/N), c=s1.selected%N;
+      q('s1Stat').textContent = '선택한 칸: ('+r+','+c+') · 밝기 값: '+curImg()[s1.selected]+' / 255';
+    }
+  }
+
+  // ---------- Step 2 ----------
+  function renderStep2(){
+    renderShapeTabs('shapeRow2', state.shape, function(k){ state.shape=k; s2.selected=null; renderStep2(); });
+    var grad = curGrad();
+    var maxMag = Math.max.apply(null, grad.mag) || 1;
+    var img = curImg();
+    renderPixelGrid('grid2', img.map(function(v,i){ return v; }), s2.selected, function(i){ s2.selected=i; renderStep2(); });
+    // recolor by gradient magnitude heat instead of raw grayscale
+    var el = q('grid2');
+    el.querySelectorAll('.pixel-cell').forEach(function(cell){
+      var i = +cell.dataset.i;
+      var t = Math.min(1, grad.mag[i]/maxMag);
+      var bg = 'rgb('+Math.round(250-t*10)+','+Math.round(248-t*180)+','+Math.round(240-t*200)+')';
+      cell.style.background = bg;
+    });
+    drawArrowOverlay('grid2Arrow', s2.selected, grad);
+    if(s2.selected===null){
+      q('s2Stat').textContent = '칸을 클릭해보세요.';
+      q('s2Info').innerHTML = '';
+    } else {
+      var r=Math.floor(s2.selected/N), c=s2.selected%N;
+      q('s2Stat').textContent = '선택한 칸: ('+r+','+c+')';
+      q('s2Info').innerHTML =
+        '<span>Gx = <b class="mono">'+grad.Gx[s2.selected]+'</b>, Gy = <b class="mono">'+grad.Gy[s2.selected]+'</b></span>'+
+        '<span>크기 |G| = <b class="mono">'+grad.mag[s2.selected].toFixed(1)+'</b></span>'+
+        '<span>방향(부호 있음) θ = <b class="mono">'+grad.angSigned[s2.selected].toFixed(1)+'°</b></span>';
+    }
+  }
+
+  // ---------- Step 3 ----------
+  function renderStep3(){
+    renderShapeTabs('shapeRow3', state.shape, function(k){ state.shape=k; s3.selected=null; renderStep3(); });
+    var cells = curCells();
+    renderCellGrid('grid3', curImg(), s3.selected);
+    drawStarburstOverlay('grid3Overlay', cells, s3.selected);
+    if(s3.selected===null){
+      q('s3Stat').textContent = '셀을 클릭해보세요.';
+      q('s3Hist').innerHTML = '';
+    } else {
+      var cr=Math.floor(s3.selected/CELLS_PER_SIDE), cc=s3.selected%CELLS_PER_SIDE;
+      q('s3Stat').textContent = '선택한 셀: ('+cr+','+cc+')';
+      renderHistChart('s3Hist', cells[s3.selected]);
+    }
+  }
+
+  // ---------- Step 4 ----------
+  function renderStep4(){
+    renderPixelGrid('grid4a', IMAGES.person, null, null);
+    renderPixelGrid('grid4b', PERSON_DIM, null, null);
+    renderPixelGrid('grid4c', IMAGES.bar, null, null);
+
+    q('s4RawInfo').innerHTML =
+      '<span>원본 픽셀 공간에서의 거리 — 원본 사람 ↔ 어둡게 한 사람: <b class="mono">'+RAW_DIST_DIM.toFixed(1)+'</b></span>'+
+      '<span class="note">똑같은 모양인데도, 밝기만 바뀌었을 뿐인데 원본 픽셀로는 이렇게나 "다른 이미지"로 보여요.</span>';
+
+    var maxBar = Math.max(HOG_DIST_DIM, HOG_DIST_BAR) || 1;
+    function barRow(label, val){
+      var pct = Math.max(1, val/maxBar*100);
+      return '<div class="cbar-row"><span class="cbar-label">'+label+'</span>'+
+        '<div class="cbar-track"><div class="cbar-fill" style="width:'+pct+'%;"></div></div>'+
+        '<span class="cbar-value mono">'+val.toFixed(3)+'</span></div>';
+    }
+    q('s4HogBars').innerHTML =
+      barRow('원본 사람 ↔ 어둡게 한 사람', HOG_DIST_DIM) +
+      barRow('원본 사람 ↔ 가로막대', HOG_DIST_BAR);
+
+    q('callout4').innerHTML =
+      'HOG로 보면 원본 사람과 어둡게 한 사람의 거리는 <b>'+HOG_DIST_DIM.toFixed(3)+'</b>(사실상 0)인데, 원본 사람과 모양이 다른 가로막대의 거리는 <b>'+HOG_DIST_BAR.toFixed(3)+'</b>로 훨씬 커요. '+
+      '블록 정규화 덕분에 조명(밝기) 차이는 거의 무시하면서, 진짜 모양 차이는 그대로 잡아내는 거예요 — 이게 HOG가 사람 감지 같은 실제 문제에 쓰이는 이유예요.';
+  }
+
+  // ---------- nav / lifecycle ----------
+  function updateProgress(){
+    progressFillEl.style.width = (state.step/4*100)+'%';
+    stepLabelEl.textContent = state.step+' / 4';
+  }
+  function updateNavTabs(){
+    document.querySelectorAll('.step-tab').forEach(function(btn){
+      var s=+btn.dataset.step;
+      btn.classList.toggle('active', s===state.step);
+      if(s===state.step) btn.setAttribute('aria-current','step'); else btn.removeAttribute('aria-current');
+    });
+  }
+  function updatePrevNext(){
+    prevBtn.disabled = state.step===1;
+    nextBtn.textContent = state.step===4 ? '처음부터 다시 ↺' : '다음 →';
+  }
+  function renderCurrentStep(){
+    updateProgress();
+    switch(state.step){
+      case 1: renderStep1(); break;
+      case 2: renderStep2(); break;
+      case 3: renderStep3(); break;
+      case 4: renderStep4(); break;
+    }
+  }
+  function goToStep(n){
+    if(n<1) n=1; if(n>4) n=4;
+    state.step=n;
+    for(var i=1;i<=4;i++){ q('step-'+i).hidden = (i!==n); }
+    updateNavTabs();
+    updatePrevNext();
+    renderCurrentStep();
+  }
+
+  function renderLogoGrid(){
+    var el=q('logoGrid');
+    el.innerHTML='';
+    var pattern=[0,0,1,0, 0,1,1,1, 1,1,1,0, 0,1,0,0];
+    pattern.forEach(function(v,i){
+      var d=document.createElement('i');
+      d.className = v? 'on':'';
+      d.style.animationDelay = (i*28)+'ms';
+      el.appendChild(d);
+    });
+  }
+
+  function initListeners(){
+    q('grid3').addEventListener('cellpick', function(e){ s3.selected = e.detail; renderStep3(); });
+
+    q('stepsNav').addEventListener('click', function(e){
+      var b=e.target.closest('.step-tab'); if(!b) return;
+      goToStep(+b.dataset.step);
+    });
+    prevBtn.addEventListener('click', function(){ goToStep(state.step-1); });
+    nextBtn.addEventListener('click', function(){ if(state.step<4) goToStep(state.step+1); else goToStep(1); });
+  }
+
+  function init(){
+    progressFillEl=q('progressFill'); stepLabelEl=q('stepLabel');
+    prevBtn=q('prevBtn'); nextBtn=q('nextBtn');
+
+    renderLogoGrid();
+    initListeners();
+    updateNavTabs();
+    updatePrevNext();
+    renderCurrentStep();
+  }
+
+  try{
+    if(window.claude && window.claude.hot && window.claude.hot.ready){
+      window.claude.hot.ready(function(){ init(); });
+    } else { init(); }
+  }catch(e){ init(); }
+
+})();
+</script>

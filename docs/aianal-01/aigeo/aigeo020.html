@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>실습 4: 도근점 찾기 - Eugene&#x27;s Board</title>
+        <title>실습 5: 도근점 찾기 - Eugene&#x27;s Board</title>
 
 
         <!-- Custom HTML head -->
@@ -36,10 +36,10 @@
             const path_to_root = "../../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../../searchindex-1f3ff639.js";
+            window.path_to_searchindex_js = "../../searchindex-8e7c9afc.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../../toc-ec39da27.js"></script>
+        <script src="../../toc-53c0cb2a.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -175,13 +175,240 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="실습-2-도근점-찾기"><a class="header" href="#실습-2-도근점-찾기">실습 2: 도근점 찾기</a></h1>
+                        <h1 id="실습-5-도근점-찾기"><a class="header" href="#실습-5-도근점-찾기">실습 5: 도근점 찾기</a></h1>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="attachments/20260927170258.png" alt=""><span class="img-wrapper"><img src="attachments/20260927170258.png" alt=""></span></label></p>
+<h2 id="용어-정리"><a class="header" href="#용어-정리">용어 정리</a></h2>
+<h3 id="hog"><a class="header" href="#hog">HOG</a></h3>
+<ul>
+<li>
+<p>Histogram of Oriented Gradient, 방향성 그레디언트 히스토그램</p>
+</li>
+<li>
+<p>사물 인식에 주로 사용되는 대표적인 특징 추출 알고리즘.</p>
+</li>
+<li>
+<p>체험하기: <a href="../aid/hog-workbook.html" target="_blank">HOG(Histogram of Oriented Gradients)</a></p>
+</li>
+</ul>
+<h3 id="svc"><a class="header" href="#svc">SVC</a></h3>
+<ul>
+<li>
+<p>Support Vector Classifier, 서포트 벡터 머신에서 분류 문제 해결하는 모델</p>
+</li>
+<li>
+<p>체험하기: <a href="../aid/svc-workbook.html" target="_blank">SVC(Support Vector Classifier), 가장 안전한 경계선</a></p>
+</li>
+</ul>
+<h2 id="전체-흐름"><a class="header" href="#전체-흐름">전체 흐름</a></h2>
+<ol>
+<li>
+<p>도근점 이미지를 학습시킨 AI 모델을 만든다.</p>
+</li>
+<li>
+<p>도근점이 있던 곳의 좌표에서 사진을 찍어온다.</p>
+</li>
+<li>
+<p>이 사진을 AI 모델에게 던져주고 여기에 도근점이 있는지 없는지 알려달라 한다.</p>
+</li>
+</ol>
+<br />
+<h2 id="코드"><a class="header" href="#코드">코드</a></h2>
+<pre><code class="language-python">import marimo
+
+__generated_with = "0.25.0"
+app = marimo.App()
+
+
+@app.cell
+def _():
+    import glob
+    import os
+    import cv2
+    import numpy as np
+    import marimo as mo
+    from skimage.feature import hog
+    from sklearn.model_selection import train_test_split
+    from sklearn.svm import SVC
+    from sklearn.metrics import accuracy_score
+
+    # 이미지 기본 리사이즈 크기 설정
+    IMAGE_SIZE = (1024, 1024)
+    return (
+        IMAGE_SIZE,
+        SVC,
+        accuracy_score,
+        cv2,
+        glob,
+        hog,
+        mo,
+        np,
+        train_test_split,
+    )
+
+
+@app.cell
+def _(IMAGE_SIZE, cv2, hog):
+    def extract_features_from_array(img_array):
+        """OpenCV 이미지 배열(BGR)을 받아 HOG 특성을 추출합니다."""
+        if img_array is None:
+            return None
+        gray = cv2.cvtColor(img_array, cv2.COLOR_BGR2GRAY)
+        resized = cv2.resize(gray, IMAGE_SIZE)
+
+        features = hog(
+            resized,
+            orientations=12,
+            pixels_per_cell=(4, 4),
+            cells_per_block=(2, 2),
+            transform_sqrt=True,
+            block_norm="L2-Hys"
+        )
+        return features
+
+    def extract_features_from_file(image_path):
+        """이미지 경로를 받아 HOG 특성을 추출합니다."""
+        img = cv2.imread(image_path)
+        return extract_features_from_array(img)
+
+    return extract_features_from_array, extract_features_from_file
+
+
+@app.cell
+def _(
+    SVC,
+    accuracy_score,
+    extract_features_from_file,
+    glob,
+    np,
+    train_test_split,
+):
+    pos_paths = glob.glob("./dataset/dogun/*.jpg") + glob.glob("./dataset/dogun/*.png")
+    neg_paths = glob.glob("./dataset/negative/*.jpg") + glob.glob("./dataset/negative/*.png")
+
+    X = []
+    y = []
+
+    for p in pos_paths:
+        feat = extract_features_from_file(p)
+        if feat is not None:
+            X.append(feat)
+            y.append(1)
+
+    for p in neg_paths:
+        feat = extract_features_from_file(p)
+        if feat is not None:
+            X.append(feat)
+            y.append(0)
+
+    X = np.array(X)
+    y = np.array(y)
+
+    model = None
+    train_status = "데이터가 부족합니다. ./dataset/dogun 및 ./dataset/negative 폴더를 확인해 주세요."
+
+    if len(X) &gt; 0 and len(np.unique(y)) &gt; 1:    
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42, stratify=y)    
+
+        model = SVC(kernel="rbf", C=10.0, gamma=0.01, class_weight="balanced", random_state=42)
+        model.fit(X_train, y_train)
+
+        y_pred = model.predict(X_test)
+        acc = accuracy_score(y_test, y_pred)
+        train_status = f"학습 완료! 검증 정확도: {acc * 100:.2f}%"
+
+    print(train_status)
+    return feat, model
+
+
+@app.cell
+def _(mo):
+    uploader = mo.ui.file(
+        filetypes=[".png", ".jpg", ".jpeg"],
+        label="새로운 이미지를 업로드하여 도근점 유무 판별하기"
+    )
+    uploader
+    return (uploader,)
+
+
+@app.cell
+def _(cv2, extract_features_from_array, feat, mo, model, np, uploader):
+    # 결과를 담을 변수 초기화
+    output = mo.md("이미지를 업로드하면 결과가 아래에 표시됩니다.")
+
+    if uploader.value and model is not None:
+        uploaded_file = uploader.value[0]
+        image_bytes = uploaded_file.contents
+
+        nparr = np.frombuffer(image_bytes, np.uint8)
+        img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+
+        _feat = extract_features_from_array(img)
+
+        if _feat is not None:
+            pred = model.predict([_feat])[0]
+            score = model.decision_function([feat])[0]  # 양수일수록 물체 A일 확률이 높음
+
+            # 점수를 Sigmoid 함수를 이용해 0~100% 확률 값처럼 변환 (선택 사항)
+            prob_percent = (1 / (1 + np.exp(-score))) * 100
+
+            result_text = (
+                f"🟢 사진 내에 **도근점이 존재합니다!** (신뢰도: {prob_percent:.1f}%)"
+                if pred == 1
+                else f"🔴 사진 내에 **도근점이 없습니다.** (신뢰도: {100 - prob_percent:.1f}%)"
+            )
+
+
+            # UI 레이아웃을 output 변수에 저장
+            output = mo.vstack([
+                mo.image(src=image_bytes, width=300),
+                mo.md(f"### 결과: {result_text}")
+            ])
+        else:
+            output = mo.md("❌ 이미지에서 특성을 추출하지 못했습니다.")
+
+    elif uploader.value and model is None:
+        output = mo.md("⚠️ 모델이 아직 학습되지 않았습니다.")
+
+    # 셀의 마지막 줄에서 UI 객체를 평가해야 화면에 출력됩니다.
+    output
+    return
+
+
+if __name__ == "__main__":
+    app.run()
+
+</code></pre>
+<h2 id="실습-진행"><a class="header" href="#실습-진행">실습 진행</a></h2>
+<ol>
+<li>
+<p>위 코드를 복사해 <code>d:\test\dogun\dogun.py</code> <a href="../code/dogun.py">파일</a> 로 저장한다.</p>
+</li>
+<li>
+<p><a href="./dogun.zip">도근 학습, 테스트용 이미지 파일</a>을 다운로드받아 압축 푼다.</p>
+</li>
+<li>
+<p>압축 파일이 풀린 곳의 <code>학습\dogun</code> 폴더의 이미지들을 <code>d:\test\dogun\dataset\dogun</code> 폴더에 복사해 넣는다.</p>
+</li>
+<li>
+<p>압축 파일이 풀린 곳의 <code>학습\negative</code> 폴더의 이미지들을 <code>d:\test\dogun\dataset\negative</code> 폴더에 복사해 넣는다.</p>
+</li>
+<li>
+<p><code>d:\test\dogun\</code> 폴더에서 powershell을 실행해 <code>marimo edit dogun.py</code> 를 실행한다.</p>
+</li>
+<li>
+<p>marimo에서 전체 실행해 <strong>도근 이미지를 학습한 AI 모델</strong> 을 만든다.</p>
+</li>
+<li>
+<p>새 이미지를 주며 <strong>여기에 도근점이 있는지</strong> 말해보라 시킨다.</p>
+</li>
+</ol>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="attachments/20260928013535.png" alt=""><span class="img-wrapper"><img src="attachments/20260928013535.png" alt=""></span></label></p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../../aianal-01/aigeo/aigeo010.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../aianal-01/aigeo/aigeo015.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
@@ -195,7 +422,7 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../../aianal-01/aigeo/aigeo010.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../aianal-01/aigeo/aigeo015.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 

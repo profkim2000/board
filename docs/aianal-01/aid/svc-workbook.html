@@ -1,0 +1,748 @@
+<meta charset="utf-8">
+<title>SVC 체험 학습지</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+  :root{
+    --paper:#FAFAF8;
+    --paper-grid:#DCE6F5;
+    --paper-grid-strong:#C3D2EE;
+    --surface:#FFFFFF;
+    --border:#E2E6EE;
+    --ink:#1E2430;
+    --ink-soft:#63697A;
+    --pencil-blue:#2F5FD1;
+    --pencil-blue-soft:#E7EEFD;
+    --pencil-blue-ink:#1D3E96;
+    --pencil-red:#D8443A;
+    --pencil-red-soft:#FBE7E5;
+    --pencil-red-ink:#A9291F;
+    --pencil-yellow:#C98A00;
+    --pencil-yellow-soft:#FBF0D6;
+    --pencil-yellow-ink:#8A5E00;
+    --shadow: 0 1px 2px rgba(30,36,48,0.06), 0 6px 20px rgba(30,36,48,0.05);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#161D28; --paper-grid:#2D3B52; --paper-grid-strong:#3C4E6B;
+      --surface:#1D2534; --border:#31405A; --ink:#ECEFF6; --ink-soft:#9BA6BC;
+      --pencil-blue:#7DA2FF; --pencil-blue-soft:#243257; --pencil-blue-ink:#C4D3FF;
+      --pencil-red:#FF8A7E; --pencil-red-soft:#3A2429; --pencil-red-ink:#FFC0B7;
+      --pencil-yellow:#F0C243; --pencil-yellow-soft:#3A311A; --pencil-yellow-ink:#F5D27A;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 10px 26px rgba(0,0,0,0.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#161D28; --paper-grid:#2D3B52; --paper-grid-strong:#3C4E6B;
+    --surface:#1D2534; --border:#31405A; --ink:#ECEFF6; --ink-soft:#9BA6BC;
+    --pencil-blue:#7DA2FF; --pencil-blue-soft:#243257; --pencil-blue-ink:#C4D3FF;
+    --pencil-red:#FF8A7E; --pencil-red-soft:#3A2429; --pencil-red-ink:#FFC0B7;
+    --pencil-yellow:#F0C243; --pencil-yellow-soft:#3A311A; --pencil-yellow-ink:#F5D27A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 10px 26px rgba(0,0,0,0.35);
+  }
+
+  *{ box-sizing:border-box; }
+  [hidden]{ display:none !important; }
+  body{
+    margin:0;
+    background:
+      linear-gradient(var(--paper), var(--paper)),
+      repeating-linear-gradient(0deg, var(--paper-grid) 0 1px, transparent 1px 28px),
+      repeating-linear-gradient(90deg, var(--paper-grid) 0 1px, transparent 1px 28px);
+    background-color:var(--paper);
+    color:var(--ink);
+    font-family:'Noto Sans KR', 'Malgun Gothic', sans-serif;
+    line-height:1.6;
+  }
+  h1,h2,h3{ font-family:'Gowun Dodum','Noto Sans KR',sans-serif; font-weight:400; text-wrap:balance; margin:0; color:var(--ink); }
+  p{ margin:0; }
+  .mono{ font-family:'JetBrains Mono', ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+  button{ font-family:inherit; }
+  :focus-visible{ outline:3px solid var(--pencil-blue); outline-offset:2px; }
+
+  #app{ max-width:980px; margin-inline:auto; padding-inline:20px; padding-block:32px 56px; display:flex; flex-direction:column; gap:20px; }
+
+  .masthead{ display:flex; align-items:center; gap:20px; background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:22px 24px; box-shadow:var(--shadow); flex-wrap:wrap; }
+  .masthead-badge{ flex:none; width:84px; height:84px; display:grid; grid-template-columns:repeat(4,1fr); grid-template-rows:repeat(4,1fr); gap:3px; padding:8px; background:var(--paper); border:1px solid var(--border); border-radius:12px; }
+  .masthead-badge i{ background:var(--paper-grid); border-radius:2px; opacity:0; }
+  @media (prefers-reduced-motion: no-preference){ .masthead-badge i.on{ animation:inkIn 240ms ease-out forwards; } }
+  .masthead-badge i.on{ background:var(--pencil-blue); opacity:1; }
+  @keyframes inkIn{ from{ opacity:0; transform:scale(.4);} to{ opacity:1; transform:scale(1);} }
+  .masthead-text{ flex:1; min-width:220px; display:flex; flex-direction:column; gap:6px; }
+  .eyebrow{ font-size:.8rem; font-weight:700; letter-spacing:.06em; color:var(--pencil-blue); text-transform:uppercase; }
+  .masthead-text h1{ font-size:clamp(1.3rem,4vw,1.9rem); }
+  .lede{ color:var(--ink-soft); font-size:.95rem; max-width:64ch; }
+
+  .steps-nav{ display:flex; flex-wrap:wrap; gap:8px; }
+  .step-tab{ flex:1 1 auto; min-width:100px; display:flex; flex-direction:column; align-items:center; gap:2px; padding:10px 8px; border-radius:12px; border:1px solid var(--border); background:var(--surface); color:var(--ink-soft); cursor:pointer; font-size:.8rem; transition:background 150ms, color 150ms, border-color 150ms; }
+  .step-tab b{ font-family:'JetBrains Mono',monospace; font-size:.95rem; color:inherit; }
+  .step-tab.active{ background:var(--pencil-blue); border-color:var(--pencil-blue); color:#fff; }
+  .step-tab.active b{ color:#fff; }
+
+  .progress-track{ height:6px; border-radius:999px; background:var(--paper-grid); overflow:hidden; }
+  .progress-fill{ height:100%; background:var(--pencil-blue); border-radius:999px; transition:width 220ms ease; }
+
+  .sheet{ background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:26px 24px; box-shadow:var(--shadow); }
+  .step:not([hidden]){ display:flex; }
+  .step{ flex-direction:column; gap:18px; }
+  .step-head{ display:flex; flex-direction:column; gap:6px; }
+  .step-head .kicker{ font-size:.78rem; font-weight:700; color:var(--pencil-blue); letter-spacing:.04em; }
+  .step-head h2{ font-size:1.4rem; }
+  .step-head .desc{ color:var(--ink-soft); font-size:.95rem; max-width:68ch; }
+
+  .two-col{ display:grid; grid-template-columns:1fr; gap:22px; }
+  @media (min-width:680px){ .two-col{ grid-template-columns: minmax(0,230px) 1fr; align-items:start; } }
+
+  .panel{ display:flex; flex-direction:column; gap:12px; }
+  .panel-title{ font-size:.85rem; font-weight:700; color:var(--ink-soft); }
+
+  .btn{ border-radius:10px; border:1px solid var(--border); background:var(--surface); color:var(--ink); padding:9px 14px; font-size:.85rem; font-weight:500; cursor:pointer; transition:background 120ms, border-color 120ms, color 120ms; }
+  .btn:hover{ border-color:var(--pencil-blue); }
+  .btn:disabled{ opacity:.45; cursor:not-allowed; }
+  .btn-primary{ background:var(--pencil-blue); border-color:var(--pencil-blue); color:#fff; }
+  .btn-primary:hover{ opacity:.92; }
+  .btn.active{ background:var(--pencil-blue); border-color:var(--pencil-blue); color:#fff; }
+  .control-row{ display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+
+  .note{ font-size:.82rem; color:var(--ink-soft); }
+  .callout{ background:var(--paper); border:1px dashed var(--paper-grid-strong); border-radius:12px; padding:12px 14px; font-size:.88rem; color:var(--ink-soft); }
+
+  .stat-box{ font-family:'JetBrains Mono',monospace; font-weight:700; font-size:.92rem; padding:10px 14px; border-radius:12px; background:var(--paper); border:1px solid var(--border); }
+  .info-box{ background:var(--paper); border:1px solid var(--border); border-radius:12px; padding:12px 14px; font-size:.85rem; display:flex; flex-direction:column; gap:4px; }
+
+  .formula-box{ background:var(--paper); border:1px solid var(--border); border-radius:12px; padding:12px 14px; font-family:'JetBrains Mono',monospace; font-size:.82rem; color:var(--ink); display:flex; flex-direction:column; gap:6px; line-height:1.7; overflow-x:auto; }
+  .formula-box .muted{ color:var(--ink-soft); }
+
+  /* ---- scatter plot ---- */
+  .plot-wrap{ width:100%; max-width:460px; margin-inline:auto; }
+  .plot-svg{ width:100%; height:auto; display:block; background:var(--paper); border:1px solid var(--border); border-radius:12px; }
+  .legend-row{ display:flex; flex-wrap:wrap; gap:14px 18px; font-size:.8rem; color:var(--ink-soft); justify-content:center; }
+  .legend-dot{ display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:6px; vertical-align:middle; }
+  .legend-ring{ display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:6px; vertical-align:middle; border:2px solid var(--pencil-yellow); }
+
+  /* ---- line chart (margin-vs-angle, loss-vs-epoch) ---- */
+  .chart-wrap{ background:var(--paper); border:1px solid var(--border); border-radius:12px; padding:10px 12px; }
+  .chart-svg{ width:100%; height:120px; display:block; }
+  .chart-caption{ font-size:.72rem; color:var(--ink-soft); text-align:center; margin-top:2px; }
+
+  .kernel-tabs{ display:flex; gap:8px; }
+
+  .sheet-footer{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
+  .step-indicator{ font-family:'JetBrains Mono',monospace; font-size:.85rem; color:var(--ink-soft); }
+
+  @media (max-width:400px){ .masthead{ flex-direction:column; align-items:flex-start; } }
+</style>
+
+<div id="app">
+
+  <header class="masthead">
+    <div class="masthead-badge" id="logoGrid" aria-hidden="true"></div>
+    <div class="masthead-text">
+      <p class="eyebrow">완전 초보자를 위한 체험 학습지</p>
+      <h1>SVC, 가장 안전한 경계선을 찾아요</h1>
+      <p class="lede">두 그룹을 나누는 무수히 많은 선 중에서, 각 그룹으로부터 가장 멀리 떨어진 "가장 안전한" 경계선을 수학적으로 찾아내는 SVC(Support Vector Classifier)를 4단계로 체험해요 — 마진 최대화부터 소프트 마진, 커널 트릭까지.</p>
+    </div>
+  </header>
+
+  <nav class="steps-nav" id="stepsNav" aria-label="학습 단계">
+    <button class="step-tab" data-step="1"><b>1</b><span>마진이란</span></button>
+    <button class="step-tab" data-step="2"><b>2</b><span>최대 마진</span></button>
+    <button class="step-tab" data-step="3"><b>3</b><span>소프트 마진(C)</span></button>
+    <button class="step-tab" data-step="4"><b>4</b><span>커널 트릭</span></button>
+  </nav>
+
+  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+
+  <main class="sheet">
+
+    <!-- STEP 1 -->
+    <section id="step-1" class="step">
+      <div class="step-head">
+        <p class="kicker">STEP 1 · 여러 개의 경계선, 어떤 게 더 좋을까</p>
+        <h2>같은 데이터를 나누는 세 가지 후보 경계선</h2>
+        <p class="desc">두 그룹(빨강 A / 파랑 B)을 완벽하게 나누는 직선은 무수히 많아요. 아래 후보 A·B·C는 모두 데이터를 100% 정확히 나누지만, 선과 가장 가까운 점 사이의 "여유"(마진)는 서로 달라요. 후보를 클릭해서 비교해보세요.</p>
+      </div>
+      <div class="control-row" id="candRow1"></div>
+      <div class="two-col">
+        <div class="panel">
+          <div class="stat-box mono" id="s1Stat">후보를 클릭해보세요.</div>
+          <div class="legend-row">
+            <span><span class="legend-dot" style="background:var(--pencil-red);"></span>그룹 A</span>
+            <span><span class="legend-dot" style="background:var(--pencil-blue);"></span>그룹 B</span>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="plot-wrap"><svg class="plot-svg" id="plot1" viewBox="0 0 100 100"></svg></div>
+        </div>
+      </div>
+      <div class="callout">마진이 클수록 선이 두 그룹의 "한가운데"에 가깝게 지나간다는 뜻이에요 — 새로운 점이 조금 다르게 나타나도 잘못 분류할 위험이 적어요. 다음 단계에서 실제로 가장 넓은 마진을 갖는 선을 수학적으로 찾아볼게요.</div>
+    </section>
+
+    <!-- STEP 2 -->
+    <section id="step-2" class="step" hidden>
+      <div class="step-head">
+        <p class="kicker">STEP 2 · 마진 최대화와 서포트 벡터</p>
+        <h2>모든 방향을 훑어서, 진짜 최적의 경계선을 찾아요</h2>
+        <p class="desc">방향 u에서의 마진은 "B 그룹 사영값의 최솟값 − A 그룹 사영값의 최댓값"으로 계산돼요. 0°~180°의 모든 방향을 훑으면서 각 방향의 마진을 계산하고, 그중 가장 큰 값을 가진 방향이 바로 SVC가 찾는 최적의 경계선이에요.</p>
+      </div>
+      <div class="formula-box">
+        <span>방향 u(단위벡터)에서의 마진 = min(B그룹의 u·x) − max(A그룹의 u·x)</span>
+        <span class="muted">이 값이 가장 커지는 u를 찾는 것이 SVC(하드 마진)의 목표예요.</span>
+      </div>
+      <div class="control-row"><button class="btn btn-primary" id="s2TrainBtn">훈련 시작 (모든 방향 탐색)</button></div>
+      <div class="chart-wrap"><svg class="chart-svg" id="s2Chart" viewBox="0 0 300 110" preserveAspectRatio="none"></svg><p class="chart-caption" id="s2ChartCap">방향(0°~180°)에 따른 마진 크기</p></div>
+      <div class="two-col">
+        <div class="panel">
+          <div class="stat-box mono" id="s2Stat">"훈련 시작"을 눌러보세요.</div>
+          <div class="legend-row">
+            <span><span class="legend-dot" style="background:var(--pencil-red);"></span>그룹 A</span>
+            <span><span class="legend-dot" style="background:var(--pencil-blue);"></span>그룹 B</span>
+            <span><span class="legend-ring"></span>서포트 벡터</span>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="plot-wrap"><svg class="plot-svg" id="plot2" viewBox="0 0 100 100"></svg></div>
+        </div>
+      </div>
+      <div class="callout" id="callout2">경계선을 지탱하는 건 오직 마진에 가장 가까운 몇 개의 점(서포트 벡터)뿐이에요. 나머지 점들은 아무리 위치를 바꿔도 이 경계선에 전혀 영향을 주지 않아요.</div>
+    </section>
+
+    <!-- STEP 3 -->
+    <section id="step-3" class="step" hidden>
+      <div class="step-head">
+        <p class="kicker">STEP 3 · 소프트 마진과 C</p>
+        <h2>완벽하게 나눌 수 없다면? 약간의 위반을 허용해요</h2>
+        <p class="desc">이번 데이터는 두 그룹이 서로 겹쳐 있어서 어떤 직선으로도 완벽히 나눌 수 없어요. SVC는 "마진을 넓게 유지하는 것"과 "위반(마진 안쪽 침범)을 줄이는 것" 사이에서 절충점을 찾는데, 그 정도를 C 값으로 조절해요.</p>
+      </div>
+      <div class="formula-box">
+        <span>손실 = ½‖w‖² + C·(위반 정도의 합) &nbsp; — &nbsp; 위반: yᵢ(w·xᵢ+b) &lt; 1인 점</span>
+        <span class="muted">C가 작으면 마진을 넓게(위반 허용), C가 크면 위반을 최소화(마진이 좁아짐)해요.</span>
+      </div>
+      <div class="control-row" id="cRow3"></div>
+      <div class="chart-wrap"><svg class="chart-svg" id="s3Chart" viewBox="0 0 300 110" preserveAspectRatio="none"></svg><p class="chart-caption">학습 반복(epoch)에 따른 손실 감소</p></div>
+      <div class="two-col">
+        <div class="panel">
+          <div class="stat-box mono" id="s3Stat">C 값을 선택해보세요.</div>
+          <div class="legend-row">
+            <span><span class="legend-dot" style="background:var(--pencil-red);"></span>그룹 A</span>
+            <span><span class="legend-dot" style="background:var(--pencil-blue);"></span>그룹 B</span>
+            <span><span class="legend-ring"></span>서포트 벡터(위반)</span>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="plot-wrap"><svg class="plot-svg" id="plot3" viewBox="0 0 100 100"></svg></div>
+        </div>
+      </div>
+      <div class="callout" id="callout3"></div>
+    </section>
+
+    <!-- STEP 4 -->
+    <section id="step-4" class="step" hidden>
+      <div class="step-head">
+        <p class="kicker">STEP 4 · 커널 트릭</p>
+        <h2>직선으로 안 되면, 몰래 차원을 늘려요</h2>
+        <p class="desc">이 데이터는 안쪽 그룹(원)과 바깥쪽 그룹(고리)이 서로를 감싸고 있어서, 어떤 직선도 잘 나누지 못해요. 커널 트릭은 각 점을 "기준점(landmark)들과 얼마나 비슷한지"로 새롭게 표현해서, 이 새로운 공간에서는 선형 SVC로도 두 그룹이 갈라지게 만들어요.</p>
+      </div>
+      <div class="formula-box">
+        <span>새 특성 fᵢ(x) = exp(−γ · ‖x − 기준점ᵢ‖²) &nbsp; (RBF 커널, γ=1)</span>
+        <span class="muted">모든 훈련 데이터를 기준점으로 삼아, 이 유사도 특성들 위에서 선형 SVC를 학습해요.</span>
+      </div>
+      <div class="kernel-tabs control-row" id="kernelTabs"></div>
+      <div class="two-col">
+        <div class="panel">
+          <div class="stat-box mono" id="s4Stat"></div>
+          <div class="legend-row">
+            <span><span class="legend-dot" style="background:var(--pencil-red);"></span>그룹 A 영역/점</span>
+            <span><span class="legend-dot" style="background:var(--pencil-blue);"></span>그룹 B 영역/점</span>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="plot-wrap"><svg class="plot-svg" id="plot4" viewBox="0 0 100 100"></svg></div>
+        </div>
+      </div>
+      <div class="callout" id="callout4"></div>
+    </section>
+
+  </main>
+
+  <footer class="sheet-footer">
+    <button id="prevBtn" class="btn">← 이전</button>
+    <span class="step-indicator" id="stepLabel">1 / 4</span>
+    <button id="nextBtn" class="btn btn-primary">다음 →</button>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  // ============ PRNG (Mulberry32) + Gaussian ============
+  function mulberry32(seed){
+    var a = seed >>> 0;
+    return function(){
+      a |= 0; a = (a + 0x6D2B79F5) | 0;
+      var t = Math.imul(a ^ (a >>> 15), 1 | a);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+  function gaussian(rng){
+    var u=0,v=0;
+    while(u===0) u=rng();
+    while(v===0) v=rng();
+    return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);
+  }
+
+  // ============ dataset builders ============
+  function buildLinearData(seed){
+    var rng = mulberry32(seed);
+    var pts=[];
+    var centers = [{c:[-1.6,-1.0], y:-1},{c:[1.6,1.1], y:1}];
+    centers.forEach(function(spec){
+      for(var i=0;i<20;i++){
+        pts.push({ x:[spec.c[0]+gaussian(rng)*0.45, spec.c[1]+gaussian(rng)*0.45], y:spec.y });
+      }
+    });
+    return pts;
+  }
+  function buildOverlapData(seed){
+    var rng = mulberry32(seed);
+    var pts=[];
+    var centers = [{c:[-0.9,-0.5], y:-1},{c:[0.9,0.6], y:1}];
+    centers.forEach(function(spec){
+      for(var i=0;i<25;i++){
+        pts.push({ x:[spec.c[0]+gaussian(rng)*0.78, spec.c[1]+gaussian(rng)*0.78], y:spec.y });
+      }
+    });
+    return pts;
+  }
+  function buildDonutData(seed){
+    var rng = mulberry32(seed);
+    var pts=[];
+    for(var i=0;i<26;i++){
+      var r = 0.2 + rng()*0.8, a = rng()*2*Math.PI;
+      pts.push({ x:[r*Math.cos(a), r*Math.sin(a)], y:-1 });
+    }
+    for(var i=0;i<26;i++){
+      var r = 1.7 + rng()*0.9, a = rng()*2*Math.PI;
+      pts.push({ x:[r*Math.cos(a), r*Math.sin(a)], y:1 });
+    }
+    return pts;
+  }
+
+  var LIN = buildLinearData(70707);
+  var OVERLAP = buildOverlapData(90909);
+  var DONUT = buildDonutData(24680);
+
+  // ============ core SVC math ============
+  function marginForAngle(data, angleDeg){
+    var rad = angleDeg*Math.PI/180;
+    var u = [Math.cos(rad), Math.sin(rad)];
+    var maxNeg=-Infinity, minPos=Infinity;
+    data.forEach(function(p){
+      var proj = u[0]*p.x[0]+u[1]*p.x[1];
+      if(p.y===-1){ if(proj>maxNeg) maxNeg=proj; } else { if(proj<minPos) minPos=proj; }
+    });
+    return { u:u, maxNeg:maxNeg, minPos:minPos, margin:minPos-maxNeg };
+  }
+  function sweepBestAngle(data, stepDeg){
+    var best=null, curve=[];
+    for(var a=0; a<180; a+=stepDeg){
+      var r = marginForAngle(data,a);
+      curve.push({angle:a, margin:r.margin});
+      if(best===null || r.margin>best.margin) best = { angle:a, margin:r.margin, u:r.u, maxNeg:r.maxNeg, minPos:r.minPos };
+    }
+    return { best:best, curve:curve };
+  }
+  function supportVectorsForAngle(data, best, eps){
+    var idxs=[];
+    data.forEach(function(p,i){
+      var proj = best.u[0]*p.x[0]+best.u[1]*p.x[1];
+      if(p.y===-1 && Math.abs(proj-best.maxNeg)<eps) idxs.push(i);
+      if(p.y===1 && Math.abs(proj-best.minPos)<eps) idxs.push(i);
+    });
+    return idxs;
+  }
+
+  var identityFeat = function(x){ return x; };
+
+  function trainSoftSVM(data, featFn, C, opts, onEpoch){
+    var dim = featFn(data[0].x).length;
+    var w = new Array(dim).fill(0), b=0;
+    var lr=opts.lr, epochs=opts.epochs, n=data.length;
+    var feats = data.map(function(p){ return featFn(p.x); });
+    var history=[];
+    for(var e=0;e<epochs;e++){
+      var dw = w.slice(), db=0, hingeSum=0;
+      for(var i=0;i<n;i++){
+        var f=feats[i], yi=data[i].y;
+        var s=b; for(var k=0;k<dim;k++) s+=w[k]*f[k];
+        var margin = yi*s;
+        var hinge = Math.max(0,1-margin);
+        hingeSum += hinge;
+        if(margin<1){
+          for(var k2=0;k2<dim;k2++) dw[k2] += -(C/n)*yi*f[k2];
+          db += -(C/n)*yi;
+        }
+      }
+      for(var k3=0;k3<dim;k3++) w[k3] -= lr*dw[k3];
+      b -= lr*db;
+      var reg=0; for(var k4=0;k4<dim;k4++) reg += w[k4]*w[k4];
+      var loss = 0.5*reg + (C/n)*hingeSum;
+      history.push(loss);
+      if(onEpoch) onEpoch(e, loss);
+    }
+    return { w:w, b:b, history:history };
+  }
+  function predictScore(w,b,feat){ var s=b; for(var k=0;k<w.length;k++) s+=w[k]*feat[k]; return s; }
+  function accuracyOf(data, featFn, w, b){
+    var c=0;
+    data.forEach(function(p){ var s=predictScore(w,b,featFn(p.x)); var pred = s>=0?1:-1; if(pred===p.y) c++; });
+    return c/data.length;
+  }
+  function violationIdxs(data, featFn, w, b){
+    var idxs=[];
+    data.forEach(function(p,i){ var s=predictScore(w,b,featFn(p.x)); if(p.y*s<1) idxs.push(i); });
+    return idxs;
+  }
+  function makeRbfFeat(landmarks, gamma){
+    return function(x){
+      return landmarks.map(function(lm){
+        var dx=x[0]-lm[0], dy=x[1]-lm[1];
+        return Math.exp(-gamma*(dx*dx+dy*dy));
+      });
+    };
+  }
+
+  // precompute step1 candidates & step2 ground truth once (genuine, in-browser)
+  var sweep2 = sweepBestAngle(LIN, 0.5);
+  var CAND_OFFSETS = [-35,-15,0];
+  var CANDIDATES = CAND_OFFSETS.map(function(off, i){
+    var ang = ((sweep2.best.angle+off)%180+180)%180;
+    var r = marginForAngle(LIN, ang);
+    var b = -(r.minPos+r.maxNeg)/2;
+    return { key:String.fromCharCode(65+i), angle:ang, u:r.u, margin:r.margin, b:b };
+  });
+
+  // ============ dom helpers ============
+  function q(id){ return document.getElementById(id); }
+  function cssVar(name){ return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); }
+
+  function renderPresetRow(containerId, items, activeKey, onPick){
+    var html = items.map(function(it){
+      return '<button class="btn preset-btn'+(it.key===activeKey?' active':'')+'" data-key="'+it.key+'">'+it.label+'</button>';
+    }).join('');
+    var el=q(containerId); el.innerHTML=html;
+    el.querySelectorAll('.preset-btn').forEach(function(btn){
+      btn.addEventListener('click', function(){ onPick(btn.dataset.key); });
+    });
+  }
+
+  // ---- scatter plot renderer ----
+  function domainOf(dataArrays, pad){
+    var m=0;
+    dataArrays.forEach(function(arr){ arr.forEach(function(p){ m=Math.max(m, Math.abs(p.x[0]), Math.abs(p.x[1])); }); });
+    return m+pad;
+  }
+  function lineForProjection(u, k, T){
+    // points x with u.x = k  ->  base point P0 = u*k, direction v perpendicular to u
+    var v = [-u[1], u[0]];
+    var p0 = [u[0]*k, u[1]*k];
+    return { x1:p0[0]-v[0]*T, y1:p0[1]-v[1]*T, x2:p0[0]+v[0]*T, y2:p0[1]+v[1]*T };
+  }
+  function renderScatterSVG(svgId, opts){
+    // opts: { domain, cells:[{x,y,size,color,opacity}], lines:[{x1,y1,x2,y2,color,dashed,width}], points:[{x,y,cls,ring}] }
+    var d = opts.domain;
+    var svg = q(svgId);
+    svg.setAttribute('viewBox', (-d)+' '+(-d)+' '+(2*d)+' '+(2*d));
+    var s = '<g transform="scale(1,-1)">';
+    // faint axes
+    s += '<line x1="'+(-d)+'" y1="0" x2="'+d+'" y2="0" stroke="'+cssVar('--paper-grid-strong')+'" stroke-width="'+(d*0.006)+'"/>';
+    s += '<line x1="0" y1="'+(-d)+'" x2="0" y2="'+d+'" stroke="'+cssVar('--paper-grid-strong')+'" stroke-width="'+(d*0.006)+'"/>';
+    (opts.cells||[]).forEach(function(c){
+      s += '<rect x="'+(c.x-c.size/2)+'" y="'+(c.y-c.size/2)+'" width="'+c.size+'" height="'+c.size+'" fill="'+c.color+'" fill-opacity="'+c.opacity+'"/>';
+    });
+    (opts.lines||[]).forEach(function(l){
+      s += '<line x1="'+l.x1+'" y1="'+l.y1+'" x2="'+l.x2+'" y2="'+l.y2+'" stroke="'+l.color+'" stroke-width="'+(l.width||d*0.014)+'"'+(l.dashed?' stroke-dasharray="'+(d*0.04)+' '+(d*0.03)+'"':'')+'/>';
+    });
+    (opts.points||[]).forEach(function(p){
+      var fill = p.cls===-1 ? cssVar('--pencil-red') : cssVar('--pencil-blue');
+      var r = d*0.032;
+      if(p.ring){
+        s += '<circle cx="'+p.x+'" cy="'+p.y+'" r="'+(r*1.9)+'" fill="none" stroke="'+cssVar('--pencil-yellow')+'" stroke-width="'+(d*0.013)+'"/>';
+      }
+      s += '<circle cx="'+p.x+'" cy="'+p.y+'" r="'+r+'" fill="'+fill+'" stroke="'+cssVar('--surface')+'" stroke-width="'+(d*0.004)+'"/>';
+    });
+    s += '</g>';
+    svg.innerHTML = s;
+  }
+
+  // ---- simple line chart (0..1 normalized internally) ----
+  function renderLineChart(svgId, points, opts){
+    // points: [{x, y}], opts:{xmin,xmax,ymin,ymax,color,markX (optional best-x to highlight)}
+    var svg = q(svgId);
+    var W=300,H=110, padL=8,padR=8,padT=8,padB=8;
+    var xr = opts.xmax-opts.xmin || 1, yr = opts.ymax-opts.ymin || 1;
+    function px(x){ return padL + (x-opts.xmin)/xr*(W-padL-padR); }
+    function py(y){ return H-padB - (y-opts.ymin)/yr*(H-padT-padB); }
+    var d = points.map(function(p,i){ return (i===0?'M':'L')+px(p.x).toFixed(2)+','+py(p.y).toFixed(2); }).join(' ');
+    var s = '<path d="'+d+'" fill="none" stroke="'+opts.color+'" stroke-width="2"/>';
+    if(opts.markPoint){
+      s += '<circle cx="'+px(opts.markPoint.x)+'" cy="'+py(opts.markPoint.y)+'" r="4.5" fill="'+cssVar('--pencil-yellow')+'" stroke="'+cssVar('--surface')+'" stroke-width="1.2"/>';
+    }
+    svg.innerHTML = s;
+  }
+
+  // ============ state ============
+  var state = { step:1 };
+  var s1 = { candKey:null };
+  var s2 = { trained:false, curve:[], animTimer:null };
+  var s3 = { C:null, trained:false, history:[], animTimer:null, result:null };
+  var s4 = { tab:'linear' };
+
+  var progressFillEl, stepLabelEl, prevBtn, nextBtn;
+
+  // ---------- Step 1 ----------
+  function renderStep1(){
+    renderPresetRow('candRow1', CANDIDATES.map(function(c){ return {key:c.key, label:'후보 '+c.key}; }), s1.candKey, function(k){ s1.candKey=k; renderStep1(); });
+    var domain = domainOf([LIN], 0.7);
+    var lines = [];
+    var cand = s1.candKey ? CANDIDATES.filter(function(c){ return c.key===s1.candKey; })[0] : null;
+    if(cand){
+      lines.push(Object.assign(lineForProjection(cand.u, -cand.b, domain*1.6), { color: cssVar('--ink') }));
+    }
+    var points = LIN.map(function(p){ return { x:p.x[0], y:p.x[1], cls:p.y }; });
+    renderScatterSVG('plot1', { domain:domain, lines:lines, points:points });
+    if(!cand){
+      q('s1Stat').textContent = '후보를 클릭해보세요.';
+    } else {
+      q('s1Stat').textContent = '후보 '+cand.key+' · 마진 = '+cand.margin.toFixed(3);
+    }
+  }
+
+  // ---------- Step 2 ----------
+  function stopS2Anim(){ if(s2.animTimer){ clearInterval(s2.animTimer); s2.animTimer=null; } }
+  function renderStep2(){
+    var domain = domainOf([LIN], 0.7);
+    q('s2TrainBtn').disabled = s2.trained || !!s2.animTimer;
+    q('s2TrainBtn').textContent = s2.animTimer ? '탐색 중…' : (s2.trained ? '탐색 완료' : '훈련 시작 (모든 방향 탐색)');
+
+    var curveShown = s2.curve.map(function(c){ return { x:c.angle, y:c.margin }; });
+    var margins = sweep2.curve.map(function(c){ return c.margin; });
+    var ymin = Math.min.apply(null, margins), ymax = Math.max.apply(null, margins);
+    renderLineChart('s2Chart', curveShown.length ? curveShown : [{x:0,y:0}], { xmin:0, xmax:180, ymin:ymin, ymax:ymax, color: cssVar('--pencil-blue'), markPoint: s2.trained ? {x:sweep2.best.angle, y:sweep2.best.margin} : null });
+
+    var lines=[], points = LIN.map(function(p){ return { x:p.x[0], y:p.x[1], cls:p.y }; });
+    if(s2.trained){
+      var b = sweep2.best;
+      var kBoundary = (b.minPos+b.maxNeg)/2;
+      lines.push(Object.assign(lineForProjection(b.u, kBoundary, domain*1.6), {color:cssVar('--ink'), width:domain*0.016}));
+      lines.push(Object.assign(lineForProjection(b.u, b.maxNeg, domain*1.6), {color:cssVar('--pencil-red-ink'), dashed:true}));
+      lines.push(Object.assign(lineForProjection(b.u, b.minPos, domain*1.6), {color:cssVar('--pencil-blue-ink'), dashed:true}));
+      var svIdx = supportVectorsForAngle(LIN, sweep2.best, 1e-6);
+      points = LIN.map(function(p,i){ return { x:p.x[0], y:p.x[1], cls:p.y, ring: svIdx.indexOf(i)>=0 }; });
+    }
+    renderScatterSVG('plot2', { domain:domain, lines:lines, points:points });
+
+    if(!s2.trained){
+      q('s2Stat').textContent = s2.animTimer ? '방향을 탐색하는 중…' : '"훈련 시작"을 눌러보세요.';
+    } else {
+      var svCount = supportVectorsForAngle(LIN, sweep2.best, 1e-6).length;
+      q('s2Stat').textContent = '최적 각도: '+sweep2.best.angle.toFixed(1)+'° · 최대 마진: '+sweep2.best.margin.toFixed(3)+' · 서포트 벡터: '+svCount+'개';
+      q('callout2').textContent = '경계선을 지탱하는 건 오직 마진에 가장 가까운 '+svCount+'개의 점(서포트 벡터)뿐이에요. 나머지 점들은 아무리 위치를 바꿔도 이 경계선에 전혀 영향을 주지 않아요. (STEP 1의 후보 C가 바로 이 방향이었어요!)';
+    }
+  }
+  function startS2Training(){
+    if(s2.trained || s2.animTimer) return;
+    s2.curve = [];
+    var full = sweep2.curve;
+    var i = 0, chunk = 10;
+    s2.animTimer = setInterval(function(){
+      for(var k=0;k<chunk && i<full.length;k++,i++){ s2.curve.push(full[i]); }
+      if(i>=full.length){ stopS2Anim(); s2.trained=true; }
+      renderStep2();
+    }, 20);
+  }
+
+  // ---------- Step 3 ----------
+  var C_PRESETS = [ {key:'0.1', C:0.1, label:'C=0.1 (느슨하게)'}, {key:'1', C:1, label:'C=1 (보통)'}, {key:'10', C:10, label:'C=10 (엄격하게)'} ];
+  function stopS3Anim(){ if(s3.animTimer){ clearInterval(s3.animTimer); s3.animTimer=null; } }
+  function renderStep3(){
+    renderPresetRow('cRow3', C_PRESETS.map(function(c){ return {key:c.key,label:c.label}; }), s3.C, function(k){
+      stopS3Anim(); s3.C=k; s3.trained=false; s3.history=[]; s3.result=null; renderStep3(); startS3Training();
+    });
+    var domain = domainOf([OVERLAP], 0.7);
+    var points = OVERLAP.map(function(p){ return { x:p.x[0], y:p.x[1], cls:p.y }; });
+    var lines = [];
+
+    if(s3.result){
+      var w=s3.result.w, b=s3.result.b, norm=Math.sqrt(w[0]*w[0]+w[1]*w[1]);
+      var u=[w[0]/norm, w[1]/norm];
+      lines.push(Object.assign(lineForProjection(u, -b/norm, domain*1.6), {color:cssVar('--ink'), width:domain*0.016}));
+      lines.push(Object.assign(lineForProjection(u, (1-b)/norm, domain*1.6), {color:cssVar('--pencil-blue-ink'), dashed:true}));
+      lines.push(Object.assign(lineForProjection(u, (-1-b)/norm, domain*1.6), {color:cssVar('--pencil-red-ink'), dashed:true}));
+      var viol = violationIdxs(OVERLAP, identityFeat, w, b);
+      points = OVERLAP.map(function(p,i){ return { x:p.x[0], y:p.x[1], cls:p.y, ring: viol.indexOf(i)>=0 }; });
+    }
+    renderScatterSVG('plot3', { domain:domain, lines:lines, points:points });
+
+    var hist = s3.history;
+    if(hist.length){
+      var ys = hist.map(function(h){return h.y;});
+      renderLineChart('s3Chart', hist, { xmin:0, xmax: hist[hist.length-1].x||1, ymin:Math.min.apply(null,ys), ymax:Math.max.apply(null,ys), color:cssVar('--pencil-blue') });
+    } else {
+      renderLineChart('s3Chart', [{x:0,y:0}], { xmin:0, xmax:1, ymin:0, ymax:1, color:cssVar('--pencil-blue') });
+    }
+
+    if(!s3.C){
+      q('s3Stat').textContent = 'C 값을 선택해보세요.';
+      q('callout3').textContent = '이 데이터는 두 그룹이 겹쳐 있어서 완벽히 나누는 직선이 없어요. C 값을 골라 학습을 시작해보세요.';
+    } else if(!s3.trained){
+      q('s3Stat').textContent = s3.animTimer ? '학습 중…' : 'C='+s3.C+' · 아래에서 학습이 곧 시작돼요.';
+    } else {
+      var w=s3.result.w, b=s3.result.b, norm=Math.sqrt(w[0]*w[0]+w[1]*w[1]);
+      var acc = accuracyOf(OVERLAP, identityFeat, w, b);
+      var vcount = violationIdxs(OVERLAP, identityFeat, w, b).length;
+      q('s3Stat').textContent = 'C='+s3.C+' · 정확도: '+(acc*100).toFixed(0)+'% · 마진 폭(2/‖w‖): '+(2/norm).toFixed(2)+' · 서포트 벡터: '+vcount+'개';
+      var tone = s3.C==='0.1' ? '마진을 넓게 유지하는 대신, 많은 점이 마진 안쪽에 놓이는(서포트 벡터가 되는) 걸 허용해요.' :
+                 s3.C==='10' ? '위반을 최소화하려고 마진이 좁아지고, 경계선이 개별 점들에 더 예민하게 반응해요.' :
+                 '마진 폭과 위반 허용 사이의 적당한 절충점이에요.';
+      q('callout3').textContent = tone+' (정확도는 '+(acc*100).toFixed(0)+'%로 세 C값 모두 비슷하지만, 마진의 폭과 서포트 벡터 개수는 크게 달라요.)';
+    }
+  }
+  function startS3Training(){
+    if(!s3.C || s3.trained || s3.animTimer) return;
+    var C = +s3.C;
+    var full = trainSoftSVM(OVERLAP, identityFeat, C, {lr:0.03, epochs:400});
+    s3.history = [];
+    var i=0, chunk=8;
+    s3.animTimer = setInterval(function(){
+      for(var k=0;k<chunk && i<full.history.length;k++,i++){ s3.history.push({x:i+1, y:full.history[i]}); }
+      if(i>=full.history.length){ stopS3Anim(); s3.trained=true; s3.result={w:full.w, b:full.b}; }
+      renderStep3();
+    }, 12);
+  }
+
+  // ---------- Step 4 ----------
+  var KERNEL_TABS = [ {key:'linear', label:'선형 SVC (커널 없음)'}, {key:'rbf', label:'RBF 커널 SVC'} ];
+  var landmarksDonut = DONUT.map(function(p){ return p.x; });
+  var linearBaseline = trainSoftSVM(DONUT, identityFeat, 5, {lr:0.05, epochs:400});
+  var rbfFeat = makeRbfFeat(landmarksDonut, 1);
+  var rbfModel = trainSoftSVM(DONUT, rbfFeat, 1, {lr:0.3, epochs:200});
+  var linearAcc = accuracyOf(DONUT, identityFeat, linearBaseline.w, linearBaseline.b);
+  var rbfAcc = accuracyOf(DONUT, rbfFeat, rbfModel.w, rbfModel.b);
+
+  function renderStep4(){
+    renderPresetRow('kernelTabs', KERNEL_TABS, s4.tab, function(k){ s4.tab=k; renderStep4(); });
+    var domain = domainOf([DONUT], 0.6);
+    var NG = 20, cellSize = (2*domain)/NG;
+    var cells = [];
+    for(var gi=0; gi<NG; gi++){
+      for(var gj=0; gj<NG; gj++){
+        var gx = -domain + (gi+0.5)*cellSize;
+        var gy = -domain + (gj+0.5)*cellSize;
+        var s;
+        if(s4.tab==='linear'){ s = predictScore(linearBaseline.w, linearBaseline.b, identityFeat([gx,gy])); }
+        else { s = predictScore(rbfModel.w, rbfModel.b, rbfFeat([gx,gy])); }
+        var conf = Math.min(1, Math.abs(s)/(s4.tab==='linear'?1.5:1));
+        var color = s>=0 ? cssVar('--pencil-blue-soft') : cssVar('--pencil-red-soft');
+        cells.push({ x:gx, y:gy, size:cellSize*1.02, color:color, opacity: 0.35+0.45*conf });
+      }
+    }
+    var w = s4.tab==='linear' ? linearBaseline.w : rbfModel.w;
+    var b = s4.tab==='linear' ? linearBaseline.b : rbfModel.b;
+    var featFn = s4.tab==='linear' ? identityFeat : rbfFeat;
+    var points = DONUT.map(function(p){
+      var s = predictScore(w,b,featFn(p.x));
+      var pred = s>=0?1:-1;
+      return { x:p.x[0], y:p.x[1], cls:p.y, ring: pred!==p.y };
+    });
+    var lines = [];
+    if(s4.tab==='linear'){
+      var norm = Math.sqrt(w[0]*w[0]+w[1]*w[1]);
+      var u=[w[0]/norm, w[1]/norm];
+      lines.push(Object.assign(lineForProjection(u, -b/norm, domain*1.6), {color:cssVar('--ink'), width:domain*0.016}));
+    }
+    renderScatterSVG('plot4', { domain:domain, cells:cells, lines:lines, points:points });
+
+    var acc = s4.tab==='linear' ? linearAcc : rbfAcc;
+    q('s4Stat').textContent = (s4.tab==='linear' ? '선형 SVC' : 'RBF 커널 SVC')+' · 훈련 정확도: '+(acc*100).toFixed(1)+'% (노란 테두리 = 잘못 분류된 점)';
+    q('callout4').innerHTML = '선형 SVC는 <b>'+(linearAcc*100).toFixed(1)+'%</b>밖에 나누지 못하지만(어떤 직선도 원과 고리를 가르지 못해요), 각 점을 "다른 점들과의 유사도"로 바꿔 표현하는 RBF 커널을 쓰면 같은 선형 SVC 알고리즘으로도 <b>'+(rbfAcc*100).toFixed(1)+'%</b>를 달성해요. 차원을 몰래 늘렸을 뿐, 알고리즘 자체는 여전히 "선형" 분류기예요.';
+  }
+
+  // ---------- nav / lifecycle ----------
+  function updateProgress(){
+    progressFillEl.style.width = (state.step/4*100)+'%';
+    stepLabelEl.textContent = state.step+' / 4';
+  }
+  function updateNavTabs(){
+    document.querySelectorAll('.step-tab').forEach(function(btn){
+      var s=+btn.dataset.step;
+      btn.classList.toggle('active', s===state.step);
+      if(s===state.step) btn.setAttribute('aria-current','step'); else btn.removeAttribute('aria-current');
+    });
+  }
+  function updatePrevNext(){
+    prevBtn.disabled = state.step===1;
+    nextBtn.textContent = state.step===4 ? '처음부터 다시 ↺' : '다음 →';
+  }
+  function renderCurrentStep(){
+    updateProgress();
+    switch(state.step){
+      case 1: renderStep1(); break;
+      case 2: renderStep2(); break;
+      case 3: renderStep3(); break;
+      case 4: renderStep4(); break;
+    }
+  }
+  function goToStep(n){
+    if(n<1) n=1; if(n>4) n=4;
+    state.step=n;
+    for(var i=1;i<=4;i++){ q('step-'+i).hidden = (i!==n); }
+    updateNavTabs();
+    updatePrevNext();
+    renderCurrentStep();
+  }
+
+  function renderLogoGrid(){
+    var el=q('logoGrid');
+    el.innerHTML='';
+    var pattern=[0,0,1,0, 0,1,1,1, 1,1,1,0, 0,1,0,0];
+    pattern.forEach(function(v,i){
+      var d=document.createElement('i');
+      d.className = v? 'on':'';
+      d.style.animationDelay = (i*28)+'ms';
+      el.appendChild(d);
+    });
+  }
+
+  function initListeners(){
+    q('s2TrainBtn').addEventListener('click', startS2Training);
+
+    q('stepsNav').addEventListener('click', function(e){
+      var b=e.target.closest('.step-tab'); if(!b) return;
+      goToStep(+b.dataset.step);
+    });
+    prevBtn.addEventListener('click', function(){ goToStep(state.step-1); });
+    nextBtn.addEventListener('click', function(){ if(state.step<4) goToStep(state.step+1); else goToStep(1); });
+  }
+
+  function init(){
+    progressFillEl=q('progressFill'); stepLabelEl=q('stepLabel');
+    prevBtn=q('prevBtn'); nextBtn=q('nextBtn');
+
+    renderLogoGrid();
+    initListeners();
+    updateNavTabs();
+    updatePrevNext();
+    renderCurrentStep();
+  }
+
+  try{
+    if(window.claude && window.claude.hot && window.claude.hot.ready){
+      window.claude.hot.ready(function(){ init(); });
+    } else { init(); }
+  }catch(e){ init(); }
+
+})();
+</script>

@@ -37,7 +37,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-24914574.js";
+            window.path_to_searchindex_js = "searchindex-67fe3216.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-fd24e334.js"></script>
@@ -1077,8 +1077,186 @@ A: The most commonly used color for the building roofs in this image is blue.
 <p>지도 위에 초록색 점으로 비닐하우스를 표시한 걸 확인한다.</p>
 </li>
 </ol>
-<h2 id="sam"><a class="header" href="#sam">SAM</a></h2>
-<p><code>&gt; 현석로</code> 로 검색한다.</p>
+<h2 id="semantic-segmentation"><a class="header" href="#semantic-segmentation">Semantic Segmentation</a></h2>
+<p>semantic segmentation은 위성영상에서 특정 물체를 분할하는 AI 모델이다.</p>
+<p>이 특정 물체는 polygon layer를 이용해 설정한다.</p>
+<p>여기서는 아파트들을 class:1로 설정한다.</p>
+<h3 id="위치-이동"><a class="header" href="#위치-이동">위치 이동</a></h3>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="aianal-01/aigis/attachments/20260929220507.png" alt=""><span class="img-wrapper"><img src="aianal-01/aigis/attachments/20260929220507.png" alt=""></span></label></p>
+<p><code>&gt; 다산지금로, 다산26통</code> 으로 검색한다.</p>
+<h3 id="지도-이미지-저장"><a class="header" href="#지도-이미지-저장">지도 이미지 저장</a></h3>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="aianal-01/aigis/attachments/20260929220657.png" alt=""><span class="img-wrapper"><img src="aianal-01/aigis/attachments/20260929220657.png" alt=""></span></label></p>
+<p><code>VWorld Satellite</code> 에서 위 이미지 정도의 영역을 뽑아 <code>train.tiff</code>로 저장한다.</p>
+<h3 id="폴리곤-레이어-추가"><a class="header" href="#폴리곤-레이어-추가">폴리곤 레이어 추가</a></h3>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="aianal-01/aigis/attachments/20260929221153.png" alt=""><span class="img-wrapper"><img src="aianal-01/aigis/attachments/20260929221153.png" alt=""></span></label></p>
+<ol>
+<li>
+<p><code>새 세이프파일 레이어 추가</code> 버튼을 누른다.</p>
+</li>
+<li>
+<p>파일 이름을 설정한다. 여기서는 <code>label</code>으로 정했다.</p>
+</li>
+<li>
+<p>파일 인코딩: UTF-8</p>
+</li>
+<li>
+<p>도형 유형: 폴리곤</p>
+</li>
+<li>
+<p>지도와 같은 EPSG:3857 로 설정한다.</p>
+</li>
+<li>
+<p>필드를 추가한다. 정수형의 <code>class</code> 필드</p>
+</li>
+<li>
+<p><code>확인</code> 버튼을 누른다.</p>
+</li>
+</ol>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="aianal-01/aigis/attachments/20260929221523.png" alt=""><span class="img-wrapper"><img src="aianal-01/aigis/attachments/20260929221523.png" alt=""></span></label></p>
+<p>label 레이어가 추가되었다.</p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="aianal-01/aigis/attachments/20260929221855.png" alt=""><span class="img-wrapper"><img src="aianal-01/aigis/attachments/20260929221855.png" alt=""></span></label></p>
+<ol>
+<li>
+<p>label 레이어를 수정하기 위해 <code>편집 모드 켜고 끄기</code> 버튼을 누른다.</p>
+</li>
+<li>
+<p>폴리곤 피처 추가 버튼을 누른다.</p>
+</li>
+<li>
+<p>아파트의 모양을 따 폴리곤을 그린다. 다 그린 후에는 오른쪽 마우스 버튼을 누른다.</p>
+</li>
+<li>
+<p>id를 입력한다. 이 창이 나올 때마다 계속 하나씩 증가한 값을 입력해야 한다.</p>
+</li>
+<li>
+<p>class에 1을 입력한다. 여기서는 아파트를 1로 설정한다.</p>
+</li>
+<li>
+<p><code>확인</code> 버튼을 누른다.</p>
+</li>
+</ol>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="aianal-01/aigis/attachments/20260929222429.png" alt=""><span class="img-wrapper"><img src="aianal-01/aigis/attachments/20260929222429.png" alt=""></span></label></p>
+<p>위와 같이 아파트 모양을 따라 폴리곤을 그린다.</p>
+<p>폴리곤을 다 그린 후에는 <code>편집 모드 켜고 끄기</code> 버튼을 반드시 눌러 작업한 내용을 저장한다.</p>
+<h3 id="geoai-semantic-segmentation-ai-모델-실행"><a class="header" href="#geoai-semantic-segmentation-ai-모델-실행">GeoAI Semantic Segmentation AI 모델 실행</a></h3>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="aianal-01/aigis/attachments/20260929223512.png" alt=""><span class="img-wrapper"><img src="aianal-01/aigis/attachments/20260929223512.png" alt=""></span></label></p>
+<ol>
+<li>
+<p>Semantic Segmentation 모델을 클릭한다.</p>
+</li>
+<li>
+<p>Raster를 <code>train</code>으로 설정한다.</p>
+</li>
+<li>
+<p>labels를 폴리곤 레이어인 <code>label</code>로 설정한다.</p>
+</li>
+<li>
+<p>Output 폴더를 설정한다.</p>
+</li>
+<li>
+<p><code>Export Tiles</code> 버튼을 누른다.</p>
+</li>
+</ol>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="aianal-01/aigis/attachments/20260929223632.png" alt=""><span class="img-wrapper"><img src="aianal-01/aigis/attachments/20260929223632.png" alt=""></span></label></p>
+<p>tiles export가 끝났다는 메시지가 나오고 Train 탭으로 변경된다.</p>
+<br />
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="aianal-01/aigis/attachments/20260929223924.png" alt=""><span class="img-wrapper"><img src="aianal-01/aigis/attachments/20260929223924.png" alt=""></span></label></p>
+<ol>
+<li>
+<p>Train 탭으로 자동으로 변경되었는지 확인한다.</p>
+</li>
+<li>
+<p>Output 폴더를 설정한다.</p>
+</li>
+<li>
+<p><code>Start Training</code> 버튼을 클릭한다.</p>
+</li>
+</ol>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="aianal-01/aigis/attachments/20260929224210.png" alt=""><span class="img-wrapper"><img src="aianal-01/aigis/attachments/20260929224210.png" alt=""></span></label></p>
+<p>학습에 성공했다는 메시지가 나오고 Inference 탭(추론 탭)으로 변경된다.</p>
+<p>이제 아파트 모양에 대한 학습이 다 끝났다.</p>
+<h3 id="새-지도에서-아파트-찾아내기"><a class="header" href="#새-지도에서-아파트-찾아내기">새 지도에서 아파트 찾아내기</a></h3>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="aianal-01/aigis/attachments/20260929224851.png" alt=""><span class="img-wrapper"><img src="aianal-01/aigis/attachments/20260929224851.png" alt=""></span></label></p>
+<p>대략 왼쪽 아래에 아파트들이 있어 이 곳을 tiff 이미지로 추출하고 이미지 이름을 <code>test</code>로 해 주었다.</p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="aianal-01/aigis/attachments/20260929224914.png" alt=""><span class="img-wrapper"><img src="aianal-01/aigis/attachments/20260929224914.png" alt=""></span></label></p>
+<br />
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="aianal-01/aigis/attachments/20260929225402.png" alt=""><span class="img-wrapper"><img src="aianal-01/aigis/attachments/20260929225402.png" alt=""></span></label></p>
+<ol>
+<li>
+<p>Inference 탭으로 이동했는지 확인한다.</p>
+</li>
+<li>
+<p>Input Raster를 <code>test</code>로 설정한다.</p>
+</li>
+<li>
+<p>Output을 <code>result.tif</code> 설정한다.</p>
+</li>
+<li>
+<p><code>Run Inference</code> 버튼을 누른다.</p>
+</li>
+</ol>
+<br />
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="aianal-01/aigis/attachments/20260929230415.png" alt=""><span class="img-wrapper"><img src="aianal-01/aigis/attachments/20260929230415.png" alt=""></span></label></p>
+<p>시간이 지난 후 결과가 test 레이어 위에 올라온다.</p>
+<p>위 이미지에서 하얀색 부분이 아파트가 있다고 AI가 판단한 부분이다.</p>
+<h3 id="투명-처리로-보기-좋게-하기"><a class="header" href="#투명-처리로-보기-좋게-하기">투명 처리로 보기 좋게 하기</a></h3>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="aianal-01/aigis/attachments/20260929231440.png" alt=""><span class="img-wrapper"><img src="aianal-01/aigis/attachments/20260929231440.png" alt=""></span></label></p>
+<ol>
+<li>
+<p>추론 결과로 새로 생성된 레이어를 더블클릭해 속성 창을 연다.</p>
+</li>
+<li>
+<p>“투명도” 탭을 선택한다.</p>
+</li>
+<li>
+<p>투명 밴드: 없음 으로 설정</p>
+</li>
+<li>
+<p><code>+</code> 버튼을 누른다.</p>
+</li>
+<li>
+<p>시작값과 끝값을 모두 <code>0</code>으로 설정한다.</p>
+</li>
+<li>
+<p><code>확인</code> 버튼을 누른다.</p>
+</li>
+</ol>
+<br />
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="aianal-01/aigis/attachments/20260929231625.png" alt=""><span class="img-wrapper"><img src="aianal-01/aigis/attachments/20260929231625.png" alt=""></span></label></p>
+<p>아파트 부분인 하얀색만 남고 검은색 부분은 투명해진다.</p>
+<br />
+<p>다시 속성 창을 열어</p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="aianal-01/aigis/attachments/20260929231857.png" alt=""><span class="img-wrapper"><img src="aianal-01/aigis/attachments/20260929231857.png" alt=""></span></label></p>
+<ol>
+<li>
+<p>“심볼” 탭을 선택한다.</p>
+</li>
+<li>
+<p>렌더링 유형을 “Single Color“로 설정한다.</p>
+</li>
+<li>
+<p>Color 값을 바꾼다.</p>
+</li>
+<li>
+<p><code>확인</code> 버튼을 누른다.</p>
+</li>
+</ol>
+<br />
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="aianal-01/aigis/attachments/20260929232102.png" alt=""><span class="img-wrapper"><img src="aianal-01/aigis/attachments/20260929232102.png" alt=""></span></label></p>
+<ol>
+<li>
+<p>“투명도” 탭을 선택한다.</p>
+</li>
+<li>
+<p>불투명도를 “50%“로 만든다.</p>
+</li>
+<li>
+<p><code>확인</code> 버튼을 누른다.</p>
+</li>
+</ol>
+<br />
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="aianal-01/aigis/attachments/20260929232238.png" alt=""><span class="img-wrapper"><img src="aianal-01/aigis/attachments/20260929232238.png" alt=""></span></label></p>
+<p>아파트 부분이 표시된다.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="준비"><a class="header" href="#준비">준비</a></h1>
 <div style="break-before: page; page-break-before: always;"></div>

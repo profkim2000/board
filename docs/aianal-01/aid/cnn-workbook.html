@@ -331,7 +331,7 @@
           <div class="control-row">
             <select id="presetSelect" class="btn">
               <option value="">예시 불러오기 ▾</option>
-              <option value="plus">십자가(+) 그림</option>
+              <option value="plus">십자형(+) 그림</option>
               <option value="diagonal">대각선(X) 그림</option>
               <option value="border">테두리 그림</option>
             </select>
@@ -501,7 +501,7 @@
   function makeBorder(){ var g=zeros(); for(var i=0;i<N;i++){ g[0][i]=1; g[N-1][i]=1; g[i][0]=1; g[i][N-1]=1; } return g; }
 
   var PRESETS = { plus: makePlus, diagonal: makeDiagonal, border: makeBorder, blank: zeros };
-  var SHAPE_LABELS = { plus:'십자가 모양', diagonal:'대각선 모양', border:'테두리 모양' };
+  var SHAPE_LABELS = { plus:'십자형 모양', diagonal:'대각선 모양', border:'테두리 모양' };
 
   var FILTERS = {
     horizontal: { label:'가로선 필터', kernel:[[-1,-1,-1],[0,0,0],[1,1,1]] },

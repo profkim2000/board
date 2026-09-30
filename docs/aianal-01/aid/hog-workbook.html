@@ -1,5 +1,5 @@
 <meta charset="utf-8">
-<title>HOG</title>
+<title>HOG 쉬운 학습지</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
 <style>
   :root{
@@ -109,38 +109,29 @@
   .stat-box{ font-family:'JetBrains Mono',monospace; font-weight:700; font-size:.92rem; padding:10px 14px; border-radius:12px; background:var(--paper); border:1px solid var(--border); }
   .info-box{ background:var(--paper); border:1px solid var(--border); border-radius:12px; padding:12px 14px; font-size:.85rem; display:flex; flex-direction:column; gap:4px; }
 
-  .formula-box{ background:var(--paper); border:1px solid var(--border); border-radius:12px; padding:12px 14px; font-family:'JetBrains Mono',monospace; font-size:.82rem; color:var(--ink); display:flex; flex-direction:column; gap:6px; line-height:1.7; overflow-x:auto; }
-  .formula-box .muted{ color:var(--ink-soft); }
-
   /* ---- pixel image grid ---- */
   .pixel-wrap{ position:relative; width:max-content; }
   .pixel-grid{ display:grid; grid-template-columns:repeat(16,24px); grid-template-rows:repeat(16,24px); gap:0; border-radius:8px; overflow:hidden; border:1px solid var(--border); }
   .pixel-cell{ position:relative; }
   .pixel-cell.clickable{ cursor:pointer; }
   .pixel-cell.selected{ outline:2px solid var(--pencil-blue); outline-offset:-2px; z-index:2; }
-  .pixel-overlay{ position:absolute; inset:1px; width:calc(100% - 2px); height:calc(100% - 2px); pointer-events:none; }
+  .pixel-overlay{ position:absolute; inset:1px; width:calc(100% - 2px); height:calc(100% - 2px); pointer-events:none; z-index:5; }
 
-  .pixel-wrap.small .pixel-grid{ grid-template-columns:repeat(16,11px); grid-template-rows:repeat(16,11px); }
+  .pixel-wrap.small .pixel-grid{ grid-template-columns:repeat(16,13px); grid-template-rows:repeat(16,13px); }
 
-  /* ---- HOG cell histogram grid ---- */
+  /* ---- HOG cell grid (dominant-direction arrows) ---- */
   .cell-wrap{ position:relative; width:max-content; }
   .cell-grid{ display:grid; grid-template-columns:repeat(4,92px); grid-template-rows:repeat(4,92px); gap:3px; }
-  .cell-box{ position:relative; background:var(--paper); border:1px solid var(--border); border-radius:6px; cursor:pointer; }
-  .cell-box.selected{ outline:3px solid var(--ink); outline-offset:1px; }
+  .cell-box{ position:relative; background:var(--paper); border:1px solid var(--border); border-radius:6px; }
   .cell-overlay{ position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
 
-  /* ---- 9-bin histogram bar chart ---- */
-  .hist-chart{ display:flex; align-items:flex-end; gap:4px; height:130px; padding:10px 10px 6px; background:var(--paper); border:1px solid var(--border); border-radius:12px; }
-  .hist-bar-col{ flex:1; display:flex; flex-direction:column; align-items:center; gap:4px; height:100%; justify-content:flex-end; }
-  .hist-bar-fill{ width:100%; background:var(--pencil-blue); border-radius:3px 3px 0 0; min-height:2px; }
-  .hist-bar-label{ font-size:.6rem; color:var(--ink-soft); white-space:nowrap; }
+  .cell-wrap.small .cell-grid{ grid-template-columns:repeat(4,46px); grid-template-rows:repeat(4,46px); }
 
-  .triple-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
-  .triple-grid .panel{ align-items:center; text-align:center; }
+  .double-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:18px; }
+  .double-grid .panel{ align-items:center; text-align:center; }
 
-  /* ---- simple unsigned comparison bars ---- */
   .cbar-row{ display:flex; align-items:center; gap:10px; font-size:.82rem; }
-  .cbar-label{ width:190px; flex:none; color:var(--ink-soft); }
+  .cbar-label{ width:210px; flex:none; color:var(--ink-soft); }
   .cbar-track{ flex:1; height:14px; background:var(--paper); border:1px solid var(--border); border-radius:999px; position:relative; overflow:hidden; }
   .cbar-fill{ position:absolute; top:0; left:0; bottom:0; background:var(--pencil-blue); border-radius:999px; }
   .cbar-value{ width:64px; flex:none; text-align:right; font-family:'JetBrains Mono',monospace; font-size:.8rem; }
@@ -156,17 +147,16 @@
   <header class="masthead">
     <div class="masthead-badge" id="logoGrid" aria-hidden="true"></div>
     <div class="masthead-text">
-      <p class="eyebrow">완전 초보자를 위한 체험 학습지</p>
-      <h1>HOG, 그래디언트 방향으로 모양을 읽어요</h1>
-      <p class="lede">이미지의 밝기 자체가 아니라 "밝기가 어떻게 변하는지"(그래디언트)를 보고 모양을 파악하는 HOG(Histogram of Oriented Gradients)를 4단계로 체험해요 — 그래디언트 계산부터 셀 히스토그램, 블록 정규화까지.</p>
+      <p class="eyebrow">완전 초보자를 위한 체험 학습지 (쉬운 버전)</p>
+      <h1>HOG, 경계의 방향만 봐도 모양이 보여요</h1>
+      <p class="lede">밝기 자체가 아니라 "경계가 어느 방향으로 나 있는지"만 봐도 모양을 알아낼 수 있어요. 가장 중요한 개념만 딱 3단계로, 훨씬 쉽게 체험해요.</p>
     </div>
   </header>
 
   <nav class="steps-nav" id="stepsNav" aria-label="학습 단계">
-    <button class="step-tab" data-step="1"><b>1</b><span>이미지와 밝기</span></button>
-    <button class="step-tab" data-step="2"><b>2</b><span>그래디언트 계산</span></button>
-    <button class="step-tab" data-step="3"><b>3</b><span>셀 히스토그램</span></button>
-    <button class="step-tab" data-step="4"><b>4</b><span>정규화와 비교</span></button>
+    <button class="step-tab" data-step="1"><b>1</b><span>경계가 중요해요</span></button>
+    <button class="step-tab" data-step="2"><b>2</b><span>방향이 있어요</span></button>
+    <button class="step-tab" data-step="3"><b>3</b><span>모으면 모양이 돼요</span></button>
   </nav>
 
   <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
@@ -176,9 +166,9 @@
     <!-- STEP 1 -->
     <section id="step-1" class="step">
       <div class="step-head">
-        <p class="kicker">STEP 1 · 이미지는 밝기의 격자예요</p>
-        <h2>16×16 흑백 이미지를 살펴봐요</h2>
-        <p class="desc">아래는 밝기(0~255)로만 이루어진 16×16 이미지예요. 한 칸을 클릭하면 그 칸의 정확한 밝기 값을 볼 수 있어요. HOG는 이 밝기 값 자체가 아니라, 다음 단계에서 "밝기가 옆 칸과 비교해 얼마나 달라지는지"를 계산해요.</p>
+        <p class="kicker">STEP 1 · 밝기보다 "경계"가 중요해요</p>
+        <h2>옆 칸과 밝기가 얼마나 다른지 봐요</h2>
+        <p class="desc">컴퓨터에게 이미지는 그냥 밝기 숫자들의 격자예요. 그런데 "모양"을 알아내려면 밝기 자체보다, 바로 옆 칸과 비교했을 때 얼마나 달라지는지가 중요해요. 배경이나 물체 안쪽은 옆 칸과 밝기가 거의 같지만, 모양의 가장자리(경계)에서는 밝기가 확 달라져요. 칸을 클릭해서 비교해보세요.</p>
       </div>
       <div class="control-row" id="shapeRow1"></div>
       <div class="two-col">
@@ -189,20 +179,15 @@
           <div class="pixel-wrap" id="pixelWrap1"><div class="pixel-grid" id="grid1"></div></div>
         </div>
       </div>
-      <div class="callout">검은 칸(밝기 30)은 배경, 흰 칸(밝기 220)은 사람 또는 물체 모양이에요. 사람 눈에는 "모양"이 보이지만, 컴퓨터에게는 그냥 256개의 숫자일 뿐이에요.</div>
+      <div class="callout">이렇게 "옆 칸과의 밝기 차이"를 모든 칸에서 계산한 걸 그래디언트(gradient)라고 해요. 다음 단계에서는 이 차이에 "방향"까지 더해볼게요.</div>
     </section>
 
     <!-- STEP 2 -->
     <section id="step-2" class="step" hidden>
       <div class="step-head">
-        <p class="kicker">STEP 2 · 그래디언트: 방향과 크기</p>
-        <h2>옆 칸과 비교해서 "변화의 화살표"를 구해요</h2>
-        <p class="desc">각 칸마다 오른쪽-왼쪽 밝기 차이(Gx), 아래쪽-위쪽 밝기 차이(Gy)를 계산해요. 이 둘을 합치면 "밝기가 가장 급격히 변하는 방향과 크기", 즉 그래디언트가 나와요. 배경은 화살표가 없고(변화 없음), 모양의 경계에서만 화살표가 강하게 나타나요.</p>
-      </div>
-      <div class="formula-box">
-        <span>Gx(x,y) = I(x+1,y) − I(x−1,y)  &nbsp; Gy(x,y) = I(x,y+1) − I(x,y−1)</span>
-        <span>크기 |G| = √(Gx² + Gy²) &nbsp; 방향(부호 있음) θ = atan2(Gy, Gx)</span>
-        <span class="muted">색이 진할수록 그 칸의 밝기 변화(경계)가 강하다는 뜻이에요.</span>
+        <p class="kicker">STEP 2 · 경계에는 방향이 있어요</p>
+        <h2>화살표로 "밝아지는 방향"을 표현해요</h2>
+        <p class="desc">경계에는 크기뿐 아니라 방향도 있어요. 화살표는 그 칸에서 어두운 쪽 → 밝은 쪽으로 가장 빠르게 밝아지는 방향을 가리켜요. 배경이나 안쪽을 클릭하면 화살표가 거의 안 보이고, 경계를 클릭하면 뚜렷한 화살표가 나타나요.</p>
       </div>
       <div class="control-row" id="shapeRow2"></div>
       <div class="two-col">
@@ -214,70 +199,48 @@
           <div class="pixel-wrap" id="pixelWrap2"><div class="pixel-grid" id="grid2"></div><svg class="pixel-overlay" id="grid2Arrow" viewBox="0 0 16 16"></svg></div>
         </div>
       </div>
-      <div class="callout">파란 화살표는 그 칸에서 밝기가 어두운 쪽 → 밝은 쪽으로 가장 빠르게 증가하는 방향이에요. 배경 한가운데나 물체 안쪽을 클릭하면 화살표가 거의 없고(변화 없음), 경계를 클릭하면 화살표가 뚜렷하게 나타나요.</div>
+      <div class="callout">이 화살표들이 모이면 모양의 윤곽이 드러나요. 다음 단계에서 확인해볼게요.</div>
     </section>
 
     <!-- STEP 3 -->
     <section id="step-3" class="step" hidden>
       <div class="step-head">
-        <p class="kicker">STEP 3 · 셀 히스토그램</p>
-        <h2>4×4 픽셀씩 묶어서, 방향별로 세어요</h2>
-        <p class="desc">16×16 이미지를 4×4 픽셀짜리 셀 16개로 나눠요. 각 셀 안의 모든 픽셀의 그래디언트를, 방향 구간(0°~180°를 20°씩 9개 구간) 중 하나에 크기만큼 더해서 "이 셀은 어떤 방향의 경계가 많은가"를 히스토그램으로 만들어요. 이게 바로 HOG(방향 그래디언트 히스토그램)예요.</p>
-      </div>
-      <div class="formula-box">
-        <span>셀 크기 4×4 픽셀, 방향 구간(bin) 9개 — 이때 방향은 <b>부호 없이(0°~180°)</b> 다뤄요(화살표 머리/꼬리는 구분하지 않아요).</span>
-        <span class="muted">각 픽셀의 그래디언트 크기를, 그 픽셀의 방향이 속한 구간에 더해요.</span>
+        <p class="kicker">STEP 3 · 방향을 모으면 모양이 되고, 밝기가 변해도 그대로예요</p>
+        <h2>화살표 패턴은 모양을 담고, 밝기에는 둔감해요</h2>
+        <p class="desc">이미지를 작은 구역(셀)으로 나누고, 각 구역에서 가장 많이 나타나는 방향을 큰 화살표 하나로 정리하면, 화살표 패턴만으로 전체 모양의 윤곽이 드러나요. 그리고 이 패턴은 밝기가 통째로 바뀌어도 거의 그대로 유지돼요 — 이게 바로 HOG가 실제로 쓰이는 이유예요.</p>
       </div>
       <div class="control-row" id="shapeRow3"></div>
-      <div class="two-col">
-        <div class="panel">
-          <div class="stat-box mono" id="s3Stat">셀을 클릭해보세요.</div>
-          <div id="s3Hist"></div>
-        </div>
-        <div class="panel">
-          <div class="cell-wrap" id="cellWrap3"><div class="cell-grid" id="grid3"></div><svg class="cell-overlay" id="grid3Overlay" viewBox="0 0 4 4"></svg></div>
-        </div>
-      </div>
-      <div class="callout">각 셀 위의 작은 선들이 그 셀의 방향 히스토그램이에요 — 선이 길수록 그 방향의 경계가 많다는 뜻이에요. 몸통 옆쪽 셀은 세로(수직) 방향이, 어깨나 머리 위쪽 셀은 가로(수평) 방향이 강하게 나타나는 걸 확인해보세요.</div>
-    </section>
-
-    <!-- STEP 4 -->
-    <section id="step-4" class="step" hidden>
-      <div class="step-head">
-        <p class="kicker">STEP 4 · 블록 정규화와 비교</p>
-        <h2>밝기에는 둔감하게, 모양에는 예민하게</h2>
-        <p class="desc">셀 4개(2×2)를 블록으로 묶어서, 전체 크기(L2 norm)로 나누는 게 "블록 정규화"예요. 이러면 조명이 바뀌어 밝기가 통째로 달라져도 히스토그램의 "비율"은 그대로 유지돼요. 원본 사람, 어둡게 한 사람, 모양이 다른 가로막대를 비교해볼게요.</p>
-      </div>
-      <div class="formula-box">
-        <span>블록 정규화: 셀 4개의 히스토그램(9×4=36개 숫자)을 이어붙인 뒤, v → v / √(‖v‖² + 1)로 나눠요.</span>
-      </div>
-      <div class="triple-grid">
-        <div class="panel">
-          <p class="panel-title">원본 사람</p>
-          <div class="pixel-wrap small"><div class="pixel-grid" id="grid4a"></div></div>
-        </div>
-        <div class="panel">
-          <p class="panel-title">어둡게 한 사람(×0.4)</p>
-          <div class="pixel-wrap small"><div class="pixel-grid" id="grid4b"></div></div>
-        </div>
-        <div class="panel">
-          <p class="panel-title">가로막대(다른 모양)</p>
-          <div class="pixel-wrap small"><div class="pixel-grid" id="grid4c"></div></div>
-        </div>
-      </div>
-      <div class="info-box" id="s4RawInfo"></div>
       <div class="panel">
-        <p class="panel-title">HOG 특성 공간에서의 거리 (정규화된 144차원 벡터끼리 비교)</p>
-        <div id="s4HogBars"></div>
+        <div class="cell-wrap" id="cellWrap3"><div class="cell-grid" id="grid3"></div><svg class="cell-overlay" id="grid3Overlay" viewBox="0 0 4 4"></svg></div>
       </div>
-      <div class="callout" id="callout4"></div>
+      <div class="callout">색이 진하고 굵은 화살표일수록 그 구역에서 가장 강한 방향이에요. 몸통 옆쪽은 세로 방향이, 어깨 위쪽은 가로 방향이 강하게 나타나는 걸 확인해보세요.</div>
+
+      <div class="step-head" style="gap:6px; margin-top:6px;">
+        <p class="kicker">그런데 밝기가 확 바뀌면 어떻게 될까요?</p>
+        <h2 style="font-size:1.1rem;">원본과 "어둡게 한 버전"의 화살표 패턴을 비교해요</h2>
+      </div>
+      <div class="double-grid">
+        <div class="panel">
+          <p class="panel-title">원본</p>
+          <div class="cell-wrap small" id="cellWrapA"><div class="cell-grid" id="gridA"></div><svg class="cell-overlay" id="gridAOverlay" viewBox="0 0 4 4"></svg></div>
+        </div>
+        <div class="panel">
+          <p class="panel-title">밝기를 40%로 어둡게 한 버전</p>
+          <div class="cell-wrap small" id="cellWrapB"><div class="cell-grid" id="gridB"></div><svg class="cell-overlay" id="gridBOverlay" viewBox="0 0 4 4"></svg></div>
+        </div>
+      </div>
+      <div class="panel">
+        <p class="panel-title">패턴이 얼마나 다른가요? (0에 가까울수록 거의 같은 패턴)</p>
+        <div id="cmpBars"></div>
+      </div>
+      <div class="callout" id="callout3"></div>
     </section>
 
   </main>
 
   <footer class="sheet-footer">
     <button id="prevBtn" class="btn">← 이전</button>
-    <span class="step-indicator" id="stepLabel">1 / 4</span>
+    <span class="step-indicator" id="stepLabel">1 / 3</span>
     <button id="nextBtn" class="btn btn-primary">다음 →</button>
   </footer>
 
@@ -287,7 +250,7 @@
 (function(){
   "use strict";
 
-  // ============ image construction (deterministic, geometric) ============
+  // ============ image construction (deterministic, geometric — same as full HOG app) ============
   var N = 16;
   function idx(r,c){ return r*N+c; }
 
@@ -314,7 +277,7 @@
   var IMAGES = { person: buildPerson(), bar: buildBar() };
   var PERSON_DIM = dimImage(IMAGES.person, 0.4);
 
-  // ============ gradients ============
+  // ============ gradients (identical math to the full HOG app) ============
   function clampIdx(v){ return Math.max(0, Math.min(N-1, v)); }
   function pixAt(img,r,c){ return img[idx(clampIdx(r),clampIdx(c))]; }
 
@@ -368,16 +331,29 @@
   function hogFeature(img){ return blockNormalize(allCellHistograms(computeGradients(img))); }
   function dist(a,b){ var s=0; for(var i=0;i<a.length;i++){ var d=a[i]-b[i]; s+=d*d; } return Math.sqrt(s); }
 
-  // precompute everything once (genuine, in-browser)
+  // precompute everything once (genuine, in-browser — same numbers verified in the full HOG app)
   var GRADS = { person:computeGradients(IMAGES.person), bar:computeGradients(IMAGES.bar) };
   var CELLHISTS = { person:allCellHistograms(GRADS.person), bar:allCellHistograms(GRADS.bar) };
+  var GRAD_DIM = computeGradients(PERSON_DIM);
+  var CELLHISTS_DIM = allCellHistograms(GRAD_DIM);
   var HOGVEC = { person:hogFeature(IMAGES.person), personDim:hogFeature(PERSON_DIM), bar:hogFeature(IMAGES.bar) };
-  var RAW_DIST_DIM = dist(IMAGES.person, PERSON_DIM);
   var HOG_DIST_DIM = dist(HOGVEC.person, HOGVEC.personDim);
   var HOG_DIST_BAR = dist(HOGVEC.person, HOGVEC.bar);
 
+  // ============ friendly direction labels ============
+  // note: row index increases downward (image space), and the SVG overlay is drawn
+  // with the same y-down convention (no flip) — so a positive angle (gy>0) points
+  // DOWN on screen, not up. The compass order below matches that, not standard math y-up.
+  var COMPASS = ['→ 오른쪽','↘ 오른쪽 아래','↓ 아래','↙ 왼쪽 아래','← 왼쪽','↖ 왼쪽 위','↑ 위','↗ 오른쪽 위'];
+  function compassLabel(signedDeg){
+    var d = ((signedDeg % 360)+360)%360;
+    var bin = Math.round(d/45) % 8;
+    return COMPASS[bin];
+  }
+
   // ============ dom helpers ============
   function q(id){ return document.getElementById(id); }
+  function cssVar(name){ return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); }
 
   function renderShapeTabs(containerId, activeKey, onPick){
     var shapes=[{key:'person',name:'사람 모양'},{key:'bar',name:'가로막대 모양'}];
@@ -414,66 +390,52 @@
     var cx=c+0.5, cy=r+0.5;
     var dx=Math.cos(rad)*half, dy=Math.sin(rad)*half;
     var x1=cx-dx, y1=cy-dy, x2=cx+dx, y2=cy+dy;
-    var s = '<line x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'" stroke="var(--pencil-blue)" stroke-width="0.16" stroke-linecap="round"/>'+
-      '<circle cx="'+x2+'" cy="'+y2+'" r="0.14" fill="var(--pencil-blue)"/>';
+    var arrowColor = cssVar('--pencil-blue');
+    var s = '<line x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'" stroke="'+arrowColor+'" stroke-width="0.16" stroke-linecap="round"/>'+
+      '<circle cx="'+x2+'" cy="'+y2+'" r="0.14" fill="'+arrowColor+'"/>';
     q(svgId).innerHTML = s;
   }
 
-  function renderCellGrid(containerId, img, selectedIdx){
+  function renderCellGrid(containerId, img){
     var html='';
     for(var cr=0;cr<CELLS_PER_SIDE;cr++){ for(var cc=0;cc<CELLS_PER_SIDE;cc++){
-      var i = cr*CELLS_PER_SIDE+cc;
       var sum=0, n=0;
       for(var r=cr*CELL;r<cr*CELL+CELL;r++){ for(var c=cc*CELL;c<cc*CELL+CELL;c++){ sum+=img[idx(r,c)]; n++; } }
       var avg = Math.round(sum/n);
-      var cls='cell-box'+(i===selectedIdx?' selected':'');
-      html += '<div class="'+cls+'" data-i="'+i+'" style="background:rgb('+avg+','+avg+','+avg+');"></div>';
+      html += '<div class="cell-box" style="background:rgb('+avg+','+avg+','+avg+');"></div>';
     }}
-    var el=q(containerId); el.innerHTML=html;
-    el.querySelectorAll('.cell-box').forEach(function(cell){
-      cell.addEventListener('click', function(){ q(containerId).dispatchEvent(new CustomEvent('cellpick', {detail:+cell.dataset.i})); });
-    });
+    q(containerId).innerHTML = html;
   }
 
-  function drawStarburstOverlay(svgId, cellHists, selectedIdx){
-    var maxVal = 1;
-    cellHists.forEach(function(h){ h.forEach(function(v){ if(v>maxVal) maxVal=v; }); });
+  // draws only the single dominant-direction line per cell (simplified from the full 9-line starburst)
+  function drawDominantOverlay(svgId, cellHists, globalMax){
+    var lineColor = cssVar('--pencil-blue-ink');
     var s='';
     for(var cr=0;cr<CELLS_PER_SIDE;cr++){ for(var cc=0;cc<CELLS_PER_SIDE;cc++){
       var i = cr*CELLS_PER_SIDE+cc;
       var hist = cellHists[i];
+      var maxBin=0, maxVal=0;
+      for(var b=0;b<NBINS;b++){ if(hist[b]>maxVal){ maxVal=hist[b]; maxBin=b; } }
+      if(maxVal<=0) continue;
       var cx=cc+0.5, cy=cr+0.5;
-      var isSel = i===selectedIdx;
-      for(var b=0;b<NBINS;b++){
-        var val = hist[b];
-        if(val<=0) continue;
-        var half = 0.46 * (val/maxVal);
-        var angDeg = (b+0.5)*BINW;
-        var rad = angDeg*Math.PI/180;
-        var dx=Math.cos(rad)*half, dy=Math.sin(rad)*half;
-        var color = isSel ? 'var(--pencil-blue)' : 'var(--pencil-blue-ink)';
-        var op = isSel ? 1 : 0.55;
-        s += '<line x1="'+(cx-dx)+'" y1="'+(cy-dy)+'" x2="'+(cx+dx)+'" y2="'+(cy+dy)+'" stroke="'+color+'" stroke-width="0.05" stroke-linecap="round" opacity="'+op+'"/>';
-      }
+      var half = 0.46 * Math.min(1, maxVal/globalMax);
+      var angDeg = (maxBin+0.5)*BINW;
+      var rad = angDeg*Math.PI/180;
+      var dx=Math.cos(rad)*half, dy=Math.sin(rad)*half;
+      s += '<line x1="'+(cx-dx)+'" y1="'+(cy-dy)+'" x2="'+(cx+dx)+'" y2="'+(cy+dy)+'" stroke="'+lineColor+'" stroke-width="0.13" stroke-linecap="round"/>';
     }}
     q(svgId).innerHTML = s;
   }
-
-  function renderHistChart(containerId, hist){
-    var maxVal = Math.max.apply(null, hist) || 1;
-    var html = hist.map(function(v,b){
-      var pct = Math.max(2, v/maxVal*100);
-      var label = Math.round(b*BINW)+'°';
-      return '<div class="hist-bar-col"><div class="hist-bar-fill" style="height:'+pct+'%;"></div><span class="hist-bar-label">'+label+'</span></div>';
-    }).join('');
-    q(containerId).innerHTML = '<div class="hist-chart">'+html+'</div>';
+  function globalMaxOf(cellHists){
+    var m=1;
+    cellHists.forEach(function(h){ h.forEach(function(v){ if(v>m) m=v; }); });
+    return m;
   }
 
   // ============ state ============
   var state = { step:1, shape:'person' };
   var s1 = { selected:null };
   var s2 = { selected:null };
-  var s3 = { selected:null };
 
   var progressFillEl, stepLabelEl, prevBtn, nextBtn;
 
@@ -489,7 +451,10 @@
       q('s1Stat').textContent = '칸을 클릭해보세요.';
     } else {
       var r=Math.floor(s1.selected/N), c=s1.selected%N;
-      q('s1Stat').textContent = '선택한 칸: ('+r+','+c+') · 밝기 값: '+curImg()[s1.selected]+' / 255';
+      var grad = curGrad();
+      var mag = grad.mag[s1.selected];
+      var label = mag<30 ? '경계가 아니에요 (거의 변화 없음)' : '경계예요! (밝기가 크게 변해요)';
+      q('s1Stat').textContent = '선택한 칸: ('+r+','+c+') · 밝기: '+curImg()[s1.selected]+' · 옆 칸과의 밝기 차이: '+mag.toFixed(0)+' → '+label;
     }
   }
 
@@ -497,56 +462,38 @@
   function renderStep2(){
     renderShapeTabs('shapeRow2', state.shape, function(k){ state.shape=k; s2.selected=null; renderStep2(); });
     var grad = curGrad();
-    var maxMag = Math.max.apply(null, grad.mag) || 1;
     var img = curImg();
-    renderPixelGrid('grid2', img.map(function(v,i){ return v; }), s2.selected, function(i){ s2.selected=i; renderStep2(); });
-    // recolor by gradient magnitude heat instead of raw grayscale
-    var el = q('grid2');
-    el.querySelectorAll('.pixel-cell').forEach(function(cell){
-      var i = +cell.dataset.i;
-      var t = Math.min(1, grad.mag[i]/maxMag);
-      var bg = 'rgb('+Math.round(250-t*10)+','+Math.round(248-t*180)+','+Math.round(240-t*200)+')';
-      cell.style.background = bg;
-    });
+    renderPixelGrid('grid2', img, s2.selected, function(i){ s2.selected=i; renderStep2(); });
     drawArrowOverlay('grid2Arrow', s2.selected, grad);
     if(s2.selected===null){
       q('s2Stat').textContent = '칸을 클릭해보세요.';
       q('s2Info').innerHTML = '';
     } else {
       var r=Math.floor(s2.selected/N), c=s2.selected%N;
+      var mag = grad.mag[s2.selected];
       q('s2Stat').textContent = '선택한 칸: ('+r+','+c+')';
-      q('s2Info').innerHTML =
-        '<span>Gx = <b class="mono">'+grad.Gx[s2.selected]+'</b>, Gy = <b class="mono">'+grad.Gy[s2.selected]+'</b></span>'+
-        '<span>크기 |G| = <b class="mono">'+grad.mag[s2.selected].toFixed(1)+'</b></span>'+
-        '<span>방향(부호 있음) θ = <b class="mono">'+grad.angSigned[s2.selected].toFixed(1)+'°</b></span>';
+      if(mag<30){
+        q('s2Info').innerHTML = '<span>변화가 거의 없어서 뚜렷한 방향이 없어요.</span>';
+      } else {
+        q('s2Info').innerHTML =
+          '<span>방향: <b>'+compassLabel(grad.angSigned[s2.selected])+'</b></span>'+
+          '<span class="note">정확한 각도: '+grad.angSigned[s2.selected].toFixed(0)+'°</span>';
+      }
     }
   }
 
   // ---------- Step 3 ----------
   function renderStep3(){
-    renderShapeTabs('shapeRow3', state.shape, function(k){ state.shape=k; s3.selected=null; renderStep3(); });
+    renderShapeTabs('shapeRow3', state.shape, function(k){ state.shape=k; renderStep3(); });
     var cells = curCells();
-    renderCellGrid('grid3', curImg(), s3.selected);
-    drawStarburstOverlay('grid3Overlay', cells, s3.selected);
-    if(s3.selected===null){
-      q('s3Stat').textContent = '셀을 클릭해보세요.';
-      q('s3Hist').innerHTML = '';
-    } else {
-      var cr=Math.floor(s3.selected/CELLS_PER_SIDE), cc=s3.selected%CELLS_PER_SIDE;
-      q('s3Stat').textContent = '선택한 셀: ('+cr+','+cc+')';
-      renderHistChart('s3Hist', cells[s3.selected]);
-    }
-  }
+    renderCellGrid('grid3', curImg());
+    drawDominantOverlay('grid3Overlay', cells, globalMaxOf(cells));
 
-  // ---------- Step 4 ----------
-  function renderStep4(){
-    renderPixelGrid('grid4a', IMAGES.person, null, null);
-    renderPixelGrid('grid4b', PERSON_DIM, null, null);
-    renderPixelGrid('grid4c', IMAGES.bar, null, null);
-
-    q('s4RawInfo').innerHTML =
-      '<span>원본 픽셀 공간에서의 거리 — 원본 사람 ↔ 어둡게 한 사람: <b class="mono">'+RAW_DIST_DIM.toFixed(1)+'</b></span>'+
-      '<span class="note">똑같은 모양인데도, 밝기만 바뀌었을 뿐인데 원본 픽셀로는 이렇게나 "다른 이미지"로 보여요.</span>';
+    // fixed original-vs-dimmed comparison (person shape) — always shown regardless of the shape tab above
+    renderCellGrid('gridA', IMAGES.person);
+    drawDominantOverlay('gridAOverlay', CELLHISTS.person, globalMaxOf(CELLHISTS.person));
+    renderCellGrid('gridB', PERSON_DIM);
+    drawDominantOverlay('gridBOverlay', CELLHISTS_DIM, globalMaxOf(CELLHISTS_DIM));
 
     var maxBar = Math.max(HOG_DIST_DIM, HOG_DIST_BAR) || 1;
     function barRow(label, val){
@@ -555,19 +502,19 @@
         '<div class="cbar-track"><div class="cbar-fill" style="width:'+pct+'%;"></div></div>'+
         '<span class="cbar-value mono">'+val.toFixed(3)+'</span></div>';
     }
-    q('s4HogBars').innerHTML =
-      barRow('원본 사람 ↔ 어둡게 한 사람', HOG_DIST_DIM) +
-      barRow('원본 사람 ↔ 가로막대', HOG_DIST_BAR);
+    q('cmpBars').innerHTML =
+      barRow('원본 ↔ 어둡게 한 버전 (같은 모양)', HOG_DIST_DIM) +
+      barRow('원본 ↔ 가로막대 (다른 모양)', HOG_DIST_BAR);
 
-    q('callout4').innerHTML =
-      'HOG로 보면 원본 사람과 어둡게 한 사람의 거리는 <b>'+HOG_DIST_DIM.toFixed(3)+'</b>(사실상 0)인데, 원본 사람과 모양이 다른 가로막대의 거리는 <b>'+HOG_DIST_BAR.toFixed(3)+'</b>로 훨씬 커요. '+
-      '블록 정규화 덕분에 조명(밝기) 차이는 거의 무시하면서, 진짜 모양 차이는 그대로 잡아내는 거예요 — 이게 HOG가 사람 감지 같은 실제 문제에 쓰이는 이유예요.';
+    q('callout3').innerHTML =
+      '밝기만 바뀐 "어둡게 한 버전"은 패턴이 거의 <b>완전히 같지만</b>('+HOG_DIST_DIM.toFixed(3)+'), 모양이 다른 가로막대는 패턴이 <b>뚜렷하게 달라요</b>('+HOG_DIST_BAR.toFixed(3)+'). '+
+      'HOG는 밝기 변화에는 둔감하고, 진짜 모양 차이에는 예민한 거예요.';
   }
 
   // ---------- nav / lifecycle ----------
   function updateProgress(){
-    progressFillEl.style.width = (state.step/4*100)+'%';
-    stepLabelEl.textContent = state.step+' / 4';
+    progressFillEl.style.width = (state.step/3*100)+'%';
+    stepLabelEl.textContent = state.step+' / 3';
   }
   function updateNavTabs(){
     document.querySelectorAll('.step-tab').forEach(function(btn){
@@ -578,7 +525,7 @@
   }
   function updatePrevNext(){
     prevBtn.disabled = state.step===1;
-    nextBtn.textContent = state.step===4 ? '처음부터 다시 ↺' : '다음 →';
+    nextBtn.textContent = state.step===3 ? '처음부터 다시 ↺' : '다음 →';
   }
   function renderCurrentStep(){
     updateProgress();
@@ -586,13 +533,12 @@
       case 1: renderStep1(); break;
       case 2: renderStep2(); break;
       case 3: renderStep3(); break;
-      case 4: renderStep4(); break;
     }
   }
   function goToStep(n){
-    if(n<1) n=1; if(n>4) n=4;
+    if(n<1) n=1; if(n>3) n=3;
     state.step=n;
-    for(var i=1;i<=4;i++){ q('step-'+i).hidden = (i!==n); }
+    for(var i=1;i<=3;i++){ q('step-'+i).hidden = (i!==n); }
     updateNavTabs();
     updatePrevNext();
     renderCurrentStep();
@@ -611,14 +557,12 @@
   }
 
   function initListeners(){
-    q('grid3').addEventListener('cellpick', function(e){ s3.selected = e.detail; renderStep3(); });
-
     q('stepsNav').addEventListener('click', function(e){
       var b=e.target.closest('.step-tab'); if(!b) return;
       goToStep(+b.dataset.step);
     });
     prevBtn.addEventListener('click', function(){ goToStep(state.step-1); });
-    nextBtn.addEventListener('click', function(){ if(state.step<4) goToStep(state.step+1); else goToStep(1); });
+    nextBtn.addEventListener('click', function(){ if(state.step<3) goToStep(state.step+1); else goToStep(1); });
   }
 
   function init(){

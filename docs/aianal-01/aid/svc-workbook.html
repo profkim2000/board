@@ -209,23 +209,23 @@
     <!-- STEP 3 -->
     <section id="step-3" class="step" hidden>
       <div class="step-head">
-        <p class="kicker">STEP 3 · 소프트 마진과 C</p>
-        <h2>완벽하게 나눌 수 없다면? 약간의 위반을 허용해요</h2>
-        <p class="desc">이번 데이터는 두 그룹이 서로 겹쳐 있어서 어떤 직선으로도 완벽히 나눌 수 없어요. SVC는 "마진을 넓게 유지하는 것"과 "위반(마진 안쪽 침범)을 줄이는 것" 사이에서 절충점을 찾는데, 그 정도를 C 값으로 조절해요.</p>
+        <p class="kicker">STEP 3 · 완벽하게 나눌 수 없을 때</p>
+        <h2>몇 개쯤 애매해도 괜찮아요 — 그 정도를 C로 정해요</h2>
+        <p class="desc">이번 데이터는 두 그룹이 서로 섞여 있어서, 아무리 선을 잘 그어도 몇 개는 어쩔 수 없이 반대편에 걸쳐요. C는 이런 애매한 점들을 "얼마나 신경 쓸지" 정하는 손잡이라고 생각하면 돼요 — 마치 시험 채점 기준을 얼마나 깐깐하게 잡을지 정하는 것과 비슷해요.</p>
       </div>
       <div class="formula-box">
-        <span>손실 = ½‖w‖² + C·(위반 정도의 합) &nbsp; — &nbsp; 위반: yᵢ(w·xᵢ+b) &lt; 1인 점</span>
-        <span class="muted">C가 작으면 마진을 넓게(위반 허용), C가 크면 위반을 최소화(마진이 좁아짐)해요.</span>
+        <span>C가 <b>작으면</b> → 마진(선 주변 여유 공간)을 넉넉하게 잡고, 몇 개쯤 애매한 건 봐줘요.</span>
+        <span class="muted">C가 <b>크면</b> → 하나도 놓치지 않으려고 여유 공간이 좁아지고, 선이 점 하나하나에 예민하게 반응해요.</span>
       </div>
       <div class="control-row" id="cRow3"></div>
-      <div class="chart-wrap"><svg class="chart-svg" id="s3Chart" viewBox="0 0 300 110" preserveAspectRatio="none"></svg><p class="chart-caption">학습 반복(epoch)에 따른 손실 감소</p></div>
+      <div class="chart-wrap"><svg class="chart-svg" id="s3Chart" viewBox="0 0 300 110" preserveAspectRatio="none"></svg><p class="chart-caption">학습이 진행되며 점점 더 나은 경계선을 찾아가요</p></div>
       <div class="two-col">
         <div class="panel">
           <div class="stat-box mono" id="s3Stat">C 값을 선택해보세요.</div>
           <div class="legend-row">
             <span><span class="legend-dot" style="background:var(--pencil-red);"></span>그룹 A</span>
             <span><span class="legend-dot" style="background:var(--pencil-blue);"></span>그룹 B</span>
-            <span><span class="legend-ring"></span>서포트 벡터(위반)</span>
+            <span><span class="legend-ring"></span>애매하게 걸친 점</span>
           </div>
         </div>
         <div class="panel">
@@ -603,11 +603,11 @@
       var w=s3.result.w, b=s3.result.b, norm=Math.sqrt(w[0]*w[0]+w[1]*w[1]);
       var acc = accuracyOf(OVERLAP, identityFeat, w, b);
       var vcount = violationIdxs(OVERLAP, identityFeat, w, b).length;
-      q('s3Stat').textContent = 'C='+s3.C+' · 정확도: '+(acc*100).toFixed(0)+'% · 마진 폭(2/‖w‖): '+(2/norm).toFixed(2)+' · 서포트 벡터: '+vcount+'개';
-      var tone = s3.C==='0.1' ? '마진을 넓게 유지하는 대신, 많은 점이 마진 안쪽에 놓이는(서포트 벡터가 되는) 걸 허용해요.' :
-                 s3.C==='10' ? '위반을 최소화하려고 마진이 좁아지고, 경계선이 개별 점들에 더 예민하게 반응해요.' :
-                 '마진 폭과 위반 허용 사이의 적당한 절충점이에요.';
-      q('callout3').textContent = tone+' (정확도는 '+(acc*100).toFixed(0)+'%로 세 C값 모두 비슷하지만, 마진의 폭과 서포트 벡터 개수는 크게 달라요.)';
+      q('s3Stat').textContent = 'C='+s3.C+' · 정확도: '+(acc*100).toFixed(0)+'% · 여유 공간: '+(2/norm).toFixed(2)+' · 애매하게 걸친 점: '+vcount+'개';
+      var tone = s3.C==='0.1' ? '여유 공간을 넉넉하게 잡는 대신, 많은 점이 그 여유 공간 안쪽에 애매하게 걸치는 걸 봐줘요.' :
+                 s3.C==='10' ? '애매한 점을 최대한 줄이려고 여유 공간이 좁아지고, 경계선이 개별 점 하나하나에 더 예민하게 반응해요.' :
+                 '여유 공간의 크기와 애매한 점을 봐주는 정도 사이의 적당한 절충점이에요.';
+      q('callout3').textContent = tone+' (정확도는 '+(acc*100).toFixed(0)+'%로 세 C값 모두 비슷하지만, 여유 공간의 크기와 애매하게 걸친 점의 개수는 크게 달라요.)';
     }
   }
   function startS3Training(){

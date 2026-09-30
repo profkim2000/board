@@ -1,621 +1,435 @@
 <title>GNN 체험 학습지</title>
+<!doctype html>
+<html lang="ko">
+<head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GNN 체험 학습지</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
 <style>
-  :root{
-    --paper:#FAFAF8;
-    --paper-grid:#DCE6F5;
-    --paper-grid-strong:#C3D2EE;
-    --surface:#FFFFFF;
-    --border:#E2E6EE;
-    --ink:#1E2430;
-    --ink-soft:#63697A;
-    --pencil-blue:#2F5FD1;
-    --pencil-blue-soft:#E7EEFD;
-    --pencil-blue-ink:#1D3E96;
-    --pencil-red:#D8443A;
-    --pencil-red-soft:#FBE7E5;
-    --pencil-red-ink:#A9291F;
-    --pencil-yellow:#C98A00;
-    --pencil-yellow-soft:#FBF0D6;
-    --shadow: 0 1px 2px rgba(30,36,48,0.06), 0 6px 20px rgba(30,36,48,0.05);
-  }
-  @media (prefers-color-scheme: dark){
-    :root:not([data-theme="light"]){
-      --paper:#161D28; --paper-grid:#2D3B52; --paper-grid-strong:#3C4E6B;
-      --surface:#1D2534; --border:#31405A; --ink:#ECEFF6; --ink-soft:#9BA6BC;
-      --pencil-blue:#7DA2FF; --pencil-blue-soft:#243257; --pencil-blue-ink:#C4D3FF;
-      --pencil-red:#FF8A7E; --pencil-red-soft:#3A2429; --pencil-red-ink:#FFC0B7;
-      --pencil-yellow:#F0C243; --pencil-yellow-soft:#3A311A;
-      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 10px 26px rgba(0,0,0,0.35);
-    }
-  }
-  :root[data-theme="dark"]{
+:root{
+  --paper:#FAFAF8; --paper-grid:#DCE6F5; --paper-grid-strong:#C3D2EE;
+  --surface:#FFFFFF; --border:#E2E6EE; --ink:#1E2430; --ink-soft:#63697A;
+  --pencil-blue:#2F5FD1; --pencil-blue-soft:#E7EEFD; --pencil-blue-ink:#1D3E96;
+  --pencil-red:#D8443A; --pencil-red-soft:#FBE7E5; --pencil-red-ink:#A9291F;
+  --pencil-yellow:#C98A00; --pencil-yellow-soft:#FBF0D6; --pencil-yellow-ink:#8A5E00;
+  --pencil-green:#2E8B57; --pencil-green-soft:#E3F3EA; --pencil-green-ink:#1D5E3A;
+  --shadow: 0 1px 2px rgba(30,36,48,0.06), 0 6px 20px rgba(30,36,48,0.05);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
     --paper:#161D28; --paper-grid:#2D3B52; --paper-grid-strong:#3C4E6B;
     --surface:#1D2534; --border:#31405A; --ink:#ECEFF6; --ink-soft:#9BA6BC;
     --pencil-blue:#7DA2FF; --pencil-blue-soft:#243257; --pencil-blue-ink:#C4D3FF;
     --pencil-red:#FF8A7E; --pencil-red-soft:#3A2429; --pencil-red-ink:#FFC0B7;
-    --pencil-yellow:#F0C243; --pencil-yellow-soft:#3A311A;
+    --pencil-yellow:#F0C243; --pencil-yellow-soft:#3A311A; --pencil-yellow-ink:#F5D27A;
+    --pencil-green:#6FD39A; --pencil-green-soft:#1E3A2B; --pencil-green-ink:#B5EDCB;
     --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 10px 26px rgba(0,0,0,0.35);
   }
-
-  *{ box-sizing:border-box; }
-  [hidden]{ display:none !important; }
-  body{
-    margin:0;
-    background:
-      linear-gradient(var(--paper), var(--paper)),
-      repeating-linear-gradient(0deg, var(--paper-grid) 0 1px, transparent 1px 28px),
-      repeating-linear-gradient(90deg, var(--paper-grid) 0 1px, transparent 1px 28px);
-    background-color:var(--paper);
-    color:var(--ink);
-    font-family:'Noto Sans KR', 'Malgun Gothic', sans-serif;
-    line-height:1.6;
-  }
-  h1,h2,h3{ font-family:'Gowun Dodum','Noto Sans KR',sans-serif; font-weight:400; text-wrap:balance; margin:0; color:var(--ink); }
-  p{ margin:0; }
-  .mono{ font-family:'JetBrains Mono', ui-monospace, monospace; font-variant-numeric: tabular-nums; }
-  button{ font-family:inherit; }
-  :focus-visible{ outline:3px solid var(--pencil-blue); outline-offset:2px; }
-
-  #app{ max-width:960px; margin-inline:auto; padding-inline:20px; padding-block:32px 56px; display:flex; flex-direction:column; gap:20px; }
-
-  .masthead{ display:flex; align-items:center; gap:20px; background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:22px 24px; box-shadow:var(--shadow); flex-wrap:wrap; }
-  .masthead-badge{ flex:none; width:84px; height:84px; display:grid; grid-template-columns:repeat(4,1fr); grid-template-rows:repeat(4,1fr); gap:3px; padding:8px; background:var(--paper); border:1px solid var(--border); border-radius:12px; }
-  .masthead-badge i{ background:var(--paper-grid); border-radius:2px; opacity:0; }
-  @media (prefers-reduced-motion: no-preference){ .masthead-badge i.on{ animation:inkIn 240ms ease-out forwards; } }
-  .masthead-badge i.on{ background:var(--pencil-blue); opacity:1; }
-  @keyframes inkIn{ from{ opacity:0; transform:scale(.4);} to{ opacity:1; transform:scale(1);} }
-  .masthead-text{ flex:1; min-width:220px; display:flex; flex-direction:column; gap:6px; }
-  .eyebrow{ font-size:.8rem; font-weight:700; letter-spacing:.06em; color:var(--pencil-blue); text-transform:uppercase; }
-  .masthead-text h1{ font-size:clamp(1.4rem,4vw,2rem); }
-  .lede{ color:var(--ink-soft); font-size:.95rem; max-width:60ch; }
-
-  .steps-nav{ display:flex; flex-wrap:wrap; gap:8px; }
-  .step-tab{ flex:1 1 auto; min-width:100px; display:flex; flex-direction:column; align-items:center; gap:2px; padding:10px 8px; border-radius:12px; border:1px solid var(--border); background:var(--surface); color:var(--ink-soft); cursor:pointer; font-size:.8rem; transition:background 150ms, color 150ms, border-color 150ms; }
-  .step-tab b{ font-family:'JetBrains Mono',monospace; font-size:.95rem; color:inherit; }
-  .step-tab.active{ background:var(--pencil-blue); border-color:var(--pencil-blue); color:#fff; }
-  .step-tab.active b{ color:#fff; }
-
-  .progress-track{ height:6px; border-radius:999px; background:var(--paper-grid); overflow:hidden; }
-  .progress-fill{ height:100%; background:var(--pencil-blue); border-radius:999px; transition:width 220ms ease; }
-
-  .sheet{ background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:26px 24px; box-shadow:var(--shadow); }
-  .step:not([hidden]){ display:flex; }
-  .step{ flex-direction:column; gap:18px; }
-  .step-head{ display:flex; flex-direction:column; gap:6px; }
-  .step-head .kicker{ font-size:.78rem; font-weight:700; color:var(--pencil-blue); letter-spacing:.04em; }
-  .step-head h2{ font-size:1.4rem; }
-  .step-head .desc{ color:var(--ink-soft); font-size:.95rem; max-width:66ch; }
-
-  .two-col{ display:grid; grid-template-columns:1fr; gap:22px; }
-  @media (min-width:680px){ .two-col{ grid-template-columns: minmax(0,270px) 1fr; align-items:start; } }
-
-  .panel{ display:flex; flex-direction:column; gap:12px; }
-  .panel-title{ font-size:.85rem; font-weight:700; color:var(--ink-soft); }
-
-  .btn{ border-radius:10px; border:1px solid var(--border); background:var(--surface); color:var(--ink); padding:9px 14px; font-size:.85rem; font-weight:500; cursor:pointer; transition:background 120ms, border-color 120ms, color 120ms; }
-  .btn:hover{ border-color:var(--pencil-blue); }
-  .btn:disabled{ opacity:.45; cursor:not-allowed; }
-  .btn-primary{ background:var(--pencil-blue); border-color:var(--pencil-blue); color:#fff; }
-  .btn-primary:hover{ opacity:.92; }
-  .control-row{ display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
-  .chip{ border-radius:999px; border:1px solid var(--border); background:var(--surface); padding:6px 13px; font-size:.8rem; color:var(--ink); }
-  .chip.on{ background:var(--pencil-red-soft); border-color:var(--pencil-red); color:var(--pencil-red-ink); font-weight:700; }
-
-  .note{ font-size:.82rem; color:var(--ink-soft); }
-  .callout{ background:var(--paper); border:1px dashed var(--paper-grid-strong); border-radius:12px; padding:12px 14px; font-size:.88rem; color:var(--ink-soft); }
-
-  input[type="range"]{ width:100%; accent-color:var(--pencil-blue); height:6px; cursor:pointer; }
-
-  .stat-box{ font-family:'JetBrains Mono',monospace; font-weight:700; font-size:1rem; padding:10px 14px; border-radius:12px; background:var(--paper); border:1px solid var(--border); }
-  .info-box{ background:var(--paper); border:1px solid var(--border); border-radius:12px; padding:12px 14px; font-size:.85rem; display:flex; flex-direction:column; gap:4px; }
-  .info-box .name{ font-weight:700; font-size:.95rem; }
-
-  .chart-wrap{ position:relative; width:100%; max-width:460px; aspect-ratio:320/200; background:var(--paper); border:1px solid var(--border); border-radius:12px; overflow:hidden; }
-  .chart-wrap.clickable{ cursor:pointer; }
-  .chart-wrap svg{ position:absolute; inset:0; width:100%; height:100%; }
-  .node-circle{ cursor:pointer; transition:fill 450ms ease, stroke-width 150ms ease; }
-  @media (prefers-reduced-motion: reduce){ .node-circle{ transition:none; } }
-  .node-label{ font-size:9px; font-weight:700; fill:var(--surface); pointer-events:none; text-anchor:middle; dominant-baseline:central; }
-  .edge-line{ stroke:var(--paper-grid-strong); stroke-width:2; }
-  .edge-line.highlight{ stroke:var(--ink-soft); stroke-width:3; }
-  .edge-new{ stroke:var(--pencil-red); stroke-width:2.5; stroke-dasharray:5 3; }
-
-  .legend-row{ display:flex; gap:14px; flex-wrap:wrap; font-size:.8rem; color:var(--ink-soft); align-items:center; }
-  .legend-dot{ display:inline-block; width:11px; height:11px; border-radius:50%; margin-right:5px; vertical-align:middle; }
-  .legend-dot.blue{ background:var(--pencil-blue); }
-  .legend-dot.yellow{ background:var(--pencil-yellow); }
-  .legend-dot.gray{ background:var(--ink-soft); }
-  .legend-line{ display:inline-block; width:16px; height:0; border-top:2.5px dashed var(--pencil-red); margin-right:5px; vertical-align:middle; }
-
-  .friend-chip-row{ display:flex; flex-wrap:wrap; gap:6px; }
-  .friend-chip{ border-radius:999px; background:var(--paper); border:1px solid var(--border); padding:5px 11px; font-size:.78rem; color:var(--ink-soft); }
-
-  .sheet-footer{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
-  .step-indicator{ font-family:'JetBrains Mono',monospace; font-size:.85rem; color:var(--ink-soft); }
-
-  @media (max-width:400px){ .masthead{ flex-direction:column; align-items:flex-start; } }
+}
+:root[data-theme="dark"]{
+  --paper:#161D28; --paper-grid:#2D3B52; --paper-grid-strong:#3C4E6B;
+  --surface:#1D2534; --border:#31405A; --ink:#ECEFF6; --ink-soft:#9BA6BC;
+  --pencil-blue:#7DA2FF; --pencil-blue-soft:#243257; --pencil-blue-ink:#C4D3FF;
+  --pencil-red:#FF8A7E; --pencil-red-soft:#3A2429; --pencil-red-ink:#FFC0B7;
+  --pencil-yellow:#F0C243; --pencil-yellow-soft:#3A311A; --pencil-yellow-ink:#F5D27A;
+  --pencil-green:#6FD39A; --pencil-green-soft:#1E3A2B; --pencil-green-ink:#B5EDCB;
+  --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 10px 26px rgba(0,0,0,0.35);
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{
+  background-color:var(--paper);
+  background-image:
+    repeating-linear-gradient(0deg, var(--paper-grid) 0 1px, transparent 1px 24px),
+    repeating-linear-gradient(90deg, var(--paper-grid) 0 1px, transparent 1px 24px);
+  color:var(--ink); font-family:"Noto Sans KR",system-ui,sans-serif; line-height:1.65;
+  padding:28px 16px 48px;
+}
+#app{max-width:980px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
+h1,h2,h3{font-family:"Gowun Dodum",sans-serif;font-weight:400;margin:0}
+.masthead{display:flex;gap:18px;align-items:center}
+#logoGrid{display:grid;grid-template-columns:repeat(4,14px);gap:3px;flex:none;padding:8px;background:var(--surface);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow)}
+#logoGrid i{width:14px;height:14px;border-radius:3px;background:var(--paper-grid)}
+#logoGrid i.on{background:var(--pencil-blue);animation:pop .45s both}
+#logoGrid i.on.r{background:var(--pencil-red)}
+@keyframes pop{from{transform:scale(.3);opacity:0}to{transform:scale(1);opacity:1}}
+.eyebrow{font-size:13px;color:var(--pencil-blue);font-weight:700;letter-spacing:.02em}
+.masthead h1{font-size:30px;line-height:1.25}
+.lede{margin:4px 0 0;color:var(--ink-soft);font-size:15px}
+.steps-nav{display:flex;gap:8px;flex-wrap:wrap}
+.step-tab{font:inherit;font-size:14px;border:1px solid var(--border);background:var(--surface);color:var(--ink-soft);padding:7px 12px;border-radius:999px;cursor:pointer;display:flex;gap:6px;align-items:center}
+.step-tab .n{font-family:"JetBrains Mono",monospace;font-size:12px;width:20px;height:20px;border-radius:50%;display:inline-grid;place-items:center;background:var(--paper-grid)}
+.step-tab.active{border-color:var(--pencil-blue);color:var(--pencil-blue-ink);background:var(--pencil-blue-soft)}
+.step-tab.active .n{background:var(--pencil-blue);color:#fff}
+.step-tab.done .n{background:var(--pencil-blue-soft);color:var(--pencil-blue-ink)}
+.progress-track{height:6px;background:var(--paper-grid);border-radius:99px;overflow:hidden}
+.progress-fill{height:100%;background:var(--pencil-blue);width:0;transition:width .35s}
+.sheet{background:var(--surface);border:1px solid var(--border);border-radius:18px;box-shadow:var(--shadow);padding:26px}
+.step-head{margin-bottom:18px}
+.kicker{font-size:13px;font-weight:700;color:var(--pencil-red)}
+.step-head h2{font-size:26px;margin:2px 0 6px}
+.step-head p{margin:0;color:var(--ink-soft)}
+.btn{font:inherit;font-size:14px;border:1px solid var(--border);background:var(--surface);color:var(--ink);padding:8px 14px;border-radius:10px;cursor:pointer}
+.btn:hover{border-color:var(--pencil-blue)}
+.btn.active{background:var(--pencil-blue-soft);border-color:var(--pencil-blue);color:var(--pencil-blue-ink);font-weight:700}
+.btn-primary{background:var(--pencil-blue);border-color:var(--pencil-blue);color:#fff;font-weight:700}
+.btn-primary:hover{filter:brightness(1.07)}
+.btn:disabled{opacity:.5;cursor:default}
+.control-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:12px 0}
+.control-row .lbl{font-size:14px;color:var(--ink-soft);margin-right:4px}
+.info-box{background:var(--paper);border:1px solid var(--border);border-radius:12px;padding:14px 16px;font-size:15px}
+.info-box h3{font-size:18px;margin-bottom:6px}
+.stat-box{font-family:"JetBrains Mono",monospace;font-weight:700;background:var(--paper);border:1px solid var(--border);border-radius:12px;padding:10px 14px;font-size:14px}
+.stat-box .big{font-size:26px;display:block}
+.callout{margin-top:18px;border:1.5px dashed var(--pencil-yellow);background:var(--pencil-yellow-soft);color:var(--ink);border-radius:12px;padding:12px 16px;font-size:15px}
+.callout b{color:var(--pencil-yellow-ink)}
+.two-col{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:18px;align-items:start}
+.graph-card{background:var(--paper);border:1px solid var(--border);border-radius:14px;padding:6px}
+.graph-card svg{display:block;width:100%;height:auto}
+.graph-card .cap{font-size:14px;font-weight:700;padding:4px 8px 0}
+.node{cursor:pointer}
+.legend-row{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--ink-soft);margin-top:10px}
+.legend-dot{display:inline-block;width:12px;height:12px;border-radius:50%;vertical-align:-1px;margin-right:5px}
+.legend-ring{display:inline-block;width:12px;height:12px;border-radius:50%;border:2.5px solid var(--pencil-yellow);vertical-align:-2px;margin-right:5px}
+.mix-table{width:100%;border-collapse:collapse;font-size:15px}
+.mix-table td{padding:5px 6px;border-bottom:1px dashed var(--border)}
+.mix-table td.v{font-family:"JetBrains Mono",monospace;text-align:right;font-weight:700}
+.mix-table tr.me td{color:var(--pencil-blue-ink)}
+.mix-table tr.result td{border-bottom:none;border-top:2px solid var(--ink);font-weight:700}
+.bar{height:10px;border-radius:5px;background:var(--paper-grid);overflow:hidden;margin-top:3px}
+.bar i{display:block;height:100%}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.stats-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:12px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.card{background:var(--paper);border:1px solid var(--border);border-radius:14px;padding:16px}
+.card .num{font-family:"JetBrains Mono",monospace;font-weight:700;color:var(--pencil-blue);font-size:13px}
+.card h3{font-size:19px;margin:4px 0 6px}
+.card p{margin:0;font-size:14.5px;color:var(--ink-soft)}
+.uses{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}
+.use{border:1px solid var(--border);border-radius:12px;padding:12px;font-size:14px;background:var(--surface)}
+.use b{display:block;font-size:15px;margin-bottom:2px}
+.sheet-footer{display:flex;justify-content:space-between;align-items:center}
+#stepLabel{font-family:"JetBrains Mono",monospace;color:var(--ink-soft)}
+.tag{display:inline-block;font-size:12px;font-weight:700;padding:1px 8px;border-radius:99px}
+.tag.b{background:var(--pencil-blue-soft);color:var(--pencil-blue-ink)}
+.tag.r{background:var(--pencil-red-soft);color:var(--pencil-red-ink)}
+@media (max-width:720px){
+  .two-col,.duo,.stats-row{grid-template-columns:1fr}
+  .cards{grid-template-columns:1fr}
+  .uses{grid-template-columns:1fr 1fr}
+  .masthead h1{font-size:24px}
+  .sheet{padding:18px}
+}
 </style>
-
+</head>
+<body>
 <div id="app">
-
   <header class="masthead">
-    <div class="masthead-badge" id="logoGrid" aria-hidden="true"></div>
-    <div class="masthead-text">
-      <p class="eyebrow">완전 초보자를 위한 체험 학습지</p>
-      <h1>GNN, 친구 따라 정보가 퍼져요</h1>
-      <p class="lede">친구 관계로 연결된 사람들 중 몇 명만 뭘 좋아하는지 알고 있을 때, 그 정보가 친구 관계를 타고 퍼져나가 나머지 사람들의 취향까지 짐작하는 과정을 4단계로 체험해요.</p>
+    <div id="logoGrid" aria-hidden="true"></div>
+    <div>
+      <div class="eyebrow">완전 초보자를 위한 체험 학습지</div>
+      <h1>GNN, 친구에게 물어보는 인공지능</h1>
+      <p class="lede">그래프 신경망(Graph Neural Network)은 "나만 보지 말고, 연결된 이웃도 함께 보자"는 아이디어예요. 직접 눌러 보며 이해해 봐요.</p>
     </div>
   </header>
 
-  <nav class="steps-nav" id="stepsNav" aria-label="학습 단계">
-    <button class="step-tab" data-step="1"><b>1</b><span>그래프란</span></button>
-    <button class="step-tab" data-step="2"><b>2</b><span>메시지 한 번</span></button>
-    <button class="step-tab" data-step="3"><b>3</b><span>소문처럼 퍼지기</span></button>
-    <button class="step-tab" data-step="4"><b>4</b><span>새 친구 추가</span></button>
-  </nav>
-
+  <nav class="steps-nav" id="stepsNav"></nav>
   <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
 
   <main class="sheet">
-
     <!-- STEP 1 -->
-    <section id="step-1" class="step">
+    <section class="step" id="step-1">
       <div class="step-head">
-        <p class="kicker">STEP 1 · 그래프 데이터</p>
-        <h2>이번엔 표가 아니라 친구 관계예요</h2>
-        <p class="desc">아래는 11명의 친구 관계예요. 파란/노란 사람은 이미 뭘 좋아하는지 알아요(축구파🔵 / 농구파🟡). 회색은 아직 몰라요. 사람을 클릭하면 정보를 볼 수 있어요.</p>
+        <div class="kicker">1단계 · 그래프가 뭐예요?</div>
+        <h2>동그라미와 선으로 그린 친구 지도</h2>
+        <p>한 반의 친구 14명이에요. <b>동그라미</b>는 사람, <b>선</b>은 "서로 친구"라는 뜻이에요. 이렇게 점과 선으로 관계를 그린 것을 <b>그래프</b>라고 불러요.</p>
       </div>
       <div class="two-col">
-        <div class="panel">
-          <p class="panel-title">선택한 사람</p>
-          <div class="info-box" id="infoBox">사람을 클릭해보세요.</div>
-        </div>
-        <div class="panel">
-          <div class="chart-wrap" id="graph1"></div>
-          <div class="legend-row">
-            <span><span class="legend-dot blue"></span>축구파(확정)</span>
-            <span><span class="legend-dot yellow"></span>농구파(확정)</span>
-            <span><span class="legend-dot gray"></span>모름</span>
-          </div>
-        </div>
+        <div class="info-box" id="s1Info"></div>
+        <div class="graph-card"><svg id="g1" viewBox="0 0 640 370"></svg></div>
       </div>
-      <div class="callout">CNN의 픽셀은 이웃이 항상 격자 모양으로 고정돼 있었어요. 하지만 친구 관계는 사람마다 이웃(친구) 수가 다르고 모양도 불규칙해요. GNN은 이런 울퉁불퉁한 연결 구조에서도 정보를 모으는 방법이에요.</div>
+      <div class="callout"><b>핵심:</b> 표(엑셀)는 "각 사람의 정보"만 담지만, 그래프는 "누가 누구와 연결됐는지"까지 담아요. GNN은 바로 이 <b>연결</b>을 활용하는 인공지능이에요.</div>
     </section>
 
     <!-- STEP 2 -->
-    <section id="step-2" class="step" hidden>
+    <section class="step" id="step-2" hidden>
       <div class="step-head">
-        <p class="kicker">STEP 2 · 메시지 패싱 1회</p>
-        <h2>모르는 사람은 친구 의견을 살짝 받아들여요</h2>
-        <p class="desc">규칙은 간단해요: <b>아직 모르는 사람</b>은 자기 확신도를 <b>친구들 확신도의 평균</b>과 절반씩 섞어요. <b>이미 아는 사람(파랑/노랑)</b>은 그대로 고정돼요.</p>
+        <div class="kicker">2단계 · 친구에게 물어보기</div>
+        <h2>내 점수 + 친구들 점수 → 평균 내기</h2>
+        <p>반은 <span class="tag b">파랑 동아리</span>와 <span class="tag r">빨강 동아리</span>로 나뉘어요. 각자 설문으로 받은 <b>"파랑 점수"</b>(0~1, 클수록 파랑 쪽)가 있는데, 설문이 가끔 틀려요. 친구를 눌러서 "나와 친구들 점수의 평균"을 구해 보세요.</p>
       </div>
       <div class="two-col">
-        <div class="panel">
-          <div class="control-row">
-            <button id="step2RunBtn" class="btn btn-primary">1라운드 전파하기 ▶</button>
-            <button id="step2ResetBtn" class="btn">초기화</button>
-          </div>
-          <div class="stat-box mono" id="step2Stat"></div>
-          <p class="note">준서·지호의 <b>바로 옆 친구</b>만 살짝 색이 변해요. 아직 멀리 있는 사람들은 그대로 회색이에요.</p>
-        </div>
-        <div class="panel">
-          <div class="chart-wrap" id="graph2"></div>
-          <div class="legend-row">
-            <span><span class="legend-dot blue"></span>축구파쪽</span>
-            <span><span class="legend-dot yellow"></span>농구파쪽</span>
-            <span><span class="legend-dot gray"></span>모름</span>
-          </div>
-        </div>
+        <div class="info-box" id="s2Info"></div>
+        <div class="graph-card"><svg id="g2" viewBox="0 0 640 370"></svg></div>
       </div>
+      <div class="legend-row">
+        <span><i class="legend-dot" style="background:var(--pencil-blue)"></i>파랑 점수 높음</span>
+        <span><i class="legend-dot" style="background:var(--pencil-red)"></i>파랑 점수 낮음(빨강 쪽)</span>
+        <span><i class="legend-ring"></i>설문이 헷갈리게 나온 친구</span>
+      </div>
+      <div class="callout"><b>이게 GNN의 한 걸음이에요.</b> "친구들에게 물어보고 내 생각을 고친다" — 전문 용어로는 <b>메시지 전달</b>이라고 해요. 노란 테두리 친구(도윤)를 눌러 보세요. 혼자 점수는 빨강 쪽인데, 친구들 덕분에 파랑 쪽으로 바뀌어요!</div>
     </section>
 
     <!-- STEP 3 -->
-    <section id="step-3" class="step" hidden>
+    <section class="step" id="step-3" hidden>
       <div class="step-head">
-        <p class="kicker">STEP 3 · 반복 전파</p>
-        <h2>여러 번 반복하면 소문처럼 퍼져요</h2>
-        <p class="desc">같은 과정을 여러 라운드 반복해요. 라운드가 늘어날수록 정보가 친구의 친구, 그 친구의 친구에게까지 점점 멀리 퍼져나가요.</p>
+        <div class="kicker">3단계 · 여러 번 반복하기</div>
+        <h2>물어보기를 몇 번 반복하면?</h2>
+        <p>모든 친구가 <b>동시에</b> 평균 내기를 한 번 하면 "1번 섞기"예요. 한 번 더 하면 친구의 친구 소식까지 전해져요. 횟수를 바꿔 보세요.</p>
       </div>
+      <div class="control-row" id="s3Rounds"><span class="lbl">섞은 횟수</span></div>
       <div class="two-col">
-        <div class="panel">
-          <p class="panel-title">라운드 수: <span id="roundsVal" class="mono"></span></p>
-          <input type="range" id="roundsSlider" min="0" max="8" step="1">
-          <div class="stat-box mono" id="step3Stat"></div>
+        <div>
+          <div class="stat-box" id="s3Stat"></div>
+          <div class="info-box" id="s3Info" style="margin-top:12px"></div>
         </div>
-        <div class="panel">
-          <div class="chart-wrap" id="graph3"></div>
-          <div class="legend-row">
-            <span><span class="legend-dot blue"></span>축구파쪽</span>
-            <span><span class="legend-dot yellow"></span>농구파쪽</span>
-            <span><span class="legend-dot gray"></span>모름</span>
-          </div>
-        </div>
+        <div class="graph-card"><svg id="g3" viewBox="0 0 640 370"></svg></div>
       </div>
-      <div class="callout">가운데 있는 "유나"는 양쪽 친구가 다 있어서 라운드를 아무리 늘려도 딱 절반(회색)에 머물러요 — 친구가 양쪽에 골고루 있으면 판단하기 애매해지는 것도 자연스러운 현상이에요.</div>
+      <div class="callout"><b>관찰 포인트:</b> 1~2번이면 헷갈리던 친구들이 제 동아리 색으로 돌아와요. 그런데 너무 많이 섞으면 두 동아리 점수 차이가 조금씩 줄어들어요. 그래서 실제 GNN도 보통 <b>2~3번</b> 정도만 섞어요.</div>
     </section>
 
     <!-- STEP 4 -->
-    <section id="step-4" class="step" hidden>
+    <section class="step" id="step-4" hidden>
       <div class="step-head">
-        <p class="kicker">STEP 4 · 새 친구 추가</p>
-        <h2>새로 들어온 사람은 뭘 좋아할까요?</h2>
-        <p class="desc" id="modelInfo"></p>
-        <p class="desc">오른쪽 그래프에서 기존 사람들을 클릭해 "새 친구"와 친구를 맺어보세요(다시 클릭하면 취소돼요). 3단계에서 정한 라운드 수만큼 전파해서 예측해요.</p>
+        <div class="kicker">4단계 · 컴퓨터가 배우기</div>
+        <h2>정답 4명만 알려주고 나머지 맞히기</h2>
+        <p>★ 표시된 4명의 동아리만 컴퓨터에게 알려줘요. 컴퓨터는 "점수가 얼마 이상이면 파랑"이라는 기준선을 스스로 찾아요. 두 방법을 비교해 봐요.</p>
       </div>
-      <div class="two-col">
-        <div class="panel">
-          <p class="panel-title">지금 연결된 친구</p>
-          <div class="friend-chip-row" id="friendChips"></div>
-          <div class="stat-box mono" id="step4Stat"></div>
-        </div>
-        <div class="panel">
-          <div class="chart-wrap clickable" id="graph4"></div>
-          <div class="legend-row">
-            <span><span class="legend-dot blue"></span>축구파쪽</span>
-            <span><span class="legend-dot yellow"></span>농구파쪽</span>
-            <span><span class="legend-line"></span>내가 만든 친구관계</span>
-          </div>
-        </div>
+      <div class="control-row">
+        <button class="btn btn-primary" id="trainBtn">▶ 학습 시작</button>
+        <button class="btn" id="resetBtn">처음으로</button>
       </div>
+      <div class="duo">
+        <div class="graph-card"><div class="cap">😐 혼자 판단 — 내 점수만 봄</div><svg id="g4a" viewBox="0 0 640 370"></svg></div>
+        <div class="graph-card"><div class="cap">🤝 GNN — 친구 점수와 2번 섞어서 봄</div><svg id="g4b" viewBox="0 0 640 370"></svg></div>
+      </div>
+      <div class="stats-row">
+        <div class="stat-box" id="s4StatA"></div>
+        <div class="stat-box" id="s4StatB"></div>
+      </div>
+      <div class="graph-card" style="margin-top:14px"><div class="cap">학습하면서 맞힌 친구 수 (14명 중)</div><svg id="chart4" viewBox="0 0 640 200"></svg></div>
+      <div class="legend-row">
+        <span><i class="legend-dot" style="background:var(--pencil-blue)"></i>파랑으로 예측</span>
+        <span><i class="legend-dot" style="background:var(--pencil-red)"></i>빨강으로 예측</span>
+        <span>✗ 틀린 예측</span><span>★ 정답을 알려준 친구</span>
+      </div>
+      <div class="callout" id="s4Callout"><b>학습 시작</b>을 눌러 보세요. 컴퓨터가 실제로 기준선을 조금씩 옮겨 가며 배우는 과정을 보여줘요.</div>
     </section>
 
+    <!-- STEP 5 -->
+    <section class="step" id="step-5" hidden>
+      <div class="step-head">
+        <div class="kicker">5단계 · 정리</div>
+        <h2>GNN을 한 문장으로?</h2>
+        <p>"<b>연결된 이웃의 정보를 모아서, 나를 더 잘 이해하는 인공지능</b>"이에요.</p>
+      </div>
+      <div class="cards">
+        <div class="card"><div class="num">01</div><h3>그래프</h3><p>점(사람·장소·물건)과 선(관계)으로 세상을 그린 지도.</p></div>
+        <div class="card"><div class="num">02</div><h3>이웃과 섞기</h3><p>내 정보에 이웃 정보를 더해 평균 내기. 반복하면 더 먼 이웃 소식까지 전해져요.</p></div>
+        <div class="card"><div class="num">03</div><h3>학습</h3><p>섞인 정보로 판단 기준을 배우면, 혼자 볼 때 헷갈리던 것도 맞힐 수 있어요.</p></div>
+      </div>
+      <h3 style="margin-top:22px;font-size:20px">실제로 이런 곳에 쓰여요</h3>
+      <div class="uses">
+        <div class="use"><b>🗺️ 길찾기</b>도로가 선, 교차로가 점. 옆 도로 정체로 도착 시간 예측.</div>
+        <div class="use"><b>💊 신약 개발</b>원자가 점, 결합이 선. 분자의 성질 예측.</div>
+        <div class="use"><b>🛒 추천</b>사람과 상품이 점, 구매가 선. "이것도 좋아할걸요?"</div>
+        <div class="use"><b>🛡️ 사기 탐지</b>계좌가 점, 송금이 선. 수상한 무리 찾기.</div>
+      </div>
+      <div class="callout"><b>오늘 해 본 것 = 진짜 GNN이에요.</b> 4단계의 "2번 섞고 기준선 배우기"는 실제로 쓰이는 단순한 그래프 신경망(SGC)과 같은 계산이에요. 큰 GNN은 점수 하나 대신 숫자 수백 개를 섞고, 섞는 비율까지 배운다는 점만 달라요.</div>
+    </section>
   </main>
 
   <footer class="sheet-footer">
-    <button id="prevBtn" class="btn">← 이전</button>
-    <span class="step-indicator" id="stepLabel">1 / 4</span>
-    <button id="nextBtn" class="btn btn-primary">다음 →</button>
+    <button class="btn" id="prevBtn">← 이전</button>
+    <span id="stepLabel">1 / 5</span>
+    <button class="btn btn-primary" id="nextBtn">다음 →</button>
   </footer>
-
 </div>
 
 <script>
 (function(){
   "use strict";
+  /* ---------- 1. data + math (ported verbatim from verify.js) ---------- */
+  var N=14;
+  var NAMES=["민준","서연","도윤","하은","지호","수아","예준","지우","시우","하린","유준","채원","은우","소율"];
+  var E=[[0,1],[0,2],[1,2],[1,3],[2,3],[2,4],[3,5],[4,5],[4,6],[5,6],[3,4],
+    [7,8],[7,9],[8,9],[8,10],[9,10],[9,11],[10,12],[11,12],[11,13],[12,13],[10,11],[5,8]];
+  var X=[0.82,0.76,0.30,0.71,0.45,0.78,0.84, 0.22,0.25,0.18,0.28,0.66,0.15,0.20];
+  var Y=[1,1,1,1,1,1,1,0,0,0,0,0,0,0];
+  var LAB=[0,6,9,13];
+  var TRICKY=[2,4,11];
+  var POS=[[70,70],[180,45],[120,165],[225,140],[175,255],[285,225],[235,325],
+           [380,320],[370,200],[475,270],[440,110],[540,195],[515,55],[595,120]];
+  var nb=[];for(var i=0;i<N;i++)nb.push([]);
+  E.forEach(function(e){nb[e[0]].push(e[1]);nb[e[1]].push(e[0]);});
 
-  // ---------- graph data ----------
-  var NODES = [
-    { id:0, name:'준서', x:70,  y:45,  seed:'blue' },
-    { id:1, name:'하은', x:118, y:32,  seed:null },
-    { id:2, name:'도윤', x:98,  y:82,  seed:null },
-    { id:3, name:'서연', x:158, y:62,  seed:null },
-    { id:9, name:'민준', x:190, y:22,  seed:null },
-    { id:4, name:'지호', x:252, y:152, seed:'yellow' },
-    { id:5, name:'수아', x:212, y:168, seed:null },
-    { id:6, name:'예준', x:226, y:118, seed:null },
-    { id:7, name:'채원', x:168, y:132, seed:null },
-    { id:10,name:'시우', x:142, y:176, seed:null },
-    { id:8, name:'유나', x:163, y:97,  seed:null }
-  ];
-  var EDGES = [
-    [0,1],[0,2],[1,2],[1,3],[2,3],
-    [4,5],[4,6],[5,6],[5,7],[6,7],
-    [3,9],[7,10],
-    [3,8],[7,8]
-  ];
-  var NEW_ID = 11;
-  var NEW_POS = { x:282, y:88 };
-  var N = NODES.length;
-  function nodeById(id){ for(var i=0;i<NODES.length;i++){ if(NODES[i].id===id) return NODES[i]; } return null; }
+  function mixOnce(h){return h.map(function(v,i){var s=v;nb[i].forEach(function(j){s+=h[j];});return s/(nb[i].length+1);});}
+  function rounds(k){var h=X.slice();var out=[h];for(var r=0;r<k;r++){h=mixOnce(h);out.push(h);}return out;}
+  function sigmoid(z){return 1/(1+Math.exp(-z));}
+  function train(f,epochs,lr){var w=0,b=0,hist=[{w:0,b:0,acc:accOf(f,0,0)}];
+    for(var e=0;e<epochs;e++){var gw=0,gb=0;
+      LAB.forEach(function(i){var p=sigmoid(w*f[i]+b);gw+=(p-Y[i])*f[i];gb+=(p-Y[i]);});
+      w-=lr*gw/LAB.length;b-=lr*gb/LAB.length;
+      hist.push({w:w,b:b,acc:accOf(f,w,b)});}
+    return hist;}
+  function accOf(f,w,b){var c=0;for(var i=0;i<N;i++){if(((w*f[i]+b)>0?1:0)===Y[i])c++;}return c;}
 
-  function adjacency(edges, extraCount){
-    var adj = {};
-    NODES.forEach(function(n){ adj[n.id]=[]; });
-    for(var i=0;i<extraCount;i++){ adj[NEW_ID]=adj[NEW_ID]||[]; }
-    edges.forEach(function(e){
-      adj[e[0]] = adj[e[0]]||[]; adj[e[1]] = adj[e[1]]||[];
-      adj[e[0]].push(e[1]); adj[e[1]].push(e[0]);
-    });
-    return adj;
-  }
+  var R=rounds(6);
+  var EPOCHS=300, LR=2;
+  var HIST_A=train(X,EPOCHS,LR);
+  var HIST_G=train(R[2],EPOCHS,LR);
 
-  function initBeliefs(extraIds){
-    var b = {};
-    NODES.forEach(function(n){
-      b[n.id] = n.seed==='blue' ? [1,0] : (n.seed==='yellow' ? [0,1] : [0.5,0.5]);
-    });
-    (extraIds||[]).forEach(function(id){ b[id]=[0.5,0.5]; });
-    return b;
-  }
-  function stepOnce(beliefs, adj, alpha){
-    var next = {};
-    Object.keys(beliefs).forEach(function(k){ next[k]=beliefs[k].slice(); });
-    Object.keys(beliefs).forEach(function(k){
-      var id = +k;
-      var n = nodeById(id);
-      if(n && n.seed) return; // clamped
-      var neigh = adj[id]||[];
-      if(neigh.length===0) return;
-      var avg=[0,0];
-      neigh.forEach(function(j){ avg[0]+=beliefs[j][0]; avg[1]+=beliefs[j][1]; });
-      avg[0]/=neigh.length; avg[1]/=neigh.length;
-      next[id] = [ alpha*beliefs[id][0]+(1-alpha)*avg[0], alpha*beliefs[id][1]+(1-alpha)*avg[1] ];
-    });
-    return next;
-  }
-  function propagate(edges, rounds, alpha, extraIds){
-    var adj = adjacency(edges, (extraIds||[]).length);
-    var b = initBeliefs(extraIds);
-    for(var r=0;r<rounds;r++){ b = stepOnce(b, adj, alpha); }
-    return b;
-  }
+  /* ---------- 2. dom helpers ---------- */
+  function q(id){return document.getElementById(id);}
+  function cssVar(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim();}
+  function hexToRgb(h){h=h.replace("#","");if(h.length===3)h=h.split("").map(function(c){return c+c;}).join("");var n=parseInt(h,16);return [(n>>16)&255,(n>>8)&255,n&255];}
+  function mix(a,b,t){var A=hexToRgb(a),B=hexToRgb(b);return "rgb("+A.map(function(v,i){return Math.round(v+(B[i]-v)*t);}).join(",")+")";}
+  function colorFor(v){var C=cols();var t=Math.min(1,Math.abs(v-0.5)*2*0.9+0.12);return mix(C.surface, v>=0.5?C.blue:C.red, t);}
+  var _c=null;function cols(){if(!_c)_c={surface:cssVar("--surface"),ink:cssVar("--ink"),soft:cssVar("--ink-soft"),blue:cssVar("--pencil-blue"),red:cssVar("--pencil-red"),yellow:cssVar("--pencil-yellow"),border:cssVar("--border"),grid:cssVar("--paper-grid-strong"),green:cssVar("--pencil-green")};return _c;}
+  function f2(v){return v.toFixed(2);}
 
-  // ---------- color ----------
-  function cssVar(name){ return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); }
-  function hexToRgb(hex){
-    hex = hex.replace('#','');
-    if(hex.length===3){ hex = hex.split('').map(function(c){return c+c;}).join(''); }
-    var num = parseInt(hex,16);
-    return [(num>>16)&255,(num>>8)&255,num&255];
-  }
-  function lerpColor(hexA, hexB, t){
-    var a=hexToRgb(hexA), b=hexToRgb(hexB);
-    var r=Math.round(a[0]+(b[0]-a[0])*t);
-    var g=Math.round(a[1]+(b[1]-a[1])*t);
-    var bl=Math.round(a[2]+(b[2]-a[2])*t);
-    return 'rgb('+r+','+g+','+bl+')';
-  }
-  function beliefColor(pBlue){
-    var gray=cssVar('--ink-soft'), blue=cssVar('--pencil-blue'), yellow=cssVar('--pencil-yellow');
-    if(pBlue>=0.5) return lerpColor(gray, blue, (pBlue-0.5)/0.5);
-    return lerpColor(gray, yellow, (0.5-pBlue)/0.5);
-  }
-
-  // ---------- chart dom ----------
-  function buildGraphDom(id, withNewNode){
-    var wrap=document.getElementById(id);
-    wrap.innerHTML='';
-    var svgNS='http://www.w3.org/2000/svg';
-    var svg=document.createElementNS(svgNS,'svg');
-    svg.setAttribute('viewBox','0 0 320 200');
-    var s='<g id="'+id+'-edges">';
-    EDGES.forEach(function(e){
-      var a=nodeById(e[0]), b=nodeById(e[1]);
-      s += '<line class="edge-line" data-a="'+e[0]+'" data-b="'+e[1]+'" x1="'+a.x+'" y1="'+a.y+'" x2="'+b.x+'" y2="'+b.y+'"/>';
+  /* opts: fill(i), text(i), sel, hi(set), ring(set), star(set), cross(set), click */
+  function drawGraph(svg,o){
+    var C=cols(),s="";
+    E.forEach(function(e){
+      var a=POS[e[0]],b=POS[e[1]];
+      var on=o.sel!=null&&(e[0]===o.sel||e[1]===o.sel);
+      s+='<line x1="'+a[0]+'" y1="'+a[1]+'" x2="'+b[0]+'" y2="'+b[1]+'" stroke="'+(on?C.yellow:C.grid)+'" stroke-width="'+(on?5:2.5)+'" stroke-linecap="round"/>';
     });
-    s += '</g>';
-    if(withNewNode){ s += '<g id="'+id+'-newedges"></g>'; }
-    s += '<g id="'+id+'-nodes">';
-    NODES.forEach(function(n){
-      s += '<circle class="node-circle" data-id="'+n.id+'" cx="'+n.x+'" cy="'+n.y+'" r="'+(n.seed?15:13)+'" stroke="var(--surface)" stroke-width="'+(n.seed?3:2)+'" tabindex="0" role="button" aria-label="'+n.name+'"/>';
-      s += '<text class="node-label" x="'+n.x+'" y="'+n.y+'">'+n.name.charAt(0)+'</text>';
-    });
-    if(withNewNode){
-      s += '<circle class="node-circle" data-id="'+NEW_ID+'" cx="'+NEW_POS.x+'" cy="'+NEW_POS.y+'" r="13" stroke="var(--surface)" stroke-width="2" stroke-dasharray="3 2" tabindex="0" role="button" aria-label="새 친구"/>';
-      s += '<text class="node-label" x="'+NEW_POS.x+'" y="'+NEW_POS.y+'">?</text>';
+    for(var i=0;i<N;i++){
+      var p=POS[i],dim=o.sel!=null&&i!==o.sel&&!(o.hi&&o.hi[i]);
+      s+='<g class="node" data-i="'+i+'" opacity="'+(dim?0.35:1)+'">';
+      if(o.ring&&o.ring[i])s+='<circle cx="'+p[0]+'" cy="'+p[1]+'" r="29" fill="none" stroke="'+C.yellow+'" stroke-width="3" stroke-dasharray="5 3"/>';
+      s+='<circle cx="'+p[0]+'" cy="'+p[1]+'" r="23" fill="'+o.fill(i)+'" stroke="'+(i===o.sel?C.ink:C.border)+'" stroke-width="'+(i===o.sel?3:1.5)+'"/>';
+      s+='<text x="'+p[0]+'" y="'+(p[1]+5)+'" text-anchor="middle" font-family="JetBrains Mono,monospace" font-weight="700" font-size="14" fill="'+C.ink+'" stroke="'+C.surface+'" stroke-width="3.5" paint-order="stroke" stroke-linejoin="round">'+o.text(i)+'</text>';
+      s+='<text x="'+p[0]+'" y="'+(p[1]+42)+'" text-anchor="middle" font-family="Noto Sans KR,sans-serif" font-size="13" fill="'+C.soft+'">'+NAMES[i]+'</text>';
+      if(o.star&&o.star[i])s+='<text x="'+(p[0]+17)+'" y="'+(p[1]-15)+'" font-size="18" fill="'+C.yellow+'">★</text>';
+      if(o.cross&&o.cross[i])s+='<text x="'+(p[0]-30)+'" y="'+(p[1]-13)+'" font-size="18" font-weight="900" fill="'+C.ink+'">✗</text>';
+      s+='</g>';
     }
-    s += '</g>';
     svg.innerHTML=s;
-    wrap.appendChild(svg);
+    if(o.click){svg.querySelectorAll(".node").forEach(function(g){g.addEventListener("click",function(){o.click(+g.getAttribute("data-i"));});});}
   }
-  function renderNodeColors(id, beliefs){
-    var g=document.getElementById(id+'-nodes');
-    g.querySelectorAll('circle.node-circle').forEach(function(c){
-      var nid=+c.dataset.id;
-      var bel = beliefs[nid] || [0.5,0.5];
-      c.style.fill = beliefColor(bel[0]);
-    });
-  }
+  function setOf(arr){var m={};arr.forEach(function(i){m[i]=true;});return m;}
 
-  // ---------- state ----------
-  var state = { selectedNode:0, step2Round:0, rounds:4, newNodeEdges:[], step:1 };
-  function q(id){ return document.getElementById(id); }
+  /* ---------- 3. state ---------- */
+  var TOTAL=5;
+  var TITLES=["그래프란?","친구에게 묻기","반복하기","학습하기","정리"];
+  var state={step:1,s1:0,s2:2,s3:0,s4:{t:0,timer:null}};
 
-  var infoBoxEl, step2StatEl, roundsSliderEl, roundsValEl, step3StatEl;
-  var modelInfoEl, friendChipsEl, step4StatEl;
-  var progressFillEl, stepLabelEl, prevBtn, nextBtn;
-
-  // ---------- Step 1 ----------
-  function neighborNamesOf(id){
-    var names=[];
-    EDGES.forEach(function(e){
-      if(e[0]===id) names.push(nodeById(e[1]).name);
-      if(e[1]===id) names.push(nodeById(e[0]).name);
-    });
-    return names;
-  }
+  /* ---------- 4. step renders ---------- */
   function renderStep1(){
-    var beliefs = initBeliefs();
-    renderNodeColors('graph1', beliefs);
-    var eg = q('graph1-edges');
-    eg.querySelectorAll('.edge-line').forEach(function(l){
-      var a=+l.dataset.a, b=+l.dataset.b;
-      l.classList.toggle('highlight', state.selectedNode!==null && (a===state.selectedNode||b===state.selectedNode));
-    });
-    var ng = q('graph1-nodes');
-    ng.querySelectorAll('circle.node-circle').forEach(function(c){
-      c.style.strokeWidth = (+c.dataset.id===state.selectedNode) ? '4' : (nodeById(+c.dataset.id).seed?'3':'2');
-      c.setAttribute('stroke', (+c.dataset.id===state.selectedNode) ? 'var(--ink)' : 'var(--surface)');
-    });
-    if(state.selectedNode===null){
-      infoBoxEl.textContent = '사람을 클릭해보세요.';
-    } else {
-      var n = nodeById(state.selectedNode);
-      var status = n.seed==='blue' ? '축구파로 확정 🔵' : (n.seed==='yellow' ? '농구파로 확정 🟡' : '아직 모름 (회색)');
-      infoBoxEl.innerHTML = '<span class="name">'+n.name+'</span><span>상태: '+status+'</span><span>친구('+neighborNamesOf(n.id).length+'명): '+neighborNamesOf(n.id).join(', ')+'</span>';
-    }
+    var sel=state.s1,C=cols(),hi=setOf(nb[sel]);
+    drawGraph(q("g1"),{sel:sel,hi:hi,fill:function(i){return i===sel?cols().yellow:(hi[i]?mix(C.surface,C.yellow,0.35):C.surface);},text:function(i){return i+1;},click:function(i){state.s1=i;renderStep1();}});
+    q("s1Info").innerHTML='<h3>'+NAMES[sel]+'의 친구</h3><p style="margin:0 0 8px">'+nb[sel].map(function(j){return "<b>"+NAMES[j]+"</b>";}).join(", ")+'</p><p style="margin:0;color:var(--ink-soft)">연결된 친구 수: <b style="color:var(--ink)">'+nb[sel].length+'명</b><br>다른 동그라미를 눌러 보세요.<br>수아(6)와 시우(9)를 잇는 선은 두 무리 사이의 <b>다리</b>예요.</p>';
   }
-
-  // ---------- Step 2 ----------
   function renderStep2(){
-    var beliefs = propagate(EDGES, state.step2Round, 0.5);
-    renderNodeColors('graph2', beliefs);
-    var b1=beliefs[1], b5=beliefs[5];
-    if(state.step2Round===0){
-      step2StatEl.textContent = '하은: 50% · 수아: 50% (아직 전파 전)';
-    } else {
-      step2StatEl.textContent = '하은(준서 옆): '+Math.round(b1[0]*100)+'% 축구파 · 수아(지호 옆): '+Math.round(b5[1]*100)+'% 농구파';
-    }
-    q('step2RunBtn').disabled = state.step2Round>=1;
+    var sel=state.s2,hi=setOf(nb[sel]),after=R[1][sel];
+    drawGraph(q("g2"),{sel:sel,hi:hi,ring:setOf(TRICKY),fill:function(i){return colorFor(X[i]);},text:function(i){return f2(X[i]);},click:function(i){state.s2=i;renderStep2();}});
+    var rows='<tr class="me"><td>나 ('+NAMES[sel]+')</td><td class="v">'+f2(X[sel])+'</td></tr>';
+    nb[sel].forEach(function(j){rows+='<tr><td>친구 '+NAMES[j]+'</td><td class="v">'+f2(X[j])+'</td></tr>';});
+    rows+='<tr class="result"><td>평균 ('+(nb[sel].length+1)+'명)</td><td class="v" id="s2After">'+f2(after)+'</td></tr>';
+    var side=function(v){return v>=0.5?'<span class="tag b">파랑 쪽</span>':'<span class="tag r">빨강 쪽</span>';};
+    q("s2Info").innerHTML='<h3>'+NAMES[sel]+'의 점수 섞기</h3><table class="mix-table">'+rows+'</table>'+
+      '<p style="margin:10px 0 0">혼자: <b>'+f2(X[sel])+'</b> '+side(X[sel])+'<br>섞은 뒤: <b>'+f2(after)+'</b> '+side(after)+'</p>'+
+      '<p style="margin:6px 0 0;color:var(--ink-soft);font-size:14px">실제 동아리: '+(Y[sel]?'<span class="tag b">파랑</span>':'<span class="tag r">빨강</span>')+'</p>';
   }
-
-  // ---------- Step 3 ----------
-  function unsureCount(beliefs){
-    var c=0;
-    NODES.forEach(function(n){
-      if(n.seed) return;
-      if(Math.abs(beliefs[n.id][0]-0.5)<0.03) c++;
-    });
-    return c;
-  }
+  function meanOf(h,lab){var s=0,c=0;for(var i=0;i<N;i++)if(Y[i]===lab){s+=h[i];c++;}return s/c;}
   function renderStep3(){
-    roundsSliderEl.value = state.rounds;
-    roundsValEl.textContent = state.rounds+'라운드';
-    var beliefs = propagate(EDGES, state.rounds, 0.5);
-    renderNodeColors('graph3', beliefs);
-    var unsure = unsureCount(beliefs);
-    step3StatEl.textContent = '아직 회색(불확실)인 사람: '+unsure+'명 / 9명';
+    var k=state.s3,h=R[k];
+    q("s3Rounds").querySelectorAll("button").forEach(function(b){b.classList.toggle("active",+b.getAttribute("data-k")===k);});
+    drawGraph(q("g3"),{ring:setOf(TRICKY),fill:function(i){return colorFor(h[i]);},text:function(i){return f2(h[i]);}});
+    var wrongSide=0;for(var i=0;i<N;i++)if((h[i]>=0.5?1:0)!==Y[i])wrongSide++;
+    var gap=meanOf(h,1)-meanOf(h,0);
+    q("s3Stat").innerHTML='<span style="color:var(--ink-soft);font-weight:500">색이 동아리와 다른 친구</span><span class="big" id="s3Wrong">'+wrongSide+'명</span><span style="color:var(--ink-soft);font-weight:500">두 동아리 평균 점수 차이</span><span class="big" id="s3Gap">'+f2(gap)+'</span>';
+    q("s3Info").innerHTML='<b>헷갈리던 친구들</b><br>'+TRICKY.map(function(i){return NAMES[i]+': '+f2(X[i])+' → <b>'+f2(h[i])+'</b>';}).join("<br>")+
+      '<p style="margin:8px 0 0;font-size:14px;color:var(--ink-soft)">'+(k===0?'아직 섞지 않은 원래 설문 점수예요.':k<=2?'이웃 정보가 퍼지면서 제자리를 찾아가요.':'더 섞어도 크게 좋아지지 않고, 두 무리의 차이는 조금씩 줄어요.')+'</p>';
   }
-
-  // ---------- Step 4 ----------
+  function predOpts(f,st){
+    return {star:setOf(LAB),
+      fill:function(i){return colorFor(sigmoid(st.w*f[i]+st.b));},
+      text:function(i){return f2(f[i]);},
+      cross:(function(){var m={};if(st.w===0&&st.b===0)return m;for(var i=0;i<N;i++)if(((st.w*f[i]+st.b)>0?1:0)!==Y[i])m[i]=true;return m;})()};
+  }
+  function statHtml(label,st){
+    var thr=st.w!==0?f2(-st.b/st.w):"—";
+    return '<span style="color:var(--ink-soft);font-weight:500">'+label+' · 맞힌 친구</span><span class="big">'+st.acc+' / 14</span><span style="color:var(--ink-soft);font-weight:500">찾은 기준선: 점수 '+thr+' 이상이면 파랑</span>';
+  }
+  function renderChart(t){
+    var C=cols(),W=640,H=200,L=40,Rr=16,T=14,B=30,s="";
+    function x(e){return L+(W-L-Rr)*e/EPOCHS;}function y(a){return T+(H-T-B)*(14-a)/(14-6);}
+    [6,8,10,12,14].forEach(function(a){s+='<line x1="'+L+'" x2="'+(W-Rr)+'" y1="'+y(a)+'" y2="'+y(a)+'" stroke="'+C.border+'"/><text x="'+(L-8)+'" y="'+(y(a)+4)+'" text-anchor="end" font-size="11" font-family="JetBrains Mono,monospace" fill="'+C.soft+'">'+a+'</text>';});
+    s+='<text x="'+(W-Rr)+'" y="'+(H-8)+'" text-anchor="end" font-size="11" fill="'+C.soft+'">학습 횟수 →</text>';
+    function path(h,col){var d="";for(var e=0;e<=t;e++)d+=(e?"L":"M")+x(e).toFixed(1)+" "+y(h[e].acc).toFixed(1);return d?'<path d="'+d+'" fill="none" stroke="'+col+'" stroke-width="3" stroke-linejoin="round"/>':"";}
+    s+=path(HIST_A,C.soft)+path(HIST_G,C.green);
+    s+='<text x="'+(L+8)+'" y="'+(H-10)+'" font-size="12" fill="'+C.soft+'">── 혼자 판단</text><text x="'+(L+100)+'" y="'+(H-10)+'" font-size="12" fill="'+C.green+'">── GNN</text>';
+    q("chart4").innerHTML=s;
+  }
   function renderStep4(){
-    modelInfoEl.textContent = '3단계에서 정한 라운드 수('+state.rounds+'라운드)를 그대로 사용해요.';
-    var extraEdges = state.newNodeEdges.map(function(id){ return [id, NEW_ID]; });
-    var allEdges = EDGES.concat(extraEdges);
-    var beliefs = propagate(allEdges, state.rounds, 0.5, [NEW_ID]);
-    renderNodeColors('graph4', beliefs);
-
-    var neg = q('graph4-newedges');
-    neg.innerHTML = extraEdges.map(function(e){
-      var a=nodeById(e[0]);
-      return '<line class="edge-new" x1="'+a.x+'" y1="'+a.y+'" x2="'+NEW_POS.x+'" y2="'+NEW_POS.y+'"/>';
-    }).join('');
-
-    friendChipsEl.innerHTML='';
-    if(state.newNodeEdges.length===0){
-      friendChipsEl.innerHTML = '<p class="note">아직 친구가 없어요 — 사람을 클릭해보세요.</p>';
-    } else {
-      state.newNodeEdges.forEach(function(id){
-        var chip=document.createElement('span');
-        chip.className='friend-chip';
-        chip.textContent=nodeById(id).name;
-        friendChipsEl.appendChild(chip);
-      });
-    }
-    var nb = beliefs[NEW_ID];
-    if(state.newNodeEdges.length===0){
-      step4StatEl.textContent = '새 친구: 아직 판단할 정보가 없어요 (50% / 50%)';
-    } else {
-      var pct = Math.round(nb[0]*100);
-      var lead = pct>=50 ? '축구파일 확률 '+pct+'%' : '농구파일 확률 '+(100-pct)+'%';
-      step4StatEl.textContent = '새 친구는 '+lead;
+    var t=state.s4.t,a=HIST_A[t],g=HIST_G[t];
+    drawGraph(q("g4a"),predOpts(X,a));
+    drawGraph(q("g4b"),predOpts(R[2],g));
+    q("s4StatA").innerHTML=statHtml("😐 혼자 판단",a);
+    q("s4StatB").innerHTML=statHtml("🤝 GNN",g);
+    renderChart(t);
+    var running=!!state.s4.timer;
+    q("trainBtn").disabled=running||t===EPOCHS;
+    q("trainBtn").textContent=t===EPOCHS?"✓ 학습 완료":running?"학습 중…":"▶ 학습 시작";
+    if(t===EPOCHS){
+      var wrongA=[];for(var i=0;i<N;i++)if(((a.w*X[i]+a.b)>0?1:0)!==Y[i])wrongA.push(NAMES[i]);
+      q("s4Callout").innerHTML='<b>결과:</b> 혼자 판단은 <b>'+a.acc+'명</b>, GNN은 <b>'+g.acc+'명</b>을 맞혔어요. 혼자 판단이 틀린 친구('+wrongA.join(", ")+')는 설문 점수가 헷갈리게 나온 친구들이에요. GNN은 친구들 점수를 섞어서 봤기 때문에 이 친구들도 맞혔어요. <b>정답은 4명만 알려줬는데도요!</b>';
+    }else{
+      q("s4Callout").innerHTML='<b>학습 시작</b>을 눌러 보세요. 컴퓨터가 실제로 기준선을 조금씩 옮겨 가며 배우는 과정을 보여줘요.';
     }
   }
+  function startTrain(){
+    if(state.s4.timer)return;
+    state.s4.timer=setInterval(function(){
+      state.s4.t=Math.min(EPOCHS,state.s4.t+6);
+      if(state.s4.t>=EPOCHS){clearInterval(state.s4.timer);state.s4.timer=null;}
+      renderStep4();
+    },40);
+    renderStep4();
+  }
+  function resetTrain(){if(state.s4.timer){clearInterval(state.s4.timer);state.s4.timer=null;}state.s4.t=0;renderStep4();}
 
-  // ---------- nav / lifecycle ----------
-  function updateProgress(){
-    progressFillEl.style.width = (state.step/4*100)+'%';
-    stepLabelEl.textContent = state.step+' / 4';
-  }
-  function updateNavTabs(){
-    document.querySelectorAll('.step-tab').forEach(function(btn){
-      var s=+btn.dataset.step;
-      btn.classList.toggle('active', s===state.step);
-      if(s===state.step) btn.setAttribute('aria-current','step'); else btn.removeAttribute('aria-current');
-    });
-  }
-  function updatePrevNext(){
-    prevBtn.disabled = state.step===1;
-    nextBtn.textContent = state.step===4 ? '처음부터 다시 ↺' : '다음 →';
-  }
   function renderCurrentStep(){
-    updateProgress();
-    switch(state.step){
-      case 1: renderStep1(); break;
-      case 2: renderStep2(); break;
-      case 3: renderStep3(); break;
-      case 4: renderStep4(); break;
-    }
+    switch(state.step){case 1:renderStep1();break;case 2:renderStep2();break;case 3:renderStep3();break;case 4:renderStep4();break;}
   }
   function goToStep(n){
-    if(n<1) n=1; if(n>4) n=4;
     state.step=n;
-    for(var i=1;i<=4;i++){ q('step-'+i).hidden = (i!==n); }
-    updateNavTabs();
-    updatePrevNext();
+    for(var i=1;i<=TOTAL;i++)q("step-"+i).hidden=(i!==n);
+    q("stepsNav").querySelectorAll(".step-tab").forEach(function(b,i){b.classList.toggle("active",i+1===n);b.classList.toggle("done",i+1<n);});
+    q("progressFill").style.width=(n/TOTAL*100)+"%";
+    q("prevBtn").disabled=n===1;
+    q("nextBtn").textContent=n===TOTAL?"처음부터 다시 ↺":"다음 →";
+    q("stepLabel").textContent=n+" / "+TOTAL;
     renderCurrentStep();
+    window.scrollTo({top:0,behavior:"smooth"});
   }
-
   function renderLogoGrid(){
-    var el=q('logoGrid');
-    el.innerHTML='';
-    var pattern=[1,0,0,1, 0,1,1,0, 0,1,1,0, 1,0,0,1];
-    pattern.forEach(function(v,i){
-      var d=document.createElement('i');
-      d.className = v? 'on':'';
-      d.style.animationDelay = (i*28)+'ms';
-      el.appendChild(d);
-    });
+    var pat=[1,0,0,1, 0,1,1,0, 0,1,1,0, 1,0,0,1],red=[0,0,0,0, 0,0,1,0, 0,1,0,0, 0,0,0,0],s="";
+    pat.forEach(function(v,i){s+='<i class="'+(v?"on":"")+(red[i]?" r":"")+'" style="animation-delay:'+(i*28)+'ms"></i>';});
+    q("logoGrid").innerHTML=s;
   }
-
   function initListeners(){
-    q('graph1-nodes').addEventListener('click', function(e){
-      var c=e.target.closest('.node-circle'); if(!c) return;
-      state.selectedNode = +c.dataset.id;
-      renderStep1();
-    });
-    q('graph1-nodes').addEventListener('keydown', function(e){
-      var c=e.target.closest('.node-circle'); if(!c) return;
-      if(e.key===' '||e.key==='Enter'){ e.preventDefault(); state.selectedNode=+c.dataset.id; renderStep1(); }
-    });
-
-    q('step2RunBtn').addEventListener('click', function(){
-      state.step2Round = 1;
-      renderStep2();
-    });
-    q('step2ResetBtn').addEventListener('click', function(){
-      state.step2Round = 0;
-      renderStep2();
-    });
-
-    roundsSliderEl.addEventListener('input', function(e){
-      state.rounds = +e.target.value;
-      renderStep3();
-    });
-
-    q('graph4-nodes').addEventListener('click', function(e){
-      var c=e.target.closest('.node-circle'); if(!c) return;
-      var id=+c.dataset.id;
-      if(id===NEW_ID) return;
-      var idx=state.newNodeEdges.indexOf(id);
-      if(idx>=0){ state.newNodeEdges.splice(idx,1); } else { state.newNodeEdges.push(id); }
-      renderStep4();
-    });
-
-    q('stepsNav').addEventListener('click', function(e){
-      var b=e.target.closest('.step-tab'); if(!b) return;
-      goToStep(+b.dataset.step);
-    });
-    prevBtn.addEventListener('click', function(){ goToStep(state.step-1); });
-    nextBtn.addEventListener('click', function(){ if(state.step<4) goToStep(state.step+1); else goToStep(1); });
+    var nav=q("stepsNav");
+    TITLES.forEach(function(t,i){var b=document.createElement("button");b.className="step-tab";b.innerHTML='<span class="n">'+(i+1)+'</span>'+t;b.addEventListener("click",function(){goToStep(i+1);});nav.appendChild(b);});
+    q("prevBtn").addEventListener("click",function(){if(state.step>1)goToStep(state.step-1);});
+    q("nextBtn").addEventListener("click",function(){goToStep(state.step===TOTAL?1:state.step+1);});
+    var rr=q("s3Rounds");
+    [0,1,2,3,4,5,6].forEach(function(k){var b=document.createElement("button");b.className="btn";b.setAttribute("data-k",k);b.textContent=k===0?"0 (원래)":k+"번";b.addEventListener("click",function(){state.s3=k;renderStep3();});rr.appendChild(b);});
+    q("trainBtn").addEventListener("click",startTrain);
+    q("resetBtn").addEventListener("click",resetTrain);
+    if(window.matchMedia)window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",function(){_c=null;renderCurrentStep();});
   }
-
-  function init(){
-    buildGraphDom('graph1', false);
-    buildGraphDom('graph2', false);
-    buildGraphDom('graph3', false);
-    buildGraphDom('graph4', true);
-
-    infoBoxEl=q('infoBox'); step2StatEl=q('step2Stat');
-    roundsSliderEl=q('roundsSlider'); roundsValEl=q('roundsVal'); step3StatEl=q('step3Stat');
-    modelInfoEl=q('modelInfo'); friendChipsEl=q('friendChips'); step4StatEl=q('step4Stat');
-    progressFillEl=q('progressFill'); stepLabelEl=q('stepLabel');
-    prevBtn=q('prevBtn'); nextBtn=q('nextBtn');
-
-    renderLogoGrid();
-    initListeners();
-    updateNavTabs();
-    updatePrevNext();
-    renderCurrentStep();
-  }
-
+  function init(){renderLogoGrid();initListeners();goToStep(1);}
   try{
-    if(window.claude && window.claude.hot && window.claude.hot.ready){
-      window.claude.hot.ready(function(){ init(); });
-    } else { init(); }
-  }catch(e){ init(); }
-
+    if(window.claude&&window.claude.hot&&window.claude.hot.ready){window.claude.hot.ready(function(){init();});}
+    else{init();}
+  }catch(e){init();}
 })();
 </script>
+</body>
+</html>

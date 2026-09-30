@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>결정 트리 체험 학습지</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FAFAF8; --paper-grid:#DCE6F5; --paper-grid-strong:#C3D2EE;
+  --surface:#FFFFFF; --border:#E2E6EE; --ink:#1E2430; --ink-soft:#63697A;
+  --pencil-blue:#2F5FD1; --pencil-blue-soft:#E7EEFD; --pencil-blue-ink:#1D3E96;
+  --pencil-red:#D8443A; --pencil-red-soft:#FBE7E5; --pencil-red-ink:#A9291F;
+  --pencil-yellow:#C98A00; --pencil-yellow-soft:#FBF0D6; --pencil-yellow-ink:#8A5E00;
+  --pencil-purple:#7B4BC9; --pencil-purple-soft:#EFE7FB; --pencil-purple-ink:#512C91;
+  --pencil-green:#2E9E6A; --pencil-green-soft:#E2F4EA; --pencil-green-ink:#1C6B46;
+  --shadow: 0 1px 2px rgba(30,36,48,0.06), 0 6px 20px rgba(30,36,48,0.05);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#161D28; --paper-grid:#2D3B52; --paper-grid-strong:#3C4E6B;
+    --surface:#1D2534; --border:#31405A; --ink:#ECEFF6; --ink-soft:#9BA6BC;
+    --pencil-blue:#7DA2FF; --pencil-blue-soft:#243257; --pencil-blue-ink:#C4D3FF;
+    --pencil-red:#FF8A7E; --pencil-red-soft:#3A2429; --pencil-red-ink:#FFC0B7;
+    --pencil-yellow:#F0C243; --pencil-yellow-soft:#3A311A; --pencil-yellow-ink:#F5D27A;
+    --pencil-purple:#B794F6; --pencil-purple-soft:#2F2745; --pencil-purple-ink:#DCCBFB;
+    --pencil-green:#5CD69B; --pencil-green-soft:#1E3A2E; --pencil-green-ink:#B5EDD0;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 10px 26px rgba(0,0,0,0.35);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#161D28; --paper-grid:#2D3B52; --paper-grid-strong:#3C4E6B;
+  --surface:#1D2534; --border:#31405A; --ink:#ECEFF6; --ink-soft:#9BA6BC;
+  --pencil-blue:#7DA2FF; --pencil-blue-soft:#243257; --pencil-blue-ink:#C4D3FF;
+  --pencil-red:#FF8A7E; --pencil-red-soft:#3A2429; --pencil-red-ink:#FFC0B7;
+  --pencil-yellow:#F0C243; --pencil-yellow-soft:#3A311A; --pencil-yellow-ink:#F5D27A;
+  --pencil-purple:#B794F6; --pencil-purple-soft:#2F2745; --pencil-purple-ink:#DCCBFB;
+  --pencil-green:#5CD69B; --pencil-green-soft:#1E3A2E; --pencil-green-ink:#B5EDD0;
+  --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 10px 26px rgba(0,0,0,0.35);
+}
+*{ box-sizing:border-box; }
+html,body{ margin:0; padding:0; }
+body{
+  font-family:'Noto Sans KR', system-ui, sans-serif; color:var(--ink); line-height:1.65;
+  background-color:var(--paper);
+  background-image:
+    repeating-linear-gradient(0deg, transparent 0 23px, var(--paper-grid) 23px 24px),
+    repeating-linear-gradient(90deg, transparent 0 23px, var(--paper-grid) 23px 24px);
+  min-height:100vh;
+}
+#app{ max-width:980px; margin:0 auto; padding:28px 16px 48px; display:flex; flex-direction:column; gap:20px; }
+h1,h2,h3{ font-family:'Gowun Dodum', sans-serif; font-weight:400; margin:0; line-height:1.3; }
+.mono{ font-family:'JetBrains Mono', monospace; }
+
+/* masthead */
+.masthead{ display:flex; gap:18px; align-items:center; background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:20px 22px; box-shadow:var(--shadow); }
+#logoGrid{ display:grid; grid-template-columns:repeat(4,14px); gap:3px; flex:none; }
+#logoGrid i{ width:14px; height:14px; border-radius:3px; background:var(--paper-grid); display:block; }
+#logoGrid i.on{ background:var(--pencil-green); animation:pop .5s both; }
+@keyframes pop{ from{ transform:scale(.3); opacity:0; } to{ transform:scale(1); opacity:1; } }
+.eyebrow{ font-size:13px; color:var(--pencil-green-ink); font-weight:700; letter-spacing:.02em; }
+.masthead h1{ font-size:30px; margin:2px 0 4px; }
+.lede{ margin:0; color:var(--ink-soft); font-size:15px; }
+
+/* steps nav */
+.steps-nav{ display:flex; gap:8px; flex-wrap:wrap; }
+.step-tab{ font:inherit; font-size:14px; border:1px solid var(--border); background:var(--surface); color:var(--ink-soft); border-radius:999px; padding:7px 14px; cursor:pointer; display:flex; align-items:center; gap:7px; }
+.step-tab .num{ font-family:'JetBrains Mono',monospace; font-size:12px; width:20px; height:20px; border-radius:50%; display:inline-grid; place-items:center; background:var(--paper-grid); color:var(--ink); }
+.step-tab.active{ border-color:var(--pencil-blue); color:var(--pencil-blue-ink); background:var(--pencil-blue-soft); font-weight:700; }
+.step-tab.active .num{ background:var(--pencil-blue); color:#fff; }
+.step-tab.done .num{ background:var(--pencil-green); color:#fff; }
+.progress-track{ height:6px; background:var(--paper-grid); border-radius:99px; overflow:hidden; }
+.progress-fill{ height:100%; background:var(--pencil-blue); border-radius:99px; transition:width .35s; }
+
+/* sheet */
+.sheet{ background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:26px 24px; box-shadow:var(--shadow); }
+.step-head{ margin-bottom:18px; }
+.kicker{ font-size:13px; font-weight:700; color:var(--pencil-blue); }
+.step-head h2{ font-size:26px; margin:4px 0 8px; }
+.step-head p{ margin:0; color:var(--ink-soft); }
+.callout{ margin-top:20px; border:1.5px dashed var(--paper-grid-strong); background:var(--paper); border-radius:14px; padding:14px 16px; font-size:15px; }
+.callout b{ color:var(--pencil-blue-ink); }
+.two-col{ display:grid; grid-template-columns: minmax(0,300px) minmax(0,1fr); gap:20px; align-items:start; }
+.two-col.even{ grid-template-columns:minmax(0,1fr) minmax(0,1fr); }
+@media (max-width:760px){ .two-col, .two-col.even{ grid-template-columns:1fr; } .masthead{ flex-direction:column; align-items:flex-start; } }
+.panel{ border:1px solid var(--border); border-radius:14px; padding:14px; background:var(--surface); }
+.panel-title{ font-weight:700; font-size:14px; color:var(--ink-soft); margin-bottom:8px; }
+.btn{ font:inherit; font-size:14px; border:1px solid var(--border); background:var(--surface); color:var(--ink); border-radius:10px; padding:8px 13px; cursor:pointer; }
+.btn:hover:not(:disabled){ border-color:var(--pencil-blue); }
+.btn.active{ background:var(--pencil-blue-soft); border-color:var(--pencil-blue); color:var(--pencil-blue-ink); font-weight:700; }
+.btn-primary{ background:var(--pencil-blue); border-color:var(--pencil-blue); color:#fff; font-weight:700; }
+.btn-primary:hover:not(:disabled){ filter:brightness(1.08); }
+.btn:disabled{ opacity:.45; cursor:not-allowed; }
+.control-row{ display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-bottom:12px; }
+.info-box{ background:var(--paper); border:1px solid var(--border); border-radius:12px; padding:12px 14px; font-size:15px; }
+.stat-box{ font-family:'JetBrains Mono',monospace; font-weight:700; font-size:22px; }
+.legend-row{ display:flex; flex-wrap:wrap; gap:14px; font-size:14px; color:var(--ink-soft); margin-top:8px; }
+.legend-row span{ display:inline-flex; align-items:center; gap:6px; }
+svg{ display:block; width:100%; height:auto; }
+.plot-wrap{ position:relative; }
+.plot-wrap svg.plot{ cursor:default; }
+.plot-wrap.clickable svg.plot{ cursor:crosshair; }
+input[type=range]{ width:100%; accent-color:var(--pencil-blue); }
+
+.fruit-card{ display:flex; align-items:center; gap:12px; }
+.fruit-card .big{ font-size:44px; line-height:1; }
+.qa-list{ list-style:none; padding:0; margin:10px 0 0; display:flex; flex-direction:column; gap:8px; }
+.qa-list li{ background:var(--paper); border:1px solid var(--border); border-radius:10px; padding:8px 12px; font-size:15px; }
+.qa-list li .ans{ font-weight:700; color:var(--pencil-blue-ink); }
+.qa-list li.final{ background:var(--pencil-green-soft); border-color:var(--pencil-green); color:var(--pencil-green-ink); font-weight:700; }
+
+.side-grid{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.side{ border:1px solid var(--border); border-radius:12px; padding:10px; background:var(--paper); }
+.side .lbl{ font-size:13px; color:var(--ink-soft); font-weight:700; }
+.side .emo{ font-size:20px; letter-spacing:1px; word-break:break-all; min-height:30px; }
+.side .cnt{ font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--ink-soft); }
+.gauge{ height:14px; background:var(--paper-grid); border-radius:99px; overflow:hidden; margin:6px 0 2px; }
+.gauge > div{ height:100%; border-radius:99px; transition:width .15s; }
+.hint{ font-size:13px; color:var(--ink-soft); }
+.badge{ display:inline-block; font-size:12px; font-weight:700; padding:2px 8px; border-radius:99px; background:var(--pencil-green-soft); color:var(--pencil-green-ink); }
+
+.sheet-footer{ display:flex; align-items:center; justify-content:space-between; gap:10px; }
+#stepLabel{ font-family:'JetBrains Mono',monospace; color:var(--ink-soft); font-size:14px; }
+</style>
+</head>
+<body>
+<div id="app">
+  <header class="masthead">
+    <div id="logoGrid" aria-hidden="true"></div>
+    <div>
+      <div class="eyebrow">완전 초보자를 위한 체험 학습지</div>
+      <h1>결정 트리 (Decision Tree)</h1>
+      <p class="lede">"예 / 아니오" 질문을 차례로 던져서 답을 찾는 방법. 스무고개와 똑같아요. 과일을 맞히면서 직접 느껴 봐요.</p>
+    </div>
+  </header>
+
+  <nav class="steps-nav" id="stepsNav"></nav>
+  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+
+  <main class="sheet">
+    <!-- STEP 1 -->
+    <section class="step" id="step-1" hidden>
+      <div class="step-head">
+        <div class="kicker">STEP 1 · 스무고개</div>
+        <h2>결정 트리는 "질문 나무"예요</h2>
+        <p>과일 하나를 받았어요. 눈을 감고 있어서 모양만 만져 보고, 맛만 볼 수 있어요. 질문 두 개면 무슨 과일인지 맞힐 수 있을까요?</p>
+      </div>
+      <div class="two-col">
+        <div>
+          <div class="panel">
+            <div class="panel-title">① 수수께끼 과일 고르기</div>
+            <div class="control-row" id="s1Fruits"></div>
+            <div class="fruit-card">
+              <div class="big" id="s1Emoji">❔</div>
+              <div id="s1Desc" style="font-size:15px"></div>
+            </div>
+          </div>
+          <div class="panel" style="margin-top:12px">
+            <div class="panel-title">② 나무에게 질문하게 하기</div>
+            <div class="control-row">
+              <button class="btn btn-primary" id="s1Ask">질문 하나 하기 →</button>
+              <button class="btn" id="s1Reset">처음부터</button>
+            </div>
+            <ul class="qa-list" id="s1QA"></ul>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-title">컴퓨터가 만든 질문 나무</div>
+          <svg id="s1Tree"></svg>
+          <p class="hint" style="margin:8px 0 0">맨 위(뿌리)에서 시작해서 답에 따라 왼쪽(예) / 오른쪽(아니오)으로 내려가요. 맨 아래 칸(잎)에 도착하면 그게 정답이에요.</p>
+        </div>
+      </div>
+      <div class="callout">📌 <b>핵심:</b> 결정 트리는 <b>질문 → 갈림길 → 질문 → … → 답</b> 으로 된 나무 모양 규칙이에요. 사람이 이 질문들을 정해 준 게 아니라, 컴퓨터가 과일 42개를 보고 <b>스스로</b> 만들었어요. 어떻게 만드는지 다음 단계에서 알아봐요.</div>
+    </section>
+
+    <!-- STEP 2 -->
+    <section class="step" id="step-2" hidden>
+      <div class="step-head">
+        <div class="kicker">STEP 2 · 좋은 질문 찾기</div>
+        <h2>과일들을 선 하나로 갈라 보세요</h2>
+        <p>과일 42개를 크기(→)와 새콤함(↑)으로 종이에 찍었어요. 선을 움직여서 양쪽이 <b>한 종류끼리</b> 모이도록 나눠 보세요. 섞임 점수가 낮을수록 좋은 질문이에요.</p>
+      </div>
+      <div class="two-col">
+        <div>
+          <div class="panel">
+            <div class="panel-title">① 무엇으로 물어볼까?</div>
+            <div class="control-row">
+              <button class="btn" data-f="0" id="s2F0">크기로 묻기</button>
+              <button class="btn" data-f="1" id="s2F1">새콤함으로 묻기</button>
+            </div>
+            <div class="panel-title">② 기준 정하기</div>
+            <input type="range" id="s2Slider" min="0.5" max="9.5" step="0.05" value="5">
+            <div class="info-box" id="s2Question" style="margin-top:8px"></div>
+          </div>
+          <div class="panel" style="margin-top:12px">
+            <div class="panel-title">섞임 점수 <span class="hint">(0점 = 완벽하게 갈라짐)</span></div>
+            <div class="stat-box" id="s2Score">–</div>
+            <div class="gauge"><div id="s2Gauge"></div></div>
+            <div class="hint" id="s2Best">컴퓨터 기록: 아직 없음</div>
+            <div class="control-row" style="margin-top:10px;margin-bottom:0">
+              <button class="btn btn-primary" id="s2Sweep">🤖 컴퓨터에게 찾게 하기</button>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="panel">
+            <div class="plot-wrap"><svg class="plot" id="s2Plot"></svg></div>
+            <div class="legend-row" id="s2Legend"></div>
+          </div>
+          <div class="side-grid" style="margin-top:12px">
+            <div class="side"><div class="lbl">예 쪽 (선의 <span id="s2LName">왼쪽</span>)</div><div class="emo" id="s2LEmo"></div><div class="cnt" id="s2LCnt"></div></div>
+            <div class="side"><div class="lbl">아니오 쪽 (선의 <span id="s2RName">오른쪽</span>)</div><div class="emo" id="s2REmo"></div><div class="cnt" id="s2RCnt"></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="callout">📌 <b>핵심:</b> 컴퓨터는 가능한 선을 <b>전부 하나씩</b> 그어 보고 섞임 점수가 가장 낮은 선을 고릅니다. 욕심쟁이처럼 "지금 당장 제일 잘 가르는 질문"을 뽑는 거예요. 여기서는 <b>"크기가 3.75보다 작아?"</b>가 뽑혀요 — 포도만 깔끔하게 떨어져 나가거든요.</div>
+    </section>
+
+    <!-- STEP 3 -->
+    <section class="step" id="step-3" hidden>
+      <div class="step-head">
+        <div class="kicker">STEP 3 · 나무 키우기</div>
+        <h2>나뉜 조각을 또 나누면 나무가 자라요</h2>
+        <p>첫 질문으로 나눈 뒤에도 섞여 있는 쪽은, 그 안에서 다시 "가장 좋은 질문"을 찾아 또 나눕니다. 깊이(질문 층 수)를 올리며 나무가 자라는 걸 보세요.</p>
+      </div>
+      <div class="control-row" id="s3Depths"></div>
+      <div class="two-col even">
+        <div class="panel">
+          <div class="panel-title">종이 위의 구역 나누기</div>
+          <svg class="plot" id="s3Plot"></svg>
+          <div class="legend-row" id="s3Legend"></div>
+        </div>
+        <div class="panel">
+          <div class="panel-title">질문 나무</div>
+          <svg id="s3Tree"></svg>
+          <div class="info-box" style="margin-top:10px" id="s3Info"></div>
+        </div>
+      </div>
+      <div class="callout">📌 <b>핵심:</b> 질문 하나 = 종이에 <b>곧은 선 하나</b>. 그래서 결정 트리가 나눈 구역은 늘 <b>네모 반듯한 모양</b>이에요. 조각이 한 종류만 남으면(섞임 0점) 더 나누지 않고 멈춥니다.</div>
+    </section>
+
+    <!-- STEP 4 -->
+    <section class="step" id="step-4" hidden>
+      <div class="step-head">
+        <div class="kicker">STEP 4 · 처음 보는 과일 맞히기</div>
+        <h2>종이 아무 곳이나 눌러 새 과일을 놓아 보세요</h2>
+        <p>다 자란 나무(깊이 2)는 새 과일이 와도 똑같이 질문을 따라 내려가서 답을 알려 줘요.</p>
+      </div>
+      <div class="two-col even">
+        <div class="panel">
+          <div class="panel-title">여기를 눌러 과일 놓기 👇</div>
+          <div class="plot-wrap clickable"><svg class="plot" id="s4Plot"></svg></div>
+          <div class="legend-row" id="s4Legend"></div>
+        </div>
+        <div>
+          <div class="panel">
+            <div class="panel-title">나무가 따라간 길</div>
+            <svg id="s4Tree"></svg>
+          </div>
+          <div class="panel" style="margin-top:12px">
+            <div class="panel-title">나무의 생각</div>
+            <ul class="qa-list" id="s4QA"><li>왼쪽 종이를 눌러 보세요.</li></ul>
+          </div>
+        </div>
+      </div>
+      <div class="callout">📌 <b>핵심:</b> 결정 트리의 가장 큰 장점은 <b>왜 그렇게 답했는지 그대로 보인다</b>는 거예요. "크기가 작지 않고, 새콤하지 않으니 사과!" 처럼 사람이 읽을 수 있는 이유가 남아요.</div>
+    </section>
+
+    <!-- STEP 5 -->
+    <section class="step" id="step-5" hidden>
+      <div class="step-head">
+        <div class="kicker">STEP 5 · 너무 크게 키우면?</div>
+        <h2>나무가 너무 크면 "외워 버려요"</h2>
+        <p>여기 찍힌 과일은 나무가 한 번도 못 본 <b>새 과일 42개</b>예요. 깊이를 바꿔 가며, 공부한 과일(연습 문제)과 새 과일(시험 문제) 점수를 비교해 보세요.</p>
+      </div>
+      <div class="two-col even">
+        <div class="panel">
+          <div class="panel-title">깊이별 점수 <span class="hint">(막대를 눌러도 돼요)</span></div>
+          <svg id="s5Chart"></svg>
+          <div class="legend-row"><span><i style="width:12px;height:12px;border-radius:3px;background:var(--pencil-blue);display:inline-block"></i>연습 문제 (공부한 과일)</span><span><i style="width:12px;height:12px;border-radius:3px;background:var(--pencil-yellow);display:inline-block"></i>시험 문제 (새 과일)</span></div>
+          <div class="control-row" id="s5Depths" style="margin-top:12px"></div>
+          <div class="info-box" id="s5Info"></div>
+        </div>
+        <div class="panel">
+          <div class="panel-title">새 과일 42개에 대한 나무의 답 <span class="hint">(동그라미 = 틀림)</span></div>
+          <svg class="plot" id="s5Plot"></svg>
+          <div class="legend-row" id="s5Legend"></div>
+        </div>
+      </div>
+      <div class="callout">📌 <b>핵심:</b> 깊이를 끝까지 올리면 연습 문제는 100점이지만, 시험 점수는 오히려 <b>떨어져요</b>. 우연히 튀는 과일 하나하나까지 외우려고 이상한 작은 구역을 만들기 때문이에요. 이걸 <b>과적합</b>이라고 해요. 그래서 실제로는 나무 깊이를 적당히 제한합니다.</div>
+    </section>
+  </main>
+
+  <footer class="sheet-footer">
+    <button class="btn" id="prevBtn">← 이전</button>
+    <span id="stepLabel">1 / 5</span>
+    <button class="btn btn-primary" id="nextBtn">다음 →</button>
+  </footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  // ===== 1. Decision Tree core (ported verbatim from the Node verification script) =====
+  function mulberry32(seed){ var a=seed>>>0; return function(){ a|=0; a=(a+0x6D2B79F5)|0; var t=Math.imul(a^(a>>>15),1|a); t=(t+Math.imul(t^(t>>>7),61|t))^t; return ((t^(t>>>14))>>>0)/4294967296; }; }
+  function gauss(r){ var u=1-r(), v=r(); return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v); }
+  function clip(v){ return Math.max(0.4, Math.min(9.6, v)); }
+  function r1(v){ return Math.round(v*10)/10; }
+  var CLASS_SPEC=[ {mx:2.0,sx:0.8,my:5.0,sy:1.8}, {mx:6.3,sx:1.2,my:3.2,sy:1.3}, {mx:6.0,sx:1.2,my:7.2,sy:1.3} ];
+  function makeData(seed, perClass){
+    var r=mulberry32(seed), out=[];
+    for(var c=0;c<3;c++){ var s=CLASS_SPEC[c];
+      for(var i=0;i<perClass;i++){ out.push({x:[r1(clip(s.mx+s.sx*gauss(r))), r1(clip(s.my+s.sy*gauss(r)))], y:c}); } }
+    return out;
+  }
+  function counts(pts){ var c=[0,0,0]; for(var i=0;i<pts.length;i++) c[pts[i].y]++; return c; }
+  function gini(pts){ if(!pts.length) return 0; var c=counts(pts), n=pts.length, s=1; for(var k=0;k<3;k++){ var p=c[k]/n; s-=p*p; } return s; }
+  function splitScore(pts, f, t){
+    var L=[],R=[]; for(var i=0;i<pts.length;i++){ (pts[i].x[f]<t?L:R).push(pts[i]); }
+    var n=pts.length; return { score:(L.length*gini(L)+R.length*gini(R))/n, L:L, R:R };
+  }
+  function candidates(pts){
+    var list=[];
+    for(var f=0;f<2;f++){
+      var vals=pts.map(function(p){return p.x[f];}).sort(function(a,b){return a-b;});
+      var uniq=[]; vals.forEach(function(v){ if(!uniq.length||uniq[uniq.length-1]!==v) uniq.push(v); });
+      for(var i=0;i<uniq.length-1;i++){ list.push({f:f, t:Math.round((uniq[i]+uniq[i+1])*50)/100}); }
+    }
+    return list;
+  }
+  function bestSplit(pts){
+    var best=null, cands=candidates(pts);
+    for(var i=0;i<cands.length;i++){
+      var s=splitScore(pts,cands[i].f,cands[i].t);
+      if(!best || s.score < best.score-1e-12) best={f:cands[i].f,t:cands[i].t,score:s.score};
+    }
+    return best;
+  }
+  function majority(c){ var b=0; for(var k=1;k<3;k++) if(c[k]>c[b]) b=k; return b; }
+  var nodeId=0;
+  function grow(pts, depth, maxDepth){
+    var c=counts(pts), node={id:nodeId++, n:pts.length, counts:c, gini:gini(pts), label:majority(c), depth:depth};
+    if(depth>=maxDepth || node.gini===0 || pts.length<2) return node;
+    var b=bestSplit(pts); if(!b || b.score>=node.gini-1e-12) return node;
+    var s=splitScore(pts,b.f,b.t);
+    node.f=b.f; node.t=b.t;
+    node.left=grow(s.L, depth+1, maxDepth); node.right=grow(s.R, depth+1, maxDepth);
+    return node;
+  }
+  function buildTree(pts,maxDepth){ nodeId=0; return grow(pts,0,maxDepth); }
+  function predict(node,x){ var path=[node.id], steps=[]; while(node.left){ var yes=x[node.f]<node.t; steps.push({f:node.f,t:node.t,yes:yes}); node = yes ? node.left : node.right; path.push(node.id);} return {label:node.label, path:path, steps:steps}; }
+  function accuracy(tree,pts){ var ok=0; pts.forEach(function(p){ if(predict(tree,p.x).label===p.y) ok++; }); return ok/pts.length; }
+  function leaves(n){ return n.left? leaves(n.left)+leaves(n.right):1; }
+  function treeDepth(n){ return n.left? 1+Math.max(treeDepth(n.left),treeDepth(n.right)) : 0; }
+  function regions(node, box, out){
+    out=out||[];
+    if(!node.left){ out.push({x0:box.x0,x1:box.x1,y0:box.y0,y1:box.y1,label:node.label}); return out; }
+    var L={x0:box.x0,x1:box.x1,y0:box.y0,y1:box.y1}, R={x0:box.x0,x1:box.x1,y0:box.y0,y1:box.y1};
+    if(node.f===0){ L.x1=Math.min(box.x1,node.t); R.x0=Math.max(box.x0,node.t); }
+    else { L.y1=Math.min(box.y1,node.t); R.y0=Math.max(box.y0,node.t); }
+    regions(node.left,L,out); regions(node.right,R,out); return out;
+  }
+
+  // ===== 2. Data =====
+  var TRAIN=makeData(11,14), TEST=makeData(1011,14);
+  var TREES={}; for(var d=1; d<=6; d++) TREES[d]=buildTree(TRAIN,d);
+  var ACC={}; for(d=1; d<=6; d++) ACC[d]={train:accuracy(TREES[d],TRAIN), test:accuracy(TREES[d],TEST)};
+  var NAMES=['포도','사과','레몬'], EMOJI=['🍇','🍎','🍋'], FEAT=['크기','새콤함'];
+  var FEAT_Q=['크기가 {t}보다 작아?','새콤함이 {t}보다 작아?'];
+  var S1_FRUITS=[ {x:[2.0,5.0]}, {x:[7.0,3.0]}, {x:[6.0,8.0]} ];
+
+  // ===== 3. DOM helpers =====
+  function q(id){ return document.getElementById(id); }
+  function cssVar(name){ return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); }
+  function colors(){
+    return {
+      cls:[cssVar('--pencil-purple'), cssVar('--pencil-red'), cssVar('--pencil-yellow')],
+      soft:[cssVar('--pencil-purple-soft'), cssVar('--pencil-red-soft'), cssVar('--pencil-yellow-soft')],
+      ink:cssVar('--ink'), soft2:cssVar('--ink-soft'), grid:cssVar('--paper-grid'), gridS:cssVar('--paper-grid-strong'),
+      blue:cssVar('--pencil-blue'), blueSoft:cssVar('--pencil-blue-soft'), surface:cssVar('--surface'), paper:cssVar('--paper'),
+      yellow:cssVar('--pencil-yellow'), green:cssVar('--pencil-green'), greenSoft:cssVar('--pencil-green-soft'), border:cssVar('--border')
+    };
+  }
+  function fmtT(t){ return String(Math.round(t*100)/100); }
+  function qText(f,t){ return FEAT_Q[f].replace('{t}', fmtT(t)); }
+
+  // ----- scatter plot -----
+  var PW=360, PH=360, PAD=36;
+  function sx(v){ return PAD + v/10*(PW-PAD-12); }
+  function sy(v){ return PH-PAD - v/10*(PH-PAD-12); }
+  function marker(cls, x, y, r, fill, stroke, sw){
+    if(cls===0) return '<circle cx="'+x+'" cy="'+y+'" r="'+r+'" fill="'+fill+'" stroke="'+stroke+'" stroke-width="'+sw+'"/>';
+    if(cls===1) return '<rect x="'+(x-r*0.9)+'" y="'+(y-r*0.9)+'" width="'+(r*1.8)+'" height="'+(r*1.8)+'" rx="1.5" fill="'+fill+'" stroke="'+stroke+'" stroke-width="'+sw+'"/>';
+    var h=r*1.15; return '<polygon points="'+x+','+(y-h)+' '+(x+h)+','+(y+h*0.75)+' '+(x-h)+','+(y+h*0.75)+'" fill="'+fill+'" stroke="'+stroke+'" stroke-width="'+sw+'"/>';
+  }
+  function renderPlot(svg, opt){
+    var C=colors(), s='';
+    svg.setAttribute('viewBox','0 0 '+PW+' '+PH);
+    s+='<rect x="'+sx(0)+'" y="'+sy(10)+'" width="'+(sx(10)-sx(0))+'" height="'+(sy(0)-sy(10))+'" fill="'+C.surface+'" stroke="'+C.gridS+'"/>';
+    if(opt.regions){ opt.regions.forEach(function(r){
+      s+='<rect x="'+sx(r.x0)+'" y="'+sy(r.y1)+'" width="'+(sx(r.x1)-sx(r.x0))+'" height="'+(sy(r.y0)-sy(r.y1))+'" fill="'+C.soft[r.label]+'" stroke="'+C.cls[r.label]+'" stroke-opacity="0.5" stroke-width="1"/>'; }); }
+    for(var g=1; g<10; g++){ s+='<line x1="'+sx(g)+'" y1="'+sy(0)+'" x2="'+sx(g)+'" y2="'+sy(10)+'" stroke="'+C.grid+'" stroke-width="0.8" opacity="0.8"/><line x1="'+sx(0)+'" y1="'+sy(g)+'" x2="'+sx(10)+'" y2="'+sy(g)+'" stroke="'+C.grid+'" stroke-width="0.8" opacity="0.8"/>'; }
+    for(g=0; g<=10; g+=2){ s+='<text x="'+sx(g)+'" y="'+(sy(0)+14)+'" font-size="10" text-anchor="middle" fill="'+C.soft2+'" font-family="JetBrains Mono">'+g+'</text>'+(g<10?'<text x="'+(sx(0)-6)+'" y="'+(sy(g)+3)+'" font-size="10" text-anchor="end" fill="'+C.soft2+'" font-family="JetBrains Mono">'+g+'</text>':''); }
+    s+='<text x="'+sx(10)+'" y="'+(PH-4)+'" font-size="12" text-anchor="end" fill="'+C.ink+'" font-family="Noto Sans KR" font-weight="700">크기 →</text>';
+    s+='<text x="8" y="'+(sy(10)-2)+'" font-size="12" fill="'+C.ink+'" font-family="Noto Sans KR" font-weight="700">↑ 새콤함</text>';
+    if(opt.split){
+      var sp=opt.split;
+      if(sp.f===0){
+        s+='<rect x="'+sx(0)+'" y="'+sy(10)+'" width="'+(sx(sp.t)-sx(0))+'" height="'+(sy(0)-sy(10))+'" fill="'+C.blueSoft+'" opacity="0.55"/>';
+        s+='<line x1="'+sx(sp.t)+'" y1="'+sy(0)+'" x2="'+sx(sp.t)+'" y2="'+sy(10)+'" stroke="'+C.blue+'" stroke-width="2.5" stroke-dasharray="6 4"/>';
+        s+='<text x="'+(sx(sp.t)-5)+'" y="'+(sy(10)+14)+'" font-size="11" text-anchor="end" fill="'+C.blue+'" font-weight="700" font-family="Noto Sans KR">예</text><text x="'+(sx(sp.t)+5)+'" y="'+(sy(10)+14)+'" font-size="11" fill="'+C.blue+'" font-weight="700" font-family="Noto Sans KR">아니오</text>';
+      } else {
+        s+='<rect x="'+sx(0)+'" y="'+sy(sp.t)+'" width="'+(sx(10)-sx(0))+'" height="'+(sy(0)-sy(sp.t))+'" fill="'+C.blueSoft+'" opacity="0.55"/>';
+        s+='<line x1="'+sx(0)+'" y1="'+sy(sp.t)+'" x2="'+sx(10)+'" y2="'+sy(sp.t)+'" stroke="'+C.blue+'" stroke-width="2.5" stroke-dasharray="6 4"/>';
+        s+='<text x="'+(sx(10)-4)+'" y="'+(sy(sp.t)+14)+'" font-size="11" text-anchor="end" fill="'+C.blue+'" font-weight="700" font-family="Noto Sans KR">예 (아래)</text><text x="'+(sx(10)-4)+'" y="'+(sy(sp.t)-6)+'" font-size="11" text-anchor="end" fill="'+C.blue+'" font-weight="700" font-family="Noto Sans KR">아니오 (위)</text>';
+      }
+    }
+    (opt.points||[]).forEach(function(p){
+      s+=marker(p.y, sx(p.x[0]), sy(p.x[1]), 5, C.cls[p.y], C.surface, 1.2);
+      if(opt.wrongOf && predict(opt.wrongOf,p.x).label!==p.y){ s+='<circle cx="'+sx(p.x[0])+'" cy="'+sy(p.x[1])+'" r="10" fill="none" stroke="'+C.ink+'" stroke-width="2"/>'; }
+    });
+    if(opt.newPt){
+      var np=opt.newPt, px=sx(np.x[0]), py=sy(np.x[1]);
+      s+='<circle cx="'+px+'" cy="'+py+'" r="13" fill="'+C.surface+'" stroke="'+C.ink+'" stroke-width="2.5"/>';
+      s+='<text x="'+px+'" y="'+(py+5)+'" font-size="14" text-anchor="middle">'+(np.label==null?'❔':EMOJI[np.label])+'</text>';
+    }
+    svg.innerHTML=s;
+  }
+  function legendHTML(){
+    var C=colors(), h='';
+    for(var k=0;k<3;k++){ h+='<span><svg width="14" height="14" viewBox="0 0 14 14" style="display:inline;width:14px">'+marker(k,7,7,5,C.cls[k],C.surface,1)+'</svg>'+EMOJI[k]+' '+NAMES[k]+'</span>'; }
+    return h;
+  }
+
+  // ----- tree diagram -----
+  function renderTree(svg, tree, highlight){
+    var C=colors(), hl={}; (highlight||[]).forEach(function(id){ hl[id]=1; });
+    var nl=leaves(tree), dep=treeDepth(tree);
+    var NW=112, NH=48, GX=12, GY=34;
+    var W=Math.max(nl*(NW+GX)+GX, 380), H=(dep+1)*(NH+GY)+10;
+    var idx=0, pos={};
+    (function lay(n){ if(!n.left){ pos[n.id]={x:GX+idx*(NW+GX)+NW/2 + (W-(nl*(NW+GX)+GX))/2, y:10+n.depth*(NH+GY)}; idx++; return; } lay(n.left); lay(n.right); pos[n.id]={x:(pos[n.left.id].x+pos[n.right.id].x)/2, y:10+n.depth*(NH+GY)}; })(tree);
+    var edges='', nodes='';
+    (function walk(n){
+      var p=pos[n.id];
+      if(n.left){
+        [[n.left,'예'],[n.right,'아니오']].forEach(function(e){
+          var c=pos[e[0].id], on=hl[n.id]&&hl[e[0].id];
+          edges+='<path d="M'+p.x+','+(p.y+NH)+' C'+p.x+','+(p.y+NH+GY/2)+' '+c.x+','+(c.y-GY/2)+' '+c.x+','+c.y+'" fill="none" stroke="'+(on?C.blue:C.gridS)+'" stroke-width="'+(on?3.5:1.6)+'"/>';
+          edges+='<text x="'+((p.x+c.x)/2+(e[1]==='예'?-6:6))+'" y="'+(p.y+NH+GY/2+4)+'" font-size="11" text-anchor="'+(e[1]==='예'?'end':'start')+'" fill="'+(on?C.blue:C.soft2)+'" stroke="'+C.surface+'" stroke-width="4" paint-order="stroke" font-weight="700" font-family="Noto Sans KR">'+e[1]+'</text>';
+          walk(e[0]);
+        });
+        var on=hl[n.id];
+        nodes+='<rect x="'+(p.x-NW/2)+'" y="'+p.y+'" width="'+NW+'" height="'+NH+'" rx="10" fill="'+(on?C.blueSoft:C.surface)+'" stroke="'+(on?C.blue:C.border)+'" stroke-width="'+(on?2.5:1.3)+'"/>';
+        nodes+='<text x="'+p.x+'" y="'+(p.y+20)+'" font-size="12" text-anchor="middle" fill="'+C.ink+'" font-weight="700" font-family="Noto Sans KR">'+FEAT[n.f]+' &lt; '+fmtT(n.t)+' ?</text>';
+        nodes+='<text x="'+p.x+'" y="'+(p.y+38)+'" font-size="10.5" text-anchor="middle" fill="'+C.soft2+'" font-family="Noto Sans KR">'+countsLine(n.counts)+'</text>';
+      } else {
+        var on2=hl[n.id];
+        nodes+='<rect x="'+(p.x-NW/2)+'" y="'+p.y+'" width="'+NW+'" height="'+NH+'" rx="10" fill="'+C.soft[n.label]+'" stroke="'+(on2?C.blue:C.cls[n.label])+'" stroke-width="'+(on2?3.5:1.5)+'"/>';
+        nodes+='<text x="'+p.x+'" y="'+(p.y+21)+'" font-size="13" text-anchor="middle" fill="'+C.ink+'" font-weight="700" font-family="Noto Sans KR">'+EMOJI[n.label]+' '+NAMES[n.label]+'</text>';
+        nodes+='<text x="'+p.x+'" y="'+(p.y+38)+'" font-size="10.5" text-anchor="middle" fill="'+C.soft2+'" font-family="Noto Sans KR">'+countsLine(n.counts)+'</text>';
+      }
+    })(tree);
+    svg.setAttribute('viewBox','0 0 '+W+' '+H);
+    svg.style.maxHeight = (H*1.15)+'px';
+    svg.innerHTML=edges+nodes;
+  }
+  function countsLine(c){ var a=[]; for(var k=0;k<3;k++) if(c[k]) a.push(EMOJI[k]+c[k]); return a.join(' '); }
+  function emojiRow(c){ var s=''; for(var k=0;k<3;k++) for(var i=0;i<c[k];i++) s+=EMOJI[k]; return s||'(비었어요)'; }
+
+  // ===== 4. State =====
+  var state={ step:1, total:5,
+    s1:{fruit:0, k:0},
+    s2:{f:0, t:5, sweeping:false, best:null},
+    s3:{depth:1},
+    s4:{pt:null},
+    s5:{depth:2}
+  };
+  var sweepTimer=null;
+  var STEP_NAMES=['스무고개','좋은 질문 찾기','나무 키우기','새 과일 맞히기','너무 크면?'];
+
+  // ===== 5. Step renders =====
+  function renderStep1(){
+    var tree=TREES[2], f=S1_FRUITS[state.s1.fruit], pr=predict(tree,f.x), k=state.s1.k;
+    var btns=q('s1Fruits').querySelectorAll('button');
+    btns.forEach(function(b,i){ b.classList.toggle('active', i===state.s1.fruit); });
+    q('s1Emoji').textContent = k>pr.steps.length ? EMOJI[pr.label] : '❔';
+    q('s1Desc').innerHTML='크기 <b class="mono">'+f.x[0]+'</b> · 새콤함 <b class="mono">'+f.x[1]+'</b><br><span class="hint">(0 = 아주 작음/안 새콤 · 10 = 아주 큼/엄청 새콤)</span>';
+    var html='';
+    for(var i=0;i<Math.min(k,pr.steps.length);i++){
+      var st=pr.steps[i];
+      html+='<li>Q'+(i+1)+'. '+qText(st.f,st.t)+' → <span class="ans">'+(st.yes?'예':'아니오')+'</span> <span class="hint">('+FEAT[st.f]+' '+f.x[st.f]+')</span></li>';
+    }
+    var done = k>pr.steps.length;
+    if(done) html+='<li class="final">정답: '+EMOJI[pr.label]+' '+NAMES[pr.label]+'!</li>';
+    if(!k) html='<li class="hint">"질문 하나 하기"를 눌러 보세요.</li>';
+    q('s1QA').innerHTML=html;
+    q('s1Ask').disabled = done;
+    q('s1Ask').textContent = k===pr.steps.length ? '답 확인하기 ✓' : '질문 하나 하기 →';
+    renderTree(q('s1Tree'), tree, k===0 ? [] : pr.path.slice(0, k+1));
+  }
+
+  function renderStep2(){
+    var s=state.s2, sp=splitScore(TRAIN,s.f,s.t);
+    q('s2F0').classList.toggle('active', s.f===0); q('s2F1').classList.toggle('active', s.f===1);
+    q('s2F0').disabled=q('s2F1').disabled=q('s2Slider').disabled=q('s2Sweep').disabled=s.sweeping;
+    if(parseFloat(q('s2Slider').value)!==s.t) q('s2Slider').value=s.t;
+    q('s2Question').innerHTML='질문: <b>'+qText(s.f,s.t)+'</b>';
+    var score=sp.score*100;
+    q('s2Score').textContent=score.toFixed(1)+'점';
+    var C=colors(), pct=Math.min(100, score/66.7*100);
+    var gauge=q('s2Gauge'); gauge.style.width=pct+'%'; gauge.style.background = score<35? C.green : (score<50? C.yellow : cssVar('--pencil-red'));
+    q('s2LName').textContent = s.f===0?'왼쪽':'아래쪽'; q('s2RName').textContent = s.f===0?'오른쪽':'위쪽';
+    var cl=counts(sp.L), cr=counts(sp.R);
+    q('s2LEmo').textContent=emojiRow(cl); q('s2REmo').textContent=emojiRow(cr);
+    q('s2LCnt').textContent=sp.L.length+'개 · 섞임 '+(gini(sp.L)*100).toFixed(1); q('s2RCnt').textContent=sp.R.length+'개 · 섞임 '+(gini(sp.R)*100).toFixed(1);
+    q('s2Best').innerHTML = s.best ? (s.sweeping?'지금까지 가장 좋은 선: ':'🏆 컴퓨터가 찾은 최고의 질문: ')+'<b>'+qText(s.best.f,s.best.t)+'</b> <span class="mono">('+(s.best.score*100).toFixed(1)+'점)</span>' : '컴퓨터 기록: 아직 없음 · 먼저 직접 해 보세요!';
+    renderPlot(q('s2Plot'), {points:TRAIN, split:{f:s.f,t:s.t}});
+    q('s2Legend').innerHTML=legendHTML();
+  }
+  function startSweep(){
+    var s=state.s2; if(s.sweeping) return;
+    var cands=candidates(TRAIN).map(function(c){ return {f:c.f,t:c.t,score:splitScore(TRAIN,c.f,c.t).score}; });
+    var i=0; s.sweeping=true; s.best=null;
+    sweepTimer=setInterval(function(){
+      if(i>=cands.length){ clearInterval(sweepTimer); sweepTimer=null; s.sweeping=false; s.f=s.best.f; s.t=s.best.t; renderStep2(); return; }
+      var c=cands[i++]; s.f=c.f; s.t=c.t;
+      if(!s.best || c.score < s.best.score-1e-12) s.best=c;
+      renderStep2();
+    }, 45);
+    renderStep2();
+  }
+  function stopSweep(){ if(sweepTimer){ clearInterval(sweepTimer); sweepTimer=null; } if(state.s2.sweeping){ state.s2.sweeping=false; if(state.s2.best){ state.s2.best=bestSplit(TRAIN); state.s2.f=state.s2.best.f; state.s2.t=state.s2.best.t; } } }
+
+  function renderStep3(){
+    var d=state.s3.depth, tree=TREES[d];
+    q('s3Depths').querySelectorAll('button').forEach(function(b){ b.classList.toggle('active', +b.dataset.d===d); });
+    renderPlot(q('s3Plot'), {points:TRAIN, regions:regions(tree,{x0:0,x1:10,y0:0,y1:10})});
+    renderTree(q('s3Tree'), tree, []);
+    q('s3Legend').innerHTML=legendHTML();
+    q('s3Info').innerHTML='질문 층 수 <b class="mono">'+treeDepth(tree)+'</b> · 잎(답 칸) <b class="mono">'+leaves(tree)+'</b>개 · 공부한 과일 정답률 <b class="mono">'+(ACC[d].train*100).toFixed(1)+'%</b>'+
+      (d===1?'<br><span class="hint">질문 1개로는 사과와 레몬이 한 칸에 섞여 있어요.</span>':d===2?'<br><span class="hint">질문 2개면 거의 다 맞혀요!</span>':'<br><span class="hint">남은 몇 개를 맞히려고 작은 구역이 생겼어요.</span>');
+  }
+
+  function renderStep4(){
+    var tree=TREES[2], pt=state.s4.pt, pr=pt?predict(tree,pt):null;
+    renderPlot(q('s4Plot'), {points:TRAIN, regions:regions(tree,{x0:0,x1:10,y0:0,y1:10}), newPt: pt?{x:pt,label:pr.label}:null});
+    q('s4Legend').innerHTML=legendHTML();
+    renderTree(q('s4Tree'), tree, pr?pr.path:[]);
+    if(pr){
+      var h='<li>새 과일: 크기 <b class="mono">'+pt[0]+'</b>, 새콤함 <b class="mono">'+pt[1]+'</b></li>';
+      pr.steps.forEach(function(st,i){ h+='<li>Q'+(i+1)+'. '+qText(st.f,st.t)+' → <span class="ans">'+(st.yes?'예':'아니오')+'</span></li>'; });
+      h+='<li class="final">그러니까 '+EMOJI[pr.label]+' '+NAMES[pr.label]+'!</li>';
+      q('s4QA').innerHTML=h;
+    } else q('s4QA').innerHTML='<li>왼쪽 종이를 눌러 보세요.</li>';
+  }
+
+  function renderStep5(){
+    var d=state.s5.depth, tree=TREES[d], C=colors();
+    q('s5Depths').querySelectorAll('button').forEach(function(b){ b.classList.toggle('active', +b.dataset.d===d); });
+    // bar chart
+    var W=360,H=220,L=34,B=30,T=12, gw=(W-L-8)/6, s='';
+    for(var g=0; g<=100; g+=25){ var y=T+(H-T-B)*(1-g/100); s+='<line x1="'+L+'" y1="'+y+'" x2="'+(W-4)+'" y2="'+y+'" stroke="'+C.grid+'"/><text x="'+(L-5)+'" y="'+(y+3)+'" font-size="10" text-anchor="end" fill="'+C.soft2+'" font-family="JetBrains Mono">'+g+'</text>'; }
+    for(var k=1;k<=6;k++){
+      var x0=L+(k-1)*gw, bw=gw*0.32, a=ACC[k], hT=(H-T-B)*a.train, hS=(H-T-B)*a.test, sel=k===d;
+      if(sel) s+='<rect x="'+(x0+2)+'" y="'+T+'" width="'+(gw-4)+'" height="'+(H-T-B)+'" fill="'+C.blueSoft+'" rx="6"/>';
+      s+='<rect x="'+(x0+gw/2-bw-1)+'" y="'+(H-B-hT)+'" width="'+bw+'" height="'+hT+'" fill="'+C.blue+'" rx="2"/>';
+      s+='<rect x="'+(x0+gw/2+1)+'" y="'+(H-B-hS)+'" width="'+bw+'" height="'+hS+'" fill="'+C.yellow+'" rx="2"/>';
+      s+='<text x="'+(x0+gw/2)+'" y="'+(H-B+15)+'" font-size="11" text-anchor="middle" fill="'+(sel?C.blue:C.soft2)+'" font-weight="'+(sel?700:400)+'" font-family="Noto Sans KR">깊이 '+k+'</text>';
+      s+='<rect class="s5hit" data-d="'+k+'" x="'+x0+'" y="0" width="'+gw+'" height="'+H+'" fill="transparent" style="cursor:pointer"/>';
+    }
+    var svg=q('s5Chart'); svg.setAttribute('viewBox','0 0 '+W+' '+H); svg.innerHTML=s;
+    var a=ACC[d], wrong=Math.round((1-a.test)*TEST.length);
+    q('s5Info').innerHTML='깊이 <b class="mono">'+d+'</b> · 잎 <b class="mono">'+leaves(tree)+'</b>개<br>연습 문제 <b class="mono">'+(a.train*100).toFixed(1)+'%</b> · 시험 문제 <b class="mono">'+(a.test*100).toFixed(1)+'%</b> (새 과일 '+wrong+'개 틀림)'+
+      (d===1?'<br><span class="hint">너무 작아요 — 사과와 레몬을 구별 못 해요.</span>':(d<=4?'<br><span class="badge">딱 좋아요</span> <span class="hint">시험 점수가 가장 높은 구간이에요.</span>':'<br><span class="hint">연습은 더 잘하는데 시험은 더 못해요. 외워 버렸어요!</span>'));
+    renderPlot(q('s5Plot'), {points:TEST, regions:regions(tree,{x0:0,x1:10,y0:0,y1:10}), wrongOf:tree});
+    q('s5Legend').innerHTML=legendHTML();
+  }
+
+  function renderCurrentStep(){ [renderStep1,renderStep2,renderStep3,renderStep4,renderStep5][state.step-1](); }
+
+  // ===== 6. Navigation =====
+  function goToStep(n){
+    stopSweep();
+    state.step=n;
+    for(var i=1;i<=state.total;i++){ q('step-'+i).hidden = i!==n; }
+    q('stepsNav').querySelectorAll('.step-tab').forEach(function(b,i){ b.classList.toggle('active', i+1===n); b.classList.toggle('done', i+1<n); });
+    q('progressFill').style.width = (n/state.total*100)+'%';
+    q('prevBtn').disabled = n===1;
+    q('nextBtn').textContent = n===state.total ? '처음부터 다시 ↺' : '다음 →';
+    q('stepLabel').textContent = n+' / '+state.total;
+    renderCurrentStep();
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  function renderLogoGrid(){
+    var pat=[0,0,1,0, 0,1,0,1, 1,0,1,0, 0,1,0,1], h='';
+    pat.forEach(function(on,i){ h+='<i class="'+(on?'on':'')+'" style="animation-delay:'+(i*28)+'ms"></i>'; });
+    q('logoGrid').innerHTML=h;
+  }
+
+  // ===== 7. Listeners (attached exactly once) =====
+  function initListeners(){
+    var nav=q('stepsNav'), h='';
+    STEP_NAMES.forEach(function(nm,i){ h+='<button class="step-tab" data-step="'+(i+1)+'"><span class="num">'+(i+1)+'</span>'+nm+'</button>'; });
+    nav.innerHTML=h;
+    nav.addEventListener('click', function(e){ var b=e.target.closest('.step-tab'); if(b) goToStep(+b.dataset.step); });
+    q('prevBtn').addEventListener('click', function(){ if(state.step>1) goToStep(state.step-1); });
+    q('nextBtn').addEventListener('click', function(){ goToStep(state.step===state.total?1:state.step+1); });
+
+    // step1
+    var fh=''; S1_FRUITS.forEach(function(f,i){ fh+='<button class="btn" data-i="'+i+'">과일 '+'ABC'[i]+'</button>'; });
+    q('s1Fruits').innerHTML=fh;
+    q('s1Fruits').addEventListener('click', function(e){ var b=e.target.closest('button'); if(!b) return; state.s1.fruit=+b.dataset.i; state.s1.k=0; renderStep1(); });
+    q('s1Ask').addEventListener('click', function(){ state.s1.k++; renderStep1(); });
+    q('s1Reset').addEventListener('click', function(){ state.s1.k=0; renderStep1(); });
+
+    // step2
+    q('s2F0').addEventListener('click', function(){ state.s2.f=0; renderStep2(); });
+    q('s2F1').addEventListener('click', function(){ state.s2.f=1; renderStep2(); });
+    q('s2Slider').addEventListener('input', function(){ state.s2.t=Math.round(parseFloat(this.value)*100)/100; renderStep2(); });
+    q('s2Sweep').addEventListener('click', startSweep);
+
+    // step3
+    var dh=''; for(var d=1; d<=4; d++) dh+='<button class="btn" data-d="'+d+'">깊이 '+d+(d===1?' (질문 1층)':'')+'</button>';
+    q('s3Depths').innerHTML='<span class="hint" style="margin-right:4px">나무 깊이:</span>'+dh;
+    q('s3Depths').addEventListener('click', function(e){ var b=e.target.closest('button'); if(!b) return; state.s3.depth=+b.dataset.d; renderStep3(); });
+
+    // step4
+    q('s4Plot').addEventListener('click', function(e){
+      var svg=q('s4Plot'), r=svg.getBoundingClientRect();
+      var vx=(e.clientX-r.left)/r.width*PW, vy=(e.clientY-r.top)/r.height*PH;
+      var x=(vx-PAD)/(PW-PAD-12)*10, y=(PH-PAD-vy)/(PH-PAD-12)*10;
+      if(x<0||x>10||y<0||y>10) return;
+      state.s4.pt=[r1(x), r1(y)]; renderStep4();
+    });
+
+    // step5
+    var d5=''; for(d=1; d<=6; d++) d5+='<button class="btn" data-d="'+d+'">'+d+'</button>';
+    q('s5Depths').innerHTML='<span class="hint" style="margin-right:4px">깊이:</span>'+d5;
+    q('s5Depths').addEventListener('click', function(e){ var b=e.target.closest('button'); if(!b) return; state.s5.depth=+b.dataset.d; renderStep5(); });
+    q('s5Chart').addEventListener('click', function(e){ var t=e.target.closest('.s5hit'); if(!t) return; state.s5.depth=+t.getAttribute('data-d'); renderStep5(); });
+
+    if(window.matchMedia){ var mq=window.matchMedia('(prefers-color-scheme: dark)'); if(mq.addEventListener) mq.addEventListener('change', renderCurrentStep); }
+  }
+
+  function init(){
+    renderLogoGrid();
+    initListeners();
+    window.__DT = {TRAIN:TRAIN, TEST:TEST, ACC:ACC, TREES:TREES, splitScore:splitScore, bestSplit:bestSplit, predict:predict, state:state};
+    goToStep(1);
+  }
+  try{
+    if(window.claude && window.claude.hot && window.claude.hot.ready){ window.claude.hot.ready(function(){ init(); }); }
+    else { init(); }
+  }catch(e){ init(); }
+})();
+</script>
+</body>
+</html>

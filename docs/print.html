@@ -37,7 +37,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-418dd4ba.js";
+            window.path_to_searchindex_js = "searchindex-8a82c51e.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-fd24e334.js"></script>
@@ -555,15 +555,61 @@ print(f"예측된 주택 가격: ${predicted_price_dollars2:,.2f}")</code></pre>
 <br />
 <h2 id="pc에서-실행"><a class="header" href="#pc에서-실행">PC에서 실행</a></h2>
 <p>이번 실습은 podman이 아닌 PC에서 하는 방법으로도 해 본다.</p>
-<ul>
+<h3 id="pc에-파이썬-설치-설치-방법-안내"><a class="header" href="#pc에-파이썬-설치-설치-방법-안내">PC에 파이썬 설치: <a href="https://profkim2000.github.io/blog/dev/python/install_python/" target="_blank">설치 방법 안내</a></a></h3>
+<h4 id="powershell의-보안-설정-해제"><a class="header" href="#powershell의-보안-설정-해제">PowerShell의 보안 설정 해제</a></h4>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="aianal-01/aigeo/attachments/20261001123321.png" alt=""><span class="img-wrapper"><img src="aianal-01/aigeo/attachments/20261001123321.png" alt=""></span></label></p>
+<ol>
 <li>
-<p>PC에 파이썬 설치: <a href="https://profkim2000.github.io/blog/dev/python/install_python/" target="_blank">설치 방법 안내</a></p>
+<p>시작 버튼을 누른다.</p>
 </li>
 <li>
-<p>PC에 marimo 설치</p>
+<p>검색어로 <code>power</code> 입력</p>
 </li>
-</ul>
+<li>
+<p>powerShell을 관리자 권한으로 실행한다.</p>
+</li>
+</ol>
+<br />
+<p>실행된 <strong>powerShell 관리자 모드</strong>에서 다음 코드를 실행한다.</p>
+<pre><code class="language-ps">Set-ExecutionPolicy RemoteSigned
+</code></pre>
+<p>정말 실행하겠냐고 물어보는데 ‘Y’ 키를 누르고 엔터를 눌러준다.</p>
+<p>처리가 완료되면 이 powerShell 관리자 모드 창은 닫는다.</p>
+<br />
+<h3 id="가상환경-생성"><a class="header" href="#가상환경-생성">가상환경 생성</a></h3>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="aianal-01/aigeo/attachments/20261001124233.png" alt=""><span class="img-wrapper"><img src="aianal-01/aigeo/attachments/20261001124233.png" alt=""></span></label></p>
+<ol>
+<li>
+<p><code>d:\test\python</code> 폴더를 만든다.</p>
+</li>
+<li>
+<p>탐색기에서 빈 공간을 Shift 키를 누른 채로 오른쪽 클릭한다.</p>
+</li>
+<li>
+<p><code>여기에 PowerShell 창 열기</code> 메뉴를 누른다.</p>
+</li>
+</ol>
+<br />
+<p>powerShell에서 다음 코드를 실행해 가상환경을 생성한다.</p>
+<pre><code class="language-ps">python -m venv venv
+</code></pre>
+<br />
+<p>가상환경이 만들어지면(venv 폴더가 만들어지면) 바로 이어서</p>
+<pre><code class="language-ps">.\venv\Scripts\Activate
+</code></pre>
+<p>를 실행한다.</p>
+<p>여기까지 하면 아래와 같이 되어 있을 것이다.</p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="aianal-01/aigeo/attachments/20261001124726.png" alt=""><span class="img-wrapper"><img src="aianal-01/aigeo/attachments/20261001124726.png" alt=""></span></label></p>
+<p>초록색으로 (venv)라고 표시되어 있어야 한다.</p>
+<p>이제 이 상태에서 아래와 같이 marimo를 설치한다.</p>
+<h3 id="pc에-marimo-설치"><a class="header" href="#pc에-marimo-설치">PC에 marimo 설치</a></h3>
 <pre><code class="language-ps">pip install marimo
+</code></pre>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="aianal-01/aigeo/attachments/20261001124850.png" alt=""><span class="img-wrapper"><img src="aianal-01/aigeo/attachments/20261001124850.png" alt=""></span></label></p>
+<ul>
+<li>marimo 실행</li>
+</ul>
+<pre><code class="language-ps">marimo edits
 </code></pre>
 <h2 id="코드-1"><a class="header" href="#코드-1">코드</a></h2>
 <pre><code class="language-python">import marimo
